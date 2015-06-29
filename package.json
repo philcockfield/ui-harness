@@ -1,0 +1,25 @@
+{
+  "name": "ui-harness",
+  "version": "0.0.1",
+  "description": "Isolate, test and document modular UI with React.",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philcockfield/ui-harness.git"
+  },
+  "keywords": [
+    "ui",
+    "testing",
+    "react",
+    "modular",
+    "design"
+  ],
+  "author": "Phil Cockfield",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/philcockfield/ui-harness/issues"
+  },
+  "homepage": "http://uiharness.com"
+}
