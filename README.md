@@ -1,11 +1,12 @@
 # ui-harness
 Isolate, test and document modular UI with React.
 
+[![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
+
 http://uiharness.com
 
 
 # License (MIT)
-
 Copyright © 2015, **Phil Cockfield**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
