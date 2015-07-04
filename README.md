@@ -5,12 +5,12 @@ Isolate, test and document modular UI with React.
 
 http://uiharness.com
 
-# Development Server
+## Development Server
 Use the [ui-harness-server](https://github.com/philcockfield/ui-harness-server)
 to host the UIHarness while building your components.
 
 
-# License (MIT)
+## License (MIT)
 Copyright © 2015, **Phil Cockfield**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
