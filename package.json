@@ -2,7 +2,7 @@
   "name": "ui-harness",
   "version": "0.0.2",
   "description": "Isolate, test and document modular UI with React.",
-  "main": "./components/index.js",
+  "main": "./client.js",
   "dependencies": {},
   "devDependencies": {
     "lodash": "^3.6.0",
