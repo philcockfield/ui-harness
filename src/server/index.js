@@ -1,3 +1,5 @@
+/* global __dirname */
+
 import _ from 'lodash';
 import chalk from 'chalk';
 import express from 'express';
@@ -5,7 +7,7 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import immutable from 'immutable';
-import * as config from './webpack.config'
+import * as config from './webpack.config';
 
 const PORT = config.PORT;
 
@@ -25,7 +27,7 @@ export var start = (options = {}) => {
   // Prepare configuration.
   var webpackOptions = immutable.fromJS(config.compiler).toJS();
   var entry = options.entry || [];
-  if (!_.isArray(entry)) entry = [entry];
+  if (!_.isArray(entry)) { entry = [entry]; }
   entry.forEach((path) => webpackOptions.entry.push(path));
 
   // Create the WebPack compiler and hot-reloading dev server.
@@ -35,19 +37,19 @@ export var start = (options = {}) => {
 
 
   // Serve host HTML page from root.
-  app.get('/', function (req, res) { res.sendFile(`${ __dirname }/index.html`) });
+  app.get('/', function (req, res) { res.sendFile(`${ __dirname }/index.html`); });
 
 
   // Serve JSON.
   app.get('/json', function (req, res) {
-    res.json({ text:'Hello World' });
+    res.json({ text: 'Hello World' }); //TODO
   });
 
 
 
   // Start the server. -----------------------------------------------------------
   //
-  var server = app.listen(PORT, (err, result) => {
+  app.listen(PORT, () => {
         const HR = chalk.cyan(_.repeat('-', 80));
         console.log(HR);
         console.log(chalk.grey('UIHarness running on'), chalk.cyan(`localhost:${ PORT }`));

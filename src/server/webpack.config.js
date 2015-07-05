@@ -1,3 +1,5 @@
+/* global __dirname */
+
 /*
 See:
 
@@ -31,7 +33,7 @@ export var compiler = {
     new webpack.NoErrorsPlugin()
   ],
 
-  resolve: { fallback : NODE_MODULES_PATH },
+  resolve: { fallback: NODE_MODULES_PATH },
   resolveLoader: { fallback: NODE_MODULES_PATH },
 
   module: {
