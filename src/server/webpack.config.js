@@ -9,7 +9,7 @@ import webpack from 'webpack';
 import fsPath from 'path';
 
 export const PORT = 8080;
-const NODE_MODULES_PATH = fsPath.join(__dirname, '../node_modules');
+const NODE_MODULES_PATH = fsPath.join(__dirname, '../../node_modules');
 
 
 export var compiler = {
