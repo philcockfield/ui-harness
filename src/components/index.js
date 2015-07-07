@@ -1,4 +1,4 @@
-/* global document */
+/* global document console */
 console.log('main.js');
 
 let text = 'ES2015';

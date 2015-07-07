@@ -1,4 +1,4 @@
-/* global __dirname */
+/* global __dirname console */
 
 import _ from 'lodash';
 import chalk from 'chalk';
