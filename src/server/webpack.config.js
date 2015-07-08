@@ -4,6 +4,8 @@ See:
     https://github.com/webpack/webpack-dev-middleware
     https://www.npmjs.com/package/webpack-hot-middleware
 
+    https://github.com/kriasoft/react-starter-kit/blob/master/webpack.config.js
+
 */
 import webpack from 'webpack';
 import fsPath from 'path';
