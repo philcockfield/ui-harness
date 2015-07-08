@@ -1,9 +1,5 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react"],
-  "ecmaFeatures": {
-    "jsx": true
-  },
   "rules": {
     "strict": 0,
     "quotes": [2, "single"],
