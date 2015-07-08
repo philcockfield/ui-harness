@@ -1,5 +1,7 @@
 /* global document */
 import React from 'react';
-import Foo from './Foo';
+import * as components from 'ui-components';
 
-React.render(React.createElement(Foo), document.body);
+
+// TEMP
+React.render(React.createElement(components.Foo), document.body);
