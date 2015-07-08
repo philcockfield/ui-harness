@@ -1,5 +1,5 @@
-/* global document console */
-console.log('main.js');
+/* global document */
+import React from 'react';
+import Foo from './Foo';
 
-let text = 'ES2015';
-document.write(`UIHarness from module using ${ text }.`);
+React.render(React.createElement(Foo), document.body);

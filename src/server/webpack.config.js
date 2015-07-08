@@ -1,5 +1,3 @@
-/* global __dirname */
-
 /*
 See:
 
@@ -12,6 +10,7 @@ import fsPath from 'path';
 
 export const PORT = 8080;
 const NODE_MODULES_PATH = fsPath.join(__dirname, '../../node_modules');
+var modulePath = (path) => fsPath.join(NODE_MODULES_PATH, path);
 
 
 export var compiler = {
@@ -33,26 +32,42 @@ export var compiler = {
     new webpack.NoErrorsPlugin()
   ],
 
-  resolve: { fallback: NODE_MODULES_PATH },
+  resolve: {
+    fallback: NODE_MODULES_PATH,
+    extensions: ['', '.js', '.jsx'],
+
+    /*
+    Aliases
+    Ensure common libraries are:
+      - loaded only once,
+      - only a single version is loaded.
+    */
+    alias: {
+      'react': modulePath('react'),
+      'lodash': modulePath('lodash'),
+      'immutable': modulePath('immutable')
+    }
+  },
   resolveLoader: { fallback: NODE_MODULES_PATH },
 
   module: {
     loaders: [
-      // ES2015 (ES6).
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+      // ES6/JSX.
+      { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' },
+      { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
     ]
   }
 };
 
 
 export var options = {
-    noInfo: false,
-    quiet: false,
-    lazy: false,
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: true
-    },
-    publicPath: compiler.output.publicPath,
-    stats: { colors: true }
+  noInfo: true, // Suppress boring information.
+  quiet: false, // Don’t output anything to the console.
+  lazy: false,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+  publicPath: compiler.output.publicPath,
+  stats: { colors: true }
 };
