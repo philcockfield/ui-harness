@@ -3,5 +3,7 @@ import React from 'react';
 import * as components from 'ui-components';
 
 
+import Shell from './Shell';
+
 // TEMP
-React.render(React.createElement(components.Foo), document.body);
+React.render(React.createElement(Shell), document.body);
