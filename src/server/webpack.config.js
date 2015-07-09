@@ -19,7 +19,7 @@ export var compiler = {
   entry: [
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client',
-    fsPath.join(__dirname, '../components/index.js')
+    fsPath.join(__dirname, '../client/components/index.js')
   ],
   output: {
     filename: 'bundle.js',

@@ -1,9 +1,10 @@
 /* global document */
 import React from 'react';
-import * as components from 'ui-components';
+import Server from 'server-methods/client';
 
+console.log('Server', Server);
 
-import Shell from './Shell';
 
 // TEMP
+import Shell from './Shell';
 React.render(React.createElement(Shell), document.body);

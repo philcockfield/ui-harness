@@ -7,6 +7,7 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import immutable from 'immutable';
+import Server from 'server-methods';
 import * as config from './webpack.config';
 
 const PORT = config.PORT;
@@ -35,15 +36,22 @@ export var start = (options = {}) => {
   app.use(webpackMiddleware(compiler, config.options));
   app.use(webpackHotMiddleware(compiler));
 
+  // Configure the server methods.
+  Server.init(app);
+
+  // TEMP
+  Server.methods({
+
+    'foo/method1': () => {},
+    'foo/method2': () => {}
+
+  });
+
+
 
   // Serve host HTML page from root.
   app.get('/', function (req, res) { res.sendFile(`${ __dirname }/index.html`); });
 
-
-  // Serve JSON.
-  app.get('/json', function (req, res) {
-    res.json({ text: 'Hello World' }); //TODO
-  });
 
 
 
