@@ -41,13 +41,14 @@ export var compiler = {
     /*
     Aliases
     Ensure common libraries are:
-      - loaded only once,
-      - only a single version is loaded.
+      - Module code loaded only once (de-duped)
+      - Single version of modules are loaded.
     */
     alias: {
       'react': modulePath('react'),
       'lodash': modulePath('lodash'),
-      'immutable': modulePath('immutable')
+      'immutable': modulePath('immutable'),
+      'bluebird': modulePath('bluebird')
     }
   },
   resolveLoader: { fallback: NODE_MODULES_PATH },
