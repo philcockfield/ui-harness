@@ -21,11 +21,14 @@ export var compiler = {
     'webpack-hot-middleware/client',
     fsPath.join(__dirname, '../client/components/index.js')
   ],
+
   output: {
     filename: 'bundle.js',
     path: '/',
     publicPath: `http://localhost:${ PORT }/public`
   },
+
+  devtool: '#cheap-module-eval-source-map',
 
   plugins: [
     // Hot reload plugins:
