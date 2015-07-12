@@ -1,6 +1,7 @@
 /* global __dirname console */
 
 import _ from 'lodash';
+import Promise from 'bluebird';
 import chalk from 'chalk';
 import express from 'express';
 import webpack from 'webpack';
@@ -23,7 +24,7 @@ Starts the UIHarness within a development server.
 
 */
 export var start = (options = {}) => {
-  var app = express();
+  const app = express();
 
   // Prepare configuration.
   var webpackOptions = immutable.fromJS(config.compiler).toJS();
@@ -42,8 +43,21 @@ export var start = (options = {}) => {
   // TEMP
   Server.methods({
 
+    'foo': (p1, p2) => {
+      // throw new Error('ouch')
+      console.log('invoked "foo"!');
+      console.log('params: ', p1, p2);
+      console.log('');
+      // return {foo:123};
+      return new Promise((resolve, reject) => {
+
+        resolve(true);
+        // reject(new Error('Bummer'));
+
+      });
+    },
     'foo/method1': () => {},
-    'foo/method2': () => {}
+    'foo/method2': (p1) => {}
 
   });
 
