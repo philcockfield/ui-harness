@@ -11,11 +11,12 @@
     "chalk": "^1.1.0",
     "express": "^4.13.0",
     "immutable": "^3.7.4",
+    "js-util": "0.0.16",
     "lodash": "^3.6.0",
     "node-libs-browser": "^0.5.2",
     "radium": "^0.13.2",
     "react": "^0.13.3",
-    "server-methods": "0.0.1",
+    "rest-methods": "0.0.10",
     "ui-components": "0.0.1",
     "webpack": "^1.10.1",
     "webpack-dev-middleware": "^1.2.0",
@@ -23,14 +24,16 @@
   },
   "devDependencies": {
     "babel-eslint": "^3.1.20",
+    "chai": "^2.2.0",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
     "gulp-eslint": "^0.15.0",
-    "mocha": "^2.2.1",
-    "chai": "^2.2.0"
+    "mocha": "^2.2.1"
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register",
-    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register --watch"
+    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register --watch",
+    "prepublish": "gulp build"
   },
   "repository": {
     "type": "git",
