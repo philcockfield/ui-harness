@@ -1,5 +1,5 @@
 import React from "react";
-import radium from "radium";
+import Radium from "radium";
 
 
 var styles = {
@@ -36,6 +36,7 @@ var styles = {
 /*
 The root shell of the UIHarness.
 */
+@Radium
 class Shell extends React.Component {
   render() {
     return (
@@ -52,4 +53,4 @@ class Shell extends React.Component {
 }
 
 
-export default radium(Shell);
+export default Shell;

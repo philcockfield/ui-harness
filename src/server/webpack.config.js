@@ -12,10 +12,28 @@ import fsPath from "path";
 
 export const PORT = 8080;
 const NODE_MODULES_PATH = fsPath.join(__dirname, "../../node_modules");
-var modulePath = (path) => fsPath.join(NODE_MODULES_PATH, path);
+const modulePath = (path) => fsPath.join(NODE_MODULES_PATH, path);
 
 
-export var compiler = {
+
+const babelLoader = (extension) => {
+  // See: https://github.com/babel/babel-loader#options
+  return {
+    test: extension,
+    exclude: /(node_modules|bower_components)/,
+    loader: 'babel-loader',
+    query: {
+      optional: ['runtime'],
+      cacheDirectory: true,
+      stage: 1  // Experimental:1
+                // Allows for @decorators
+                // See: http://babeljs.io/docs/usage/experimental/
+    }
+  };
+};
+
+
+export const compiler = {
   entry: [
     "webpack/hot/dev-server",
     "webpack-hot-middleware/client",
@@ -60,14 +78,15 @@ export var compiler = {
   module: {
     loaders: [
       // ES6/JSX.
-      { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: "babel-loader" },
-      { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: "babel-loader" }
+      babelLoader(/\.js$/),
+      babelLoader(/\.jsx$/)
     ]
   }
 };
 
 
-export var options = {
+
+export const options = {
   noInfo: true, // Suppress boring information.
   quiet: false, // Don’t output anything to the console.
   lazy: false,
