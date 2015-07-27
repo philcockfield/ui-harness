@@ -1,35 +1,35 @@
-import React from 'react';
-import Radium from 'radium';
+import React from "react";
+import radium from "radium";
 
 
 var styles = {
   base: {
-    background: 'blue',
+    background: "blue",
     border: 0,
     borderRadius: 4,
-    color: 'white',
-    padding: '1.5em',
+    color: "white",
+    padding: "1.5em",
 
-    ':hover': {
-      backgroundColor: 'red'
+    ":hover": {
+      backgroundColor: "red"
     },
 
-    ':focus': {
-      backgroundColor: 'green'
+    ":focus": {
+      backgroundColor: "green"
     },
 
-    ':active': {
-      backgroundColor: 'yellow'
-    },
+    ":active": {
+      backgroundColor: "yellow"
+    }
   },
 
   block: {
-    display: 'block',
+    display: "block",
 
-    ':hover': {
-      boxShadow: '0 3px 0 rgba(0,0,0,0.2)'
+    ":hover": {
+      boxShadow: "0 3px 0 rgba(0,0,0,0.2)"
     }
-  },
+  }
 };
 
 
@@ -52,4 +52,4 @@ class Shell extends React.Component {
 }
 
 
-export default Radium(Shell);
+export default radium(Shell);

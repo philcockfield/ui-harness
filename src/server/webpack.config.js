@@ -7,28 +7,28 @@ See:
     https://github.com/kriasoft/react-starter-kit/blob/master/webpack.config.js
 
 */
-import webpack from 'webpack';
-import fsPath from 'path';
+import webpack from "webpack";
+import fsPath from "path";
 
 export const PORT = 8080;
-const NODE_MODULES_PATH = fsPath.join(__dirname, '../../node_modules');
+const NODE_MODULES_PATH = fsPath.join(__dirname, "../../node_modules");
 var modulePath = (path) => fsPath.join(NODE_MODULES_PATH, path);
 
 
 export var compiler = {
   entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client',
-    fsPath.join(__dirname, '../client/components/index.js')
+    "webpack/hot/dev-server",
+    "webpack-hot-middleware/client",
+    fsPath.join(__dirname, "../client/components/index.js")
   ],
 
   output: {
-    filename: 'bundle.js',
-    path: '/',
+    filename: "bundle.js",
+    path: "/",
     publicPath: `http://localhost:${ PORT }/public`
   },
 
-  devtool: '#cheap-module-eval-source-map',
+  devtool: "#cheap-module-eval-source-map",
 
   plugins: [
     // Hot reload plugins:
@@ -39,7 +39,7 @@ export var compiler = {
 
   resolve: {
     fallback: NODE_MODULES_PATH,
-    extensions: ['', '.js', '.jsx'],
+    extensions: ["", ".js", ".jsx"],
 
     /*
     Aliases
@@ -48,10 +48,11 @@ export var compiler = {
       - Single version of modules are loaded.
     */
     alias: {
-      'react': modulePath('react'),
-      'lodash': modulePath('lodash'),
-      'immutable': modulePath('immutable'),
-      'bluebird': modulePath('bluebird')
+      "react": modulePath("react"),
+      "lodash": modulePath("lodash"),
+      "immutable": modulePath("immutable"),
+      "bluebird": modulePath("bluebird"),
+      "js-util": modulePath("js-util")
     }
   },
   resolveLoader: { fallback: NODE_MODULES_PATH },
@@ -59,8 +60,8 @@ export var compiler = {
   module: {
     loaders: [
       // ES6/JSX.
-      { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' },
-      { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
+      { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: "babel-loader" },
+      { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: "babel-loader" }
     ]
   }
 };

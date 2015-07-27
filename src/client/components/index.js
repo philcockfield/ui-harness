@@ -1,27 +1,21 @@
-/* global document */
-import React from 'react';
-import Server from 'server-methods/client';
+import React from "react";
+import rest from "rest-methods/browser";
+
+const server = rest();
+
+server.onReady(() => {
 
 
+  console.log("initialized");
+  console.log("-------------------------------------------");
 
-Server.call('foo', 1, 2)
-.then(result => {
-    console.log('BEFORE result of "foo":', result);
+  server.methods.complex.put("hello", 1)
+  .then((result) => { console.log("foo", result); });
+
+
 });
 
 
 // TEMP
-Server.onReady(() => {
-    Server.call('foo', 1, 2)
-      .then(result => {
-          console.log('result of "foo":', result);
-      })
-      .catch((err) => {
-        console.log('||err', err);
-      });
-});
-
-
-// TEMP
-import Shell from './Shell';
+import Shell from "./Shell";
 React.render(React.createElement(Shell), document.body);
