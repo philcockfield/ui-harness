@@ -20,4 +20,7 @@ BDD_METHODS.forEach(name => { global[name] = bdd[name] });
 
 
 // Insert the <Shell> into the root.
-React.render(React.createElement(Shell), document.getElementById("page-root"));
+React.render(
+  React.createElement(Shell),
+  document.getElementById("page-root")
+);
