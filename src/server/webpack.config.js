@@ -12,20 +12,20 @@ import fsPath from "path";
 
 export const PORT = 8080;
 const NODE_MODULES_PATH = fsPath.join(__dirname, "../../node_modules");
+const LOADER_EXCLUDE = /(node_modules|bower_components)/;
+
 const modulePath = (path) => fsPath.join(NODE_MODULES_PATH, path);
-
-
 
 const babelLoader = (extension) => {
   // See: https://github.com/babel/babel-loader#options
   return {
     test: extension,
-    exclude: /(node_modules|bower_components)/,
+    exclude: LOADER_EXCLUDE,
     loader: 'babel-loader',
     query: {
       optional: ['runtime'],
       cacheDirectory: true,
-      stage: 1  // Experimental:1
+      stage: 1  // Experimental:level-1
                 // Allows for @decorators
                 // See: http://babeljs.io/docs/usage/experimental/
     }
@@ -57,7 +57,7 @@ export const compiler = {
 
   resolve: {
     fallback: NODE_MODULES_PATH,
-    extensions: ["", ".js", ".jsx"],
+    extensions: ["", ".js", ".jsx", ".json"],
 
     /*
     Aliases
@@ -70,16 +70,17 @@ export const compiler = {
       "lodash": modulePath("lodash"),
       "immutable": modulePath("immutable"),
       "bluebird": modulePath("bluebird"),
-      "js-util": modulePath("js-util")
+      "js-util": modulePath("js-util"),
+      "color": modulePath("color")
     }
   },
   resolveLoader: { fallback: NODE_MODULES_PATH },
 
   module: {
     loaders: [
-      // ES6/JSX.
       babelLoader(/\.js$/),
-      babelLoader(/\.jsx$/)
+      babelLoader(/\.jsx$/),
+      { test: /\.json$/, loader: "json-loader" }
     ]
   }
 };

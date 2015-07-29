@@ -1,8 +1,10 @@
 import React from "react";
 import Radium from "radium";
 import Main from "./Main";
+import IndexColumn from "./IndexColumn";
+import PropTypesColumn from "./PropTypesColumn";
 
-const EDGE_WIDTH = 320;
+const COLUMN_MARGIN = 6;
 
 
 /*
@@ -17,19 +19,23 @@ export default class UIHarness extends React.Component {
         background: "#F5F5F5",
         display: "flex",
         flexDirection: "row",
-        boxSizing: 'border-box'
+        boxSizing: "border-box"
+      },
+      column: {
+        position: "relative",
+        marginTop: COLUMN_MARGIN,
+        marginBottom: COLUMN_MARGIN
       },
       left: {
-        width: EDGE_WIDTH
+        width: 330
       },
       main: {
-        flex: '1 100%',
-        marginTop: 8,
-        marginBottom: 16,
-        position: 'relative'
+        flex: "1 100%"
       },
       right: {
-        width: EDGE_WIDTH
+        width: 330,
+        marginLeft: COLUMN_MARGIN,
+        marginRight: COLUMN_MARGIN
       }
     };
   }
@@ -39,11 +45,15 @@ export default class UIHarness extends React.Component {
     const styles = this.styles();
     return (
       <div style={ styles.base }>
-        <div style={ styles.left }></div>
-        <div style={ styles.main }>
+        <div style={[ styles.column, styles.left ]}>
+          <IndexColumn/>
+        </div>
+        <div style={[ styles.column, styles.main ]}>
           <Main/>
         </div>
-        <div style={ styles.right }></div>
+        <div style={[ styles.column, styles.right ]}>
+          <PropTypesColumn/>
+        </div>
       </div>
     );
   }

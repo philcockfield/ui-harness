@@ -1,6 +1,6 @@
 import React from "react";
 import bdd from "js-bdd";
-import { Shell } from "./components";
+import Shell from "./components/Shell";
 
 
 // import rest from "rest-methods/browser";
