@@ -1,4 +1,3 @@
-import bdd from "js-bdd";
 import restService from "rest-methods";
 
 
@@ -14,7 +13,7 @@ function foo(p1, p2) {
       console.log("p2: ", p2);
       console.log("");
       return { verb: this.verb, date: new Date() };
-};
+}
 
 
 

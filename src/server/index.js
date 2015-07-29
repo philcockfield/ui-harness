@@ -33,15 +33,15 @@ const parseSpecs = (paths) => {
  */
 export const start = (options = {}) => {
   const app = express();
+  const webpackOptions = immutable.fromJS(config.compiler).toJS();
 
   // Ensure the options is an object.
   if (_.isString(options) || _.isArray(options)) {
-    // Set the default primitive value as the entry option.
+    // A string or object was given, convert it to the "entry" option.
     options = { entry: options };
   }
 
-  // Prepare configuration.
-  const webpackOptions = immutable.fromJS(config.compiler).toJS();
+  // Prepare entry paths (WebPack).
   let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
   entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
@@ -52,13 +52,13 @@ export const start = (options = {}) => {
   app.use(webpackMiddleware(compiler, config.options));
   app.use(webpackHotMiddleware(compiler));
 
-  // Configure the server methods.
-  parseSpecs(entry)
+  // Configure the server methods (REST API).
+  parseSpecs(entry);
   serverMethods.init({ connect:app });
 
-  // Serve host HTML page from root.
+  // Serve static files.
   app.get("/", function (req, res) { res.sendFile(`${ __dirname }/index.html`); });
-
+  app.get("/normalize.css", function (req, res) { res.sendFile(`${ __dirname }/normalize.css`); });
 
 
   // Start the server. -----------------------------------------------------------
