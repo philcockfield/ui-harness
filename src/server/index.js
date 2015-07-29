@@ -7,10 +7,20 @@ import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import immutable from "immutable";
-import rest from "rest-methods";
 import * as config from "./webpack.config";
+import * as serverMethods from "./serverMethods";
+import bdd from "js-bdd";
+
 
 const PORT = config.PORT;
+
+const parseSpecs = (paths) => {
+    const BDD_METHODS = ['describe', 'before', 'it', 'section'];
+    BDD_METHODS.forEach(name => { global[name] = bdd[name] });
+    paths.forEach(path => { require(path); });
+    BDD_METHODS.forEach(name => { delete global[name] }); // Clean up global namespace.
+};
+
 
 
 /**
@@ -21,7 +31,7 @@ const PORT = config.PORT;
  *                          - entry: A string or array of strings to entry points of files
  *                                   to pass to WebPack to build for the client.
  */
-export var start = (options = {}) => {
+export const start = (options = {}) => {
   const app = express();
 
   // Ensure the options is an object.
@@ -31,76 +41,20 @@ export var start = (options = {}) => {
   }
 
   // Prepare configuration.
-  var webpackOptions = immutable.fromJS(config.compiler).toJS();
-  var entry = options.entry || [];
+  const webpackOptions = immutable.fromJS(config.compiler).toJS();
+  let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
-  entry.forEach((path) => {
-      if (_.startsWith(path, ".")) { path = fsPath.resolve(path); }
-      webpackOptions.entry.push(path);
-  });
+  entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
+  entry.forEach(path => { webpackOptions.entry.push(path); });
 
   // Create the WebPack compiler and hot-reloading dev server.
-  var compiler = webpack(webpackOptions);
+  const compiler = webpack(webpackOptions);
   app.use(webpackMiddleware(compiler, config.options));
   app.use(webpackHotMiddleware(compiler));
 
   // Configure the server methods.
-  let server = rest({
-    name: "ui-harness",
-    connect: app,
-    basePath: "/api",
-    version: "1.0.0"
-  });
-
-  // TEMP
-  server.methods({
-    "foo": function(p1, p2) {
-      // throw new Error("ouch")
-      console.log("-------------------------------------------");
-      console.log("this", this);
-      console.log(this.verb);
-      console.log("this.url", this.url);
-      console.log("invoked foo!");
-      console.log("p1: ", p1);
-      console.log("p2: ", p2);
-      console.log("");
-
-      // return {foo:123};
-      return new Promise((resolve, reject) => {
-        resolve({ verb: this.verb, date: new Date() });
-        reject(new Error("Bummer"));
-      });
-    },
-    "foo/method1": {
-      url: "/yo",
-      get: function() { return "method1"; },
-      put: (text) => { return text; }
-    },
-
-    "myError": function(text, number) {
-      // throw new Error("My fail");
-      this.throw(503, "Ouch!");
-      return { text: text, number: number };
-    },
-
-    "myPromiseError": () => {
-      return new Promise((resolve, reject) => {
-        reject(new Error("Promise fail"));
-      });
-    },
-
-    "complex": {
-      url: "thing/:id",
-      put: function(id, number) {
-        console.log("this.url", this.url);
-        console.log("id", id);
-        console.log("number", number);
-        return id;
-      }
-    }
-  });
-
-
+  parseSpecs(entry)
+  serverMethods.init({ connect:app });
 
   // Serve host HTML page from root.
   app.get("/", function (req, res) { res.sendFile(`${ __dirname }/index.html`); });
@@ -108,7 +62,6 @@ export var start = (options = {}) => {
 
 
   // Start the server. -----------------------------------------------------------
-  //
   app.listen(PORT, () => {
         const HR = chalk.cyan(_.repeat("-", 80));
         console.log(HR);

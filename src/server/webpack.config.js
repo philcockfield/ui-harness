@@ -37,7 +37,7 @@ export const compiler = {
   entry: [
     "webpack/hot/dev-server",
     "webpack-hot-middleware/client",
-    fsPath.join(__dirname, "../client/components/index.js")
+    fsPath.join(__dirname, "../client/index.js")
   ],
 
   output: {

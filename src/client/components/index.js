@@ -1,19 +1,16 @@
 import React from "react";
-import rest from "rest-methods/browser";
-
-const server = rest();
-
-server.onReady(() => {
+import bdd from "js-bdd";
+import util from "js-util";
 
 
-  console.log("initialized");
-  console.log("-------------------------------------------");
+const BDD_METHODS = ['describe', 'before', 'it', 'section'];
+BDD_METHODS.forEach(name => { global[name] = bdd[name] });
 
-  server.methods.complex.put("hello", 1)
-  .then((result) => { console.log("foo", result); });
-
-
+// TEMP
+util.delay(() => {
+  console.log("bdd.suites()", bdd.suites());
 });
+
 
 
 // TEMP
