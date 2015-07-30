@@ -1,6 +1,7 @@
 import React from "react";
 import bdd from "js-bdd";
-import * as api from "./api-internal";
+import api from "./api-internal";
+import util from "js-util";
 
 
 // import rest from "rest-methods/browser";
@@ -24,4 +25,19 @@ import * as api from "./api-internal";
 
 
 // Insert the <Shell> into the root.
-api.loadHarness(document.getElementById("page-root"));
+//    NB: Inserted into DOM after delay to ensure that [describe/it]
+//        have fully parsed before initial render. Avoids a redraw.
+util.delay(() => {
+    api.init(document.getElementById("page-root"));
+});
+
+
+
+
+// TEMP
+// ----------------------------------------------------------------------------
+// util.delay(1000, () => {
+//   api.setCurrent({
+//     suite:{ name:"hello" }
+//   });
+// });

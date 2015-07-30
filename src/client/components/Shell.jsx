@@ -40,9 +40,7 @@ export default class UIHarness extends React.Component {
         flex: "1 100%"
       },
       right: {
-        width: 330,
-        marginLeft: COLUMN_MARGIN,
-        marginRight: COLUMN_MARGIN
+        width: 330
       }
     };
   }
