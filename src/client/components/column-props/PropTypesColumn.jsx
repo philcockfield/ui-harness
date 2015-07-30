@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 
 
 /**
@@ -25,6 +26,8 @@ export default class PropTypesColumn extends React.Component {
   }
 }
 
-
-PropTypesColumn.propTypes = {};
+// ----------------------------------------------------------------------------
+PropTypesColumn.propTypes = {
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+};
 PropTypesColumn.defaultProps = {};

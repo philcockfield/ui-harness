@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
 
@@ -26,5 +27,8 @@ export default class Main extends React.Component {
 }
 
 
-Main.propTypes = {};
+// ----------------------------------------------------------------------------
+Main.propTypes = {
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+};
 Main.defaultProps = {};

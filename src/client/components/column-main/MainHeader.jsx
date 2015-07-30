@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Color from "color";
-import { FONT_FAMILY } from "../const";
+import { FONT_FAMILY } from "../../const";
 
 
 /**

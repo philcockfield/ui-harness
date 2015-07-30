@@ -1,6 +1,6 @@
 import React from "react";
 import bdd from "js-bdd";
-import Shell from "./components/Shell";
+import * as api from "./api-internal";
 
 
 // import rest from "rest-methods/browser";
@@ -15,12 +15,13 @@ import Shell from "./components/Shell";
 
 
 // Put the BDD domain-specific language into the global namespace.
-const BDD_METHODS = ['describe', 'before', 'it', 'section'];
-BDD_METHODS.forEach(name => { global[name] = bdd[name] });
+[
+  'describe',
+  'before',
+  'it',
+  'section'
+].forEach(name => { global[name] = bdd[name] });
 
 
 // Insert the <Shell> into the root.
-React.render(
-  React.createElement(Shell),
-  document.getElementById("page-root")
-);
+api.loadHarness(document.getElementById("page-root"));

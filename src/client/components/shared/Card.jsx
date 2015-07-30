@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Color from "color";
-import { NUMBER_OR_STRING } from "../const";
+import { NUMBER_OR_STRING } from "../../const";
 
 
 

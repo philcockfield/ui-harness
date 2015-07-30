@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 import Main from "./column-main/Main";
 import IndexColumn from "./column-index/IndexColumn";
 import PropTypesColumn from "./column-props/PropTypesColumn";
@@ -12,6 +13,12 @@ The root shell of the UIHarness.
 */
 @Radium
 export default class UIHarness extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { current: Immutable.Map() };
+  }
+
+
   styles() {
     return {
       base: {
@@ -43,16 +50,17 @@ export default class UIHarness extends React.Component {
 
   render() {
     const styles = this.styles();
+    let { current } = this.state;
     return (
       <div style={ styles.base }>
         <div style={[ styles.column, styles.left ]}>
-          <IndexColumn/>
+          <IndexColumn current={ current }/>
         </div>
         <div style={[ styles.column, styles.main ]}>
-          <Main/>
+          <Main current={ current }/>
         </div>
         <div style={[ styles.column, styles.right ]}>
-          <PropTypesColumn/>
+          <PropTypesColumn current={ current }/>
         </div>
       </div>
     );
