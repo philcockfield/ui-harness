@@ -44,6 +44,6 @@ Card.propTypes = {
   darken: NUMBER_OR_STRING
 };
 Card.defaultProps = {
-  padding: 10,
+  padding: 0,
   darken: 0
 };
