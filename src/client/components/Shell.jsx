@@ -4,7 +4,7 @@ import Main from "./column-main/Main";
 import IndexColumn from "./column-index/IndexColumn";
 import PropTypesColumn from "./column-props/PropTypesColumn";
 
-const COLUMN_MARGIN = 6;
+const COLUMN_MARGIN = 8;
 
 
 /*
