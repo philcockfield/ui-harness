@@ -1,11 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Color from "color";
-
-const NUMBER_OR_STRING = React.PropTypes.oneOfType([
-  React.PropTypes.number,
-  React.PropTypes.string
-]);
+import { NUMBER_OR_STRING } from "../const";
 
 
 
