@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import Card from "./Card";
+import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
 
 

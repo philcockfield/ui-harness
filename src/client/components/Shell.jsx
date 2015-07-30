@@ -1,8 +1,8 @@
 import React from "react";
 import Radium from "radium";
-import Main from "./Main";
-import IndexColumn from "./IndexColumn";
-import PropTypesColumn from "./PropTypesColumn";
+import Main from "./column-main/Main";
+import IndexColumn from "./column-index/IndexColumn";
+import PropTypesColumn from "./column-props/PropTypesColumn";
 
 const COLUMN_MARGIN = 6;
 
