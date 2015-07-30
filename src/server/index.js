@@ -21,6 +21,7 @@ const parseSpecs = (paths) => {
 
 
 
+
 /**
  * Starts the UIHarness within a development server.
  * @param {object} options: Configuration settings.
@@ -59,9 +60,12 @@ export const start = (options = {}) => {
   serverMethods.init({ connect:app });
 
   // Serve static files.
-  app.get("/", function (req, res) { res.sendFile(`${ __dirname }/index.html`); });
-  app.get("/normalize.css", function (req, res) { res.sendFile(`${ __dirname }/normalize.css`); });
-
+  const get = (path, file) => {
+      app.get(path, (req, res) => { res.sendFile(`${ __dirname }/${ file || path }`); });
+  };
+  get("/", "index.html");
+  get("/normalize.css");
+  get("/favicon.ico");
 
   // Start the server. -----------------------------------------------------------
   app.listen(PORT, () => {
