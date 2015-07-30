@@ -33,68 +33,84 @@ const babelLoader = (extension) => {
 };
 
 
-export const compiler = {
-  entry: [
-    "webpack/hot/dev-server",
-    "webpack-hot-middleware/client",
-    fsPath.join(__dirname, "../client/index.js")
-  ],
 
-  output: {
-    filename: "bundle.js",
-    path: "/",
-    publicPath: `http://localhost:${ PORT }/public`
-  },
+/**
+ * Retrieves the configuration settings.
+ * @param {object} options:
+ *                  - port: The port to run on (default:8080).
+ * @return {object}
+ */
+export const settings = (options = {}) => {
+  const port = options.port || 8080;
+  const PUBLIC_PATH = `http://localhost:${ port }/public`;
 
-  devtool: "#cheap-module-eval-source-map",
+  const WEBPACK_COMPILER = {
+    entry: [
+      "webpack/hot/dev-server",
+      "webpack-hot-middleware/client",
+      fsPath.join(__dirname, "../client/index.js")
+    ],
 
-  plugins: [
-    // Hot reload plugins:
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
+    output: {
+      filename: "bundle.js",
+      path: "/",
+      publicPath: PUBLIC_PATH
+    },
 
-  resolve: {
-    fallback: NODE_MODULES_PATH,
-    extensions: ["", ".js", ".jsx", ".json"],
+    devtool: "#cheap-module-eval-source-map",
 
-    /*
-    Aliases
-    Ensure common libraries are:
-      - Module code loaded only once (de-duped)
-      - Single version of modules are loaded.
-    */
-    alias: {
-      "react": modulePath("react"),
-      "lodash": modulePath("lodash"),
-      "immutable": modulePath("immutable"),
-      "bluebird": modulePath("bluebird"),
-      "js-util": modulePath("js-util"),
-      "color": modulePath("color")
+    plugins: [
+      // Hot reload plugins:
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
+    ],
+
+    resolve: {
+      fallback: NODE_MODULES_PATH,
+      extensions: ["", ".js", ".jsx", ".json"],
+
+      /*
+      Aliases
+      Ensure common libraries are:
+        - Module code loaded only once (de-duped)
+        - Single version of modules are loaded.
+      */
+      alias: {
+        "react": modulePath("react"),
+        "lodash": modulePath("lodash"),
+        "immutable": modulePath("immutable"),
+        "bluebird": modulePath("bluebird"),
+        "js-util": modulePath("js-util"),
+        "color": modulePath("color")
+      }
+    },
+    resolveLoader: { fallback: NODE_MODULES_PATH },
+
+    module: {
+      loaders: [
+        babelLoader(/\.js$/),
+        babelLoader(/\.jsx$/),
+        { test: /\.json$/, loader: "json-loader" }
+      ]
     }
-  },
-  resolveLoader: { fallback: NODE_MODULES_PATH },
+  };
 
-  module: {
-    loaders: [
-      babelLoader(/\.js$/),
-      babelLoader(/\.jsx$/),
-      { test: /\.json$/, loader: "json-loader" }
-    ]
-  }
-};
+  const DEV_SERVER = {
+    noInfo: true, // Suppress boring information.
+    quiet: false, // Don’t output anything to the console.
+    lazy: false,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    },
+    publicPath: PUBLIC_PATH,
+    stats: { colors: true }
+  };
 
-
-
-export const options = {
-  noInfo: true, // Suppress boring information.
-  quiet: false, // Don’t output anything to the console.
-  lazy: false,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true
-  },
-  publicPath: compiler.output.publicPath,
-  stats: { colors: true }
+  // Finish up.
+  return {
+    webpack: WEBPACK_COMPILER,
+    devServer: DEV_SERVER
+  };
 };

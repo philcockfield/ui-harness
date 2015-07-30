@@ -6,13 +6,11 @@ import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import immutable from "immutable";
-import * as config from "./webpack.config";
+import * as webpackConfig from "./webpack.config";
 import * as serverMethods from "./serverMethods";
 import bdd from "js-bdd";
 
 
-const PORT = config.PORT;
 
 const parseSpecs = (paths) => {
     const BDD_METHODS = ['describe', 'before', 'it', 'section'];
@@ -30,10 +28,12 @@ const parseSpecs = (paths) => {
  *
  *                          - entry: A string or array of strings to entry points of files
  *                                   to pass to WebPack to build for the client.
+ *                          - port: The port to run on (default:8080).
  */
 export const start = (options = {}) => {
   const app = express();
-  const webpackOptions = immutable.fromJS(config.compiler).toJS();
+  const PORT = options.port || 8080;
+  const settings = webpackConfig.settings({ port:PORT });
 
   // Ensure the options is an object.
   if (_.isString(options) || _.isArray(options)) {
@@ -41,19 +41,21 @@ export const start = (options = {}) => {
     options = { entry: options };
   }
 
-  // Prepare entry paths (WebPack).
+  // Prepare entry paths for the WebPack compiler.
   let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
   entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
-  entry.forEach(path => { webpackOptions.entry.push(path); });
+  entry.forEach(path => { settings.webpack.entry.push(path); });
 
-  // Create the WebPack compiler and hot-reloading dev server.
-  const compiler = webpack(webpackOptions);
-  app.use(webpackMiddleware(compiler, config.options));
+  // Create the WebPack compiler and "hot-reloading" dev server.
+  const compiler = webpack(settings.webpack);
+  app.use(webpackMiddleware(compiler, settings.devServer));
   app.use(webpackHotMiddleware(compiler));
 
-  // Configure the server methods (REST API).
+  // Iniitalize the [describe/it] statements.
   parseSpecs(entry);
+
+  // Configure the server methods (REST API).
   serverMethods.init({ connect:app });
 
   // Serve static files.
