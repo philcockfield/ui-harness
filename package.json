@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Isolate, test and document modular UI with React.",
   "main": "./index.js",
   "dependencies": {
