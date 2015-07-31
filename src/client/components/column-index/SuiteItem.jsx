@@ -2,17 +2,13 @@ import React from "react";
 import Radium from "radium";
 import api from "../../api-internal";
 import { UL } from "../shared";
-
+import Twisty from "ui-core/components/Twisty";
 
 /**
  * An <LI> that renders a single [Suite] list item.
  */
 @Radium
 export default class SuiteItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   styles() {
     return {
       base: {
@@ -35,7 +31,10 @@ export default class SuiteItem extends React.Component {
 
     return (
       <li style={ styles.base }>
-        <div>{ suite.name }</div>
+        <div>
+          <Twisty/>
+          { suite.name }
+        </div>
         { childItems }
       </li>
     );

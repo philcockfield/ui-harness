@@ -12,14 +12,10 @@ import { UL } from "../shared";
  */
 @Radium
 export default class SuiteTree extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   styles() {
     return {
       base: {
-        background: "rgba(255, 0, 0, 0.1)", //RED
+        // background: "rgba(255, 0, 0, 0.1)", //RED
       }
     };
   }

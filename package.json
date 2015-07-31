@@ -19,8 +19,8 @@
     "node-libs-browser": "^0.5.2",
     "radium": "^0.13.2",
     "react": "^0.13.3",
-    "rest-methods": "0.0.10",
-    "ui-components": "0.0.1",
+    "rest-methods": "^0.0.10",
+    "ui-core": "^0.0.1",
     "webpack": "^1.10.1",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^1.1.0"

@@ -13,7 +13,7 @@ export default class IndexColumn extends React.Component {
   styles() {
     return {
       base: {
-        background: "rgba(255, 0, 0, 0.1)", //RED
+        // background: "rgba(255, 0, 0, 0.1)", //RED
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
         overflowY: "auto",
         overflowX: "hidden"
