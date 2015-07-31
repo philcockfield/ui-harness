@@ -3,8 +3,8 @@ import React from "react";
 import Radium from "radium";
 import api from "../../api-internal";
 import bdd from "js-bdd";
-import SuiteItem from "./SuiteItem";
-import { UL } from "../shared";
+import SuiteListItem from "./SuiteListItem";
+import { Ul } from "../shared";
 
 
 /**
@@ -25,11 +25,19 @@ export default class SuiteTree extends React.Component {
     // let { currentSuite } = this.props;
 
     // Filter on root suites.
-    let suites = _.filter(bdd.suites(), suite => _.isUndefined(suite.parentSuite));
+    const suites = _.filter(bdd.suites(), suite => _.isUndefined(suite.parentSuite));
+    const items = suites.map((suite, i) => {
+        return <SuiteListItem
+                  key={i}
+                  suite={ suite }
+                  index={i}
+                  total={ suites.length }
+                  isRoot={ true }/>
+    });
 
     return (
       <div style={ styles.base }>
-        <UL>{ suites.map((suite, i) => <SuiteItem key={i} suite={ suite }/>) }</UL>
+        <Ul>{ items }</Ul>
       </div>
     );
   }
