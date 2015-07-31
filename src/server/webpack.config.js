@@ -91,7 +91,8 @@ export const settings = (options = {}) => {
       loaders: [
         babelLoader(/\.js$/),
         babelLoader(/\.jsx$/),
-        { test: /\.json$/, loader: "json-loader" }
+        { test: /\.json$/, loader: "json-loader" },
+        { test: /\.(png|svg)$/, loader: 'url-loader' }
       ]
     }
   };
