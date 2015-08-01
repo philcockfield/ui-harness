@@ -19,12 +19,13 @@ const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
 export default class SuiteListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen:false };
+    this.state = { isOpen:false, isMounted:false };
   }
 
   componentDidMount() {
     this.updateWidth();
     this.toggle(this.storageIsOpen());
+    util.delay(() => { this.setState({ isMounted:true }); });
   }
 
   updateWidth() {
@@ -130,7 +131,7 @@ export default class SuiteListItem extends React.Component {
   render() {
     const styles = this.styles();
     const { suite, index, total, level, selectedSuite } = this.props;
-    const { isOpen } = this.state;
+    const { isOpen, isMounted } = this.state;
     const totalChildSuites = suite.childSuites.length;
     const hasChildren = totalChildSuites > 0;
     const isSelected = this.isSelected()
@@ -157,7 +158,7 @@ export default class SuiteListItem extends React.Component {
           <div style={ styles.iconOuter }>
               {
                 hasChildren
-                  ? <Twisty isOpen={ isOpen }/>
+                  ? <Twisty isOpen={ isOpen } isAnimated={ isMounted }/>
                   : <div style={ styles.suiteIcon }/>
               }
           </div>

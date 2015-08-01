@@ -15,7 +15,7 @@ export default class SuiteTree extends React.Component {
   styles() {
     return {
       base: {
-        // background: "rgba(255, 0, 0, 0.1)", //RED
+        userSelect: "none"
       }
     };
   }
