@@ -16,15 +16,23 @@ const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
  */
 @Radium
 export default class SuiteListItem extends React.Component {
-  componentDidMount() { this.updateWidth(); }
-  updateWidth() { this.setState({ width:React.findDOMNode(this).offsetWidth }); }
+  constructor(props) {
+    super(props);
+    this.state = { isOpen: this.props.isOpen };
+  }
 
+  componentDidMount() {
+    this.updateWidth();
+  }
+
+  updateWidth() { this.setState({ width:React.findDOMNode(this).offsetWidth }); }
 
   styles() {
     const { index, total, isRoot, level } = this.props;
     const { width } = this.state;
     const isFirst = (index === 0);
     const isLast = (index === total - 1);
+    const hasChildren = this.hasChildren();
 
     let indent = 0;
     if (level > 0) { indent = 15 * level; }
@@ -34,14 +42,15 @@ export default class SuiteListItem extends React.Component {
         borderTop: (isRoot && isFirst ? "none" : "dashed 1px rgba(0, 0, 0, 0.1)")
       },
       content: {
-        width: width ? (width - indent - 7) : "",
+        position: "relative",
+        width: (width ? (width - indent - 7) : ""),
         fontSize: 14,
         lineHeight: '36px',
         color: TEXT_COLOR,
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-        paddingLeft: (7 + indent),
+        paddingLeft: (27 + indent),
         ":hover": {
           background: color.fromAlpha(-0.02),
           cursor: "pointer"
@@ -59,11 +68,14 @@ export default class SuiteListItem extends React.Component {
         paddingLeft: 3
       },
       iconOuter: {
-        display: "inline-block",
-        position: "relative",
+        boxSizing: "border-box",
+        position: "absolute",
+        left: 7 + indent,
+        top: 8,
+        paddingLeft: (hasChildren ? 7 : 3),
+        paddingTop: (hasChildren ? 5 : 2),
         width: 20,
         height: 20,
-        top: 5
       },
       suiteIcon: {
         position: "relative",
@@ -74,43 +86,65 @@ export default class SuiteListItem extends React.Component {
     };
   }
 
+  hasChildren() { return this.props.suite.childSuites.length > 0 }
 
+  isSelected() {
+    const { suite, selectedSuite } = this.props;
+    return selectedSuite
+              ? (suite.id === selectedSuite.id)
+              : false;
+  }
 
+  isChildSelected() {
+    const { suite, selectedSuite } = this.props;
+    if (!selectedSuite) { return false; }
+    if (selectedSuite.id.length <= suite.id.length) { return false; }
+    return _.startsWith(selectedSuite.id, suite.id);
+  }
+
+  toggle(isOpen) {
+    if (this.hasChildren()) {
+      if (_.isUndefined(isOpen)) { isOpen = !this.state.isOpen; }
+      this.setState({ isOpen: isOpen });
+    }
+  }
+
+  handleClick(e) { this.toggle(); }
 
 
   render() {
     const styles = this.styles();
-    const { suite, index, total, level } = this.props;
+    const { suite, index, total, level, selectedSuite } = this.props;
+    const { isOpen } = this.state;
     const totalChildSuites = suite.childSuites.length;
     const hasChildren = totalChildSuites > 0;
-
-    // TEMP
-    const isSelected = this.props.suite.name === 'Bar';
+    const isSelected = this.isSelected()
 
     // Prepare a list of child-suites if they exist.
     let childItems;
-    if (hasChildren) {
+    if (isOpen && hasChildren) {
       childItems = suite.childSuites.map((suite, i) => {
             return <SuiteListItem key={i}
                       suite={ suite }
                       index={i}
                       total={ totalChildSuites }
-                      level={ level + 1 }/>
+                      level={ level + 1 }
+                      selectedSuite={ selectedSuite }/>
           });
     }
 
     return (
       <li style={[ styles.base ]}>
         {/* Item content */}
-        <div style={[ styles.content, isSelected && styles.contentSelected ]}>
+        <div
+            onClick={ this.handleClick.bind(this) }
+            style={[ styles.content, isSelected && styles.contentSelected ]}>
           <div style={ styles.iconOuter }>
-            <Center>
               {
                 hasChildren
-                  ? <Twisty isOpen={ true }/>
+                  ? <Twisty isOpen={ isOpen }/>
                   : <div style={ styles.suiteIcon }/>
               }
-            </Center>
           </div>
           <span style={ styles.title }>{ suite.name }</span>
         </div>
@@ -129,8 +163,11 @@ SuiteListItem.propTypes = {
   total: React.PropTypes.number.isRequired,
   isRoot: React.PropTypes.bool,
   level: React.PropTypes.number,
+  selectedSuite: React.PropTypes.object,
+  isOpen: React.PropTypes.bool,
 };
 SuiteListItem.defaultProps = {
   isRoot: false,
-  level: 0
+  level: 0,
+  isOpen: false
 };

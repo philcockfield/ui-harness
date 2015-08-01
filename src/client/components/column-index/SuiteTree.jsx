@@ -22,7 +22,7 @@ export default class SuiteTree extends React.Component {
 
   render() {
     const styles = this.styles();
-    // let { currentSuite } = this.props;
+    const { selectedSuite } = this.props;
 
     // Filter on root suites.
     const suites = _.filter(bdd.suites(), suite => _.isUndefined(suite.parentSuite));
@@ -32,7 +32,8 @@ export default class SuiteTree extends React.Component {
                   suite={ suite }
                   index={i}
                   total={ suites.length }
-                  isRoot={ true }/>
+                  isRoot={ true }
+                  selectedSuite={ selectedSuite }/>
     });
 
     return (
@@ -45,6 +46,6 @@ export default class SuiteTree extends React.Component {
 
 // API -------------------------------------------------------------------------
 SuiteTree.propTypes = {
-  currentSuite: React.PropTypes.object
+  selectedSuite: React.PropTypes.object
 };
 SuiteTree.defaultProps = {};

@@ -13,7 +13,6 @@ export default class IndexColumn extends React.Component {
   styles() {
     return {
       base: {
-        // background: "rgba(255, 0, 0, 0.1)", //RED
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
         overflowY: "auto",
         overflowX: "hidden"
@@ -26,7 +25,7 @@ export default class IndexColumn extends React.Component {
     let { current } = this.props;
     return (
       <div style={ styles.base }>
-        <SuiteTree currentSuite={ current.get("suite") } />
+        <SuiteTree selectedSuite={ current.get("suite") } />
       </div>
     );
   }

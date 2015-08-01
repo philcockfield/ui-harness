@@ -15,7 +15,7 @@ The root shell of the UIHarness.
 export default class UIHarness extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { current: Immutable.Map() };
+    this.state = { current: this.props.current || Immutable.Map() };
   }
 
 

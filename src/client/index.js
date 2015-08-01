@@ -28,6 +28,14 @@ import util from "js-util";
 //    NB: Inserted into DOM after delay to ensure that [describe/it]
 //        have fully parsed before initial render. Avoids a redraw.
 util.delay(() => {
+
+    // TEMP
+    api.setCurrent({
+      suite: bdd.suites()[2]
+    });
+    console.log("bdd.suites()[2]", bdd.suites()[2]);
+    console.log("api.current.toJS()", api.current.toJS());
+
     api.init(document.getElementById("page-root"));
 });
 
@@ -36,8 +44,8 @@ util.delay(() => {
 
 // TEMP
 // ----------------------------------------------------------------------------
-// util.delay(1000, () => {
+// util.delay(1500, () => {
 //   api.setCurrent({
-//     suite:{ name:"hello" }
+//     suite: bdd.suites()[2]
 //   });
 // });
