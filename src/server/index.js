@@ -60,8 +60,9 @@ export const start = (options = {}) => {
   serverMethods.init({ connect:app });
 
   // Serve static files.
-  const get = (path, file) => {
-      app.get(path, (req, res) => { res.sendFile(`${ __dirname }/${ file || path }`); });
+  const get = (route, file) => {
+      file = fsPath.resolve(__dirname, `../public/${ file || route }`);
+      app.get(route, (req, res) => { res.sendFile(file); });
   };
   get("/", "index.html");
   get("/normalize.css");
