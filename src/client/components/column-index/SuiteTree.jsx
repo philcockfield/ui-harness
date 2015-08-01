@@ -49,6 +49,20 @@ export default class SuiteTree extends React.Component {
   }
 
 
+  suites() {
+    const getRoot = (suite) => {
+        const parent = suite.parentSuite;
+        return parent ? getRoot(parent) : suite;
+    };
+
+    let suites = bdd.suites();
+    suites = _.filter(suites, suite => _.isUndefined(suite.parentSuite) || suite.isOnly);
+    suites = suites.map(suite => getRoot(suite));
+    suites = _.compact(_.unique(suites));
+    return suites;
+  }
+
+
   handleOverSuite(e) { this.mouseOverItem = e; }
   handleMouseLeave() { this.mouseOverItem = null; }
 
@@ -58,7 +72,7 @@ export default class SuiteTree extends React.Component {
     const { selectedSuite } = this.props;
 
     // Filter on root suites.
-    const suites = _.filter(bdd.suites(), suite => _.isUndefined(suite.parentSuite));
+    const suites = this.suites()
     const items = suites.map((suite, i) => {
         return <SuiteListItem
                   key={i}
