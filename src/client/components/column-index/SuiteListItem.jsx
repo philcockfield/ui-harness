@@ -54,7 +54,7 @@ export default class SuiteListItem extends React.Component {
 
     return {
       base: {
-        borderTop: (isRoot && isFirst ? "none" : "dashed 1px rgba(0, 0, 0, 0.1)")
+        borderTop: (isRoot && isFirst ? "none" : "solid 1px rgba(0, 0, 0, 0.04)")
       },
       content: {
         position: "relative",
