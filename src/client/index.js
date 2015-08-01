@@ -1,7 +1,7 @@
 import React from "react";
 import bdd from "js-bdd";
-import api from "./api-internal";
 import util from "js-util";
+import api from "./api-internal";
 
 
 // import rest from "rest-methods/browser";
@@ -28,14 +28,6 @@ import util from "js-util";
 //    NB: Inserted into DOM after delay to ensure that [describe/it]
 //        have fully parsed before initial render. Avoids a redraw.
 util.delay(() => {
-
-    // TEMP
-    api.setCurrent({
-      suite: bdd.suites()[2]
-    });
-    console.log("bdd.suites()[2]", bdd.suites()[2]);
-    console.log("api.current.toJS()", api.current.toJS());
-
     api.init(document.getElementById("page-root"));
 });
 

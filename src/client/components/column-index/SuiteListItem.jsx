@@ -11,6 +11,7 @@ const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
 
 
 
+
 /**
  * An <LI> that renders a single [Suite] list item.
  */
@@ -18,14 +19,17 @@ const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
 export default class SuiteListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: this.props.isOpen };
+    this.state = { isOpen:false };
   }
 
   componentDidMount() {
     this.updateWidth();
+    this.toggle(this.storageIsOpen());
   }
 
-  updateWidth() { this.setState({ width:React.findDOMNode(this).offsetWidth }); }
+  updateWidth() {
+    this.setState({ width:React.findDOMNode(this).offsetWidth });
+  }
 
   styles() {
     const { index, total, isRoot, level } = this.props;
@@ -72,7 +76,7 @@ export default class SuiteListItem extends React.Component {
         position: "absolute",
         left: 7 + indent,
         top: 8,
-        paddingLeft: (hasChildren ? 7 : 3),
+        paddingLeft: (hasChildren ? 7 : 4),
         paddingTop: (hasChildren ? 5 : 2),
         width: 20,
         height: 20,
@@ -106,10 +110,21 @@ export default class SuiteListItem extends React.Component {
     if (this.hasChildren()) {
       if (_.isUndefined(isOpen)) { isOpen = !this.state.isOpen; }
       this.setState({ isOpen: isOpen });
+      this.storageIsOpen(isOpen);
     }
   }
 
-  handleClick(e) { this.toggle(); }
+  storageIsOpen(isOpen) {
+    return api.localStorage(`suite-is-open::${ this.props.suite.id }`, isOpen, { default:false });
+  }
+
+  handleClick(e) {
+    if (this.hasChildren()) {
+      this.toggle();
+    } else {
+      api.loadSuite(this.props.suite);
+    }
+  }
 
 
   render() {
@@ -137,7 +152,7 @@ export default class SuiteListItem extends React.Component {
       <li style={[ styles.base ]}>
         {/* Item content */}
         <div
-            onClick={ this.handleClick.bind(this) }
+            onMouseDown={ this.handleClick.bind(this) }
             style={[ styles.content, isSelected && styles.contentSelected ]}>
           <div style={ styles.iconOuter }>
               {
@@ -164,10 +179,8 @@ SuiteListItem.propTypes = {
   isRoot: React.PropTypes.bool,
   level: React.PropTypes.number,
   selectedSuite: React.PropTypes.object,
-  isOpen: React.PropTypes.bool,
 };
 SuiteListItem.defaultProps = {
   isRoot: false,
-  level: 0,
-  isOpen: false
+  level: 0
 };

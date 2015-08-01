@@ -1,7 +1,8 @@
 import React from "react";
 import Shell from "./components/Shell";
 import Immutable from "immutable";
-import util from "js-util";
+import util, { LocalStorage } from "js-util";
+import bdd from "js-bdd";
 
 
 /**
@@ -19,7 +20,12 @@ class ApiInternal {
    * @return the component instance.
    */
   init(el) {
+    this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
+
     const props = { current: this.current };
+
+    // console.log("this.lastSelectedSuite()", this.lastSelectedSuite());
+
     this.shell = React.render(React.createElement(Shell, props), el);
     return this;
   }
@@ -34,9 +40,28 @@ class ApiInternal {
    *                              as the last invoked suite in LocalStorage.
    *                              Default: true.
    */
-  loadSuite(suite, options = {}) {
-    console.log("loadSuite"); // TEMP
+  loadSuite(suite, { storeAsLastSuite = true } = {}) {
+    // Setup initial conditions.
+    if (!suite) { return this; }
+
+    // Only load the suite if it does not have children
+    // ie. is not a container/folder suite.
+    if (suite.childSuites.length === 0) {
+      this.setCurrent({ suite:suite });
+      if (storeAsLastSuite) { this.lastSelectedSuite(suite); }
+    }
+
+    // Finish up.
     return this;
+  }
+
+  /**
+   * Gets or sets the last selected [Suite].
+   */
+  lastSelectedSuite(suite) {
+    if (suite) { suite = suite.id; }
+    const result = this.localStorage('lastSelectedSuite', suite);
+    return bdd.allSuites[result];
   }
 
 
@@ -61,6 +86,20 @@ class ApiInternal {
     if (this.shell) { this.shell.setState({ current:this.current }); }
     return this;
   };
+
+
+  /**
+   * Provides common access to LocalStorage.
+   * @param key:         The unique identifier of the value (this is prefixed with the namespace).
+   * @param value:       (optional). The value to set (pass null to remove).
+   * @param options:
+   *           default:  (optional). The default value to return if the session does not contain the value (ie. undefined).
+   *
+   * @return the read value.
+   */
+  localStorage(key, value, options) {
+    return LocalStorage.prop(`uih-${ key }`, value, options);
+  }
 }
 
 
