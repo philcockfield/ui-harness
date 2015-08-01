@@ -3,15 +3,12 @@ import Radium from "radium";
 import util, { color } from "js-util";
 import Color from "color";
 import api from "../../api-internal";
-import { Ul } from "../shared";
-import Twisty from "ui-core/components/Twisty";
+import { Ul, Twisty, Center } from "../shared";
+import suiteIconSvg from "../../../images/suite-icon.png";
 
-const TEXT_COLOR = Color("white").darken(0.5).hexString();
+const TEXT_COLOR = Color("white").darken(0.6).hexString();
 const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
 
-// TEMP
-// import img from "../../../images/oval.svg";
-// console.log("img", img);
 
 
 /**
@@ -34,10 +31,9 @@ export default class SuiteListItem extends React.Component {
 
     return {
       base: {
-        // backgroundImage: `url(${ img })`,
-        borderTop: (isRoot && isFirst ? "" : "dashed 1px rgba(0, 0, 0, 0.1)"),
+        borderTop: (isRoot && isFirst ? "none" : "dashed 1px rgba(0, 0, 0, 0.1)")
       },
-      itemOuter: {
+      content: {
         width: width ? (width - indent - 7) : "",
         fontSize: 14,
         lineHeight: '36px',
@@ -51,7 +47,7 @@ export default class SuiteListItem extends React.Component {
           cursor: "pointer"
         }
       },
-      itemOuterSelected: {
+      contentSelected: {
         background: SELECTED_BG_COLOR,
         ":hover": {
           // NB: Selected item does not present "hover" style.
@@ -60,7 +56,20 @@ export default class SuiteListItem extends React.Component {
         }
       },
       title: {
-        paddingLeft: 6
+        paddingLeft: 3
+      },
+      iconOuter: {
+        display: "inline-block",
+        position: "relative",
+        width: 20,
+        height: 20,
+        top: 5
+      },
+      suiteIcon: {
+        position: "relative",
+        backgroundImage: `url(${ suiteIconSvg })`,
+        width: 13,
+        height: 17
       }
     };
   }
@@ -71,15 +80,16 @@ export default class SuiteListItem extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { suite, index, total, level } = this.props;
+    const { suite, index, total, level } = this.props;
+    const totalChildSuites = suite.childSuites.length;
+    const hasChildren = totalChildSuites > 0;
 
     // TEMP
     const isSelected = this.props.suite.name === 'Bar';
 
     // Prepare a list of child-suites if they exist.
-    const totalChildSuites = suite.childSuites.length;
     let childItems;
-    if (totalChildSuites > 0) {
+    if (hasChildren) {
       childItems = suite.childSuites.map((suite, i) => {
             return <SuiteListItem key={i}
                       suite={ suite }
@@ -87,18 +97,25 @@ export default class SuiteListItem extends React.Component {
                       total={ totalChildSuites }
                       level={ level + 1 }/>
           });
-      childItems = <Ul>{ childItems }</Ul>
     }
 
     return (
       <li style={[ styles.base ]}>
-        <div className="item-outer"
-             style={[ styles.itemOuter, isSelected && styles.itemOuterSelected ]}>
-
-          <Twisty/>
+        {/* Item content */}
+        <div style={[ styles.content, isSelected && styles.contentSelected ]}>
+          <div style={ styles.iconOuter }>
+            <Center>
+              {
+                hasChildren
+                  ? <Twisty isOpen={ true }/>
+                  : <div style={ styles.suiteIcon }/>
+              }
+            </Center>
+          </div>
           <span style={ styles.title }>{ suite.name }</span>
-
         </div>
+
+        {/* Child suites (RECURSION) */}
         { childItems }
       </li>
     );
