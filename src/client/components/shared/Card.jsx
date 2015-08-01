@@ -34,7 +34,7 @@ export default class Card extends React.Component {
   }
 }
 
-
+// API -------------------------------------------------------------------------
 Card.propTypes = {
   padding: NUMBER_OR_STRING,
   darken: NUMBER_OR_STRING

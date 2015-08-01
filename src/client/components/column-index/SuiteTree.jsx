@@ -43,7 +43,7 @@ export default class SuiteTree extends React.Component {
   }
 }
 
-// -----------------------------------------------------------------------------
+// API -------------------------------------------------------------------------
 SuiteTree.propTypes = {
   currentSuite: React.PropTypes.object
 };

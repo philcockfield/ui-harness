@@ -27,7 +27,7 @@ export default class Main extends React.Component {
 }
 
 
-// ----------------------------------------------------------------------------
+// API -------------------------------------------------------------------------
 Main.propTypes = {
   current: React.PropTypes.instanceOf(Immutable.Map).isRequired
 };

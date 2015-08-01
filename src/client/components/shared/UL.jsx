@@ -3,10 +3,10 @@ import Radium from "radium";
 import { NUMBER_OR_STRING } from "../../const";
 
 /**
- * An unstyled <UL>.
+ * An unstyled <ul>.
  */
 @Radium
-export default class UL extends React.Component {
+export default class Ul extends React.Component {
   styles() {
     return {
       base: {
@@ -25,10 +25,10 @@ export default class UL extends React.Component {
   }
 }
 
-// -----------------------------------------------------------------------------
-UL.propTypes = {
+// API -------------------------------------------------------------------------
+Ul.propTypes = {
   padding: NUMBER_OR_STRING
 };
-UL.defaultProps = {
+Ul.defaultProps = {
   padding: 0
 };

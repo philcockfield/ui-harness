@@ -56,6 +56,6 @@ export default class MainHeader extends React.Component {
   }
 }
 
-
+// API -------------------------------------------------------------------------
 MainHeader.propTypes = {};
 MainHeader.defaultProps = {};
