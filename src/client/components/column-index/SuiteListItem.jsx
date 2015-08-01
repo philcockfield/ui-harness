@@ -25,7 +25,14 @@ export default class SuiteListItem extends React.Component {
 
   componentDidMount() {
     this.updateWidth();
-    this.toggle(this.storageIsOpen());
+
+    // Ensure the item is open if a child is selected.
+    let isOpen = this.storageIsOpen();
+    if (this.isChildSelected()) { isOpen = true; }
+    this.toggle(isOpen);
+
+    // Indicate that the component is rendered.
+    // NB: Used to prevent <Twisty> from animating on inital load.
     util.delay(() => { this.setState({ isMounted:true }); });
   }
 

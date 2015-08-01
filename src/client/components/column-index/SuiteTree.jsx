@@ -12,7 +12,6 @@ import { Ul } from "../shared";
  */
 @Radium
 export default class SuiteTree extends React.Component {
-
   componentWillMount() {
     document.addEventListener ("keydown", this.handleKeyDown.bind(this));
   }
