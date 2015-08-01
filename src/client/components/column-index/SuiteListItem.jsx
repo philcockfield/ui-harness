@@ -9,14 +9,23 @@ import Twisty from "ui-core/components/Twisty";
 const TEXT_COLOR = Color("white").darken(0.5).hexString();
 const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
 
+// TEMP
+// import img from "../../../images/oval.svg";
+// console.log("img", img);
+
 
 /**
  * An <LI> that renders a single [Suite] list item.
  */
 @Radium
 export default class SuiteListItem extends React.Component {
+  componentDidMount() { this.updateWidth(); }
+  updateWidth() { this.setState({ width:React.findDOMNode(this).offsetWidth }); }
+
+
   styles() {
     const { index, total, isRoot, level } = this.props;
+    const { width } = this.state;
     const isFirst = (index === 0);
     const isLast = (index === total - 1);
 
@@ -25,10 +34,11 @@ export default class SuiteListItem extends React.Component {
 
     return {
       base: {
+        // backgroundImage: `url(${ img })`,
         borderTop: (isRoot && isFirst ? "" : "dashed 1px rgba(0, 0, 0, 0.1)"),
       },
       itemOuter: {
-        // width: "120px",
+        width: width ? (width - indent - 7) : "",
         fontSize: 14,
         lineHeight: '36px',
         color: TEXT_COLOR,
@@ -44,6 +54,7 @@ export default class SuiteListItem extends React.Component {
       itemOuterSelected: {
         background: SELECTED_BG_COLOR,
         ":hover": {
+          // NB: Selected item does not present "hover" style.
           background: SELECTED_BG_COLOR,
           cursor: "default"
         }
@@ -54,17 +65,9 @@ export default class SuiteListItem extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const elRoot = React.findDOMNode(this);
-    const elTitle = elRoot.getElementsByClassName("item-outer")[0];
 
-    // console.log("elRoot", elRoot);
-    // console.log("elRoot.outerWidth", elRoot.outerWidth);
-    // console.log("elRoot.getElementsByClassName", elRoot.getElementsByClassName);
-    // console.log("elTitle", elTitle);
-    // console.log("");
 
-  }
+
 
   render() {
     const styles = this.styles();
@@ -93,9 +96,7 @@ export default class SuiteListItem extends React.Component {
              style={[ styles.itemOuter, isSelected && styles.itemOuterSelected ]}>
 
           <Twisty/>
-          <span style={ styles.title }>
-            { suite.name }
-          </span>
+          <span style={ styles.title }>{ suite.name }</span>
 
         </div>
         { childItems }
@@ -104,7 +105,7 @@ export default class SuiteListItem extends React.Component {
   }
 }
 
-// -----------------------------------------------------------------------------
+// API -------------------------------------------------------------------------
 SuiteListItem.propTypes = {
   suite: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
