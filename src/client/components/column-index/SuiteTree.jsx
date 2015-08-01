@@ -12,6 +12,35 @@ import { Ul } from "../shared";
  */
 @Radium
 export default class SuiteTree extends React.Component {
+
+  componentWillMount() {
+    document.addEventListener ("keydown", this.handleKeyDown.bind(this));
+  }
+
+
+  handleKeyDown(e) {
+    const keyCode = e.which;
+    const item = this.mouseOverItem;
+    const suite = item ? item.suite : null;
+
+    if (item) {
+      switch (e.which) {
+        case 37: // LEFT
+          item.toggle(false);
+          break;
+
+        case 39: // RIGHT
+          if (suite) {
+            api.loadSuite(suite);
+          } else {
+            item.toggle(true);
+          }
+          break;
+      }
+    }
+  }
+
+
   styles() {
     return {
       base: {
@@ -19,6 +48,11 @@ export default class SuiteTree extends React.Component {
       }
     };
   }
+
+
+  handleOverSuite(e) { this.mouseOverItem = e; }
+  handleMouseLeave() { this.mouseOverItem = null; }
+
 
   render() {
     const styles = this.styles();
@@ -33,11 +67,12 @@ export default class SuiteTree extends React.Component {
                   index={i}
                   total={ suites.length }
                   isRoot={ true }
-                  selectedSuite={ selectedSuite }/>
+                  selectedSuite={ selectedSuite }
+                  onOverSuite={ this.handleOverSuite.bind(this) }/>
     });
 
     return (
-      <div style={ styles.base }>
+      <div style={ styles.base } onMouseLeave={ this.handleMouseLeave.bind(this) }>
         <Ul>{ items }</Ul>
       </div>
     );

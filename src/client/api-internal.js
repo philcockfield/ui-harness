@@ -43,6 +43,7 @@ class ApiInternal {
   loadSuite(suite, { storeAsLastSuite = true } = {}) {
     // Setup initial conditions.
     if (!suite) { return this; }
+    if (this.current.get('suite') === suite) { return this; }
 
     // Only load the suite if it does not have children
     // ie. is not a container/folder suite.

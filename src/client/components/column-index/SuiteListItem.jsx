@@ -22,15 +22,18 @@ export default class SuiteListItem extends React.Component {
     this.state = { isOpen:false, isMounted:false };
   }
 
+
   componentDidMount() {
     this.updateWidth();
     this.toggle(this.storageIsOpen());
     util.delay(() => { this.setState({ isMounted:true }); });
   }
 
+
   updateWidth() {
     this.setState({ width:React.findDOMNode(this).offsetWidth });
   }
+
 
   styles() {
     const { index, total, isRoot, level } = this.props;
@@ -91,7 +94,9 @@ export default class SuiteListItem extends React.Component {
     };
   }
 
+
   hasChildren() { return this.props.suite.childSuites.length > 0 }
+
 
   isSelected() {
     const { suite, selectedSuite } = this.props;
@@ -100,12 +105,14 @@ export default class SuiteListItem extends React.Component {
               : false;
   }
 
+
   isChildSelected() {
     const { suite, selectedSuite } = this.props;
     if (!selectedSuite) { return false; }
     if (selectedSuite.id.length <= suite.id.length) { return false; }
     return _.startsWith(selectedSuite.id, suite.id);
   }
+
 
   toggle(isOpen) {
     if (this.hasChildren()) {
@@ -115,9 +122,11 @@ export default class SuiteListItem extends React.Component {
     }
   }
 
+
   storageIsOpen(isOpen) {
     return api.localStorage(`suite-is-open::${ this.props.suite.id }`, isOpen, { default:false });
   }
+
 
   handleClick(e) {
     if (this.hasChildren()) {
@@ -128,9 +137,19 @@ export default class SuiteListItem extends React.Component {
   }
 
 
+  handleMouseEnter() {
+    // Alert parent that the mouse is over the [Suite].
+    let { suite, onOverSuite } = this.props;
+    onOverSuite({
+      suite: (this.hasChildren() ? null : suite),
+      toggle: (isOpen) => { this.toggle(isOpen); }
+    });
+  }
+
+
   render() {
     const styles = this.styles();
-    const { suite, index, total, level, selectedSuite } = this.props;
+    const { suite, index, total, level, selectedSuite, onOverSuite } = this.props;
     const { isOpen, isMounted } = this.state;
     const totalChildSuites = suite.childSuites.length;
     const hasChildren = totalChildSuites > 0;
@@ -145,16 +164,19 @@ export default class SuiteListItem extends React.Component {
                       index={i}
                       total={ totalChildSuites }
                       level={ level + 1 }
-                      selectedSuite={ selectedSuite }/>
+                      selectedSuite={ selectedSuite }
+                      onOverSuite={ onOverSuite }/>
           });
     }
 
     return (
-      <li style={[ styles.base ]}>
+      <li style={[ styles.base ]}
+          >
+
         {/* Item content */}
-        <div
-            onMouseDown={ this.handleClick.bind(this) }
-            style={[ styles.content, isSelected && styles.contentSelected ]}>
+        <div style={[ styles.content, isSelected && styles.contentSelected ]}
+             onMouseDown={ this.handleClick.bind(this) }
+             onMouseEnter={ this.handleMouseEnter.bind(this) }>
           <div style={ styles.iconOuter }>
               {
                 hasChildren
@@ -180,6 +202,7 @@ SuiteListItem.propTypes = {
   isRoot: React.PropTypes.bool,
   level: React.PropTypes.number,
   selectedSuite: React.PropTypes.object,
+  onOverSuite: React.PropTypes.func.isRequired
 };
 SuiteListItem.defaultProps = {
   isRoot: false,
