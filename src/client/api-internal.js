@@ -3,6 +3,7 @@ import Shell from "./components/Shell";
 import Immutable from "immutable";
 import util, { LocalStorage } from "js-util";
 import bdd from "js-bdd";
+import { createThisContext } from "./api-this";
 
 
 /**
@@ -20,13 +21,30 @@ class ApiInternal {
    * @return the component instance.
    */
   init(el) {
-    this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
+    // Put the BDD domain-specific language into the global namespace.
+    [
+      'describe',
+      'before',
+      'it',
+      'section'
+    ].forEach(name => { global[name] = bdd[name] });
 
-    const props = { current: this.current };
+    // Create the special context API that is used as
+    // [this] within [describe/it] blocks.
+    bdd.contextFactory = (type) => { return createThisContext(); };
 
-    // console.log("this.lastSelectedSuite()", this.lastSelectedSuite());
+    // Insert the <Shell> into the root.
+    //    NB: Inserted into DOM after delay to ensure that [describe/it]
+    //        have fully parsed before initial render. Avoids a redraw.
+    util.delay(() => {
+        // Ensure the last loaded suite is set as the current state.
+        this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
 
-    this.shell = React.render(React.createElement(Shell, props), el);
+        const props = { current: this.current };
+        this.shell = React.render(React.createElement(Shell, props), el);
+    });
+
+    // Finish up.
     return this;
   }
 
