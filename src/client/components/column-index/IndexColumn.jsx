@@ -48,7 +48,6 @@ export default class IndexColumn extends React.Component {
         position: "absolute", top: 0, bottom: 0,
         width: "100%",
         left: specsLeft,
-        background: "rgba(255, 0, 0, 0.1)", //RED
       })
     };
   }

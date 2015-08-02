@@ -148,7 +148,7 @@ export default class SuiteListItem extends React.Component {
         const { suite } = this.props;
         if (this.isCurrent()) {
           // Slide to the "Specs" view.
-          suite.meta.thisContext.indexViewMode("specs");
+          suite.meta.thisContext.indexViewMode("specs"); // TEMP
         } else {
           // Load the suite.
           api.loadSuite(suite);
