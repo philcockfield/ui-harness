@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import api from "../../api-internal";
+import api from "../../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 
 

@@ -3,7 +3,7 @@ import Radium from "radium";
 import * as util from "js-util";
 import { css } from "js-util/react";
 import Color from "color";
-import api from "../../api-internal";
+import api from "../../../shared/api-internal";
 import { Ul, Twisty, Center } from "../shared";
 import suiteIconSvg1x from "../../../images/suite-icon.png";
 import suiteIconSvg2x from "../../../images/suite-icon@2x.png";

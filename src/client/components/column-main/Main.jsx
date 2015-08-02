@@ -18,9 +18,10 @@ export default class Main extends React.Component {
 
   render() {
     const style = this.style();
+    const { current } = this.props;
     return (
       <Card>
-        <MainHeader/>
+        <MainHeader current={ current }/>
       </Card>
     );
   }

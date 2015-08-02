@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 import Color from "color";
 import { FONT_FAMILY } from "../../const";
 
@@ -46,10 +47,14 @@ export default class MainHeader extends React.Component {
 
   render() {
     const styles = this.styles();
+    const { current } = this.props;
+    let title = current.get("title");
+    let subtitle = current.get("subtitle");
+
     return (
       <div style={ styles.base }>
-        <h1 style={ styles.h1 }>Title</h1>
-        <h2 style={ styles.h2 }>Lorem ipsum dolar sit amet.</h2>
+        <h1 style={ styles.h1 }>{ title }</h1>
+        <h2 style={ styles.h2 }>{ subtitle }</h2>
         <div style={ styles.hr }/>
       </div>
     );
@@ -57,5 +62,7 @@ export default class MainHeader extends React.Component {
 }
 
 // API -------------------------------------------------------------------------
-MainHeader.propTypes = {};
+MainHeader.propTypes = {
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+};
 MainHeader.defaultProps = {};

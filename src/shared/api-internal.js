@@ -1,8 +1,8 @@
+import _ from "lodash";
 import React from "react";
-import Shell from "./components/Shell";
 import Immutable from "immutable";
 import * as util from "js-util";
-import bdd from "../shared/bdd";
+import bdd from "./bdd";
 
 
 /**
@@ -15,22 +15,20 @@ class ApiInternal {
 
 
   /**
-   * Renders the root <Shell> into the given elemnt.
-   * @param {DOMElement} el: The element to render within.
-   * @return the component instance.
+   * Initializes the UIHarness environment.
+   * @param {Function} callback: Invoked when ready to initialize the DOM.
    */
-  init(el) {
+  init(callback) {
     // Put the BDD domain-specific language into the global namespace.
     bdd.register();
 
     // Insert the <Shell> into the root.
-    //    NB: Inserted into DOM after delay to ensure that [describe/it]
+    //    NB: Signal DOM ready after a delay to ensure that the [describe/it]
     //        have fully parsed before initial render. Avoids a redraw.
     util.delay(() => {
         // Ensure the last loaded suite is set as the current state.
         this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
-        const props = { current: this.current };
-        this.shell = React.render(React.createElement(Shell, props), el);
+        callback()
     });
 
     // Finish up.
@@ -55,7 +53,9 @@ class ApiInternal {
     // Only load the suite if it does not have children
     // ie. is not a container/folder suite.
     if (suite.childSuites.length === 0) {
-      this.setCurrent({ suite:suite });
+      let current = suite.meta.thisContext.toValues();
+      current.suite = suite;
+      this.setCurrent(current);
       if (storeAsLastSuite) { this.lastSelectedSuite(suite); }
     }
 

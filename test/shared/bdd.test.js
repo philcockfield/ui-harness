@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import bdd from "../../src/shared/bdd";
 import jsBdd from "js-bdd";
-import UIHarnessContext from "../../src/shared/UIHarnessContext";
+import ThisContext from "../../src/shared/ThisContext";
 
 const BDD = ['describe', 'it', 'before', 'beforeEach', 'after', 'afterEach', 'section'];
 
@@ -79,9 +79,18 @@ describe("BDD", () => {
       bdd.register();
     });
 
+    it("stores the context on the suite", () => {
+      let self1, self2
+      describe("suite-1", function(){ self1 = this; });
+      describe("suite-2", function(){ self2 = this; });
+      expect(self1.suite.meta.thisContext).to.equal(self1);
+      expect(self2.suite.meta.thisContext).to.equal(self2);
+      expect(self1).not.to.equal(self2);
+    });
+
     it("within [describe]", () => {
       describe("Foo", function(){ self = this; });
-      expect(self).to.be.an.instanceof(UIHarnessContext);
+      expect(self).to.be.an.instanceof(ThisContext);
       expect(self.suite.meta.thisContext).to.equal(self);
     });
 
@@ -89,7 +98,7 @@ describe("BDD", () => {
       describe("Foo", function(){
         section("my section", function(){ self = this; })
       });
-      expect(self).to.be.an.instanceof(UIHarnessContext);
+      expect(self).to.be.an.instanceof(ThisContext);
     });
 
     it("within [before]", () => {
@@ -97,8 +106,8 @@ describe("BDD", () => {
       suite = describe("Foo", function(){
         before(function() { self = this; })
       });
-      suite.beforeHandlers.invoke(new UIHarnessContext());
-      expect(self).to.be.an.instanceof(UIHarnessContext);
+      suite.beforeHandlers.invoke(new ThisContext());
+      expect(self).to.be.an.instanceof(ThisContext);
     });
 
     it("within [it]", () => {
@@ -106,8 +115,8 @@ describe("BDD", () => {
       describe("Foo", function(){
         spec = it("does something", function(){ self = this; })
       });
-      spec.invoke(new UIHarnessContext());
-      expect(self).to.be.an.instanceof(UIHarnessContext);
+      spec.invoke(new ThisContext());
+      expect(self).to.be.an.instanceof(ThisContext);
     });
   });
 });

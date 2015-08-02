@@ -1,6 +1,6 @@
 import _ from "lodash";
 import bdd from "js-bdd";
-import UIHarnessContext from "./UIHarnessContext";
+import ThisContext from "./ThisContext";
 
 const ORIGINAL_DSL = {}
 
@@ -34,29 +34,35 @@ export default {
    * Sets up the BDD domain specific language.
    * @param {object} namespace: The target object to register onto (ie. global||window).
    */
-  register(namespace) {
-    if (_.isUndefined(namespace)) { namespace = (global || window); }
-
-    // Put the BDD domain-specific language into the global namespace.
+  register() {
+    // Put the BDD domain-specific language into the global global.
     this.supportedMethods.forEach(name => {
-          ORIGINAL_DSL[name] = namespace[name];
-          namespace[name] = bdd[name];
+          ORIGINAL_DSL[name] = global[name];
+          global[name] = bdd[name];
         });
 
     // Create the special context API that is used as [this]
     // within [describe/it] blocks.
-    bdd.contextFactory = (type) => { return new UIHarnessContext(type); };
+    bdd.contextFactory = (type) => { return new ThisContext(type); };
   },
 
 
   /**
-   * Removes the DSL from the global namespace
+   * Removes the DSL from the global namespace.
    * @param {object} namespace: The target object to register onto (ie. global||window).
    */
-  unregister(namespace) {
-    if (_.isUndefined(namespace)) { namespace = (global || window); }
+  unregister() {
     this.supportedMethods.forEach(name => {
-          namespace[name] = ORIGINAL_DSL[name];
+          global[name] = ORIGINAL_DSL[name];
         });
+  },
+
+
+  /**
+   * Resets the global namespace and the BDD data structure.
+   */
+  reset() {
+    this.unregister();
+    bdd.reset();
   }
 };

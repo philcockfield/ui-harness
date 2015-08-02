@@ -1,5 +1,14 @@
-import api from "./api-internal";
-api.init(document.getElementById("page-root"));
+import React from "react";
+import * as util from "js-util";
+import api from "../shared/api-internal";
+import Shell from "./components/Shell";
+
+// Render the <Shell> into the DOM.
+api.init(() => {
+    api.shell = React.render(
+      React.createElement(Shell, { current: api.current }),
+      document.getElementById("page-root"));
+});
 
 
 // import rest from "rest-methods/browser";
