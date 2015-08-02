@@ -2,11 +2,8 @@ import React from "react";
 import Shell from "./components/Shell";
 import Immutable from "immutable";
 import * as util from "js-util";
-import bdd from "js-bdd";
-import { createThisContext } from "./api-this";
+import bdd from "../shared/bdd";
 
-
-console.log("API Internal | util",  util);
 
 /**
  * The API used internally by the UIHarness components.
@@ -24,16 +21,7 @@ class ApiInternal {
    */
   init(el) {
     // Put the BDD domain-specific language into the global namespace.
-    [
-      'describe',
-      'before',
-      'it',
-      'section'
-    ].forEach(name => { global[name] = bdd[name] });
-
-    // Create the special context API that is used as
-    // [this] within [describe/it] blocks.
-    bdd.contextFactory = (type) => { return createThisContext(); };
+    bdd.register();
 
     // Insert the <Shell> into the root.
     //    NB: Inserted into DOM after delay to ensure that [describe/it]
@@ -41,7 +29,6 @@ class ApiInternal {
     util.delay(() => {
         // Ensure the last loaded suite is set as the current state.
         this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
-
         const props = { current: this.current };
         this.shell = React.render(React.createElement(Shell, props), el);
     });
@@ -82,7 +69,7 @@ class ApiInternal {
   lastSelectedSuite(suite) {
     if (suite) { suite = suite.id; }
     const result = this.localStorage('lastSelectedSuite', suite);
-    return bdd.allSuites[result];
+    return bdd.suites[result];
   }
 
 

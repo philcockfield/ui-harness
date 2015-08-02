@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import api from "../../api-internal";
-import bdd from "js-bdd";
+import bdd from "../../../shared/bdd";
 import SuiteListItem from "./SuiteListItem";
 import { Ul } from "../shared";
 
@@ -21,7 +21,6 @@ export default class SuiteTree extends React.Component {
     const keyCode = e.which;
     const item = this.mouseOverItem;
     const suite = item ? item.suite : null;
-
     if (item) {
       switch (e.which) {
         case 37: // LEFT
@@ -49,19 +48,6 @@ export default class SuiteTree extends React.Component {
   }
 
 
-  suites() {
-    const getRoot = (suite) => {
-        const parent = suite.parentSuite;
-        return parent ? getRoot(parent) : suite;
-    };
-    let suites = bdd.suites();
-    suites = _.filter(suites, suite => _.isUndefined(suite.parentSuite) || suite.isOnly);
-    suites = suites.map(suite => getRoot(suite));
-    suites = _.compact(_.unique(suites));
-    return suites;
-  }
-
-
   handleOverSuite(e) { this.mouseOverItem = e; }
   handleMouseLeave() { this.mouseOverItem = null; }
 
@@ -71,7 +57,7 @@ export default class SuiteTree extends React.Component {
     const { selectedSuite } = this.props;
 
     // Filter on root suites.
-    const suites = this.suites()
+    const suites = bdd.rootSuites()
     const items = suites.map((suite, i) => {
         return <SuiteListItem
                   key={i}
