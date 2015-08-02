@@ -24,8 +24,6 @@ export default class SuiteListItem extends React.Component {
 
 
   componentDidMount() {
-    this.updateWidth();
-
     // Ensure the item is open if a child is selected.
     let isOpen = this.storageIsOpen();
     if (this.isChildSelected()) { isOpen = true; }
@@ -33,12 +31,15 @@ export default class SuiteListItem extends React.Component {
 
     // Indicate that the component is rendered.
     // NB: Used to prevent <Twisty> from animating on inital load.
-    util.delay(() => { this.setState({ isMounted:true }); });
+    util.delay(() => {
+      this.updateWidth();
+      this.setState({ isMounted:true });
+    });
   }
 
 
   updateWidth() {
-    this.setState({ width:React.findDOMNode(this).offsetWidth });
+    this.setState({ width: React.findDOMNode(this).offsetWidth });
   }
 
 
@@ -54,11 +55,12 @@ export default class SuiteListItem extends React.Component {
 
     return {
       base: {
-        borderTop: ((isRoot && isFirst) ? "none" : "solid 1px rgba(0, 0, 0, 0.04)")
+        borderTop: ((isRoot && isFirst) ? "none" : "solid 1px rgba(0, 0, 0, 0.04)"),
+        boxSizing: "border-box"
       },
       content: {
         position: "relative",
-        width: (width ? (width - indent - 7) : ""), // Set to that ellipsis show.
+        width: (width ? (width - (indent + 27)) : ""), // Set to that ellipsis show.
         fontSize: 14,
         lineHeight: '36px',
         color: TEXT_COLOR,
@@ -104,51 +106,64 @@ export default class SuiteListItem extends React.Component {
 
 
   isSelected() {
-    const { suite, selectedSuite } = this.props;
-    return selectedSuite
-              ? (suite.id === selectedSuite.id)
-              : false;
+      const { suite, selectedSuite } = this.props;
+      return selectedSuite
+                ? (suite.id === selectedSuite.id)
+                : false;
+  }
+
+
+  isCurrent() {
+      const currentSuite = api.current.get("suite");
+      return (currentSuite && currentSuite.id === this.props.suite.id);
   }
 
 
   isChildSelected() {
-    const { suite, selectedSuite } = this.props;
-    if (!selectedSuite) { return false; }
-    if (selectedSuite.id.length <= suite.id.length) { return false; }
-    return _.startsWith(selectedSuite.id, suite.id);
+      const { suite, selectedSuite } = this.props;
+      if (!selectedSuite) { return false; }
+      if (selectedSuite.id.length <= suite.id.length) { return false; }
+      return _.startsWith(selectedSuite.id, suite.id);
   }
 
 
   toggle(isOpen) {
-    if (this.hasChildren()) {
-      if (_.isUndefined(isOpen)) { isOpen = !this.state.isOpen; }
-      this.setState({ isOpen: isOpen });
-      this.storageIsOpen(isOpen);
-    }
+      if (this.hasChildren()) {
+        if (_.isUndefined(isOpen)) { isOpen = !this.state.isOpen; }
+        this.setState({ isOpen: isOpen });
+        this.storageIsOpen(isOpen);
+      }
   }
 
 
   storageIsOpen(isOpen) {
-    return api.localStorage(`suite-is-open::${ this.props.suite.id }`, isOpen, { default:false });
+      return api.localStorage(`suite-is-open::${ this.props.suite.id }`, isOpen, { default:false });
   }
 
 
   handleClick(e) {
-    if (this.hasChildren()) {
-      this.toggle();
-    } else {
-      api.loadSuite(this.props.suite);
-    }
+      if (this.hasChildren()) {
+        this.toggle();
+      } else {
+        const { suite } = this.props;
+        if (this.isCurrent()) {
+          // Slide to the "Specs" view.
+          suite.meta.thisContext.indexViewMode("specs");
+        } else {
+          // Load the suite.
+          api.loadSuite(suite);
+        }
+      }
   }
 
 
   handleMouseEnter() {
-    // Alert parent that the mouse is over the [Suite].
-    let { suite, onOverSuite } = this.props;
-    onOverSuite({
-      suite: (this.hasChildren() ? null : suite),
-      toggle: (isOpen) => { this.toggle(isOpen); }
-    });
+      // Alert parent that the mouse is over the [Suite].
+      let { suite, onOverSuite } = this.props;
+      onOverSuite({
+        suite: (this.hasChildren() ? null : suite),
+        toggle: (isOpen) => { this.toggle(isOpen); }
+      });
   }
 
 

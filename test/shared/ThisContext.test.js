@@ -4,10 +4,9 @@ import bdd from "../../src/shared/bdd";
 import api from "../../src/shared/api-internal";
 
 
-
 describe("ThisContext", () => {
   it("stores type", () => {
-    expect(new ThisContext('describe').type).to.equal('describe');
+    expect(new ThisContext("describe").type).to.equal("describe");
   });
 
 
@@ -45,6 +44,18 @@ describe("ThisContext", () => {
       context.title("my-title").subtitle("my-subtitle");
       expect(context.title()).to.equal("my-title");
       expect(context.subtitle()).to.equal("my-subtitle");
+    });
+
+
+    describe("indexViewMode", () => {
+      it("shows the 'suites' tree by default", () => {
+        expect(context.indexViewMode()).to.equal("suites");
+      });
+
+      it("shows specs", () => {
+        context.indexViewMode("specs")
+        expect(context.indexViewMode()).to.equal("specs");
+      });
     });
   });
 });

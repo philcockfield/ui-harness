@@ -5,6 +5,7 @@ import api from "../../../shared/api-internal";
 import bdd from "../../../shared/bdd";
 import SuiteListItem from "./SuiteListItem";
 import { Ul } from "../shared";
+import { css } from "js-util/react";
 
 
 /**
@@ -41,9 +42,10 @@ export default class SuiteTree extends React.Component {
 
   styles() {
     return {
-      base: {
-        userSelect: "none"
-      }
+      base: css({
+        userSelect: "none",
+        position: "absolute", left: 0, top: 0, right:0, bottom: 0
+      })
     };
   }
 
@@ -70,7 +72,7 @@ export default class SuiteTree extends React.Component {
     });
 
     return (
-      <div style={ styles.base } onMouseLeave={ this.handleMouseLeave.bind(this) }>
+      <div className="uih-suite-tree" style={ styles.base } onMouseLeave={ this.handleMouseLeave.bind(this) }>
         <Ul>{ items }</Ul>
       </div>
     );

@@ -1,8 +1,12 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
+
+import { css } from "js-util/react";
 import api from "../../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
+import Specs from "./Specs";
+
 
 
 /**
@@ -10,23 +14,59 @@ import SuiteTree from "./SuiteTree";
  */
 @Radium
 export default class IndexColumn extends React.Component {
+  componentDidMount() { this.updateWidth(); }
+  updateWidth() { this.setState({ width:React.findDOMNode(this).offsetWidth }); }
+
+
   styles() {
+    const { current } = this.props;
+    const MODE = current.get("indexViewMode");
+
+    // Calculate slide position of panels.
+    const WIDTH = this.state.width
+    if (MODE && WIDTH) {
+      var suitesLeft = MODE === 'suites' ? 0 : (0 - WIDTH)
+      var specsLeft = MODE === 'specs' ? 0 : WIDTH
+    }
+
     return {
-      base: {
+      base: css({
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
         overflowY: "auto",
         overflowX: "hidden",
         paddingTop: 3
-      }
+      }),
+      outer: css({
+        transition: "left 0.15s"
+      }),
+      suiteTree: css({
+        position: "absolute", top: 0, bottom: 0,
+        width: "100%",
+        left: suitesLeft
+      }),
+      specs: css({
+        position: "absolute", top: 0, bottom: 0,
+        width: "100%",
+        left: specsLeft,
+        background: "rgba(255, 0, 0, 0.1)", //RED
+      })
     };
   }
 
   render() {
     const styles = this.styles();
-    let { current } = this.props;
+    const { current } = this.props;
+    const indexViewMode = current.get("indexViewMode");
+    const currentSuite = current.get("suite");
+
     return (
       <div style={ styles.base }>
-        <SuiteTree selectedSuite={ current.get("suite") } />
+        <div style={[ styles.outer, styles.suiteTree ]}>
+          <SuiteTree selectedSuite={ currentSuite } />
+        </div>
+        <div style={[ styles.outer, styles.specs ]}>
+          { currentSuite ? <Specs suite={ currentSuite } /> : null }
+        </div>
       </div>
     );
   }

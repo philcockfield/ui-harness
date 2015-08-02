@@ -8,15 +8,14 @@ import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import * as webpackConfig from "./webpack.config";
 import * as serverMethods from "./serverMethods";
-import bdd from "js-bdd";
+import bdd from "../shared/bdd";
 
 
 
 const parseSpecs = (paths) => {
-    const BDD_METHODS = ['describe', 'before', 'it', 'section'];
-    BDD_METHODS.forEach(name => { global[name] = bdd[name] });
+    bdd.register();
     paths.forEach(path => { require(path); });
-    BDD_METHODS.forEach(name => { delete global[name] }); // Clean up global namespace.
+    bdd.unregister();
 };
 
 

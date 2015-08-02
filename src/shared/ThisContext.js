@@ -2,10 +2,10 @@ import _ from "lodash";
 import api from "./api-internal";
 
 const PROP = Symbol("Prop");
-
 const FIELD_KEYS = [
   "title",
-  "subtitle"
+  "subtitle",
+  "indexViewMode"
 ];
 
 
@@ -17,12 +17,13 @@ export default class UIHarnessContext {
   constructor(type) {
     this.type = type;
 
+    // Determine whether this is the currently loaded suite.
     const isCurrent = () => {
-      console.log("TEMP");
-      // return true; // TEMP
-    };
+          const currentSuite = api.current.get("suite");
+          return (currentSuite && currentSuite.id === this.suite.id);
+        };
 
-    // Read/Write helper for data-methods.
+    // Read|Write helper for data-property methods.
     const propState = {};
     this[PROP] = (key, value, options = {}) => {
           // WRITE.
@@ -60,5 +61,11 @@ export default class UIHarnessContext {
    * Gets or sets the sub-title.
    */
   subtitle(value) { return this[PROP]("subtitle", value); }
+
+
+  /**
+   * Gets or sets the index-view mode.
+   */
+  indexViewMode(value) { return this[PROP]("indexViewMode", value, { default: "suites" }); }
 
 }
