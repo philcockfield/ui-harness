@@ -1,15 +1,15 @@
 import React from "react";
 import Radium from "radium";
-import util, { color } from "js-util";
+import * as util from "js-util";
+import { css } from "js-util/react";
 import Color from "color";
 import api from "../../api-internal";
 import { Ul, Twisty, Center } from "../shared";
-import suiteIconSvg from "../../../images/suite-icon.png";
+import suiteIconSvg1x from "../../../images/suite-icon.png";
+import suiteIconSvg2x from "../../../images/suite-icon@2x.png";
 
 const TEXT_COLOR = Color("white").darken(0.6).hexString();
-const SELECTED_BG_COLOR = color.fromAlpha(-0.08);
-
-
+const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
 
 
 /**
@@ -54,11 +54,11 @@ export default class SuiteListItem extends React.Component {
 
     return {
       base: {
-        borderTop: (isRoot && isFirst ? "none" : "solid 1px rgba(0, 0, 0, 0.04)")
+        borderTop: ((isRoot && isFirst) ? "none" : "solid 1px rgba(0, 0, 0, 0.04)")
       },
       content: {
         position: "relative",
-        width: (width ? (width - indent - 7) : ""),
+        width: (width ? (width - indent - 7) : ""), // Set to that ellipsis show.
         fontSize: 14,
         lineHeight: '36px',
         color: TEXT_COLOR,
@@ -67,7 +67,7 @@ export default class SuiteListItem extends React.Component {
         textOverflow: "ellipsis",
         paddingLeft: (27 + indent),
         ":hover": {
-          background: color.fromAlpha(-0.02),
+          background: util.color.fromAlpha(-0.02),
           cursor: "pointer"
         }
       },
@@ -92,12 +92,10 @@ export default class SuiteListItem extends React.Component {
         width: 20,
         height: 20,
       },
-      suiteIcon: {
+      suiteIcon: css({
         position: "relative",
-        backgroundImage: `url(${ suiteIconSvg })`,
-        width: 13,
-        height: 17
-      }
+        Image: [ suiteIconSvg1x, suiteIconSvg2x, 13, 17 ]
+      })
     };
   }
 

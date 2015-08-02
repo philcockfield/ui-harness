@@ -54,7 +54,6 @@ export default class SuiteTree extends React.Component {
         const parent = suite.parentSuite;
         return parent ? getRoot(parent) : suite;
     };
-
     let suites = bdd.suites();
     suites = _.filter(suites, suite => _.isUndefined(suite.parentSuite) || suite.isOnly);
     suites = suites.map(suite => getRoot(suite));

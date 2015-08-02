@@ -1,10 +1,12 @@
 import React from "react";
 import Shell from "./components/Shell";
 import Immutable from "immutable";
-import util, { LocalStorage } from "js-util";
+import * as util from "js-util";
 import bdd from "js-bdd";
 import { createThisContext } from "./api-this";
 
+
+console.log("API Internal | util",  util);
 
 /**
  * The API used internally by the UIHarness components.
@@ -55,7 +57,7 @@ class ApiInternal {
    * @param suite: The {Suite} to load.
    * @param options
    *          - storeAsLastSuite: Flag indicating if the suite should be stored
-   *                              as the last invoked suite in LocalStorage.
+   *                              as the last invoked suite in localStorage.
    *                              Default: true.
    */
   loadSuite(suite, { storeAsLastSuite = true } = {}) {
@@ -108,7 +110,7 @@ class ApiInternal {
 
 
   /**
-   * Provides common access to LocalStorage.
+   * Provides common access to localStorage.
    * @param key:         The unique identifier of the value (this is prefixed with the namespace).
    * @param value:       (optional). The value to set (pass null to remove).
    * @param options:
@@ -117,7 +119,7 @@ class ApiInternal {
    * @return the read value.
    */
   localStorage(key, value, options) {
-    return LocalStorage.prop(`uih-${ key }`, value, options);
+    return util.localStorage.prop(`uih-${ key }`, value, options);
   }
 }
 
