@@ -21,7 +21,7 @@ export default class MainHeader extends React.Component {
       },
       h1: {
         fontSize: 32,
-        lineHeight: '32px',
+        lineHeight: '40px',
         padding: 0,
         margin: 0,
         color: Color("white").darken(0.5).hexString(),
