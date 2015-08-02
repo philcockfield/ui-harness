@@ -20,12 +20,14 @@ export default class UIHarness extends React.Component {
 
 
   styles() {
+    const LEFT_WIDTH = 250;
+    const RIGHT_WIDTH = 250;
+
+
     return {
       base: {
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
         background: "#F5F5F5",
-        display: "flex",
-        flexDirection: "row",
         boxSizing: "border-box"
       },
       column: {
@@ -34,13 +36,25 @@ export default class UIHarness extends React.Component {
         marginBottom: COLUMN_MARGIN
       },
       left: {
-        width: 330
+        position: "absolute",
+        left: 0,
+        top: COLUMN_MARGIN,
+        bottom: COLUMN_MARGIN,
+        width: LEFT_WIDTH
       },
       main: {
-        flex: "1 100%"
+        position: "absolute",
+        left: LEFT_WIDTH,
+        top: COLUMN_MARGIN,
+        right: RIGHT_WIDTH,
+        bottom: COLUMN_MARGIN,
       },
       right: {
-        width: 330
+        position: "absolute",
+        top: COLUMN_MARGIN,
+        right: 0,
+        bottom: COLUMN_MARGIN,
+        width: RIGHT_WIDTH
       }
     };
   }
