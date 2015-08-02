@@ -29,27 +29,27 @@ export default class IndexColumn extends React.Component {
       var specsLeft = MODE === 'specs' ? 0 : WIDTH
     }
 
-    return {
-      base: css({
+    return css({
+      base: {
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
         overflowY: "auto",
         overflowX: "hidden",
         paddingTop: 3
-      }),
-      outer: css({
+      },
+      outer: {
         transition: "left 0.15s"
-      }),
-      suiteTree: css({
+      },
+      suiteTree: {
         position: "absolute", top: 0, bottom: 0,
         width: "100%",
         left: suitesLeft
-      }),
-      specs: css({
+      },
+      specs: {
         position: "absolute", top: 0, bottom: 0,
         width: "100%",
         left: specsLeft,
-      })
-    };
+      }
+    });
   }
 
   render() {

@@ -53,7 +53,7 @@ export default class SuiteListItem extends React.Component {
     let indent = 0;
     if (level > 0) { indent = 15 * level; }
 
-    return {
+    return css({
       base: {
         borderTop: ((isRoot && isFirst) ? "none" : "solid 1px rgba(0, 0, 0, 0.04)"),
         boxSizing: "border-box"
@@ -94,11 +94,11 @@ export default class SuiteListItem extends React.Component {
         width: 20,
         height: 20,
       },
-      suiteIcon: css({
+      suiteIcon: {
         position: "relative",
         Image: [ suiteIconSvg1x, suiteIconSvg2x, 13, 17 ]
-      })
-    };
+      }
+    });
   }
 
 

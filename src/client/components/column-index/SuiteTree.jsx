@@ -24,11 +24,11 @@ export default class SuiteTree extends React.Component {
     const suite = item ? item.suite : null;
     if (item) {
       switch (e.which) {
-        case 37: // LEFT
+        case 37: // LEFT.
           item.toggle(false);
           break;
 
-        case 39: // RIGHT
+        case 39: // RIGHT.
           if (suite) {
             api.loadSuite(suite);
           } else {
@@ -41,12 +41,12 @@ export default class SuiteTree extends React.Component {
 
 
   styles() {
-    return {
-      base: css({
+    return css({
+      base: {
         userSelect: "none",
         position: "absolute", left: 0, top: 0, right:0, bottom: 0
-      })
-    };
+      }
+    });
   }
 
 
