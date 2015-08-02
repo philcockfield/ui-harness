@@ -30,6 +30,7 @@ export default class PropTypesColumn extends React.Component {
 
 // API -------------------------------------------------------------------------
 PropTypesColumn.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  width: React.PropTypes.number.isRequired
 };
 PropTypesColumn.defaultProps = {};

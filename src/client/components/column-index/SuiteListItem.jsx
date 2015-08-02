@@ -32,20 +32,14 @@ export default class SuiteListItem extends React.Component {
     // Indicate that the component is rendered.
     // NB: Used to prevent <Twisty> from animating on inital load.
     util.delay(() => {
-      this.updateWidth();
       this.setState({ isMounted:true });
     });
   }
 
 
-  updateWidth() {
-    this.setState({ width: React.findDOMNode(this).offsetWidth });
-  }
-
 
   styles() {
-    const { index, total, isRoot, level } = this.props;
-    const { width } = this.state;
+    const { index, total, isRoot, level, width } = this.props;
     const isFirst = (index === 0);
     const isLast = (index === total - 1);
     const hasChildren = this.hasChildren();
@@ -169,7 +163,7 @@ export default class SuiteListItem extends React.Component {
 
   render() {
     const styles = this.styles();
-    const { suite, index, total, level, selectedSuite, onOverSuite } = this.props;
+    const { suite, index, total, level, selectedSuite, onOverSuite, width } = this.props;
     const { isOpen, isMounted } = this.state;
     const totalChildSuites = suite.childSuites.length;
     const hasChildren = totalChildSuites > 0;
@@ -185,7 +179,8 @@ export default class SuiteListItem extends React.Component {
                       total={ totalChildSuites }
                       level={ level + 1 }
                       selectedSuite={ selectedSuite }
-                      onOverSuite={ onOverSuite }/>
+                      onOverSuite={ onOverSuite }
+                      width={ width }/>
           });
     }
 
@@ -222,7 +217,8 @@ SuiteListItem.propTypes = {
   isRoot: React.PropTypes.bool,
   level: React.PropTypes.number,
   selectedSuite: React.PropTypes.object,
-  onOverSuite: React.PropTypes.func.isRequired
+  onOverSuite: React.PropTypes.func.isRequired,
+  width: React.PropTypes.number.isRequired
 };
 SuiteListItem.defaultProps = {
   isRoot: false,

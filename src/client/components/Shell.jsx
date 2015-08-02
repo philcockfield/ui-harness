@@ -16,14 +16,16 @@ The root shell of the UIHarness.
 export default class UIHarness extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { current: this.props.current || Immutable.Map() };
+    this.state = {
+      current: this.props.current || Immutable.Map(),
+      leftWidth: 220,
+      rightWidth: 250
+    };
   }
 
 
   styles() {
-    const LEFT_WIDTH = 250;
-    const RIGHT_WIDTH = 250;
-
+    let { leftWidth, rightWidth } = this.state;
     return css({
       base: {
         Absolute: 0,
@@ -37,14 +39,14 @@ export default class UIHarness extends React.Component {
       },
       left: {
         Absolute: [COLUMN_MARGIN, null, COLUMN_MARGIN, 0],
-        width: LEFT_WIDTH
+        width: leftWidth
       },
       main: {
-        Absolute: [COLUMN_MARGIN, RIGHT_WIDTH, COLUMN_MARGIN, LEFT_WIDTH],
+        Absolute: [COLUMN_MARGIN, rightWidth, COLUMN_MARGIN, leftWidth],
       },
       right: {
         Absolute: [COLUMN_MARGIN, 0, COLUMN_MARGIN, null],
-        width: RIGHT_WIDTH
+        width: rightWidth
       }
     });
   }
@@ -52,19 +54,24 @@ export default class UIHarness extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { current } = this.state;
+    let { current, leftWidth, rightWidth } = this.state;
     return (
       <div style={ styles.base }>
         <div style={[ styles.column, styles.left ]}>
-          <IndexColumn current={ current }/>
+          <IndexColumn current={ current } width={ leftWidth }/>
         </div>
         <div style={[ styles.column, styles.main ]}>
           <Main current={ current }/>
         </div>
         <div style={[ styles.column, styles.right ]}>
-          <PropTypesColumn current={ current }/>
+          <PropTypesColumn current={ current } width={ rightWidth }/>
         </div>
       </div>
     );
   }
 }
+
+
+// API -------------------------------------------------------------------------
+UIHarness.propTypes = {};
+UIHarness.defaultProps = {};

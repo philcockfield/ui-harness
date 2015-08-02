@@ -14,19 +14,14 @@ import Specs from "./Specs";
  */
 @Radium
 export default class IndexColumn extends React.Component {
-  componentDidMount() { this.updateWidth(); }
-  updateWidth() { this.setState({ width:React.findDOMNode(this).offsetWidth }); }
-
-
   styles() {
-    const { current } = this.props;
+    const { current, width } = this.props;
     const MODE = current.get("indexViewMode");
 
     // Calculate slide position of panels.
-    const WIDTH = this.state.width
-    if (MODE && WIDTH) {
-      var suitesLeft = MODE === 'suites' ? 0 : (0 - WIDTH)
-      var specsLeft = MODE === 'specs' ? 0 : WIDTH
+    if (MODE && width) {
+      var suitesLeft = MODE === 'suites' ? 0 : (0 - width)
+      var specsLeft = MODE === 'specs' ? 0 : width
     }
 
     return css({
@@ -54,14 +49,14 @@ export default class IndexColumn extends React.Component {
 
   render() {
     const styles = this.styles();
-    const { current } = this.props;
+    const { current, width } = this.props;
     const indexViewMode = current.get("indexViewMode");
     const currentSuite = current.get("suite");
 
     return (
       <div style={ styles.base }>
         <div style={[ styles.outer, styles.suiteTree ]}>
-          <SuiteTree selectedSuite={ currentSuite } />
+          <SuiteTree selectedSuite={ currentSuite } width={ width } />
         </div>
         <div style={[ styles.outer, styles.specs ]}>
           { currentSuite ? <Specs suite={ currentSuite } /> : null }
@@ -74,6 +69,7 @@ export default class IndexColumn extends React.Component {
 
 // API -------------------------------------------------------------------------
 IndexColumn.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  width: React.PropTypes.number.isRequired
 };
 IndexColumn.defaultProps = {};
