@@ -4,6 +4,7 @@ import Immutable from "immutable";
 import Main from "./column-main/Main";
 import IndexColumn from "./column-index/IndexColumn";
 import PropTypesColumn from "./column-props/PropTypesColumn";
+import { css } from "js-util/react";
 
 const COLUMN_MARGIN = 8;
 
@@ -23,10 +24,9 @@ export default class UIHarness extends React.Component {
     const LEFT_WIDTH = 250;
     const RIGHT_WIDTH = 250;
 
-
-    return {
+    return css({
       base: {
-        position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
+        Absolute: 0,
         background: "#F5F5F5",
         boxSizing: "border-box"
       },
@@ -36,27 +36,17 @@ export default class UIHarness extends React.Component {
         marginBottom: COLUMN_MARGIN
       },
       left: {
-        position: "absolute",
-        left: 0,
-        top: COLUMN_MARGIN,
-        bottom: COLUMN_MARGIN,
+        Absolute: [COLUMN_MARGIN, null, COLUMN_MARGIN, 0],
         width: LEFT_WIDTH
       },
       main: {
-        position: "absolute",
-        left: LEFT_WIDTH,
-        top: COLUMN_MARGIN,
-        right: RIGHT_WIDTH,
-        bottom: COLUMN_MARGIN,
+        Absolute: [COLUMN_MARGIN, RIGHT_WIDTH, COLUMN_MARGIN, LEFT_WIDTH],
       },
       right: {
-        position: "absolute",
-        top: COLUMN_MARGIN,
-        right: 0,
-        bottom: COLUMN_MARGIN,
+        Absolute: [COLUMN_MARGIN, 0, COLUMN_MARGIN, null],
         width: RIGHT_WIDTH
       }
-    };
+    });
   }
 
 

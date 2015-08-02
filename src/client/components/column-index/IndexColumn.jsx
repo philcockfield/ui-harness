@@ -31,7 +31,7 @@ export default class IndexColumn extends React.Component {
 
     return css({
       base: {
-        position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
+        Absolute: 0,
         overflowY: "auto",
         overflowX: "hidden",
         paddingTop: 3
