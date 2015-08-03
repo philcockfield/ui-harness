@@ -23,7 +23,7 @@ export default class PropTypesColumn extends React.Component {
   render() {
     const styles = this.styles();
     return (
-      <div style={ styles.base }>PropTypesColumn</div>
+      <div style={ styles.base }></div>
     );
   }
 }

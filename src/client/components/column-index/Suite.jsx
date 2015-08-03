@@ -14,14 +14,14 @@ export default class Suite extends React.Component {
     return css({
       base: {
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
-        background: "rgba(255, 0, 0, 0.1)", //RED
+        // background: "rgba(255, 0, 0, 0.1)", //RED
       },
       backButton: {
         position: "absolute", left: 10, top: 10,
         width: 30,
         height: 30,
         cursor: "pointer",
-        background: "rgba(255, 0, 0, 0.1)", //RED
+        // background: "rgba(255, 0, 0, 0.1)", //RED
       }
     });
   }
@@ -42,7 +42,7 @@ export default class Suite extends React.Component {
     return (
       <div style={ styles.base }>
         <div style={ styles.backButton } onClick={ this.handleBackClick.bind(this) }/>
-        Suite
+
       </div>
     );
   }
