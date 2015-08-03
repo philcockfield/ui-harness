@@ -14,6 +14,7 @@ export default class Specs extends React.Component {
     return css({
       base: {
         position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
+        background: "rgba(255, 0, 0, 0.1)", //RED
       },
       backButton: {
         position: "absolute", left: 10, top: 10,
@@ -27,9 +28,7 @@ export default class Specs extends React.Component {
 
 
   handleBackClick() {
-    // TEMP
-    // suite.meta.thisContext.indexViewMode("specs");
-    this.props.suite.meta.thisContext.indexViewMode("suites");
+    api.indexMode("tree");
   }
 
   render() {
@@ -37,6 +36,7 @@ export default class Specs extends React.Component {
     return (
       <div style={ styles.base }>
         <div style={ styles.backButton } onClick={ this.handleBackClick.bind(this) }/>
+        Specs
       </div>
     );
   }

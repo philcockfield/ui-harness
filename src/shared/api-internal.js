@@ -5,12 +5,23 @@ import * as util from "js-util";
 import bdd from "./bdd";
 
 
+
 /**
  * The API used internally by the UIHarness components.
  */
 class ApiInternal {
   constructor() {
     this.current = Immutable.Map();
+  }
+
+
+  /**
+   * Resets the internal API.
+   * Used for testing.
+   */
+  reset() {
+    this.current = this.current.clear();
+    this.clearLocalStorage();
   }
 
 
@@ -48,13 +59,14 @@ class ApiInternal {
   loadSuite(suite, { storeAsLastSuite = true } = {}) {
     // Setup initial conditions.
     if (!suite) { return this; }
-    if (this.current.get('suite') === suite) { return this; }
+    if (this.current.get("suite") === suite) { return this; }
 
     // Only load the suite if it does not have children
     // ie. is not a container/folder suite.
     if (suite.childSuites.length === 0) {
       let current = suite.meta.thisContext.toValues();
       current.suite = suite;
+      current.indexMode = this.indexMode();
       this.setCurrent(current);
       if (storeAsLastSuite) { this.lastSelectedSuite(suite); }
     }
@@ -68,10 +80,23 @@ class ApiInternal {
    */
   lastSelectedSuite(suite) {
     if (suite) { suite = suite.id; }
-    const result = this.localStorage('lastSelectedSuite', suite);
+    const result = this.localStorage("lastSelectedSuite", suite);
     return bdd.suites[result];
   }
 
+
+  /**
+   * Gets or sets the display mode of the left-hand index.
+   * @param {string} mode: tree|suite
+   */
+  indexMode(mode) {
+    let result = this.localStorage("indexMode", mode, { default: "tree" });
+    if (mode !== undefined) {
+      // WRITE (store in current state).
+      this.setCurrent({ indexMode:mode });
+    }
+    return result;
+  }
 
 
   /**
@@ -106,7 +131,19 @@ class ApiInternal {
    * @return the read value.
    */
   localStorage(key, value, options) {
-    return util.localStorage.prop(`uih-${ key }`, value, options);
+    return util.localStorage.prop(`ui-harness:${ key }`, value, options);
+  }
+
+
+  /**
+   * Removes all ui-harness values stored in local-storage.
+   */
+  clearLocalStorage() {
+    util.localStorage.keys().forEach(key => {
+        if (_.startsWith(key, "ui-harness:")) {
+          util.localStorage.prop(key, null); // Remove.
+        }
+      });
   }
 }
 

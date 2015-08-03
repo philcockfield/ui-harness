@@ -16,12 +16,12 @@ import Specs from "./Specs";
 export default class IndexColumn extends React.Component {
   styles() {
     const { current, width } = this.props;
-    const MODE = current.get("indexViewMode");
+    const MODE = current.get("indexMode") || "tree";
 
     // Calculate slide position of panels.
     if (MODE && width) {
-      var suitesLeft = MODE === 'suites' ? 0 : (0 - width)
-      var specsLeft = MODE === 'specs' ? 0 : width
+      var suitesLeft = MODE === "tree" ? 0 : (0 - width)
+      var specsLeft = MODE === "suite" ? 0 : width
     }
 
     return css({
@@ -50,7 +50,6 @@ export default class IndexColumn extends React.Component {
   render() {
     const styles = this.styles();
     const { current, width } = this.props;
-    const indexViewMode = current.get("indexViewMode");
     const currentSuite = current.get("suite");
 
     return (

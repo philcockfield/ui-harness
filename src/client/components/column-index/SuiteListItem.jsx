@@ -136,13 +136,15 @@ export default class SuiteListItem extends React.Component {
 
 
   handleClick(e) {
+      console.log("click", e);
+
       if (this.hasChildren()) {
         this.toggle();
       } else {
         const { suite } = this.props;
         if (this.isCurrent()) {
-          // Slide to the "Specs" view.
-          suite.meta.thisContext.indexViewMode("specs"); // TEMP
+          // Slide to the "Suite" view.
+          api.indexMode("suite");
         } else {
           // Load the suite.
           api.loadSuite(suite);
@@ -185,9 +187,7 @@ export default class SuiteListItem extends React.Component {
     }
 
     return (
-      <li style={[ styles.base ]}
-          >
-
+      <li style={[ styles.base ]}>
         {/* Item content */}
         <div style={[ styles.content, isSelected && styles.contentSelected ]}
              onMouseDown={ this.handleClick.bind(this) }

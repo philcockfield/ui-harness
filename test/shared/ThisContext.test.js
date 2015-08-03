@@ -45,17 +45,5 @@ describe("ThisContext", () => {
       expect(context.title()).to.equal("my-title");
       expect(context.subtitle()).to.equal("my-subtitle");
     });
-
-
-    describe("indexViewMode", () => {
-      it("shows the 'suites' tree by default", () => {
-        expect(context.indexViewMode()).to.equal("suites");
-      });
-
-      it("shows specs", () => {
-        context.indexViewMode("specs")
-        expect(context.indexViewMode()).to.equal("specs");
-      });
-    });
   });
 });

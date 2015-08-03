@@ -5,7 +5,6 @@ const PROP = Symbol("Prop");
 const FIELD_KEYS = [
   "title",
   "subtitle",
-  "indexViewMode"
 ];
 
 
@@ -61,11 +60,4 @@ export default class UIHarnessContext {
    * Gets or sets the sub-title.
    */
   subtitle(value) { return this[PROP]("subtitle", value); }
-
-
-  /**
-   * Gets or sets the index-view mode.
-   */
-  indexViewMode(value) { return this[PROP]("indexViewMode", value, { default: "suites" }); }
-
 }
