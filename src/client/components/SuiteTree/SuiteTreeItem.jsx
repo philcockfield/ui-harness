@@ -16,7 +16,7 @@ const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
  * An <LI> that renders a single [Suite] list item.
  */
 @Radium
-export default class SuiteListItem extends React.Component {
+export default class SuiteTreeItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isOpen:false, isMounted:false };
@@ -173,7 +173,7 @@ export default class SuiteListItem extends React.Component {
     let childItems;
     if (isOpen && hasChildren) {
       childItems = suite.childSuites.map((suite, i) => {
-            return <SuiteListItem key={i}
+            return <SuiteTreeItem key={i}
                       suite={ suite }
                       index={i}
                       total={ totalChildSuites }
@@ -208,7 +208,7 @@ export default class SuiteListItem extends React.Component {
 }
 
 // API -------------------------------------------------------------------------
-SuiteListItem.propTypes = {
+SuiteTreeItem.propTypes = {
   suite: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
   total: React.PropTypes.number.isRequired,
@@ -218,7 +218,7 @@ SuiteListItem.propTypes = {
   onOverSuite: React.PropTypes.func.isRequired,
   width: React.PropTypes.number.isRequired
 };
-SuiteListItem.defaultProps = {
+SuiteTreeItem.defaultProps = {
   isRoot: false,
   level: 0
 };

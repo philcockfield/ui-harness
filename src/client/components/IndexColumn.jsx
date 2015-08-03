@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 
 import { css } from "js-util/react";
-import api from "../../../shared/api-internal";
+import api from "../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 import Suite from "./Suite";
 
@@ -44,8 +44,8 @@ export default class IndexColumn extends React.Component {
 
     // Calculate slide position of panels.
     if (indexMode && width) {
-      var suitesLeft = indexMode === "tree" ? 0 : (0 - width)
-      var specsLeft = indexMode === "suite" ? 0 : width
+      var suiteTreeLeft = indexMode === "tree" ? 0 : (0 - width);
+      var suiteLeft = indexMode === "suite" ? 0 : width;
     }
 
     return css({
@@ -61,12 +61,12 @@ export default class IndexColumn extends React.Component {
       suiteTree: {
         position: "absolute", top: 0, bottom: 0,
         width: "100%",
-        left: suitesLeft
+        left: suiteTreeLeft
       },
       specs: {
         position: "absolute", top: 0, bottom: 0,
         width: "100%",
-        left: specsLeft,
+        left: suiteLeft,
       }
     });
   }

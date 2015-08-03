@@ -1,9 +1,9 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import Main from "./column-main/Main";
-import IndexColumn from "./column-index/IndexColumn";
-import PropTypesColumn from "./column-props/PropTypesColumn";
+import Main from "./Main";
+import IndexColumn from "./IndexColumn";
+import PropTypesColumn from "./PropTypesColumn";
 import { css } from "js-util/react";
 
 const COLUMN_MARGIN = 8;

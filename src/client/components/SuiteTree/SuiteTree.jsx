@@ -3,7 +3,7 @@ import React from "react";
 import Radium from "radium";
 import api from "../../../shared/api-internal";
 import bdd from "../../../shared/bdd";
-import SuiteListItem from "./SuiteListItem";
+import SuiteTreeItem from "./SuiteTreeItem";
 import { Ul } from "../shared";
 import { css } from "js-util/react";
 
@@ -57,7 +57,7 @@ export default class SuiteTree extends React.Component {
     // Filter on root suites.
     const suites = bdd.rootSuites()
     const items = suites.map((suite, i) => {
-        return <SuiteListItem
+        return <SuiteTreeItem
                   key={i}
                   suite={ suite }
                   index={i}
