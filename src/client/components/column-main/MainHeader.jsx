@@ -3,6 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
 import { FONT_FAMILY } from "../../const";
+import FormattedText from "../shared/FormattedText";
 
 
 /**
@@ -40,7 +41,6 @@ export default class MainHeader extends React.Component {
         borderBottomStyle: "solid",
         borderBottomWidth: '1px',
         marginTop: 10
-
       }
     };
   }
@@ -48,8 +48,8 @@ export default class MainHeader extends React.Component {
   render() {
     const styles = this.styles();
     const { current } = this.props;
-    let title = current.get("title");
-    let subtitle = current.get("subtitle");
+    let title = <FormattedText>{ current.get("title") }</FormattedText>;
+    let subtitle = <FormattedText>{ current.get("subtitle") }</FormattedText>;
 
     return (
       <div style={ styles.base }>

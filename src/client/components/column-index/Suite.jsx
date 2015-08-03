@@ -26,7 +26,6 @@ export default class Suite extends React.Component {
     });
   }
 
-
   handleBackClick() { api.indexMode("tree"); }
 
   handleKeyDown(e) {
