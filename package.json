@@ -49,7 +49,8 @@
     "testing",
     "react",
     "modular",
-    "design"
+    "design",
+    "react-component"
   ],
   "author": "Phil Cockfield",
   "license": "MIT",
