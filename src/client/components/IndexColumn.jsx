@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 
-import { css } from "js-util/react";
+import { css, PropTypes } from "js-util/react";
 import api from "../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 import Suite from "./Suite";

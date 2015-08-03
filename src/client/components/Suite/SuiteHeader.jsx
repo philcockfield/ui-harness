@@ -2,46 +2,39 @@ import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
 import api from "../../../shared/api-internal";
-import SuiteHeader from "./SuiteHeader";
+import Icon from "../shared/Icon";
 
 
 /**
- * The index-column view a [Suite]'s set of specs.
+ * The header bar for the [Suite] index column.
  */
 @Radium
-export default class Suite extends React.Component {
+export default class SuiteHeader extends React.Component {
   styles() {
     return css({
       base: {
-        position: "absolute", left: 0, top: 0, right: 0, bottom: 0,
         background: "rgba(255, 0, 0, 0.1)", //RED
       }
     });
   }
 
-
-  handleKeyDown(e) {
-    switch (e.which) {
-      case 37: // LEFT.
-        api.indexMode("tree");
-        break;
-    }
+  handleMenuClick(e) {
+    api.indexMode("tree");
   }
-
 
   render() {
     const styles = this.styles();
-    let { suite } = this.props;
     return (
       <div style={ styles.base }>
-        <SuiteHeader suite={ suite }/>
+        <Icon name="suiteBook" onClick={ this.handleMenuClick.bind(this) }/>
+
       </div>
     );
   }
 }
 
 // API -------------------------------------------------------------------------
-Suite.propTypes = {
+SuiteHeader.propTypes = {
   suite: PropTypes.object.isRequired
 };
-Suite.defaultProps = {};
+SuiteHeader.defaultProps = {};

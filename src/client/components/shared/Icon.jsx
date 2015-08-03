@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import Radium from "radium";
-import { css } from "js-util/react";
+import { css, PropTypes } from "js-util/react";
 import { ICONS } from "../../../images";
 
 
@@ -29,16 +29,28 @@ export default class Icon extends React.Component {
     return css({ base: base });
   }
 
+
+  handleClick(e) {
+    const handler = this.props.onClick;
+    if (_.isFunction(handler)) { handler(e); }
+  }
+
+
   render() {
-    return (<div style={ this.styles().base }/>);
+    return (
+      <div
+        style={ this.styles().base }
+        onClick={ this.handleClick.bind(this) }/>
+    );
   }
 }
 
 // API -------------------------------------------------------------------------
 Icon.propTypes = {
-  name: React.PropTypes.oneOf(_.keys(ICONS)).isRequired,
-  absolute: React.PropTypes.string,
-  opacity: React.PropTypes.number
+  name: PropTypes.oneOf(_.keys(ICONS)).isRequired,
+  absolute: PropTypes.string,
+  opacity: PropTypes.number,
+  onClick: PropTypes.func,
 };
 Icon.defaultProps = {
   opacity: 1

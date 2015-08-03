@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import { css } from "js-util/react";
+import { css, PropTypes } from "js-util/react";
 import { formatText } from "../../../shared/util";
 
 

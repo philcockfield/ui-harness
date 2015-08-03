@@ -4,7 +4,7 @@ import Immutable from "immutable";
 import Main from "./Main";
 import IndexColumn from "./IndexColumn";
 import PropTypesColumn from "./PropTypesColumn";
-import { css } from "js-util/react";
+import { css, PropTypes } from "js-util/react";
 
 const COLUMN_MARGIN = 6;
 

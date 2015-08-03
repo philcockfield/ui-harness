@@ -5,7 +5,7 @@ import api from "../../../shared/api-internal";
 import bdd from "../../../shared/bdd";
 import SuiteTreeItem from "./SuiteTreeItem";
 import { Ul } from "../shared";
-import { css } from "js-util/react";
+import { css, PropTypes } from "js-util/react";
 
 
 /**
