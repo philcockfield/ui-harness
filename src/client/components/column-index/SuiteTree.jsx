@@ -13,13 +13,19 @@ import { css } from "js-util/react";
  */
 @Radium
 export default class SuiteTree extends React.Component {
-  componentWillMount() {
-    document.addEventListener ("keydown", this.handleKeyDown.bind(this));
+  styles() {
+    return css({
+      base: {
+        userSelect: "none",
+        position: "absolute", left: 0, top: 0, right:0, bottom: 0
+      }
+    });
   }
 
-
+  handleOverSuite(e) { this.mouseOverItem = e; }
+  handleMouseLeave() { this.mouseOverItem = null; }
   handleKeyDown(e) {
-    const keyCode = e.which;
+    const { selectedSuite } = this.props;
     const item = this.mouseOverItem;
     const suite = item ? item.suite : null;
     if (item) {
@@ -30,7 +36,11 @@ export default class SuiteTree extends React.Component {
 
         case 39: // RIGHT.
           if (suite) {
-            api.loadSuite(suite);
+            if (selectedSuite && selectedSuite.id === suite.id) {
+              api.indexMode("suite"); // Drill into already loaded suite.
+            } else {
+              api.loadSuite(suite); // Load the new suite.
+            }
           } else {
             item.toggle(true);
           }
@@ -38,20 +48,6 @@ export default class SuiteTree extends React.Component {
       }
     }
   }
-
-
-  styles() {
-    return css({
-      base: {
-        userSelect: "none",
-        position: "absolute", left: 0, top: 0, right:0, bottom: 0
-      }
-    });
-  }
-
-
-  handleOverSuite(e) { this.mouseOverItem = e; }
-  handleMouseLeave() { this.mouseOverItem = null; }
 
 
   render() {

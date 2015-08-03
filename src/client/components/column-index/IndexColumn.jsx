@@ -14,14 +14,38 @@ import Suite from "./Suite";
  */
 @Radium
 export default class IndexColumn extends React.Component {
+  componentWillMount() {
+    document.addEventListener ("keydown", this.handleKeyDown.bind(this));
+  }
+
+
+  handleKeyDown(e) {
+    if (this.isOver) {
+      // Alert child components of the key-event.
+      switch (this.indexMode()) {
+        case "tree":
+          this.refs.suiteTree.handleKeyDown(e);
+          break;
+
+        case "suite":
+          this.refs.suite.handleKeyDown(e);
+          break;
+      }
+    }
+  }
+
+
+  indexMode() { return api.indexMode() || "tree"; }
+
+
   styles() {
     const { current, width } = this.props;
-    const MODE = current.get("indexMode") || "tree";
+    const indexMode = this.indexMode();
 
     // Calculate slide position of panels.
-    if (MODE && width) {
-      var suitesLeft = MODE === "tree" ? 0 : (0 - width)
-      var specsLeft = MODE === "suite" ? 0 : width
+    if (indexMode && width) {
+      var suitesLeft = indexMode === "tree" ? 0 : (0 - width)
+      var specsLeft = indexMode === "suite" ? 0 : width
     }
 
     return css({
@@ -47,19 +71,28 @@ export default class IndexColumn extends React.Component {
     });
   }
 
+
+  handleMouseEnter() { this.isOver = true; }
+  handleMouseLeave() { this.isOver = false; }
+
+
   render() {
     const styles = this.styles();
     const { current, width } = this.props;
     const currentSuite = current.get("suite");
 
     return (
-      <div style={ styles.base }>
+      <div style={ styles.base }
+           onMouseEnter={ this.handleMouseEnter.bind(this) }
+           onMouseLeave={ this.handleMouseLeave.bind(this) }>
+
         <div style={[ styles.outer, styles.suiteTree ]}>
-          <SuiteTree selectedSuite={ currentSuite } width={ width } />
+          <SuiteTree ref="suiteTree" selectedSuite={ currentSuite } width={ width } />
         </div>
         <div style={[ styles.outer, styles.specs ]}>
-          { currentSuite ? <Suite suite={ currentSuite } /> : null }
+          { currentSuite ? <Suite ref="suite" suite={ currentSuite } /> : null }
         </div>
+
       </div>
     );
   }
