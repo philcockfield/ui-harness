@@ -3,13 +3,11 @@ import * as util from "../../src/shared/util";
 
 
 describe("util", () => {
-
-  describe.only("formatText", () => {
+  describe("formatText", () => {
     it("returns nothing", () => {
       expect(util.formatText()).to.equal(undefined);
       expect(util.formatText(null)).to.equal(null);
       expect(util.formatText("")).to.equal("");
     });
   });
-
 });

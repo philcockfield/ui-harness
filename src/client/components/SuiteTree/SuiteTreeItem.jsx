@@ -5,8 +5,7 @@ import { css } from "js-util/react";
 import Color from "color";
 import api from "../../../shared/api-internal";
 import { Ul, Twisty, Center } from "../shared";
-import suiteIconSvg1x from "../../../images/suite-icon.png";
-import suiteIconSvg2x from "../../../images/suite-icon@2x.png";
+import Icon from "../shared/Icon";
 
 const TEXT_COLOR = Color("white").darken(0.6).hexString();
 const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
@@ -19,7 +18,7 @@ const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
 export default class SuiteTreeItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen:false, isMounted:false };
+    this.state = { isOpen:false, isOver:false, isMounted:false };
   }
 
 
@@ -40,28 +39,30 @@ export default class SuiteTreeItem extends React.Component {
 
   styles() {
     const { index, total, isRoot, level, width } = this.props;
+    const isSelected = this.isSelected();
     const isFirst = (index === 0);
     const isLast = (index === total - 1);
     const hasChildren = this.hasChildren();
 
+    // Calculate width and indent.
     let indent = 0;
     if (level > 0) { indent = 15 * level; }
+    const CONTENT_WIDTH = (width ? (width - (indent + 27)) : ""); // Set so that ellipsis show.
+    const TITLE_WIDTH = this.isSelected() ? CONTENT_WIDTH - 18 : CONTENT_WIDTH - 5;
 
     return css({
       base: {
         borderTop: ((isRoot && isFirst) ? "none" : "solid 1px rgba(0, 0, 0, 0.04)"),
-        boxSizing: "border-box"
+        boxSizing: "border-box",
       },
       content: {
         position: "relative",
-        width: (width ? (width - (indent + 27)) : ""), // Set to that ellipsis show.
+        width: CONTENT_WIDTH,
         fontSize: 14,
         lineHeight: '36px',
         color: TEXT_COLOR,
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
         paddingLeft: (27 + indent),
+        marginRight: 120,
         ":hover": {
           background: util.color.fromAlpha(-0.02),
           cursor: "pointer"
@@ -72,11 +73,16 @@ export default class SuiteTreeItem extends React.Component {
         ":hover": {
           // NB: Selected item does not present "hover" style.
           background: SELECTED_BG_COLOR,
-          cursor: "default"
         }
       },
       title: {
-        paddingLeft: 3
+        position: "relative",
+        display: "inline-block",
+        paddingLeft: 3,
+        width: TITLE_WIDTH,
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
       },
       iconOuter: {
         boxSizing: "border-box",
@@ -87,10 +93,6 @@ export default class SuiteTreeItem extends React.Component {
         paddingTop: (hasChildren ? 5 : 2),
         width: 20,
         height: 20,
-      },
-      suiteIcon: {
-        position: "relative",
-        Image: [ suiteIconSvg1x, suiteIconSvg2x, 13, 17 ]
       }
     });
   }
@@ -141,15 +143,12 @@ export default class SuiteTreeItem extends React.Component {
       } else {
         const { suite } = this.props;
         if (this.isCurrent()) {
-          // Slide to the "Suite" view.
-          api.indexMode("suite");
+          api.indexMode("suite"); // Slide to the "Suite" view.
         } else {
-          // Load the suite.
-          api.loadSuite(suite);
+          api.loadSuite(suite); // Load the suite.
         }
       }
   }
-
 
   handleMouseEnter() {
       // Alert parent that the mouse is over the [Suite].
@@ -158,16 +157,32 @@ export default class SuiteTreeItem extends React.Component {
         suite: (this.hasChildren() ? null : suite),
         toggle: (isOpen) => { this.toggle(isOpen); }
       });
+      this.setState({ isOver: true });
+  }
+
+  handleMouseLeave() {
+      this.setState({ isOver: false });
   }
 
 
   render() {
     const styles = this.styles();
     const { suite, index, total, level, selectedSuite, onOverSuite, width } = this.props;
-    const { isOpen, isMounted } = this.state;
+    const { isOpen, isMounted, isOver } = this.state;
     const totalChildSuites = suite.childSuites.length;
     const hasChildren = totalChildSuites > 0;
     const isSelected = this.isSelected()
+
+    // Preare selected chrevron pointer.
+    let chrevronIcon;
+    if (isSelected) {
+      const iconName = isOver ? "chevronRightBlue" : "chevronRight";
+      const opacity = isOver ? 1 : 0.3;
+      chrevronIcon = <Icon
+                        name={ iconName }
+                        absolute="11 5 null null"
+                        opacity={ opacity }/>;
+    }
 
     // Prepare a list of child-suites if they exist.
     let childItems;
@@ -189,15 +204,19 @@ export default class SuiteTreeItem extends React.Component {
         {/* Item content */}
         <div style={[ styles.content, isSelected && styles.contentSelected ]}
              onMouseDown={ this.handleClick.bind(this) }
-             onMouseEnter={ this.handleMouseEnter.bind(this) }>
+             onMouseEnter={ this.handleMouseEnter.bind(this) }
+             onMouseLeave={ this.handleMouseLeave.bind(this) }>
+
           <div style={ styles.iconOuter }>
               {
                 hasChildren
                   ? <Twisty isOpen={ isOpen } isAnimated={ isMounted }/>
-                  : <div style={ styles.suiteIcon }/>
+                  : <Icon name="suiteBook"/>
               }
           </div>
-          <span style={ styles.title }>{ suite.name }</span>
+          <div style={ styles.title }>{ suite.name }</div>
+          { chrevronIcon }
+
         </div>
 
         {/* Child suites (RECURSION) */}

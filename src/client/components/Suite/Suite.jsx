@@ -17,11 +17,11 @@ export default class Suite extends React.Component {
         // background: "rgba(255, 0, 0, 0.1)", //RED
       },
       backButton: {
-        position: "absolute", left: 10, top: 10,
+        position: "absolute", left: 10, top: 0,
         width: 30,
         height: 30,
         cursor: "pointer",
-        // background: "rgba(255, 0, 0, 0.1)", //RED
+        background: "rgba(255, 0, 0, 0.1)", //RED
       }
     });
   }
