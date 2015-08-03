@@ -5,7 +5,7 @@ import Immutable from "immutable";
 import { css } from "js-util/react";
 import api from "../../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
-import Specs from "./Specs";
+import Suite from "./Suite";
 
 
 
@@ -58,7 +58,7 @@ export default class IndexColumn extends React.Component {
           <SuiteTree selectedSuite={ currentSuite } width={ width } />
         </div>
         <div style={[ styles.outer, styles.specs ]}>
-          { currentSuite ? <Specs suite={ currentSuite } /> : null }
+          { currentSuite ? <Suite suite={ currentSuite } /> : null }
         </div>
       </div>
     );

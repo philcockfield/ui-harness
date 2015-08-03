@@ -6,10 +6,10 @@ import api from "../../../shared/api-internal";
 
 
 /**
- * The index view of specs.
+ * The index-column view a [Suite]'s set of specs.
  */
 @Radium
-export default class Specs extends React.Component {
+export default class Suite extends React.Component {
   styles() {
     return css({
       base: {
@@ -36,14 +36,14 @@ export default class Specs extends React.Component {
     return (
       <div style={ styles.base }>
         <div style={ styles.backButton } onClick={ this.handleBackClick.bind(this) }/>
-        Specs
+        Suite
       </div>
     );
   }
 }
 
 // API -------------------------------------------------------------------------
-Specs.propTypes = {
+Suite.propTypes = {
   suite: React.PropTypes.object.isRequired,
 };
-Specs.defaultProps = {};
+Suite.defaultProps = {};

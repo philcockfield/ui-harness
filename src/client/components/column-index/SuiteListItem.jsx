@@ -136,8 +136,6 @@ export default class SuiteListItem extends React.Component {
 
 
   handleClick(e) {
-      console.log("click", e);
-
       if (this.hasChildren()) {
         this.toggle();
       } else {
