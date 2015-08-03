@@ -5,7 +5,7 @@ import { css, PropTypes } from "js-util/react";
 import Color from "color";
 import api from "../../../shared/api-internal";
 import { Ul, Twisty, Center } from "../shared";
-import Icon from "../shared/Icon";
+import IconImage from "../shared/IconImage";
 
 const TEXT_COLOR = Color("white").darken(0.6).hexString();
 const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
@@ -178,7 +178,7 @@ export default class SuiteTreeItem extends React.Component {
     if (isSelected) {
       const iconName = isOver ? "chevronRightBlue" : "chevronRight";
       const opacity = isOver ? 1 : 0.3;
-      chrevronIcon = <Icon
+      chrevronIcon = <IconImage
                         name={ iconName }
                         absolute="11 5 null null"
                         opacity={ opacity }/>;
@@ -211,7 +211,7 @@ export default class SuiteTreeItem extends React.Component {
               {
                 hasChildren
                   ? <Twisty isOpen={ isOpen } isAnimated={ isMounted }/>
-                  : <Icon name="suiteBook"/>
+                  : <IconImage name="suiteBook"/>
               }
           </div>
           <div style={ styles.title }>{ suite.name }</div>

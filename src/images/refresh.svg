@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>refresh</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Icons" sketch:type="MSArtboardGroup" transform="translate(-576.000000, -58.000000)" fill="#000000">
+            <path d="M590.56659,60.4211016 C589.11659,58.9711016 587.12659,58.0711016 584.91659,58.0711016 C580.49659,58.0711016 576.92659,61.6511016 576.92659,66.0711016 C576.92659,70.4911016 580.49659,74.0711016 584.91659,74.0711016 C588.64659,74.0711016 591.75659,71.5211016 592.64659,68.0711016 L590.56659,68.0711016 C589.74659,70.4011016 587.52659,72.0711016 584.91659,72.0711016 C581.60659,72.0711016 578.91659,69.3811016 578.91659,66.0711016 C578.91659,62.7611016 581.60659,60.0711016 584.91659,60.0711016 C586.57659,60.0711016 588.05659,60.7611016 589.13659,61.8511016 L585.91659,65.0711016 L592.91659,65.0711016 L592.91659,58.0711016 L590.56659,60.4211016 L590.56659,60.4211016 Z" id="refresh" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

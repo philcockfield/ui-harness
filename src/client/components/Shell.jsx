@@ -6,7 +6,7 @@ import IndexColumn from "./IndexColumn";
 import PropTypesColumn from "./PropTypesColumn";
 import { css, PropTypes } from "js-util/react";
 
-const COLUMN_MARGIN = 6;
+const COLUMN_MARGIN = 4;
 
 
 /*

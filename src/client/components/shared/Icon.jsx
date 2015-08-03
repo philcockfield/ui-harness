@@ -1,21 +1,31 @@
-import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
+import IconImage from "./IconImage";
 import { ICONS } from "../../../images";
+
+const OFFSET = {
+  menu: { x:3, y:6 },
+  refresh: { x:4, y:4 }
+};
+
 
 
 
 /**
- * An icon of the system.
+ * Represents a standard sized icon.
  */
 @Radium
 export default class Icon extends React.Component {
   styles() {
-    const icon = ICONS[this.props.name];
+    const offset = OFFSET[this.props.name] || {};
     let base = {
-      Image: [ icon["1x"], icon["2x"], icon.width, icon.height ],
-      opacity: this.props.opacity
+      textAlign: "left",
+      boxSizing: "border-box",
+      width: 24,
+      height: 24,
+      paddingLeft: offset.x,
+      paddingTop: offset.y
     };
 
     // An "absolute" position may have been passed in (optional).
@@ -25,7 +35,6 @@ export default class Icon extends React.Component {
       base.position = "relative";
       base.display = "inline-block";
     }
-
     return css({ base: base });
   }
 
@@ -37,20 +46,25 @@ export default class Icon extends React.Component {
 
 
   render() {
+    const styles = this.styles();
+    let { opacity } = this.props;
+
     return (
       <div
-        style={ this.styles().base }
-        onClick={ this.handleClick.bind(this) }/>
+        style={ styles.base }
+        onClick={ this.handleClick.bind(this) }>
+        <IconImage name={ this.props.name } opacity={ opacity }/>
+      </div>
     );
   }
 }
 
 // API -------------------------------------------------------------------------
 Icon.propTypes = {
-  name: PropTypes.oneOf(_.keys(ICONS)).isRequired,
-  absolute: PropTypes.string,
-  opacity: PropTypes.number,
+  name: IconImage.propTypes.name,
   onClick: PropTypes.func,
+  opacity: PropTypes.number,
+  absolute: PropTypes.string,
 };
 Icon.defaultProps = {
   opacity: 1

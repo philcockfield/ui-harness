@@ -6,8 +6,7 @@ import { css, PropTypes } from "js-util/react";
 import api from "../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 import Suite from "./Suite";
-
-
+import { FONT_FAMILY } from "../const";
 
 /**
  * The index column.
@@ -53,7 +52,8 @@ export default class IndexColumn extends React.Component {
         Absolute: 0,
         overflowY: "auto",
         overflowX: "hidden",
-        paddingTop: 3
+        paddingTop: 3,
+        fontFamily: FONT_FAMILY
       },
       outer: {
         transition: "left 0.15s"
