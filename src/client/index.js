@@ -1,6 +1,6 @@
 import React from "react";
 import * as util from "js-util";
-import api from "../shared/api-internal";
+import api from "../shared/api";
 import Shell from "./components/Shell";
 
 // Render the <Shell> into the DOM.

@@ -3,7 +3,7 @@ import Radium from "radium";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { FormattedText, Ellipsis, Twisty } from "../shared";
-import api from "../../../shared/api-internal";
+import api from "../../../shared/api";
 import SpecList from "./SpecList";
 
 

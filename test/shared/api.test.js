@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { expect } from "chai";
-import api from "../../src/shared/api-internal";
+import api from "../../src/shared/api";
 import bdd from "../../src/shared/bdd";
 import Immutable from "immutable";
 import * as util from "js-util";

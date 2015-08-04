@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import Radium from "radium";
-import api from "../../../shared/api-internal";
+import api from "../../../shared/api";
 import bdd from "../../../shared/bdd";
 import SuiteTreeItem from "./SuiteTreeItem";
 import { Ul } from "../shared";

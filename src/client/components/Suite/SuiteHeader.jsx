@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import * as util from "js-util";
 import { css, PropTypes } from "js-util/react";
-import api from "../../../shared/api-internal";
+import api from "../../../shared/api";
 import Icon from "../shared/Icon";
 import Color from "color";
 import { FormattedText, Ellipsis } from "../shared";

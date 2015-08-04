@@ -1,5 +1,5 @@
 import _ from "lodash";
-import api from "./api-internal";
+import api from "./api";
 
 const PROP = Symbol("Prop");
 const FIELD_KEYS = [

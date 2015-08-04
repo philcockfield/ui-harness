@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import ThisContext from "../../src/shared/ThisContext";
 import bdd from "../../src/shared/bdd";
-import api from "../../src/shared/api-internal";
+import api from "../../src/shared/api";
 
 
 describe("ThisContext", () => {

@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import api from "../../../shared/api-internal";
+import api from "../../../shared/api";
 import SuiteHeader from "./SuiteHeader";
 import SpecList from "./SpecList";
 import Section from "./Section";
