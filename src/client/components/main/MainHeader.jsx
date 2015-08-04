@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
 import { FONT_FAMILY } from "../../const";
-import FormattedText from "../shared/FormattedText";
+import { FormattedText } from "../shared";
 
 
 /**

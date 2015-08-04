@@ -25,7 +25,8 @@ export default class Icon extends React.Component {
       width: 24,
       height: 24,
       paddingLeft: offset.x,
-      paddingTop: offset.y
+      paddingTop: offset.y,
+      cursor: this.props.cursor
     };
 
     // An "absolute" position may have been passed in (optional).
@@ -65,7 +66,9 @@ Icon.propTypes = {
   onClick: PropTypes.func,
   opacity: PropTypes.number,
   absolute: PropTypes.string,
+  cursor: PropTypes.string,
 };
 Icon.defaultProps = {
-  opacity: 1
+  opacity: 1,
+  cursor: "default"
 };

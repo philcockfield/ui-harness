@@ -4,8 +4,9 @@ import * as util from "js-util";
 import { css, PropTypes } from "js-util/react";
 import Color from "color";
 import api from "../../../shared/api-internal";
-import { Ul, Twisty, Center } from "../shared";
+import { Ul, Twisty, Center, Ellipsis } from "../shared";
 import IconImage from "../shared/IconImage";
+
 
 const TEXT_COLOR = Color("white").darken(0.6).hexString();
 const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
@@ -36,6 +37,18 @@ export default class SuiteTreeItem extends React.Component {
   }
 
 
+  widths() {
+    const { level, width } = this.props;
+    let indent = 0;
+    if (level > 0) { indent = 15 * level; }
+    const content = (width ? (width - (indent + 27)) : ""); // Set so that ellipsis show.
+    return {
+      indent,
+      content,
+      title: this.isSelected() ? content - 18 : content - 5
+    };
+  }
+
 
   styles() {
     const { index, total, isRoot, level, width } = this.props;
@@ -43,12 +56,7 @@ export default class SuiteTreeItem extends React.Component {
     const isFirst = (index === 0);
     const isLast = (index === total - 1);
     const hasChildren = this.hasChildren();
-
-    // Calculate width and indent.
-    let indent = 0;
-    if (level > 0) { indent = 15 * level; }
-    const CONTENT_WIDTH = (width ? (width - (indent + 27)) : ""); // Set so that ellipsis show.
-    const TITLE_WIDTH = this.isSelected() ? CONTENT_WIDTH - 18 : CONTENT_WIDTH - 5;
+    const widths = this.widths();
 
     return css({
       base: {
@@ -57,11 +65,11 @@ export default class SuiteTreeItem extends React.Component {
       },
       content: {
         position: "relative",
-        width: CONTENT_WIDTH,
+        width: widths.content,
         fontSize: 14,
         lineHeight: '36px',
         color: TEXT_COLOR,
-        paddingLeft: (27 + indent),
+        paddingLeft: (27 + widths.indent),
         marginRight: 120,
         ":hover": {
           background: util.color.fromAlpha(-0.02),
@@ -79,15 +87,11 @@ export default class SuiteTreeItem extends React.Component {
         position: "relative",
         display: "inline-block",
         paddingLeft: 3,
-        width: TITLE_WIDTH,
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
       },
       iconOuter: {
         boxSizing: "border-box",
         position: "absolute",
-        left: 7 + indent,
+        left: 7 + widths.indent,
         top: 8,
         paddingLeft: (hasChildren ? 7 : 4),
         paddingTop: (hasChildren ? 5 : 2),
@@ -171,7 +175,8 @@ export default class SuiteTreeItem extends React.Component {
     const { isOpen, isMounted, isOver } = this.state;
     const totalChildSuites = suite.childSuites.length;
     const hasChildren = totalChildSuites > 0;
-    const isSelected = this.isSelected()
+    const isSelected = this.isSelected();
+    const widths = this.widths();
 
     // Preare selected chrevron pointer.
     let chrevronIcon;
@@ -214,7 +219,9 @@ export default class SuiteTreeItem extends React.Component {
                   : <IconImage name="suiteBook"/>
               }
           </div>
-          <div style={ styles.title }>{ suite.name }</div>
+          <div style={ styles.title }>
+            <Ellipsis width={ widths.title }>{ suite.name }</Ellipsis>
+          </div>
           { chrevronIcon }
 
         </div>

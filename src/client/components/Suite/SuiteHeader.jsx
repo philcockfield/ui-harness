@@ -5,7 +5,7 @@ import { css, PropTypes } from "js-util/react";
 import api from "../../../shared/api-internal";
 import Icon from "../shared/Icon";
 import Color from "color";
-import FormattedText from "../shared/FormattedText";
+import { FormattedText, Ellipsis } from "../shared";
 
 /**
  * The header bar for the [Suite] index column.
@@ -25,7 +25,11 @@ export default class SuiteHeader extends React.Component {
         lineHeight: "24px",
         // marginTop: 2,
         paddingBottom: 10,
-        borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`
+        borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`,
+        paddingLeft: 35,
+        paddingRight: 30,
+        userSelect: "none",
+        cursor: "default"
       }
     });
   }
@@ -34,26 +38,34 @@ export default class SuiteHeader extends React.Component {
     api.indexMode("tree");
   }
 
+  handleRefreshClick(e) {
+    console.log("REFRESH"); // TEMP
+  }
+
   render() {
     const styles = this.styles();
     let { suite } = this.props;
+    let title = suite.name;
+
     return (
       <div style={ styles.base }>
         <Icon
             name="menu"
             absolute="0 null null 6"
             onClick={ this.handleMenuClick.bind(this) }
-            opacity={ 0.4 }/>
+            opacity={ 0.4 }
+            cursor="pointer"/>
 
-          <div>
-            <FormattedText>{ suite.name }</FormattedText>
-          </div>
+          <Ellipsis display="block">
+            <FormattedText>{ title }</FormattedText>
+          </Ellipsis>
 
         <Icon
             name="refresh"
             absolute="0 6 null null"
-            onClick={ this.handleMenuClick.bind(this) }
-            opacity={ 0.4 }/>
+            onClick={ this.handleRefreshClick.bind(this) }
+            opacity={ 0.4 }
+            cursor="pointer"/>
 
       </div>
     );
