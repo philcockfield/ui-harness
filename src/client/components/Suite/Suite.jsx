@@ -19,7 +19,7 @@ export default class Suite extends React.Component {
         Absolute: 0,
       },
       listOuter: {
-        Absolute: "35 0 0 0",
+        Absolute: "33 0 0 0",
         paddingTop: 6,
         overflow: "hidden",
         overflowY: "auto"

@@ -51,14 +51,13 @@ export default class IndexColumn extends React.Component {
       base: {
         Absolute: 0,
         overflow: "hidden",
-        paddingTop: 3,
         fontFamily: FONT_FAMILY
       },
       outer: {
         transition: "transform 0.15s"
       },
       suiteTree: {
-        position: "absolute", top: 0, bottom: 0, left: 0,
+        position: "absolute", top: 4, bottom: 0, left: 0,
         width: "100%",
         transform: `translateX(${ suiteTreeLeft }px)`
       },

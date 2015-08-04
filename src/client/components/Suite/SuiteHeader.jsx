@@ -16,18 +16,18 @@ export default class SuiteHeader extends React.Component {
     return css({
       base: {
         position: "relative",
+        height: 32,
+        borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`,
+        cursor: "default"
+      },
+      titleOuter: {
+        Absolute: "-0 32 null 32",
         textAlign: "center",
         color: Color("white").darken(0.4).hexString(),
-        textShadow: `0px 2px white`,
+        textShadow: `0px 1px white`,
         fontWeight: 700,
         fontSize: "16px",
-        lineHeight: "24px",
-        paddingBottom: 10,
-        borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`,
-        paddingLeft: 30,
-        paddingRight: 30,
-        userSelect: "none",
-        cursor: "default"
+        userSelect: "none"
       }
     });
   }
@@ -49,19 +49,21 @@ export default class SuiteHeader extends React.Component {
       <div style={ styles.base }>
         <Icon
             name="menu"
-            absolute="0 null null 4"
+            absolute="-2 null null 4"
             onClick={ this.handleMenuClick.bind(this) }
             opacity={ 0.4 }
             cursor="pointer"
             clickOffset={{ y:1 }}/>
 
+        <div style={ styles.titleOuter }>
           <Ellipsis display="block">
             <FormattedText>{ title }</FormattedText>
           </Ellipsis>
+        </div>
 
         <Icon
             name="refresh"
-            absolute="2 6 null null"
+            absolute="-1 6 null null"
             onClick={ this.handleRefreshClick.bind(this) }
             opacity={ 0.4 }
             cursor="pointer"

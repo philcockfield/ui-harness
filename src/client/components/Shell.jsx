@@ -6,7 +6,7 @@ import IndexColumn from "./IndexColumn";
 import PropTypesColumn from "./PropTypesColumn";
 import { css, PropTypes } from "js-util/react";
 
-const COLUMN_MARGIN = 4;
+const COLUMN_MARGIN = 6;
 
 
 /*
@@ -18,7 +18,7 @@ export default class UIHarness extends React.Component {
     super(props);
     this.state = {
       current: this.props.current || Immutable.Map(),
-      leftWidth: 220,
+      leftWidth: 230,
       rightWidth: 8
     };
   }
@@ -38,7 +38,7 @@ export default class UIHarness extends React.Component {
         marginBottom: COLUMN_MARGIN
       },
       left: {
-        Absolute: [COLUMN_MARGIN + 4, null, COLUMN_MARGIN, 0],
+        Absolute: [COLUMN_MARGIN, null, COLUMN_MARGIN, 0],
         width: leftWidth
       },
       main: {
