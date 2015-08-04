@@ -168,7 +168,6 @@ export default class SuiteTreeItem extends React.Component {
       this.setState({ isOver: false });
   }
 
-
   render() {
     const styles = this.styles();
     const { suite, index, total, level, selectedSuite, onOverSuite, width } = this.props;
@@ -181,11 +180,12 @@ export default class SuiteTreeItem extends React.Component {
     // Preare selected chrevron pointer.
     let chrevronIcon;
     if (isSelected) {
-      const iconName = isOver ? "chevronRightBlue" : "chevronRight";
-      const opacity = isOver ? 1 : 0.3;
+      // const iconName = isOver ? "chevronRightBlue" : "chevronRight";
+      const opacity = isOver ? 0.35 : 0.3;
+      const right = isOver ? 3 : 4;
       chrevronIcon = <IconImage
-                        name={ iconName }
-                        absolute="11 5 null null"
+                        name="chevronRight"
+                        absolute={ `11 ${ right } null null` }
                         opacity={ opacity }/>;
     }
 

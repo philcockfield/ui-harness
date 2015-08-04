@@ -35,5 +35,6 @@ Ellipsis.propTypes = {
   display: PropTypes.oneOf(["block", "inline-block", "inline"])
 };
 Ellipsis.defaultProps = {
+  width: "100%",
   display: "inline-block"
 };

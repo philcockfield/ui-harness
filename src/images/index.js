@@ -8,10 +8,6 @@ export const ICONS = {
     "1x": require("./chevron-right.svg"),
     width: 10, height: 14
   },
-  chevronRightBlue: {
-    "1x": require("./chevron-right-blue.svg"),
-    width: 10, height: 14
-  },
   refresh: {
     "1x": require("./refresh.svg"),
     width: 16, height: 16

@@ -24,7 +24,7 @@ export default class SuiteHeader extends React.Component {
         lineHeight: "24px",
         paddingBottom: 10,
         borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`,
-        paddingLeft: 35,
+        paddingLeft: 30,
         paddingRight: 30,
         userSelect: "none",
         cursor: "default"
@@ -49,7 +49,7 @@ export default class SuiteHeader extends React.Component {
       <div style={ styles.base }>
         <Icon
             name="menu"
-            absolute="0 null null 6"
+            absolute="0 null null 4"
             onClick={ this.handleMenuClick.bind(this) }
             opacity={ 0.4 }
             cursor="pointer"
@@ -61,7 +61,7 @@ export default class SuiteHeader extends React.Component {
 
         <Icon
             name="refresh"
-            absolute="0 6 null null"
+            absolute="2 6 null null"
             onClick={ this.handleRefreshClick.bind(this) }
             opacity={ 0.4 }
             cursor="pointer"
