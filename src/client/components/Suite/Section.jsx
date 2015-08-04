@@ -3,7 +3,13 @@ import Radium from "radium";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { FormattedText, Ellipsis, Twisty } from "../shared";
+import api from "../../../shared/api-internal";
 import SpecList from "./SpecList";
+
+
+const isOpenStorage = (section, isOpen) => {
+    return api.localStorage(section.id, isOpen, { default:true });
+  };
 
 
 /**
@@ -11,6 +17,11 @@ import SpecList from "./SpecList";
  */
 @Radium
 export default class Section extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isOpen: isOpenStorage(this.props.section) };
+  }
+
   styles() {
     return css({
       base: {},
@@ -20,9 +31,16 @@ export default class Section extends React.Component {
         color: Color("white").darken(0.5).hexString(),
         fontSize: 14,
         padding: "6px 10px",
-        marginBottom: 3
+        marginBottom: 3,
+        cursor: "pointer"
       }
     });
+  }
+
+  handleClick() {
+    const isOpen = !this.state.isOpen;
+    this.setState({ isOpen:isOpen });
+    isOpenStorage(this.props.section, isOpen);
   }
 
   render() {
@@ -32,14 +50,14 @@ export default class Section extends React.Component {
     if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
 
     return (
-      <div style={ styles.base }>
+      <div style={ styles.base } onClick={ this.handleClick.bind(this) }>
         <div style={ styles.titleBar }>
           <Ellipsis>
-            <Twisty/>
+            <Twisty margin="0 5px 0 0" isOpen={ this.state.isOpen }/>
             <FormattedText>{ section.name }</FormattedText>
           </Ellipsis>
         </div>
-        <SpecList specs={ specs }/>
+        { this.state.isOpen ? <SpecList specs={ specs }/> : null }
       </div>
     );
   }
@@ -48,7 +66,7 @@ export default class Section extends React.Component {
 // API -------------------------------------------------------------------------
 Section.propTypes = {
   section: PropTypes.object.isRequired,
-  hasOnly: PropTypes.bool,
+  hasOnly: PropTypes.bool
 };
 Section.defaultProps = {
   hasOnly: false
