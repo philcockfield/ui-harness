@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
-import { FormattedText, Ellipsis } from "../shared";
+import { FormattedText, Ellipsis, Twisty } from "../shared";
 import SpecList from "./SpecList";
 
 
@@ -35,6 +35,7 @@ export default class Section extends React.Component {
       <div style={ styles.base }>
         <div style={ styles.titleBar }>
           <Ellipsis>
+            <Twisty/>
             <FormattedText>{ section.name }</FormattedText>
           </Ellipsis>
         </div>

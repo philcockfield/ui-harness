@@ -1,7 +1,6 @@
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import { NUMBER_OR_STRING } from "../../const";
 
 
 /**
@@ -31,7 +30,7 @@ export default class Ellipsis extends React.Component {
 
 // API -------------------------------------------------------------------------
 Ellipsis.propTypes = {
-  width: NUMBER_OR_STRING,
+  width: PropTypes.NUMBER_OR_STRING,
   display: PropTypes.oneOf(["block", "inline-block", "inline"])
 };
 Ellipsis.defaultProps = {
