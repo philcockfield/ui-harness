@@ -2,7 +2,8 @@ import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
 import Color from "color";
-import { Ellipsis } from "../shared";
+import { Ellipsis, FormattedText } from "../shared";
+import api from "../../../shared/api-internal";
 
 /**
  * A single spec within the index list.
@@ -41,7 +42,7 @@ export default class SpecListItem extends React.Component {
 
   invoke() {
     this.setState({ invokeCount: this.state.invokeCount + 1 })
-    console.log("Invoke", this.props.spec); // TODO:
+    api.invokeSpec(this.props.spec);
   }
 
   handleMouseEnter() { this.setState({ isOver:true }); }
@@ -59,7 +60,9 @@ export default class SpecListItem extends React.Component {
 
         <div style={ styles.bullet }/>
         <div style={ styles.name }>
-          <Ellipsis>{ spec.name }</Ellipsis>
+          <Ellipsis>
+            <FormattedText>{ spec.name }</FormattedText>
+          </Ellipsis>
         </div>
       </li>
     );

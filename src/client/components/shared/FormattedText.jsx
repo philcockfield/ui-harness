@@ -17,7 +17,7 @@ export default class FormattedText extends React.Component {
 
   render() {
     const styles = this.styles();
-    let html = formatText(this.props.children);
+    const html = formatText(this.props.children);
     return (
       <span
           style={ styles.base }
