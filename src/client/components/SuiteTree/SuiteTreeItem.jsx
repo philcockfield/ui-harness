@@ -52,6 +52,7 @@ export default class SuiteTreeItem extends React.Component {
 
   styles() {
     const { index, total, isRoot, level, width } = this.props;
+    const { isOver } = this.state;
     const isSelected = this.isSelected();
     const isFirst = (index === 0);
     const isLast = (index === total - 1);
@@ -97,6 +98,12 @@ export default class SuiteTreeItem extends React.Component {
         paddingTop: (hasChildren ? 5 : 2),
         width: 20,
         height: 20,
+      },
+      drillInIcon: {
+        Absolute: `11 5 null null`,
+        opacity: 0.3,
+        transform: isOver ? "translateX(4px)" : null,
+        transition: "transform 0.15s linear"
       }
     });
   }
@@ -178,15 +185,10 @@ export default class SuiteTreeItem extends React.Component {
     const widths = this.widths();
 
     // Preare selected chrevron pointer.
-    let chrevronIcon;
     if (isSelected) {
-      // const iconName = isOver ? "chevronRightBlue" : "chevronRight";
-      const opacity = isOver ? 0.35 : 0.3;
-      const right = isOver ? 3 : 4;
-      chrevronIcon = <IconImage
-                        name="chevronRight"
-                        absolute={ `11 ${ right } null null` }
-                        opacity={ opacity }/>;
+      var chrevronIcon = <div style={ styles.drillInIcon }>
+                           <IconImage name="chevronRight"/>
+                         </div>
     }
 
     // Prepare a list of child-suites if they exist.
