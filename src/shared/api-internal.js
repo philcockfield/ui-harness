@@ -75,6 +75,16 @@ class ApiInternal {
     return this;
   }
 
+
+  /**
+   * Invokes the given spec.
+   * @param spec: The [Spec] to invoke.
+   */
+  invokeSpec(spec) {
+    // TODO:
+    console.log("API invoke spec", spec);
+  }
+
   /**
    * Gets or sets the last selected [Suite].
    */

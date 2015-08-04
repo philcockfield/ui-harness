@@ -27,7 +27,10 @@ export default class Section extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { section } = this.props;
+    let { section, hasOnly } = this.props;
+    let specs = section.specs();
+    if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
+
     return (
       <div style={ styles.base }>
         <div style={ styles.titleBar }>
@@ -35,7 +38,7 @@ export default class Section extends React.Component {
             <FormattedText>{ section.name }</FormattedText>
           </Ellipsis>
         </div>
-        <SpecList specs={ section.specs() }/>
+        <SpecList specs={ specs }/>
       </div>
     );
   }
@@ -44,5 +47,8 @@ export default class Section extends React.Component {
 // API -------------------------------------------------------------------------
 Section.propTypes = {
   section: PropTypes.object.isRequired,
+  hasOnly: PropTypes.bool,
 };
-Section.defaultProps = {};
+Section.defaultProps = {
+  hasOnly: false
+};

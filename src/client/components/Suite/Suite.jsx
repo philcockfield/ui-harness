@@ -40,11 +40,26 @@ export default class Suite extends React.Component {
   render() {
     const styles = this.styles();
     let { suite } = this.props;
-    let specs = _.filter(suite.specs, (item) => !item.section);
+    const hasOnly = _.any(suite.specs, spec => spec.isOnly);
+
+    let specs = _.filter(suite.specs, (item) => {
+          if (item.section) { return false; }
+          return hasOnly ? item.isOnly : true;
+        });
 
     if (suite.sections) {
+      const includeSection = (section) => {
+            return hasOnly
+                ? _.any(section.specs(), item => item.isOnly)
+                : true;
+          };
       var sections = suite.sections.map((section, i) => {
-            return <Section key={i} section={ section }/>
+            if (includeSection(section)) {
+              return <Section
+                        key={i}
+                        section={ section }
+                        hasOnly={ hasOnly }/>
+            }
           });
     }
 
