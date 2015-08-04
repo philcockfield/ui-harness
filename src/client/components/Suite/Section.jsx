@@ -50,8 +50,8 @@ export default class Section extends React.Component {
     if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
 
     return (
-      <div style={ styles.base } onClick={ this.handleClick.bind(this) }>
-        <div style={ styles.titleBar }>
+      <div style={ styles.base }>
+        <div style={ styles.titleBar } onClick={ this.handleClick.bind(this) }>
           <Ellipsis>
             <Twisty margin="0 5px 0 0" isOpen={ this.state.isOpen }/>
             <FormattedText>{ section.name }</FormattedText>
