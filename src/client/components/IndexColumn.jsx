@@ -56,17 +56,17 @@ export default class IndexColumn extends React.Component {
         fontFamily: FONT_FAMILY
       },
       outer: {
-        transition: "left 0.15s"
+        transition: "transform 0.15s"
       },
       suiteTree: {
-        position: "absolute", top: 0, bottom: 0,
+        position: "absolute", top: 0, bottom: 0, left: 0,
         width: "100%",
-        left: suiteTreeLeft
+        transform: `translateX(${ suiteTreeLeft }px)`
       },
       specs: {
-        position: "absolute", top: 0, bottom: 0,
+        position: "absolute", top: 0, bottom: 0, left: 0,
         width: "100%",
-        left: suiteLeft,
+        transform: `translateX(${ suiteLeft }px)`
       }
     });
   }

@@ -19,14 +19,14 @@ export default class Icon extends React.Component {
   styles() {
     const iconOffset = OFFSET[this.props.name] || {};
     let clickOffset = {};
-    if (this.state.isDown) { clickOffset = this.props.clickOffset; }
+    if (this.state.isDown) { clickOffset = this.props.clickOffset || 0; }
     let base = {
       textAlign: "left",
       boxSizing: "border-box",
       width: 24,
       height: 24,
-      paddingLeft: iconOffset.x + (clickOffset.x || 0),
-      paddingTop: iconOffset.y + (clickOffset.y || 0),
+      paddingLeft: (iconOffset.x || 0) + (clickOffset.x || 0),
+      paddingTop: (iconOffset.y || 0) + (clickOffset.y || 0),
       cursor: this.props.cursor
     };
 

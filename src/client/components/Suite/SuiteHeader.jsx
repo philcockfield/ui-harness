@@ -52,7 +52,8 @@ export default class SuiteHeader extends React.Component {
             absolute="0 null null 6"
             onClick={ this.handleMenuClick.bind(this) }
             opacity={ 0.4 }
-            cursor="pointer"/>
+            cursor="pointer"
+            clickOffset={{ y:1 }}/>
 
           <Ellipsis display="block">
             <FormattedText>{ title }</FormattedText>
@@ -64,8 +65,7 @@ export default class SuiteHeader extends React.Component {
             onClick={ this.handleRefreshClick.bind(this) }
             opacity={ 0.4 }
             cursor="pointer"
-            clickOffset={{ x:0, y:1 }}/>
-
+            clickOffset={{ y:1 }}/>
       </div>
     );
   }
