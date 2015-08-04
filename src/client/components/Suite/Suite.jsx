@@ -5,6 +5,7 @@ import { css, PropTypes } from "js-util/react";
 import api from "../../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";
 import SpecList from "./SpecList";
+import Section from "./Section";
 
 
 /**
@@ -18,7 +19,10 @@ export default class Suite extends React.Component {
         Absolute: 0,
       },
       listOuter: {
-        paddingTop: 6
+        Absolute: "35 0 0 0",
+        paddingTop: 6,
+        overflow: "hidden",
+        overflowY: "auto"
       }
     });
   }
@@ -38,11 +42,18 @@ export default class Suite extends React.Component {
     let { suite } = this.props;
     let specs = _.filter(suite.specs, (item) => !item.section);
 
+    if (suite.sections) {
+      var sections = suite.sections.map((section, i) => {
+            return <Section key={i} section={ section }/>
+          });
+    }
+
     return (
       <div style={ styles.base }>
         <SuiteHeader suite={ suite }/>
         <div style={ styles.listOuter }>
           <SpecList specs={ specs }/>
+          { sections }
         </div>
       </div>
     );

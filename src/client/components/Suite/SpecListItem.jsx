@@ -17,13 +17,11 @@ export default class SpecListItem extends React.Component {
   styles() {
     let { invokeCount } = this.state;
 
-    // console.log("invokeCount", invokeCount);
-
     return css({
       base: {
         position: "relative",
         cursor: "pointer",
-        background: this.state.isOver ? "rgba(0, 0, 0, 0.04)" : "none",
+        background: this.state.isOver ? "rgba(0, 0, 0, 0.03)" : "none",
       },
       name: {
         color: Color("white").darken(0.5).hexString(),
@@ -35,7 +33,7 @@ export default class SpecListItem extends React.Component {
         Absolute: "11 null null 13",
         width: 6,
         height: 6,
-        background: invokeCount === 0 ? "rgba(0, 0, 0, 0.3)" : "#4A90E2", // BLUE
+        background: invokeCount === 0 ? "rgba(0, 0, 0, 0.22)" : "#4A90E2", // BLUE
         borderRadius: 3
       }
     });
@@ -43,6 +41,7 @@ export default class SpecListItem extends React.Component {
 
   invoke() {
     this.setState({ invokeCount: this.state.invokeCount + 1 })
+    console.log("Invoke", this.props.spec); // TODO:
   }
 
   handleMouseEnter() { this.setState({ isOver:true }); }

@@ -12,7 +12,9 @@ import SpecListItem from "./SpecListItem";
 export default class SpecList extends React.Component {
   styles() {
     return css({
-      base: {}
+      base: {
+        paddingBottom: 15
+      }
     });
   }
 

@@ -16,8 +16,10 @@ export default class SuiteTree extends React.Component {
   styles() {
     return css({
       base: {
+        Absolute: 0,
         userSelect: "none",
-        position: "absolute", left: 0, top: 0, right:0, bottom: 0
+        overflow: "hidden",
+        overflowY: "auto"
       }
     });
   }
