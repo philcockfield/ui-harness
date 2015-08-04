@@ -11,21 +11,22 @@ const OFFSET = {
 
 
 
-
 /**
  * Represents a standard sized icon.
  */
 @Radium
 export default class Icon extends React.Component {
   styles() {
-    const offset = OFFSET[this.props.name] || {};
+    const iconOffset = OFFSET[this.props.name] || {};
+    let clickOffset = {};
+    if (this.state.isDown) { clickOffset = this.props.clickOffset; }
     let base = {
       textAlign: "left",
       boxSizing: "border-box",
       width: 24,
       height: 24,
-      paddingLeft: offset.x,
-      paddingTop: offset.y,
+      paddingLeft: iconOffset.x + (clickOffset.x || 0),
+      paddingTop: iconOffset.y + (clickOffset.y || 0),
       cursor: this.props.cursor
     };
 
@@ -45,6 +46,9 @@ export default class Icon extends React.Component {
     if (_.isFunction(handler)) { handler(e); }
   }
 
+  handleMouseDown(e) { this.setState({ isDown:true }); }
+  handleMouseUp(e) { this.setState({ isDown:false }); }
+
 
   render() {
     const styles = this.styles();
@@ -53,7 +57,9 @@ export default class Icon extends React.Component {
     return (
       <div
         style={ styles.base }
-        onClick={ this.handleClick.bind(this) }>
+        onClick={ this.handleClick.bind(this) }
+        onMouseDown={ this.handleMouseDown.bind(this) }
+        onMouseUp={ this.handleMouseUp.bind(this) }>
         <IconImage name={ this.props.name } opacity={ opacity }/>
       </div>
     );
@@ -67,6 +73,10 @@ Icon.propTypes = {
   opacity: PropTypes.number,
   absolute: PropTypes.string,
   cursor: PropTypes.string,
+  clickOffset: PropTypes.shape({
+    x: React.PropTypes.number,
+    y: React.PropTypes.number
+  }),
 };
 Icon.defaultProps = {
   opacity: 1,

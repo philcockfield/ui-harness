@@ -208,7 +208,7 @@ export default class SuiteTreeItem extends React.Component {
       <li style={[ styles.base ]}>
         {/* Item content */}
         <div style={[ styles.content, isSelected && styles.contentSelected ]}
-             onMouseDown={ this.handleClick.bind(this) }
+             onClick={ this.handleClick.bind(this) }
              onMouseEnter={ this.handleMouseEnter.bind(this) }
              onMouseLeave={ this.handleMouseLeave.bind(this) }>
 

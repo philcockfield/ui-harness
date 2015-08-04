@@ -15,7 +15,6 @@ export default class SuiteHeader extends React.Component {
   styles() {
     return css({
       base: {
-        // background: "rgba(255, 0, 0, 0.1)", //RED
         position: "relative",
         textAlign: "center",
         color: Color("white").darken(0.4).hexString(),
@@ -23,7 +22,6 @@ export default class SuiteHeader extends React.Component {
         fontWeight: 700,
         fontSize: "16px",
         lineHeight: "24px",
-        // marginTop: 2,
         paddingBottom: 10,
         borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`,
         paddingLeft: 35,
@@ -65,7 +63,8 @@ export default class SuiteHeader extends React.Component {
             absolute="0 6 null null"
             onClick={ this.handleRefreshClick.bind(this) }
             opacity={ 0.4 }
-            cursor="pointer"/>
+            cursor="pointer"
+            clickOffset={{ x:0, y:1 }}/>
 
       </div>
     );
