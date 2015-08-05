@@ -3,9 +3,10 @@ import React from "react";
 import Radium from "radium";
 import api from "../../../shared/api";
 import bdd from "../../../shared/bdd";
-import SuiteTreeItem from "./SuiteTreeItem";
 import { Ul } from "../shared";
 import { css, PropTypes } from "js-util/react";
+import SuiteTreeItem from "./SuiteTreeItem";
+import SuiteTreeEmpty from "./SuiteTreeEmpty";
 
 
 /**
@@ -71,8 +72,13 @@ export default class SuiteTree extends React.Component {
     });
 
     return (
-      <div className="uih-suite-tree" style={ styles.base } onMouseLeave={ this.handleMouseLeave.bind(this) }>
-        <Ul>{ items }</Ul>
+      <div style={ styles.base }
+           onMouseLeave={ this.handleMouseLeave.bind(this) }>
+        {
+          items.length > 0
+            ? <Ul>{ items }</Ul>
+            : <SuiteTreeEmpty/>
+        }
       </div>
     );
   }
