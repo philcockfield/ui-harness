@@ -1,6 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
+import { IconImage } from "../shared";
 
 
 /**
@@ -19,10 +20,15 @@ export default class SuiteTreeEmpty extends React.Component {
         textAlign: "center",
         fontSize: 13,
         fontStyle: "italic",
-        color: textColor
+        color: textColor,
+        fontWeight: 200
       },
-      a: {
-        color: textColor
+      a: { color: textColor },
+
+
+      icon: {
+        marginBottom: 12,
+        opacity: 0.1
       }
     });
   }
@@ -31,6 +37,9 @@ export default class SuiteTreeEmpty extends React.Component {
     const styles = this.styles();
     return (
       <div style={ styles.base }>
+        <div style={ styles.icon }>
+          <IconImage name="startStar"/>
+        </div>
         Add some suites to <a
           style={ styles.a }
           href="https://github.com/philcockfield/ui-harness/blob/master/docs/getting-started"

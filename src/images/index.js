@@ -15,5 +15,9 @@ export const ICONS = {
   menu: {
     "1x": require("./menu.svg"),
     width: 18, height: 12
+  },
+  startStar: {
+    "1x": require("./start-star.svg"),
+    width: 46, height: 46
   }
 };

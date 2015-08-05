@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>start-star</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Icons" sketch:type="MSArtboardGroup" transform="translate(-270.000000, -118.000000)" fill="#000000">
+            <path d="M293,164 C305.702549,164 316,153.702549 316,141 C316,128.297451 305.702549,118 293,118 C280.297451,118 270,128.297451 270,141 C270,153.702549 280.297451,164 293,164 Z M293,150.2 L282.184751,155.885913 L284.25028,143.842956 L275.50056,135.314087 L287.592376,133.557044 L293,122.6 L298.407624,133.557044 L310.49944,135.314087 L301.74972,143.842956 L303.815249,155.885913 L293,150.2 Z" id="start-star" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
