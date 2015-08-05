@@ -3,7 +3,7 @@ import React from "react";
 import Immutable from "immutable";
 import * as util from "js-util";
 import bdd from "./bdd";
-
+import apiConsole from "./api-console";
 
 
 /**
@@ -17,11 +17,16 @@ class Api {
 
   /**
    * Resets the internal API.
-   * Used for testing.
+   * @param {boolean} hard: Flag indicating if all state from local-storage
+   *                        should be cleared away, or just current selection state.
    */
-  reset() {
+  reset({ hard = true } = {}) {
+    if (hard) {
+      this.clearLocalStorage();
+    }
     this.current = this.current.clear();
-    this.clearLocalStorage();
+    this.setCurrent();
+    return this;
   }
 
 
@@ -30,8 +35,9 @@ class Api {
    * @param {Function} callback: Invoked when ready to initialize the DOM.
    */
   init(callback) {
-    // Put the BDD domain-specific language into the global namespace.
+    // Put state into global namespace.
     bdd.register();
+    global.UIHarness = apiConsole;
 
     // Insert the <Shell> into the root.
     //    NB: Signal DOM ready after a delay to ensure that the [describe/it]
