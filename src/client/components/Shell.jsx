@@ -19,7 +19,7 @@ export default class UIHarness extends React.Component {
     this.state = {
       current: this.props.current || Immutable.Map(),
       leftWidth: 230,
-      rightWidth: 8
+      rightWidth: 12
     };
   }
 

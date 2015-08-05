@@ -14,8 +14,6 @@ const FIELD_KEYS = [
  */
 export default class UIHarnessContext {
   constructor(type) {
-    this.type = type;
-
     // Determine whether this is the currently loaded suite.
     const isCurrent = () => {
           const currentSuite = api.current.get("suite");

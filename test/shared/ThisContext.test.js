@@ -5,16 +5,10 @@ import api from "../../src/shared/api";
 
 
 describe("ThisContext", () => {
-  it("stores type", () => {
-    expect(new ThisContext("describe").type).to.equal("describe");
-  });
-
-
   describe("properties", () => {
     let suite, context;
     afterEach(() => {
       bdd.reset();
-      // api.current = api.current.clear();
     });
     beforeEach(() => {
       bdd.register();

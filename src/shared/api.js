@@ -9,7 +9,7 @@ import bdd from "./bdd";
 /**
  * The API used internally by the UIHarness components.
  */
-class ApiInternal {
+class Api {
   constructor() {
     this.current = Immutable.Map();
   }
@@ -79,11 +79,17 @@ class ApiInternal {
   /**
    * Invokes the given spec.
    * @param spec: The [Spec] to invoke.
+   * @param callback: Invoked upon completion.
+   *                   Immediately if the spec is not asynchronous.
    */
-  invokeSpec(spec) {
-    // TODO:
-    console.log("API invoke spec", spec);
+  invokeSpec(spec, callback) {
+    const suite = spec.parentSuite;
+    const self = suite.meta.thisContext;
+    suite.beforeHandlers.invoke(self);
+    spec.invoke(self, callback);
+    return this;
   }
+
 
   /**
    * Gets or sets the last selected [Suite].
@@ -159,4 +165,4 @@ class ApiInternal {
 
 
 // Singleton instance.
-export default new ApiInternal();
+export default new Api();

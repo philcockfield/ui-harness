@@ -2,6 +2,7 @@ import _ from "lodash";
 import { expect } from "chai";
 import api from "../../src/shared/api";
 import bdd from "../../src/shared/bdd";
+import ThisContext from "../../src/shared/ThisContext";
 import Immutable from "immutable";
 import * as util from "js-util";
 
@@ -83,6 +84,50 @@ describe("API Internal", () => {
     it("updates the [current]", () => {
       api.indexMode("suite");
       expect(api.current.get("indexMode")).to.equal("suite");
+    });
+  });
+
+
+  describe("invokeSpec()", () => {
+    it("invokes the spec when no [before] handler exists", () => {
+      let invokeCount = 0;
+      let callbackCount = 0;
+      let spec, self;
+      describe("my suite", function() {
+        spec = it("my spec", function() {
+          invokeCount += 1;
+          self = this;
+        });
+      });
+      api.invokeSpec(spec, () => { callbackCount += 1 });
+      expect(invokeCount).to.equal(1);
+      expect(self).to.be.an.instanceof(ThisContext);
+      expect(callbackCount).to.equal(1);
+    });
+
+
+    it("invokes asynchronously", (done) => {
+      let spec;
+      describe("my suite", function() {
+        spec = it("my spec", function(done) {
+          util.delay(10, () => { done() });
+        });
+      });
+      api.invokeSpec(spec, () => { done() });
+    });
+
+
+    it("invokes the [before] handler before the spec", () => {
+      let spec;
+      let calls = [];
+      describe("my suite", () => {
+        let beforeCount = 0;
+        before(() => { calls.push("before-1") });
+        before(() => { calls.push("before-2") });
+        spec = it("my spec", () => { calls.push("spec") });
+      });
+      api.invokeSpec(spec);
+      expect(calls).to.eql([ "before-1", "before-2", "spec" ]);
     });
   });
 });
