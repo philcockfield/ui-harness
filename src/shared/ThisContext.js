@@ -12,7 +12,7 @@ const FIELD_KEYS = [
  * The [this] context that is passed into the [describe/it]
  * BDD methods.
  */
-export default class UIHarnessContext {
+export default class UIHarness {
   constructor(type) {
     // Determine whether this is the currently loaded suite.
     const isCurrent = () => {
