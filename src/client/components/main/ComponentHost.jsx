@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
-import CropMarks from "./CropMarks";
+import CropMarks from "../shared/CropMarks";
 
 
 /**

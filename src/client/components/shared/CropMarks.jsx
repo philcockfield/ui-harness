@@ -26,7 +26,6 @@ export default class CropMarks extends React.Component {
     return (
       <div style={ styles.base }>
         { this.props.children }
-
         <CropMark edge="topLeft"/>
         <CropMark edge="topRight"/>
         <CropMark edge="bottomLeft"/>
@@ -37,5 +36,5 @@ export default class CropMarks extends React.Component {
 }
 
 // API -------------------------------------------------------------------------
-CropMarks.propTypes = {};
-CropMarks.defaultProps = {};
+CropMarks.propTypes = CropMark.propTypes;
+CropMarks.defaultProps = CropMark.defaultProps;

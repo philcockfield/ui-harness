@@ -5,6 +5,16 @@ Isolate, test and document modular UI with React.
 
 http://uiharness.com
 
+## TODO
+
+- CropMark to /shared
+- Cropmarks props
+- Skip title/subtitle
+- width/height
+- header (markdown)
+- Server - build babel with experiments (1) - parse JSX with @Radim on server.
+
+
 ## Development (of the UIHarness)
 
     npm install
