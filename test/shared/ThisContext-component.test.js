@@ -2,7 +2,7 @@ import { expect } from "chai";
 import React from "react";
 import ThisContext from "../../src/shared/ThisContext";
 import bdd from "../../src/shared/bdd";
-import api from "../../src/shared/api";
+import api from "../../src/shared/api-internal";
 
 
 class Foo extends React.Component {

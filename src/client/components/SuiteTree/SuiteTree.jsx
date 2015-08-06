@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import Radium from "radium";
-import api from "../../../shared/api";
+import api from "../../../shared/api-internal";
 import bdd from "../../../shared/bdd";
 import { Ul } from "../shared";
 import { css, PropTypes } from "js-util/react";

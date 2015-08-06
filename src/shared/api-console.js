@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./api-internal";
 
 /**
  * The API for manipulating the UIHarness via

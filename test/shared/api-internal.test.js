@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { expect } from "chai";
 import sinon from "sinon";
-import api from "../../src/shared/api";
+import api from "../../src/shared/api-internal";
 import bdd from "../../src/shared/bdd";
 import ThisContext from "../../src/shared/ThisContext";
 import Immutable from "immutable";

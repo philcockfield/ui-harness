@@ -4,7 +4,7 @@ import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { Ellipsis, FormattedText } from "../shared";
-import api from "../../../shared/api";
+import api from "../../../shared/api-internal";
 
 /**
  * A single spec within the index list.

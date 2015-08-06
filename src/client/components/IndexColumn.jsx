@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 
 import { css, PropTypes } from "js-util/react";
-import api from "../../shared/api";
+import api from "../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 import Suite from "./Suite";
 import { FONT_FAMILY } from "../const";

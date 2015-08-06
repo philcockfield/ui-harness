@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import api from "./api";
+import api from "./api-internal";
 import * as util from "js-util";
 
 const isBrowser = (typeof window !== 'undefined');

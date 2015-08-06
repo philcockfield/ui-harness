@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
-import api from "../../src/shared/api";
+import api from "../../src/shared/api-internal";
 import consoleApi from "../../src/shared/api-console";
 
 
