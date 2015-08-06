@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
@@ -12,7 +13,8 @@ export default class CropMarks extends React.Component {
   styles() {
     return css({
       base: {
-        position: "relative"
+        position: "relative",
+        display: this.props.display
       }
     });
   }
@@ -33,5 +35,18 @@ export default class CropMarks extends React.Component {
 }
 
 // API -------------------------------------------------------------------------
-CropMarks.propTypes = CropMark.propTypes;
-CropMarks.defaultProps = CropMark.defaultProps;
+
+let propTypes = _.clone(CropMark.propTypes);
+let defaultProps = _.clone(CropMark.defaultProps);
+
+_.merge(propTypes, {
+  display: PropTypes.oneOf(["block", "inline-block", "inline"]),
+});
+
+_.merge(defaultProps, {
+  display: "block"
+});
+
+
+CropMarks.propTypes = propTypes
+CropMarks.defaultProps = defaultProps;

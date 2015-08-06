@@ -38,5 +38,28 @@ describe("ThisContext", () => {
         expect(context.cropMarks.offset()).to.equal(0);
       });
     });
+
+
+    describe("size (width/height)", function() {
+      it("has not width/height by default ('auto')", () => {
+        expect(context.width()).to.equal("auto");
+        expect(context.height()).to.equal("auto");
+      });
+
+      it("stores width/height (number)", () => {
+        context
+          .width(250)
+          .height(120)
+        expect(context.width()).to.equal(250);
+        expect(context.height()).to.equal(120);
+      });
+
+      it("resets with `null`", () => {
+        context.width(250).height(120)
+        context.width(null).height(null)
+        expect(context.width()).to.equal("auto");
+        expect(context.height()).to.equal("auto");
+      });
+    });
   });
 });

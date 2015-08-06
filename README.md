@@ -7,7 +7,8 @@ http://uiharness.com
 
 ## TODO
 
-- width/height
+- edge (alignment)
+- scroll
 - header (markdown)
 - Server - build babel with experiments (1) - parse JSX with @Radim on server.
 - css.color

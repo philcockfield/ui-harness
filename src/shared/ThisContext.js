@@ -8,6 +8,8 @@ const PROP = Symbol("Prop");
 const FIELD_KEYS = [
   "props",
   "children",
+  "width",
+  "height",
   "cropMarks",
   "cropMarks.size",
   "cropMarks.offset"
@@ -31,6 +33,9 @@ export default class UIHContext {
     this[PROP] = (key, value, options = {}) => {
           // WRITE.
           if (!_.isUndefined(value)) {
+            if (options.resetOn !== undefined && value === options.resetOn) {
+              value = options.default;
+            }
             propState[key] = value;
             if (isCurrent()) { api.setCurrent({ [key]: value }); }
             return this; // When writing the [this] context is returned.
@@ -66,6 +71,8 @@ export default class UIHContext {
    */
   props(value) { return this[PROP]("componentProps", value); }
   children(value) { return this[PROP]("componentChildren", value); }
+  width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null }); }
+  height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null }); }
   cropMarks(value) { return this[PROP]("cropMarks", value, { default: true }); }
 
 
