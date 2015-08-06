@@ -6,25 +6,22 @@ describe("Component Host", () => {
 
   before(function() {
     // TODO: invoke automatically on load.
-
     // this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
-
-
   });
 
 
-  it("loads", function() {
-
+  it("load from `<element>`", function() {
     this.load( <MyFoo foo={123}><span>Hello</span></MyFoo> )
-    // this.load(Foo, { text:"hello" }, <span>Child</span> );
     // this.load();
-
   });
 
-  it("does not load", function() {
-    console.log("foo");
+  it("load from `Type`", function() {
+    this.load(Foo, { text:"hello" }, <span>Child</span> );
   });
 
+  it("props: now", function() {
+    this.props({ foo: new Date().toString() })
+  });
 
 });
 
@@ -33,7 +30,10 @@ describe("Component Host", () => {
 export default class MyFoo extends React.Component {
   render() {
     return (
-      <div>{ this.props.children }</div>
+      <div>
+        <div>foo:{ this.props.foo }</div>
+        { this.props.children }
+      </div>
     );
   }
 }

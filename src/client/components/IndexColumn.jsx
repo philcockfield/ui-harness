@@ -48,7 +48,8 @@ export default class IndexColumn extends React.Component {
       base: {
         Absolute: 0,
         overflow: "hidden",
-        fontFamily: FONT_FAMILY
+        fontFamily: FONT_FAMILY,
+        userSelect: "none"
       },
       outer: {
         transition: "transform 0.15s"

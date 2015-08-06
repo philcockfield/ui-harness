@@ -105,7 +105,7 @@ class Api {
 
       // If the last invoked spec on the suite contained a load
       let lastInvokedSpec = this.lastInvokedSpec(suite);
-      if (lastInvokedSpec && lastInvokedSpec.isLoader) {
+      if (lastInvokedSpec && lastInvokedSpec.spec && lastInvokedSpec.isLoader) {
         this.invokeSpec(lastInvokedSpec.spec);
       }
     }
@@ -146,7 +146,6 @@ class Api {
     // Finish up.
     return this;
   }
-
 
 
   /**

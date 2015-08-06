@@ -8,6 +8,7 @@ const PROP = Symbol("Prop");
 const FIELD_KEYS = [
   "title",
   "subtitle",
+  "props"
 ];
 
 
@@ -61,6 +62,12 @@ export default class UIHarness {
    * Gets or sets the sub-title.
    */
   subtitle(value) { return this[PROP]("subtitle", value); }
+
+
+  /**
+   * Gets or sets the sub-title.
+   */
+  props(value) { return this[PROP]("componentProps", value); }
 
 
 

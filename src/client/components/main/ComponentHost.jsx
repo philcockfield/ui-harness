@@ -21,13 +21,19 @@ export default class ComponentHost extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { current } = this.props;
+    const { current } = this.props;
 
-    // console.log("current.toJS()", current.toJS());
-    console.log("current.get('componentProps')", current.get('componentProps'));
+    let element;
+    let type = current.get("componentType");
+    if (type) {
+      element = React.createElement(type,
+              current.get("componentProps"),
+              current.get("componentChildren")
+      );
+    }
 
     return (
-      <div style={ styles.base }>ComponentHost</div>
+      <div style={ styles.base }>{ element }</div>
     );
   }
 }
