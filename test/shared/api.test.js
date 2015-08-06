@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { expect } from "chai";
+import sinon from "sinon";
 import api from "../../src/shared/api";
 import bdd from "../../src/shared/bdd";
 import ThisContext from "../../src/shared/ThisContext";
@@ -19,14 +20,32 @@ describe("API Internal", () => {
     expect(api.current).to.be.an.instanceof(Immutable.Map);
   });
 
+  describe("reset", () => {
+    it("hard (default)", () => {
+      api.loadSuite(describe("My Suite", () => {}));
+      expect(api.current.toJS()).not.to.eql({});
+      expect(api.lastSelectedSuite()).to.exist;
+      api.reset();
+      expect(api.current.toJS()).to.eql({});
+      expect(api.lastSelectedSuite()).not.to.exist;
 
-  it("resets the API state", () => {
-    api.loadSuite(describe("My Suite", () => {}));
-    expect(api.current.toJS()).not.to.eql({});
-    expect(api.lastSelectedSuite()).to.exist;
-    api.reset();
-    expect(api.current.toJS()).to.eql({});
-    expect(api.lastSelectedSuite()).not.to.exist;
+    });
+
+    it("clears local storage (hard)", () => {
+      const mock = sinon.mock(api);
+      mock.expects("clearLocalStorage").once();
+      api.reset({ hard: true });
+      mock.verify();
+      mock.restore();
+    });
+
+    it("does not clear local storage (soft reset)", () => {
+      const mock = sinon.mock(api);
+      mock.expects("clearLocalStorage").never();
+      api.reset({ hard: false });
+      mock.verify();
+      mock.restore();
+    });
   });
 
 
