@@ -17,7 +17,7 @@ describe("ThisContext", () => {
     });
 
 
-    describe("title", () => {
+    describe.skip("title", () => {
       it("returns the name of the suite by default", () => {
         expect(context.title()).to.equal("My Suite");
       });
@@ -33,7 +33,7 @@ describe("ThisContext", () => {
     });
 
 
-    it("title AND subtitle (chaining)", () => {
+    it.skip("title AND subtitle (chaining)", () => {
       expect(context.subtitle()).to.equal(undefined);
       context.title("my-title").subtitle("my-subtitle");
       expect(context.title()).to.equal("my-title");

@@ -7,12 +7,15 @@ http://uiharness.com
 
 ## TODO
 
-- CropMark to /shared
 - Cropmarks props
 - Skip title/subtitle
 - width/height
 - header (markdown)
 - Server - build babel with experiments (1) - parse JSX with @Radim on server.
+- css.color
+  - css.color("white", -0.3..0.3) opacity
+  - css.color("white", 1..100) darken-lighten
+  - css.white (same as)
 
 
 ## Development (of the UIHarness)

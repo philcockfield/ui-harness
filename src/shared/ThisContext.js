@@ -6,8 +6,8 @@ import * as util from "js-util";
 const isBrowser = (typeof window !== 'undefined');
 const PROP = Symbol("Prop");
 const FIELD_KEYS = [
-  "title",
-  "subtitle",
+  // "title",
+  // "subtitle",
   "props",
   "children"
 ];
@@ -56,13 +56,13 @@ export default class UIHarness {
   /**
    * Gets or sets the display title.
    */
-  title(value) { return this[PROP]("title", value, { default: this.suite.name }); }
+  // title(value) { return this[PROP]("title", value, { default: this.suite.name }); }
 
 
   /**
    * Gets or sets the sub-title.
    */
-  subtitle(value) { return this[PROP]("subtitle", value); }
+  // subtitle(value) { return this[PROP]("subtitle", value); }
 
 
   /**
@@ -86,7 +86,7 @@ export default class UIHarness {
   load(component, props, children) {
     // Setup initial conditions.
     if (!component) {
-      if (isBrowser) { console.warn("Cannot load - a component was not specified"); }
+      if (isBrowser) { console.warn("Cannot load: a component was not specified (undefined/null)"); }
       return this;
     }
     let type;
