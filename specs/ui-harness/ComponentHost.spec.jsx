@@ -19,10 +19,17 @@ describe("Component Host", () => {
     this.load(Foo, { text:"hello" }, <span>Child</span> );
   });
 
+  it("load `<div>`", function() {
+    this.load( <div>My Div</div> );
+  });
+
   it("props: now", function() {
     this.props({ foo: new Date().toString() })
   });
 
+  it("change children", function() {
+    this.children( <span>New Children</span> )
+  });
 });
 
 
