@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import sinon from "sinon";
 import bdd from "../../src/shared/bdd";
 import jsBdd from "js-bdd";
 import ThisContext from "../../src/shared/ThisContext";
@@ -37,6 +38,17 @@ describe("BDD", () => {
 
   it("exposes the object containing all suites", () => {
     expect(bdd.suites).to.equal(jsBdd.allSuites);
+  });
+
+
+  it("exposes the namespace method", () => {
+    let fn = () => 0;
+    // console.log("jsBdd", jsBdd);
+    let mock = sinon.mock(jsBdd);
+    mock.expects("namespace").once();
+    bdd.namespace("my-ns", () => 0);
+    mock.verify();
+    mock.restore();
   });
 
 

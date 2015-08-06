@@ -13,7 +13,7 @@ const FIELD_KEYS = [
  * BDD methods.
  */
 export default class UIHarness {
-  constructor(type) {
+  constructor() {
     // Determine whether this is the currently loaded suite.
     const isCurrent = () => {
           const currentSuite = api.current.get("suite");

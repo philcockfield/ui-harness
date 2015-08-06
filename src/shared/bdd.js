@@ -64,5 +64,22 @@ export default {
   reset() {
     this.unregister();
     bdd.reset();
+  },
+
+
+  /**
+   * Registers a namespace within which to place suites ("describe").
+   *
+   * @param namespace:     The namespace.
+   *                       Use "::" notation for nesting.
+   *                       Pass null to reset.
+   *
+   * @param invokeWithin:  Optional. A function to invoke that registers Suites to be
+   *                       declared within the namespace.  If specified the namespace
+   *                       is reset after invoking.
+   *
+   */
+  namespace(namespace, invokeWithin) {
+    bdd.namespace.call(new ThisContext(), namespace, invokeWithin);
   }
 };
