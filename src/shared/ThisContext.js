@@ -6,10 +6,11 @@ import * as util from "js-util";
 const isBrowser = (typeof window !== 'undefined');
 const PROP = Symbol("Prop");
 const FIELD_KEYS = [
-  // "title",
-  // "subtitle",
   "props",
-  "children"
+  "children",
+  "cropMarks",
+  "cropMarks.size",
+  "cropMarks.offset"
 ];
 
 
@@ -17,7 +18,7 @@ const FIELD_KEYS = [
  * The [this] context that is passed into the [describe/it]
  * BDD methods.
  */
-export default class UIHarness {
+export default class UihContext {
   constructor() {
     // Determine whether this is the currently loaded suite.
     const isCurrent = () => {
@@ -40,6 +41,10 @@ export default class UIHarness {
           if (_.isUndefined(result)) { result = options.default; }
           return result
         };
+
+    // Property extensions.
+    this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 20 }); };
+    this.cropMarks.offset = (value) => { return this[PROP]("cropMarks.offset", value, { default: 5 }); };
   }
 
 
@@ -48,33 +53,20 @@ export default class UIHarness {
    */
   toValues() {
     const result = {};
-    FIELD_KEYS.forEach(key => { result[key] = this[key](); });
+    FIELD_KEYS.forEach(key => {
+          let propFunc = util.ns(this, key);
+          result[key] = propFunc.call(this);
+        });
     return result;
   }
 
 
   /**
-   * Gets or sets the display title.
-   */
-  // title(value) { return this[PROP]("title", value, { default: this.suite.name }); }
-
-
-  /**
-   * Gets or sets the sub-title.
-   */
-  // subtitle(value) { return this[PROP]("subtitle", value); }
-
-
-  /**
-   * Gets or sets the component properties.
+   * Gets or sets the current properties.
    */
   props(value) { return this[PROP]("componentProps", value); }
-
-
-  /**
-   * Gets or sets the component children.
-   */
   children(value) { return this[PROP]("componentChildren", value); }
+  cropMarks(value) { return this[PROP]("cropMarks", value, { default: true }); }
 
 
 

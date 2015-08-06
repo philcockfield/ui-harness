@@ -35,7 +35,15 @@ export default class ComponentHost extends React.Component {
 
     return (
       <div style={ styles.base }>
-        <CropMarks>{ element }</CropMarks>
+        {
+          current.get("cropMarks") === true
+            ? <CropMarks
+                  size={ current.get("cropMarks.size") }
+                  offset={ current.get("cropMarks.offset") }>
+                { element }
+              </CropMarks>
+            : <div>{ element }</div>
+        }
       </div>
     );
   }

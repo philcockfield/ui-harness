@@ -14,7 +14,7 @@ export default class SpecList extends React.Component {
   styles() {
     return css({
       base: {
-        paddingBottom: 15
+        paddingBottom: 25
       }
     });
   }

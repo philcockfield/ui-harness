@@ -9,10 +9,6 @@ import CropMark from "./CropMark";
  */
 @Radium
 export default class CropMarks extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   styles() {
     return css({
       base: {
@@ -23,13 +19,14 @@ export default class CropMarks extends React.Component {
 
   render() {
     const styles = this.styles();
+    const props = this.props;
     return (
       <div style={ styles.base }>
         { this.props.children }
-        <CropMark edge="topLeft"/>
-        <CropMark edge="topRight"/>
-        <CropMark edge="bottomLeft"/>
-        <CropMark edge="bottomRight"/>
+        <CropMark { ...props } edge="topLeft"/>
+        <CropMark { ...props } edge="topRight"/>
+        <CropMark { ...props } edge="bottomLeft"/>
+        <CropMark { ...props } edge="bottomRight"/>
       </div>
     );
   }

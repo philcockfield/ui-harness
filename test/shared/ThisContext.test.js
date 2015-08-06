@@ -17,27 +17,26 @@ describe("ThisContext", () => {
     });
 
 
-    describe.skip("title", () => {
-      it("returns the name of the suite by default", () => {
-        expect(context.title()).to.equal("My Suite");
+
+    describe("cropMarks()", () => {
+      it("has crop-marks by default", () => {
+        expect(context.cropMarks()).to.equal(true);
+        expect(context.cropMarks.size()).to.equal(20);
+        expect(context.cropMarks.offset()).to.equal(5);
       });
 
-      it("returns the [self] context when writing", () => {
-        expect(context.title("Foo")).to.equal(context);
+      it("stores crop-marks value", () => {
+        context.cropMarks(true).cropMarks(false);
+        expect(context.cropMarks()).to.equal(false);
       });
 
-      it("returns the written name", () => {
-        context.title("Foo");
-        expect(context.title()).to.equal("Foo");
+      it("stores extensions (size/offset)", () => {
+        context
+          .cropMarks.size(50)
+          .cropMarks.offset(0);
+        expect(context.cropMarks.size()).to.equal(50);
+        expect(context.cropMarks.offset()).to.equal(0);
       });
-    });
-
-
-    it.skip("title AND subtitle (chaining)", () => {
-      expect(context.subtitle()).to.equal(undefined);
-      context.title("my-title").subtitle("my-subtitle");
-      expect(context.title()).to.equal("my-title");
-      expect(context.subtitle()).to.equal("my-subtitle");
     });
   });
 });
