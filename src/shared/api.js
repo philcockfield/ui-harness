@@ -33,7 +33,6 @@ class Api {
         const suite = this.lastSelectedSuite();
         if (suite) {
           this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
-          this.invokeBeforeHandlers(suite);
         }
         callback()
     });
@@ -103,7 +102,10 @@ class Api {
       this.setCurrent(current);
       if (storeAsLastSuite) { this.lastSelectedSuite(suite); }
 
-      // If the last invoked spec on the suite contained a load
+      // Invoke before handlers.
+      this.invokeBeforeHandlers(suite);
+
+      // If the last invoked spec on the suite contained a load.
       let lastInvokedSpec = this.lastInvokedSpec(suite);
       if (lastInvokedSpec && lastInvokedSpec.spec && lastInvokedSpec.isLoader) {
         this.invokeSpec(lastInvokedSpec.spec);
@@ -112,6 +114,21 @@ class Api {
 
     // Finish up.
     return this;
+  }
+
+
+  /**
+   * Invokes the [before] handlers for
+   * the given suite if required.
+   * @return {boolean}  - true if the handlers were invoked
+   *                    - false if they have already been invoked.
+   */
+  invokeBeforeHandlers(suite) {
+    if (this.current.get("isBeforeInvoked")) { return false; }
+    const self = suite.meta.thisContext;
+    suite.beforeHandlers.invoke(self);
+    this.current = this.current.set("isBeforeInvoked", true);
+    return true
   }
 
 
@@ -145,21 +162,6 @@ class Api {
 
     // Finish up.
     return this;
-  }
-
-
-  /**
-   * Invokes the [before] handlers for
-   * the given suite if required.
-   * @return {boolean}  - true if the handlers were invoked
-   *                    - false if they have already been invoked.
-   */
-  invokeBeforeHandlers(suite) {
-    if (this.current.get("isBeforeInvoked")) { return false; }
-    const self = suite.meta.thisContext;
-    suite.beforeHandlers.invoke(self);
-    this.current = this.current.set("isBeforeInvoked", true);
-    return true
   }
 
 

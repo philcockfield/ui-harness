@@ -37,7 +37,8 @@ export default class SuiteHeader extends React.Component {
   }
 
   handleRefreshClick(e) {
-    console.log("REFRESH"); // TEMP
+    api.setCurrent(null);
+    api.loadSuite(this.props.suite);
   }
 
   render() {

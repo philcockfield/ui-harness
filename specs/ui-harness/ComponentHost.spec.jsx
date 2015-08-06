@@ -6,22 +6,27 @@ describe("Component Host", () => {
 
   before(function() {
     // TODO: invoke automatically on load.
-    // this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
+    this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
   });
 
 
-  it("load from `<element>`", function() {
-    this.load( <MyFoo foo={123}><span>Hello</span></MyFoo> )
-    // this.load();
+  section("load", function() {
+
+    it("from `<element>`", function() {
+      this.load( <MyFoo foo={123}><span>Hello</span></MyFoo> )
+      // this.load();
+    });
+
+    it("from `Type`", function() {
+      this.load(Foo, { text:"hello" }, <span>Child</span> );
+    });
+
+    it("from `<div>`", function() {
+      this.load( <div>My Div</div> );
+    });
   });
 
-  it("load from `Type`", function() {
-    this.load(Foo, { text:"hello" }, <span>Child</span> );
-  });
 
-  it("load `<div>`", function() {
-    this.load( <div>My Div</div> );
-  });
 
   it("props: now", function() {
     this.props({ foo: new Date().toString() })
