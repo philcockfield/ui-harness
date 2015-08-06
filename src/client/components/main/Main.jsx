@@ -22,7 +22,7 @@ export default class Main extends React.Component {
     let currentSuite = current.get("suite");
     currentSuite = null;
     return (
-      <Card>
+      <Card padding={ 100 }>
         { currentSuite ? <MainHeader current={ current }/> : null }
 
         <ComponentHost current={ current }/>

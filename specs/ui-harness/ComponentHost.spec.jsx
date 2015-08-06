@@ -4,10 +4,10 @@ import Foo from "ui-core/components/Foo";
 
 describe("Component Host", () => {
 
-  before(function() {
-    // TODO: invoke automatically on load.
-    this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
-  });
+  // before(function() {
+  //   // TODO: invoke automatically on load.
+  //   this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
+  // });
 
 
   section("load", function() {

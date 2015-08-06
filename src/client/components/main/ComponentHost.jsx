@@ -2,6 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
+import CropMarks from "./CropMarks";
 
 
 /**
@@ -33,7 +34,9 @@ export default class ComponentHost extends React.Component {
     }
 
     return (
-      <div style={ styles.base }>{ element }</div>
+      <div style={ styles.base }>
+        <CropMarks>{ element }</CropMarks>
+      </div>
     );
   }
 }

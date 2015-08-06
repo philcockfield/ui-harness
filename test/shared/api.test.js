@@ -93,14 +93,18 @@ describe("API Internal", () => {
 
 
 
-
   describe("loadSuite()", () => {
     it("puts the [suite] into the [current] state", () => {
       const suite = describe("My Suite", () => {});
-      expect(api.current.get("isBeforeInvoked")).to.equal(undefined);
       api.loadSuite(suite);
       expect(api.current.get("suite")).to.equal(suite);
-      expect(api.current.get("isBeforeInvoked")).to.equal(false);
+    });
+
+    it("invokes the [before] handlers", () => {
+      const suite = describe("My Suite", () => {});
+      expect(api.current.get("isBeforeInvoked")).to.equal(undefined);
+      api.loadSuite(suite);
+      expect(api.current.get("isBeforeInvoked")).to.equal(true);
     });
 
     it("stores the current suite in local-storage", () => {
