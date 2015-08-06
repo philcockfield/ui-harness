@@ -2,45 +2,44 @@ import React from "react";
 // import Foo from "ui-core/components/Foo";
 
 
-describe("Component Host", () => {
+describe("Component Host", function() {
 
-  before(function() {
-    // TODO: invoke automatically on load.
+  before(() => {
     this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
   });
 
 
-  section("load", function() {
-    it("from `<element>`", function() {
+  section("load", () => {
+    it("from `<element>`", () => {
       this.load( <MyFoo foo={123}><span>Hello</span></MyFoo> )
       // this.load();
     });
 
-    it("from `Type`", function() {
-      this.load(Foo, { text:"hello" }, <span>Child</span> );
+    it("from `Type`", () => {
+      this.load(MyFoo, { text:"hello" }, <span>Child</span> );
     });
 
-    it("from `<div>`", function() {
+    it("from `<div>`", () => {
       this.load( <div>My Div</div> );
     });
   });
 
-  section("this.props", function() {
-    it("props(now)", function() {
+  section("this.props", () => {
+    it("props(now)", () => {
       this.props({ foo: new Date().toString() })
     });
   });
 
 
-  section("children", function() {
-    it("children", function() {
+  section("children", () => {
+    it("children", () => {
       this.children( <span>New Children { new Date().toString() }</span> )
     });
 
 
   });
 
-  section("cropMarks", function() {
+  section("cropMarks", () => {
     it("read", () => {
       console.log("this.cropMarks()", this.cropMarks());
       console.log("this.cropMarks.size()", this.cropMarks.size());
@@ -57,11 +56,7 @@ describe("Component Host", () => {
     it("`cropMarks.size: 20`", () => { this.cropMarks.size(20) });
     it("`cropMarks.offset: 0`", () => { this.cropMarks.offset(1) });
     it("`cropMarks.offset: 5`", () => { this.cropMarks.offset(5) });
-
-
   });
-
-
 });
 
 

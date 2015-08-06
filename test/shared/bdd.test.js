@@ -3,7 +3,6 @@ import sinon from "sinon";
 import bdd from "../../src/shared/bdd";
 import jsBdd from "js-bdd";
 import ThisContext from "../../src/shared/ThisContext";
-
 const BDD = ['describe', 'it', 'before', 'beforeEach', 'after', 'afterEach', 'section'];
 
 
@@ -17,6 +16,7 @@ describe("BDD", () => {
     BDD.forEach(methodName => { global[methodName] = ORIGINAL_DSL[methodName] });
     jsBdd.reset();
   });
+
 
 
   it("registers the DSL in the global namespace", () => {
