@@ -46,8 +46,9 @@ export default class Icon extends React.Component {
     if (_.isFunction(handler)) { handler(e); }
   }
 
-  handleMouseDown(e) { this.setState({ isDown:true }); }
-  handleMouseUp(e) { this.setState({ isDown:false }); }
+  handleMouseDown() { this.setState({ isDown:true }); }
+  handleMouseUp() { this.setState({ isDown:false }); }
+  handleMouseLeave() { this.setState({ isDown:false }); }
 
 
   render() {
@@ -59,7 +60,8 @@ export default class Icon extends React.Component {
         style={ styles.base }
         onClick={ this.handleClick.bind(this) }
         onMouseDown={ this.handleMouseDown.bind(this) }
-        onMouseUp={ this.handleMouseUp.bind(this) }>
+        onMouseUp={ this.handleMouseUp.bind(this) }
+        onMouseLeave={ this.handleMouseLeave.bind(this) }>
         <IconImage name={ this.props.name } opacity={ opacity }/>
       </div>
     );

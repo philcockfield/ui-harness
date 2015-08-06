@@ -49,6 +49,18 @@ describe("Component Host", function() {
   });
 
 
+  section("size", () => {
+    it("read", () => {
+      console.log("width()", this.width());
+      console.log("height():", this.height());
+      console.log("");
+    });
+    it("`null:null`", () => { this.width(null).height(null) });
+    it("`350:200`", () => { this.width(350).height(200) });
+    it("`100%:100%`", () => { this.width("100%").height("100%") });
+  });
+
+
   section("cropMarks", () => {
     it("read", () => {
       console.log("cropMarks()", this.cropMarks());
@@ -62,17 +74,5 @@ describe("Component Host", function() {
     it("`cropMarks.size: 20`", () => { this.cropMarks.size(20) });
     it("`cropMarks.offset: 0`", () => { this.cropMarks.offset(1) });
     it("`cropMarks.offset: 5`", () => { this.cropMarks.offset(5) });
-  });
-
-
-  section("size", () => {
-    it("read", () => {
-      console.log("width()", this.width());
-      console.log("height():", this.height());
-      console.log("");
-    });
-    it("`null:null`", () => { this.width(null).height(null) });
-    it("`350:200`", () => { this.width(350).height(200) });
-    it("`100%:100%`", () => { this.width("100%").height("100%") });
   });
 });
