@@ -24,8 +24,7 @@ class Api {
     if (hard) {
       this.clearLocalStorage();
     }
-    this.current = this.current.clear();
-    this.setCurrent();
+    this.setCurrent(null);
     return this;
   }
 
@@ -70,9 +69,14 @@ class Api {
     // Only load the suite if it does not have children
     // ie. is not a container/folder suite.
     if (suite.childSuites.length === 0) {
+      // Clear the current state.
+      this.setCurrent(null);
+
+      // Prepare the new current state.
       let current = suite.meta.thisContext.toValues();
       current.suite = suite;
       current.indexMode = this.indexMode();
+      current.beforeInvoked = false;
       this.setCurrent(current);
       if (storeAsLastSuite) { this.lastSelectedSuite(suite); }
     }
@@ -91,7 +95,10 @@ class Api {
   invokeSpec(spec, callback) {
     const suite = spec.parentSuite;
     const self = suite.meta.thisContext;
-    suite.beforeHandlers.invoke(self);
+    if (!this.current.get("beforeInvoked")) {
+      suite.beforeHandlers.invoke(self);
+      this.current = this.current.set("beforeInvoked", true);
+    }
     spec.invoke(self, callback);
     return this;
   }

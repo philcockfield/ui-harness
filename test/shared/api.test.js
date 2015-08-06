@@ -12,7 +12,10 @@ describe("API Internal", () => {
   before(() => {
     bdd.reset();
     bdd.register();
-    api.clearLocalStorage();
+  });
+
+  beforeEach(() => {
+    api.reset({ hard:true });
   });
 
 
@@ -60,11 +63,36 @@ describe("API Internal", () => {
   });
 
 
+
+  describe("indexMode", () => {
+    it("shows the 'tree' by default", () => {
+      api.clearLocalStorage();
+      expect(api.indexMode()).to.equal("tree");
+    });
+
+    it("stores the mode in local-storage", () => {
+      api.clearLocalStorage();
+      api.indexMode("suite");
+      expect(api.indexMode()).to.equal("suite");
+      expect(api.localStorage("indexMode")).to.equal("suite");
+    });
+
+    it("updates the [current]", () => {
+      api.indexMode("suite");
+      expect(api.current.get("indexMode")).to.equal("suite");
+    });
+  });
+
+
+
+
   describe("loadSuite()", () => {
     it("puts the [suite] into the [current] state", () => {
       const suite = describe("My Suite", () => {});
+      expect(api.current.get("beforeInvoked")).to.equal(undefined);
       api.loadSuite(suite);
       expect(api.current.get("suite")).to.equal(suite);
+      expect(api.current.get("beforeInvoked")).to.equal(false);
     });
 
     it("stores the current suite in local-storage", () => {
@@ -83,26 +111,6 @@ describe("API Internal", () => {
       expect(api.current.get("indexMode")).to.equal(undefined);
       api.loadSuite(suite);
       expect(api.current.get("indexMode")).to.equal("tree");
-    });
-  });
-
-
-  describe("indexMode", () => {
-    it("shows the 'tree' by default", () => {
-      api.clearLocalStorage();
-      expect(api.indexMode()).to.equal("tree");
-    });
-
-    it("stores the mode in local-storage", () => {
-      api.clearLocalStorage();
-      api.indexMode("suite");
-      expect(api.indexMode()).to.equal("suite");
-      expect(api.localStorage("indexMode")).to.equal("suite");
-    });
-
-    it("updates the [current]", () => {
-      api.indexMode("suite");
-      expect(api.current.get("indexMode")).to.equal("suite");
     });
   });
 
@@ -140,13 +148,26 @@ describe("API Internal", () => {
       let spec;
       let calls = [];
       describe("my suite", () => {
-        let beforeCount = 0;
         before(() => { calls.push("before-1") });
         before(() => { calls.push("before-2") });
         spec = it("my spec", () => { calls.push("spec") });
       });
+      console.log("api.current.toJS()", api.current.toJS());
       api.invokeSpec(spec);
       expect(calls).to.eql([ "before-1", "before-2", "spec" ]);
+    });
+
+
+    it("invokes the [before] only once", () => {
+      let beforeCount = 0;
+      let spec;
+      describe("my suite", () => {
+        before(() => { beforeCount += 1 });
+        spec = it("my spec", () => {});
+      });
+      api.invokeSpec(spec);
+      api.invokeSpec(spec);
+      expect(beforeCount).to.equal(1);
     });
   });
 });
