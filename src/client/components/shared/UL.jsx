@@ -27,7 +27,7 @@ export default class Ul extends React.Component {
 
 // API -------------------------------------------------------------------------
 Ul.propTypes = {
-  padding: PropTypes.NUMBER_OR_STRING
+  padding: PropTypes.numberOrString
 };
 Ul.defaultProps = {
   padding: 0

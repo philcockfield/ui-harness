@@ -1,5 +1,0 @@
-
-
-describe("Component Host", () => {
-
-});

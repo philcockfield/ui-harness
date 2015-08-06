@@ -1,7 +1,8 @@
 import React from "react";
 import Radium from "radium";
-import { css, PropTypes } from "js-util/react";
+import Immutable from "immutable";
 import Color from "color";
+import { css, PropTypes } from "js-util/react";
 import { Ellipsis, FormattedText } from "../shared";
 import api from "../../../shared/api";
 
@@ -10,14 +11,15 @@ import api from "../../../shared/api";
  */
 @Radium
 export default class SpecListItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { invokeCount: 0 };
+  invokeCount() {
+    const { spec, current } = this.props;
+    const specInvokeCount = current ? current.get("specInvokeCount") : {};
+    return specInvokeCount
+              ? specInvokeCount[spec.id] || 0
+              : 0;
   }
 
   styles() {
-    let { invokeCount } = this.state;
-
     return css({
       base: {
         position: "relative",
@@ -34,14 +36,13 @@ export default class SpecListItem extends React.Component {
         Absolute: "11 null null 13",
         width: 6,
         height: 6,
-        background: invokeCount === 0 ? "rgba(0, 0, 0, 0.22)" : "#4A90E2", // BLUE
+        background: this.invokeCount() === 0 ? "rgba(0, 0, 0, 0.22)" : "#4A90E2", // BLUE
         borderRadius: 3
       }
     });
   }
 
   invoke() {
-    this.setState({ invokeCount: this.state.invokeCount + 1 })
     api.invokeSpec(this.props.spec);
   }
 
@@ -72,5 +73,6 @@ export default class SpecListItem extends React.Component {
 // API -------------------------------------------------------------------------
 SpecListItem.propTypes = {
   spec: PropTypes.object.isRequired,
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
 };
 SpecListItem.defaultProps = {};

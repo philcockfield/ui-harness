@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import api from "../../../shared/api";
 import SuiteHeader from "./SuiteHeader";
@@ -39,7 +40,7 @@ export default class Suite extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { suite } = this.props;
+    const { suite, current } = this.props;
     const hasOnly = _.any(suite.specs, spec => spec.isOnly);
 
     let specs = _.filter(suite.specs, (item) => {
@@ -58,7 +59,8 @@ export default class Suite extends React.Component {
               return <Section
                         key={i}
                         section={ section }
-                        hasOnly={ hasOnly }/>
+                        hasOnly={ hasOnly }
+                        current={ current }/>
             }
           });
     }
@@ -67,7 +69,7 @@ export default class Suite extends React.Component {
       <div style={ styles.base }>
         <SuiteHeader suite={ suite }/>
         <div style={ styles.listOuter }>
-          <SpecList specs={ specs }/>
+          <SpecList specs={ specs } current={ current }/>
           { sections }
         </div>
       </div>
@@ -77,6 +79,7 @@ export default class Suite extends React.Component {
 
 // API -------------------------------------------------------------------------
 Suite.propTypes = {
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   suite: PropTypes.object.isRequired
 };
 Suite.defaultProps = {};

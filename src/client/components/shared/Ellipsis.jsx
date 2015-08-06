@@ -30,7 +30,7 @@ export default class Ellipsis extends React.Component {
 
 // API -------------------------------------------------------------------------
 Ellipsis.propTypes = {
-  width: PropTypes.NUMBER_OR_STRING,
+  width: PropTypes.numberOrString,
   display: PropTypes.oneOf(["block", "inline-block", "inline"])
 };
 Ellipsis.defaultProps = {

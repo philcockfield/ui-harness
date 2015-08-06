@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
-
+import ComponentHost from "./ComponentHost";
 
 /**
  * The Main (center) pane that hosts the component.
@@ -24,6 +24,9 @@ export default class Main extends React.Component {
     return (
       <Card>
         { currentSuite ? <MainHeader current={ current }/> : null }
+
+        <ComponentHost current={ current }/>
+
       </Card>
     );
   }

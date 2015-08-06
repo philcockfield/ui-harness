@@ -1,6 +1,9 @@
 import _ from "lodash";
+import React from "react";
 import api from "./api";
+import * as util from "js-util";
 
+const isBrowser = (typeof window !== 'undefined');
 const PROP = Symbol("Prop");
 const FIELD_KEYS = [
   "title",
@@ -58,4 +61,43 @@ export default class UIHarness {
    * Gets or sets the sub-title.
    */
   subtitle(value) { return this[PROP]("subtitle", value); }
+
+
+
+  /**
+   * Loads the given component.
+   *
+   * @param component
+   */
+  load(component, props, children) {
+    // Setup initial conditions.
+    if (!component) {
+      if (isBrowser) { console.warn("Cannot load - a component was not specified"); }
+      return this;
+    }
+    let type;
+
+    // If a created <element> was passed de-construct
+    // it into it's component parts.
+    if (component._isReactElement) {
+      props = component.props;
+      children = props.children;
+      delete props.children;
+      type = component.type;
+
+    } else {
+      type = component;
+    }
+
+    // Store on the current state.
+    api.setCurrent({
+      componentType: type,
+      componentProps: props,
+      componentChildren: children
+    });
+
+    // Finish up.
+    api.loadInvokeCount += 1;
+    return this;
+  }
 }

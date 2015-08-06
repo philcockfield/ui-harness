@@ -44,7 +44,7 @@ describe("API Internal", () => {
 
     it("does not clear local storage (soft reset)", () => {
       const mock = sinon.mock(api);
-      mock.expects("clearLocalStorage").never();
+      mock.expects("clearLocalStorage").once().withArgs("lastInvokedSpec:");
       api.reset({ hard: false });
       mock.verify();
       mock.restore();
@@ -71,6 +71,8 @@ describe("API Internal", () => {
     });
 
     it("stores the mode in local-storage", () => {
+      let suite = describe("My Suite", () => {});
+      api.loadSuite(suite);
       api.clearLocalStorage();
       api.indexMode("suite");
       expect(api.indexMode()).to.equal("suite");
@@ -81,6 +83,12 @@ describe("API Internal", () => {
       api.indexMode("suite");
       expect(api.current.get("indexMode")).to.equal("suite");
     });
+
+    it("returns 'tree' if there is no current suite", () => {
+      api.indexMode("suite");
+      expect(api.localStorage("indexMode")).to.equal("suite");
+      expect(api.indexMode()).to.equal("tree");
+    });
   });
 
 
@@ -89,10 +97,10 @@ describe("API Internal", () => {
   describe("loadSuite()", () => {
     it("puts the [suite] into the [current] state", () => {
       const suite = describe("My Suite", () => {});
-      expect(api.current.get("beforeInvoked")).to.equal(undefined);
+      expect(api.current.get("isBeforeInvoked")).to.equal(undefined);
       api.loadSuite(suite);
       expect(api.current.get("suite")).to.equal(suite);
-      expect(api.current.get("beforeInvoked")).to.equal(false);
+      expect(api.current.get("isBeforeInvoked")).to.equal(false);
     });
 
     it("stores the current suite in local-storage", () => {
@@ -152,7 +160,6 @@ describe("API Internal", () => {
         before(() => { calls.push("before-2") });
         spec = it("my spec", () => { calls.push("spec") });
       });
-      console.log("api.current.toJS()", api.current.toJS());
       api.invokeSpec(spec);
       expect(calls).to.eql([ "before-1", "before-2", "spec" ]);
     });

@@ -2,5 +2,5 @@ var harness = require("../../");
 
 
 harness.namespace("UIHarness", () => {
-  require("./ComponentHost");
+  require("./ComponentHost.spec");
 })

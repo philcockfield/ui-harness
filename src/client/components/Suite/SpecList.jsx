@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import { Ul } from "../shared";
 import SpecListItem from "./SpecListItem";
@@ -20,8 +21,12 @@ export default class SpecList extends React.Component {
 
   render() {
     const styles = this.styles();
+    const { current } = this.props;
     let specs = this.props.specs.map((spec, i) => {
-            return <SpecListItem key={i} spec={ spec }/>
+            return <SpecListItem
+                      key={i}
+                      spec={ spec }
+                      current={ current }/>
           });
 
     return (
@@ -34,7 +39,8 @@ export default class SpecList extends React.Component {
 
 // API -------------------------------------------------------------------------
 SpecList.propTypes = {
-  specs: PropTypes.arrayOf(PropTypes.object)
+  specs: PropTypes.arrayOf(PropTypes.object),
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
 };
 SpecList.defaultProps = {
   specs: []

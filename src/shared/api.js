@@ -12,20 +12,7 @@ import apiConsole from "./api-console";
 class Api {
   constructor() {
     this.current = Immutable.Map();
-  }
-
-
-  /**
-   * Resets the internal API.
-   * @param {boolean} hard: Flag indicating if all state from local-storage
-   *                        should be cleared away, or just current selection state.
-   */
-  reset({ hard = true } = {}) {
-    if (hard) {
-      this.clearLocalStorage();
-    }
-    this.setCurrent(null);
-    return this;
+    this.loadInvokeCount = 0;
   }
 
 
@@ -43,12 +30,48 @@ class Api {
     //        have fully parsed before initial render. Avoids a redraw.
     util.delay(() => {
         // Ensure the last loaded suite is set as the current state.
-        this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
+        const suite = this.lastSelectedSuite();
+        if (suite) {
+          this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
+          this.invokeBeforeHandlers(suite);
+        }
         callback()
     });
 
     // Finish up.
     return this;
+  }
+
+
+
+  /**
+   * Resets the internal API.
+   * @param {boolean} hard: Flag indicating if all state from local-storage
+   *                        should be cleared away, or just current selection state.
+   */
+  reset({ hard = true } = {}) {
+    if (hard) {
+      this.clearLocalStorage();
+    } else {
+      this.clearLocalStorage("lastInvokedSpec:");
+    }
+    this.lastSelectedSuite(null)
+    this.setCurrent(null);
+    return this;
+  }
+
+
+  /**
+   * Removes all ui-harness values stored in local-storage.
+   */
+  clearLocalStorage(startsWith = null) {
+    util.localStorage.keys().forEach(key => {
+        let match = "ui-harness:";
+        if (startsWith) { match += startsWith; }
+        if (_.startsWith(key, match)) {
+          util.localStorage.prop(key, null); // Remove.
+        }
+      });
   }
 
 
@@ -76,9 +99,15 @@ class Api {
       let current = suite.meta.thisContext.toValues();
       current.suite = suite;
       current.indexMode = this.indexMode();
-      current.beforeInvoked = false;
+      current.isBeforeInvoked = false;
       this.setCurrent(current);
       if (storeAsLastSuite) { this.lastSelectedSuite(suite); }
+
+      // If the last invoked spec on the suite contained a load
+      let lastInvokedSpec = this.lastInvokedSpec(suite);
+      if (lastInvokedSpec && lastInvokedSpec.isLoader) {
+        this.invokeSpec(lastInvokedSpec.spec);
+      }
     }
 
     // Finish up.
@@ -93,14 +122,45 @@ class Api {
    *                   Immediately if the spec is not asynchronous.
    */
   invokeSpec(spec, callback) {
+    // Setup initial conditions.
     const suite = spec.parentSuite;
     const self = suite.meta.thisContext;
-    if (!this.current.get("beforeInvoked")) {
-      suite.beforeHandlers.invoke(self);
-      this.current = this.current.set("beforeInvoked", true);
-    }
+    this.invokeBeforeHandlers(suite)
+    let loadInvokeCountBefore = this.loadInvokeCount;
+
+    // Invoke the methods.
     spec.invoke(self, callback);
+
+    // Store a reference to last-invoked spec.
+    this.lastInvokedSpec(suite, {
+      spec: spec,
+      isLoader: (this.loadInvokeCount > loadInvokeCountBefore)
+    });
+
+    // Increment the current invoke count for the spec.
+    let specInvokeCount = this.current.get("specInvokeCount") || {};
+    let total = specInvokeCount[spec.id] || 0;
+    specInvokeCount[spec.id] = total + 1;
+    this.setCurrent({ specInvokeCount: specInvokeCount });
+
+    // Finish up.
     return this;
+  }
+
+
+
+  /**
+   * Invokes the [before] handlers for
+   * the given suite if required.
+   * @return {boolean}  - true if the handlers were invoked
+   *                    - false if they have already been invoked.
+   */
+  invokeBeforeHandlers(suite) {
+    if (this.current.get("isBeforeInvoked")) { return false; }
+    const self = suite.meta.thisContext;
+    suite.beforeHandlers.invoke(self);
+    this.current = this.current.set("isBeforeInvoked", true);
+    return true
   }
 
 
@@ -115,6 +175,28 @@ class Api {
 
 
   /**
+   * Gets or sets the last spec for the given suite
+   * that was invoked that had a `.load()` call within it.
+   */
+  lastInvokedSpec(suite, { spec, isLoader = false} = {}) {
+    const KEY = `lastInvokedSpec:${ suite.id }`;
+    let value;
+    if (spec !== undefined) {
+      // WRITE.
+      value = { spec: spec.id, isLoader: isLoader }
+      spec = spec.id;
+    }
+
+    // READ.
+    let result = this.localStorage(KEY, value);
+    if (result) {
+      result.spec = _.find(suite.specs, spec => spec.id === result.spec);
+    }
+    return result
+  }
+
+
+  /**
    * Gets or sets the display mode of the left-hand index.
    * @param {string} mode: tree|suite
    */
@@ -123,6 +205,12 @@ class Api {
     if (mode !== undefined) {
       // WRITE (store in current state).
       this.setCurrent({ indexMode:mode });
+    }
+
+    // READ.
+    result = result || "tree";
+    if (result !== "tree" && this.current.get("suite") === undefined) {
+      result = "tree"
     }
     return result;
   }
@@ -161,18 +249,6 @@ class Api {
    */
   localStorage(key, value, options) {
     return util.localStorage.prop(`ui-harness:${ key }`, value, options);
-  }
-
-
-  /**
-   * Removes all ui-harness values stored in local-storage.
-   */
-  clearLocalStorage() {
-    util.localStorage.keys().forEach(key => {
-        if (_.startsWith(key, "ui-harness:")) {
-          util.localStorage.prop(key, null); // Remove.
-        }
-      });
   }
 }
 

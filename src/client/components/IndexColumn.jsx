@@ -21,7 +21,7 @@ export default class IndexColumn extends React.Component {
   handleKeyDown(e) {
     if (this.isOver) {
       // Alert child components of the key-event.
-      switch (this.indexMode()) {
+      switch (api.indexMode()) {
         case "tree":
           this.refs.suiteTree.handleKeyDown(e);
           break;
@@ -34,12 +34,9 @@ export default class IndexColumn extends React.Component {
   }
 
 
-  indexMode() { return api.indexMode() || "tree"; }
-
-
   styles() {
     const { current, width } = this.props;
-    const indexMode = this.indexMode();
+    const indexMode = api.indexMode();
 
     // Calculate slide position of panels.
     if (indexMode && width) {
@@ -88,7 +85,11 @@ export default class IndexColumn extends React.Component {
           <SuiteTree ref="suiteTree" selectedSuite={ currentSuite } width={ width } />
         </div>
         <div style={[ styles.outer, styles.specs ]}>
-          { currentSuite ? <Suite ref="suite" suite={ currentSuite } /> : null }
+          {
+            currentSuite
+              ? <Suite ref="suite" suite={ currentSuite } current={ current } />
+              : null
+          }
         </div>
 
       </div>

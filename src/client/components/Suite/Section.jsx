@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { FormattedText, Ellipsis, Twisty } from "../shared";
@@ -45,7 +46,7 @@ export default class Section extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { section, hasOnly } = this.props;
+    const { section, hasOnly, current } = this.props;
     let specs = section.specs();
     if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
 
@@ -57,7 +58,11 @@ export default class Section extends React.Component {
             <FormattedText>{ section.name }</FormattedText>
           </Ellipsis>
         </div>
-        { this.state.isOpen ? <SpecList specs={ specs }/> : null }
+        {
+          this.state.isOpen
+            ? <SpecList specs={ specs } current={ current }/>
+            : null
+        }
       </div>
     );
   }
@@ -65,6 +70,7 @@ export default class Section extends React.Component {
 
 // API -------------------------------------------------------------------------
 Section.propTypes = {
+  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   section: PropTypes.object.isRequired,
   hasOnly: PropTypes.bool
 };
