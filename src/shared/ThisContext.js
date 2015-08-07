@@ -14,7 +14,8 @@ const FIELD_KEYS = [
   "height",
   "cropMarks",
   "cropMarks.size",
-  "cropMarks.offset"
+  "cropMarks.offset",
+  "margin"
 ];
 
 
@@ -35,12 +36,11 @@ export default class UIHContext {
     this[PROP] = (key, value, options = {}) => {
           // WRITE.
           if (value !== undefined) {
-            const propType = options.propType;
-            if (propType) {
-              const validation = PropTypes.validate({ value: propType }, { value: value });
+            const type = options.type;
+            if (type) {
+              const validation = PropTypes.validate(type, value);
               if (!validation.isValid) {
-                console.log("propType", propType);
-                throw new Error(`Invalid '${ key }' value (${ value }). Should be ${ propType.toString() }.`)
+                throw new Error(`Invalid '${ key }' value (${ value }). Should be ${ type.toString() }.`)
               }
             }
 
@@ -59,8 +59,8 @@ export default class UIHContext {
         };
 
     // Property extensions.
-    this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 20 }); };
-    this.cropMarks.offset = (value) => { return this[PROP]("cropMarks.offset", value, { default: 5 }); };
+    this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 20, type:PropTypes.number }); };
+    this.cropMarks.offset = (value) => { return this[PROP]("cropMarks.offset", value, { default: 5, type:PropTypes.number }); };
   }
 
 
@@ -82,9 +82,10 @@ export default class UIHContext {
    */
   props(value) { return this[PROP]("componentProps", value); }
   children(value) { return this[PROP]("componentChildren", value); }
-  width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, propType:PropTypes.numberOrString }); }
-  height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, propType:PropTypes.numberOrString }); }
-  cropMarks(value) { return this[PROP]("cropMarks", value, { default: true }); }
+  width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, type:PropTypes.numberOrString }); }
+  height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type:PropTypes.numberOrString }); }
+  cropMarks(value) { return this[PROP]("cropMarks", value, { default: true, type:PropTypes.bool }); }
+  margin(value) { return this[PROP]("margin", value, { default: 40, type:PropTypes.number }); }
 
 
 

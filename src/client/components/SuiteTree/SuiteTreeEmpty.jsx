@@ -24,8 +24,6 @@ export default class SuiteTreeEmpty extends React.Component {
         fontWeight: 200
       },
       a: { color: textColor },
-
-
       icon: {
         marginBottom: 12,
         opacity: 0.1

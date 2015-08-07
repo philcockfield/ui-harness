@@ -38,7 +38,6 @@ describe("ThisContext: load", () => {
       expect(api.current.get("componentType")).to.equal(Foo);
       expect(api.current.get("componentProps")).to.eql({ text: "hello" });
       expect(api.current.get("componentChildren")).to.equal("child");
-
     });
 
     it("from element", () => {

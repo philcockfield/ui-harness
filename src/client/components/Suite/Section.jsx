@@ -34,6 +34,14 @@ export default class Section extends React.Component {
         padding: "6px 10px",
         marginBottom: 3,
         cursor: "pointer"
+      },
+      empty: {
+        textAlign: "center",
+        fontSize: 13,
+        fontStyle: "italic",
+        color: css.white.darken(0.3),
+        paddingTop: 10,
+        paddingBottom: 20
       }
     });
   }
@@ -47,6 +55,7 @@ export default class Section extends React.Component {
   render() {
     const styles = this.styles();
     const { section, hasOnly, current } = this.props;
+    const { isOpen } = this.state;
     let specs = section.specs();
     if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
 
@@ -59,8 +68,13 @@ export default class Section extends React.Component {
           </Ellipsis>
         </div>
         {
-          this.state.isOpen
+          isOpen && specs.length > 0
             ? <SpecList specs={ specs } current={ current }/>
+            : null
+        }
+        {
+          isOpen && specs.length === 0
+            ? <div style={ styles.empty }>Empty</div>
             : null
         }
       </div>

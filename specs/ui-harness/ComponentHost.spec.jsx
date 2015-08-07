@@ -35,6 +35,9 @@ describe("Component Host", function() {
   });
 
 
+  section("Nothing in the Section", () => {});
+
+
   section("this.props", () => {
     it("props(now)", () => {
       this.props({ foo: new Date().toString() })
@@ -51,7 +54,7 @@ describe("Component Host", function() {
 
   section("size", () => {
     it("read", () => {
-      console.log("width()", this.width());
+      console.log("width():", this.width());
       console.log("height():", this.height());
       console.log("");
     });
@@ -60,11 +63,16 @@ describe("Component Host", function() {
     it("`100%:100%`", () => { this.width("100%").height("100%") });
   });
 
+  section("margin", () => {
+    it("`0`", () => { this.margin(0); });
+    it("`40`", () => { this.margin(40); });
+    it("`120`", () => { this.margin(120); });
+  });
 
   section("cropMarks", () => {
     it("read", () => {
-      console.log("cropMarks()", this.cropMarks());
-      console.log("cropMarks.size()", this.cropMarks.size());
+      console.log("cropMarks():", this.cropMarks());
+      console.log("cropMarks.size():", this.cropMarks.size());
       console.log("");
     });
 
