@@ -39,7 +39,8 @@ export default class UIHContext {
             if (propType) {
               const validation = PropTypes.validate({ value: propType }, { value: value });
               if (!validation.isValid) {
-                throw new Error(`Invalid value for '${ key }': ${ value }`)
+                console.log("propType", propType);
+                throw new Error(`Invalid '${ key }' value (${ value }). Should be ${ propType.toString() }.`)
               }
             }
 
