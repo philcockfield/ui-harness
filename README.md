@@ -12,19 +12,20 @@ http://uiharness.com
 - header (markdown)
 - Server - build babel with experiments (1) - parse JSX with @Radim on server.
 - css.color
-  - css.color("white", -0.3..0.3) opacity
-  - css.color("white", 1..100) darken-lighten
-  - css.white (same as)
-- Figure out why ()=> within a <section> is having this == the right context.
-- <code> style.
+      - css.color("white", -0.3..0.3) opacity
+      - css.color("white", 1..100) darken-lighten
+      - css.white (same as)
 - Store skipped suites on console {object} (names only)
-- Section - "empty"
+
+
 
 
 ## Development (of the UIHarness)
 
     npm install
     npm run specs
+
+
 
 ## License (MIT)
 Copyright © 2015, **Phil Cockfield**

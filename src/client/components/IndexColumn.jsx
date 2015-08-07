@@ -6,7 +6,8 @@ import { css, PropTypes } from "js-util/react";
 import api from "../../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 import Suite from "./Suite";
-import { FONT_FAMILY } from "../const";
+import { FONT_SANS } from "../const";
+
 
 /**
  * The index column.
@@ -48,7 +49,7 @@ export default class IndexColumn extends React.Component {
       base: {
         Absolute: 0,
         overflow: "hidden",
-        fontFamily: FONT_FAMILY,
+        fontFamily: FONT_SANS,
         userSelect: "none"
       },
       outer: {
@@ -79,6 +80,7 @@ export default class IndexColumn extends React.Component {
 
     return (
       <div style={ styles.base }
+           className="uih"
            onMouseEnter={ this.handleMouseEnter.bind(this) }
            onMouseLeave={ this.handleMouseLeave.bind(this) }>
 

@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
-import { FONT_FAMILY } from "../../const";
+import { FONT_SANS } from "../../const";
 import { FormattedText } from "../shared";
 
 
@@ -14,11 +14,10 @@ export default class MainHeader extends React.Component {
   styles() {
     return {
       base: {
-        // background: "rgba(255, 0, 0, 0.1)", //RED
         paddingTop: 15,
         paddingLeft: 20,
         paddingRight: 20,
-        fontFamily: FONT_FAMILY
+        fontFamily: FONT_SANS
       },
       h1: {
         fontSize: 32,

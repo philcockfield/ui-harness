@@ -25,7 +25,6 @@ export default class ComponentHost extends React.Component {
     const { width, height } = this.size();
     return css({
       base: {
-        background: "rgba(255, 0, 0, 0.1)", //RED
         position: "relative",
         width: width,
         height: height
