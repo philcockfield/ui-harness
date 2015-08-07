@@ -2,6 +2,8 @@ import _ from "lodash";
 import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
+import { PropTypes } from "js-util/react";
+
 
 const isBrowser = (typeof window !== 'undefined');
 const PROP = Symbol("Prop");
@@ -32,7 +34,15 @@ export default class UIHContext {
     const propState = {};
     this[PROP] = (key, value, options = {}) => {
           // WRITE.
-          if (!_.isUndefined(value)) {
+          if (value !== undefined) {
+            const propType = options.propType;
+            if (propType) {
+              const validation = PropTypes.validate({ value: propType }, { value: value });
+              if (!validation.isValid) {
+                throw new Error(`Invalid value for '${ key }': ${ value }`)
+              }
+            }
+
             if (options.resetOn !== undefined && value === options.resetOn) {
               value = options.default;
             }
@@ -71,8 +81,8 @@ export default class UIHContext {
    */
   props(value) { return this[PROP]("componentProps", value); }
   children(value) { return this[PROP]("componentChildren", value); }
-  width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null }); }
-  height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null }); }
+  width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, propType:PropTypes.numberOrString }); }
+  height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, propType:PropTypes.numberOrString }); }
   cropMarks(value) { return this[PROP]("cropMarks", value, { default: true }); }
 
 

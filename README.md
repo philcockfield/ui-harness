@@ -17,6 +17,7 @@ http://uiharness.com
   - css.white (same as)
 - Figure out why ()=> within a <section> is having this == the right context.
 - <code> style.
+- Store skipped suites on console {object} (names only)
 
 
 ## Development (of the UIHarness)

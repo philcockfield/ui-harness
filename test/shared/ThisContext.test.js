@@ -60,6 +60,26 @@ describe("ThisContext", () => {
         expect(context.width()).to.equal("auto");
         expect(context.height()).to.equal("auto");
       });
+
+      it("width throws if a number of string is not passed", () => {
+        let fn = () => {
+          context
+            .width(250)
+            .width("100%")
+            .width({ foo: 123 })
+        };
+        expect(fn).to.throw();
+      });
+
+      it("height throws if a number of string is not passed", () => {
+        let fn = () => {
+          context
+            .height(250)
+            .height("100%")
+            .height({ foo: 123 })
+        };
+        expect(fn).to.throw();
+      });
     });
   });
 });
