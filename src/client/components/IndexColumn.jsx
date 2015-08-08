@@ -103,7 +103,7 @@ export default class IndexColumn extends React.Component {
 
 // API -------------------------------------------------------------------------
 IndexColumn.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  current: PropTypes.instanceOf(Immutable.Map).isRequired,
   width: React.PropTypes.number.isRequired
 };
 IndexColumn.defaultProps = {};

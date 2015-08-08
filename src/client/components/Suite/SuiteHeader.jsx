@@ -5,7 +5,7 @@ import { css, PropTypes } from "js-util/react";
 import api from "../../../shared/api-internal";
 import Icon from "../shared/Icon";
 import Color from "color";
-import { FormattedText, Ellipsis } from "../shared";
+import { Markdown, Ellipsis } from "../shared";
 
 /**
  * The header bar for the [Suite] index column.
@@ -58,7 +58,7 @@ export default class SuiteHeader extends React.Component {
 
         <div style={ styles.titleOuter }>
           <Ellipsis display="block">
-            <FormattedText>{ title }</FormattedText>
+            <Markdown>{ title }</Markdown>
           </Ellipsis>
         </div>
 

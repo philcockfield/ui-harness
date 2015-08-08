@@ -6,14 +6,10 @@ import CropMarks from "../shared/CropMarks";
 
 
 /**
- * Responsible for hosting the current component.
+ * Loads and displays a component.
  */
 @Radium
-export default class ComponentHost extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+export default class Component extends React.Component {
   size() {
     const { current } = this.props;
     let width = current.get("width");
@@ -25,9 +21,10 @@ export default class ComponentHost extends React.Component {
     const { width, height } = this.size();
     return css({
       base: {
+        // background: "rgba(255, 0, 0, 0.1)", //RED
         position: "relative",
-        width: width,
-        height: height
+        width,
+        height
       }
     });
   }
@@ -60,7 +57,7 @@ export default class ComponentHost extends React.Component {
 }
 
 // API -------------------------------------------------------------------------
-ComponentHost.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+Component.propTypes = {
+  current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
-ComponentHost.defaultProps = {};
+Component.defaultProps = {};

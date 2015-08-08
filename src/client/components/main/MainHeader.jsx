@@ -2,8 +2,9 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
+import { css, PropTypes } from "js-util/react";
 import { FONT_SANS } from "../../const";
-import { FormattedText } from "../shared";
+import { Markdown } from "../shared";
 
 
 /**
@@ -12,8 +13,9 @@ import { FormattedText } from "../shared";
 @Radium
 export default class MainHeader extends React.Component {
   styles() {
-    return {
+    return css({
       base: {
+        background: "rgba(255, 0, 0, 0.1)", //RED
         paddingTop: 15,
         paddingLeft: 20,
         paddingRight: 20,
@@ -41,20 +43,27 @@ export default class MainHeader extends React.Component {
         borderBottomWidth: '1px',
         marginTop: 10
       }
-    };
+    });
   }
 
   render() {
     const styles = this.styles();
     const { current } = this.props;
-    let title = <FormattedText>{ current.get("title") }</FormattedText>;
-    let subtitle = <FormattedText>{ current.get("subtitle") }</FormattedText>;
+    let title = <Markdown>{ current.get("title") }</Markdown>;
+    let subtitle = <Markdown>{ current.get("subtitle") }</Markdown>;
+
+    const LOREM = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+    const paras = (total) => {
+          const result = [];
+          for (var i = 0; i < total; i++) {
+              result.push( <p key={i}>{ LOREM }</p> )
+          }
+          return result;
+        };
 
     return (
-      <div style={ styles.base }>
-        <h1 style={ styles.h1 }>{ title }</h1>
-        <h2 style={ styles.h2 }>{ subtitle }</h2>
-        <div style={ styles.hr }/>
+      <div style={ styles.base } className="uih">
+        { paras(3) }
       </div>
     );
   }
@@ -62,6 +71,6 @@ export default class MainHeader extends React.Component {
 
 // API -------------------------------------------------------------------------
 MainHeader.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 MainHeader.defaultProps = {};

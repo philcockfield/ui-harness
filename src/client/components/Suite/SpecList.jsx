@@ -40,7 +40,7 @@ export default class SpecList extends React.Component {
 // API -------------------------------------------------------------------------
 SpecList.propTypes = {
   specs: PropTypes.arrayOf(PropTypes.object),
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 SpecList.defaultProps = {
   specs: []

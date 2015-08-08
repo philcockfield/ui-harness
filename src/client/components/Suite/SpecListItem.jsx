@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
-import { Ellipsis, FormattedText } from "../shared";
+import { Ellipsis, Markdown } from "../shared";
 import api from "../../../shared/api-internal";
 
 /**
@@ -62,7 +62,7 @@ export default class SpecListItem extends React.Component {
         <div style={ styles.bullet }/>
         <div style={ styles.name }>
           <Ellipsis>
-            <FormattedText>{ spec.name }</FormattedText>
+            <Markdown>{ spec.name }</Markdown>
           </Ellipsis>
         </div>
       </li>
@@ -73,6 +73,6 @@ export default class SpecListItem extends React.Component {
 // API -------------------------------------------------------------------------
 SpecListItem.propTypes = {
   spec: PropTypes.object.isRequired,
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 SpecListItem.defaultProps = {};

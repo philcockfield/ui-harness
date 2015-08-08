@@ -1,10 +1,13 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
+import { css, PropTypes } from "js-util/react";
 import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
+import Component from "./Component";
+import ComponentAlign from "./ComponentAlign";
 import ComponentHost from "./ComponentHost";
-import { css, PropTypes } from "js-util/react";
+
 
 /**
  * The Main (center) pane that hosts the component.
@@ -13,14 +16,23 @@ import { css, PropTypes } from "js-util/react";
 export default class Main extends React.Component {
   styles() {
     const { current } = this.props;
-    const margin = current.get("margin");
     return css({
       base: {
         Absolute: 0,
-        overflow: "hidden"
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+        overflowY: "auto"
       },
-      componentOuter: {
-        Absolute: [margin, margin, margin, margin]
+      headerContainer: {
+        position: "relative",
+        borderBottom: "solid 1px rgba(0, 0, 0, 0.3)"
+      },
+      hostContainer: {
+        position: "relative",
+        flex: "1",
+        minHeight: "50%"
       }
     });
   }
@@ -28,14 +40,14 @@ export default class Main extends React.Component {
   render() {
     const styles = this.styles();
     let { current } = this.props;
-    let currentSuite = current.get("suite");
-    currentSuite = null;
+
     return (
       <Card>
         <div style={ styles.base }>
-          { currentSuite ? <MainHeader current={ current }/> : null }
-
-          <div style={ styles.componentOuter }>
+          <div style={ styles.headerContainer }>
+            <MainHeader current={ current }/>
+          </div>
+          <div style={ styles.hostContainer }>
             <ComponentHost current={ current }/>
           </div>
         </div>
@@ -47,6 +59,6 @@ export default class Main extends React.Component {
 
 // API -------------------------------------------------------------------------
 Main.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 Main.defaultProps = {};

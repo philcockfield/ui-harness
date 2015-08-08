@@ -1,6 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
+import { css, PropTypes } from "js-util/react";
 
 
 /**
@@ -13,9 +14,9 @@ export default class PropTypesColumn extends React.Component {
   }
 
   styles() {
-    return {
+    return css({
       base: {}
-    };
+    });
   }
 
   render() {
@@ -28,7 +29,7 @@ export default class PropTypesColumn extends React.Component {
 
 // API -------------------------------------------------------------------------
 PropTypesColumn.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  width: React.PropTypes.number.isRequired
+  current: PropTypes.instanceOf(Immutable.Map).isRequired,
+  width: PropTypes.number.isRequired
 };
 PropTypesColumn.defaultProps = {};

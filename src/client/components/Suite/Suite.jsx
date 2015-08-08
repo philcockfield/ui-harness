@@ -79,7 +79,7 @@ export default class Suite extends React.Component {
 
 // API -------------------------------------------------------------------------
 Suite.propTypes = {
-  current: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  current: PropTypes.instanceOf(Immutable.Map).isRequired,
   suite: PropTypes.object.isRequired
 };
 Suite.defaultProps = {};
