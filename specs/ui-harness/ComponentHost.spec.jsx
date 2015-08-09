@@ -16,7 +16,7 @@ export default class MyFoo extends React.Component {
 
 describe("Component Host", function() {
   this.header(`
-  ## Properties of the component host container.
+  ## Properties of the host container.
   ---
   `);
 
