@@ -44,7 +44,8 @@ describe("Header", function() {
 
 
   it("`null`", () => { this.header(null) });
-  it("short", () => { this.header("# My Header"); });
+  it("title only", () => { this.header("# My Header"); });
+  it("subtitle only", () => { this.header(`## ${ lorem(10) } \n---`); });
 
   it("title / subtitle (short)", () => {
     this.header(`
