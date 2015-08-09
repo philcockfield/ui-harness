@@ -99,7 +99,8 @@ export default class MainHeader extends React.Component {
           <Style rules={ HEADER_STYLES } scopeSelector=".uih-header"/>
           <Markdown
                 display="block"
-                trimIndent={true}>
+                trimIndent={true}
+                escapeHtml={false}>
             { this.props.markdown }
           </Markdown>
         </div>

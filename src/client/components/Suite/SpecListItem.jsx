@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
-import { Ellipsis, Markdown } from "../shared";
+import { Ellipsis, FormattedText } from "../shared";
 import api from "../../../shared/api-internal";
 
 /**
@@ -62,7 +62,7 @@ export default class SpecListItem extends React.Component {
         <div style={ styles.bullet }/>
         <div style={ styles.name }>
           <Ellipsis>
-            <Markdown>{ spec.name }</Markdown>
+            <FormattedText>{ spec.name }</FormattedText>
           </Ellipsis>
         </div>
       </li>

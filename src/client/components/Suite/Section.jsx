@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
-import { Markdown, Ellipsis, Twisty } from "../shared";
+import { FormattedText, Ellipsis, Twisty } from "../shared";
 import api from "../../../shared/api-internal";
 import SpecList from "./SpecList";
 
@@ -64,7 +64,7 @@ export default class Section extends React.Component {
         <div style={ styles.titleBar } onClick={ this.handleClick.bind(this) }>
           <Ellipsis>
             <Twisty margin="0 5px 0 0" isOpen={ this.state.isOpen }/>
-            <Markdown>{ section.name }</Markdown>
+            <FormattedText>{ section.name }</FormattedText>
           </Ellipsis>
         </div>
         {

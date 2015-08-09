@@ -26,13 +26,13 @@ export default class GlobalStyles extends React.Component {
         border: "solid 1px rgba(0, 0, 0, 0.04)",
         borderRadius: 4,
         margin: 25,
-        padding: 15
+        padding: 15,
+        paddingTop: 10
       },
       "pre code": {
         background: "none",
         border: "none"
       }
-
     };
 
     return (<Style rules={ rules } scopeSelector=".uih" />);

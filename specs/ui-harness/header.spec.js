@@ -39,13 +39,11 @@ describe("Header", function() {
   ## Subtitle of the thing as a thing.
   ---
   `);
-
   this.header(LONG_HEADER);
 
-
   it("`null`", () => { this.header(null) });
-  it("title only", () => { this.header("# My Header"); });
-  it("subtitle only", () => { this.header(`## ${ lorem(10) } \n---`); });
+  it("title only <h1>", () => { this.header("# My Header"); });
+  it("subtitle only <h2>", () => { this.header(`## ${ lorem(10) } \n---`); });
 
   it("title / subtitle (short)", () => {
     this.header(`

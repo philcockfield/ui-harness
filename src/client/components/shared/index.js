@@ -8,9 +8,11 @@ import Markdown from "ui-core/components/Markdown";
 export default {
   Card: require("./Card"),
   Ellipsis: require("./Ellipsis"),
+  FormattedText: require("./FormattedText"),
   Icon: require("./Icon"),
   IconImage: require("./IconImage"),
   Ul: require("./Ul"),
+
 
   // From [core-ui].
   Center,
