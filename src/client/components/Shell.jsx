@@ -3,7 +3,6 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Main from "./Main";
 import IndexColumn from "./IndexColumn";
-import PropTypesColumn from "./PropTypesColumn";
 import { css, PropTypes } from "js-util/react";
 import GlobalStyles from "./GlobalStyles";
 
@@ -44,10 +43,6 @@ export default class UIHarness extends React.Component {
       },
       main: {
         Absolute: [COLUMN_MARGIN, rightWidth, COLUMN_MARGIN, leftWidth],
-      },
-      right: {
-        Absolute: [COLUMN_MARGIN, 0, COLUMN_MARGIN, null],
-        width: rightWidth
       }
     });
   }
@@ -64,9 +59,6 @@ export default class UIHarness extends React.Component {
         </div>
         <div style={[ styles.column, styles.main ]}>
           <Main current={ current }/>
-        </div>
-        <div style={[ styles.column, styles.right ]}>
-          <PropTypesColumn current={ current } width={ rightWidth }/>
         </div>
       </div>
     );
