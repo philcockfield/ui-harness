@@ -88,36 +88,4 @@ describe("Component Host", function() {
     it("`cropMarks.offset: 0`", () => { this.cropMarks.offset(1) });
     it("`cropMarks.offset: 5`", () => { this.cropMarks.offset(5) });
   });
-
-
-  section("header", () => {
-    it("`null`", () => { this.header(null) });
-    it("short", () => {
-      this.header("# My Header")
-    });
-
-    it("long", () => {
-      const header = `
-        # Title
-        ## My Subtitle of the thing about the thing
-
-        ----
-        Lorem \`ipsum dolor\` sit amet, consectetur adipisicing elit, sed do.
-
-        - One
-        - Two
-        - Three
-
-        ${ lorem(30) }
-
-        ----
-      `;
-      // console.log(header);
-      this.header(header);
-      // this.header(
-      //   `
-      //
-      //   `);
-    });
-  });
 });

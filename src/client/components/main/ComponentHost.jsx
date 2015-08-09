@@ -25,11 +25,16 @@ export default class ComponentHost extends React.Component {
   render() {
     const styles = this.styles();
     const { current } = this.props;
+
     return (
       <div style={ styles.base }>
-        <ComponentAlign align={ current.get("align") }>
-          <Component current={ current }/>
-        </ComponentAlign>
+        {
+          current.get("componentType")
+              ? <ComponentAlign align={ current.get("align") }>
+                  <Component current={ current }/>
+                </ComponentAlign>
+              : null
+        }
       </div>
     );
   }
