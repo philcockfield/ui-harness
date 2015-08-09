@@ -5,7 +5,7 @@ import Main from "./Main";
 import IndexColumn from "./IndexColumn";
 import PropTypesColumn from "./PropTypesColumn";
 import { css, PropTypes } from "js-util/react";
-import Css from "./Css";
+import Styles from "./Styles";
 
 const COLUMN_MARGIN = 6;
 
@@ -58,7 +58,7 @@ export default class UIHarness extends React.Component {
     let { current, leftWidth, rightWidth } = this.state;
     return (
       <div style={ styles.base }>
-        <Css/>
+        <Styles/>
         <div style={[ styles.column, styles.left ]}>
           <IndexColumn current={ current } width={ leftWidth }/>
         </div>

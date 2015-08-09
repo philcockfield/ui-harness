@@ -23,10 +23,13 @@ const elementStyles = css({
   },
   "p": {
     fontWeight: 200,
-    fontSize: 16
+    fontSize: 15,
+    lineHeight: "22px"
   },
   "ul": {
-    fontWeight: 200
+    fontWeight: 200,
+    fontSize: 15,
+    lineHeight: "22px"
   },
   "hr": {
     borderColor: "rgba(0, 0, 0, 0.1)",
@@ -55,7 +58,8 @@ export default class MainHeader extends React.Component {
         paddingLeft: 20,
         paddingRight: 20,
         fontFamily: FONT_SANS,
-        color: TEXT_COLOR
+        color: TEXT_COLOR,
+        // lineHeight: "20px"
       }
     });
   }

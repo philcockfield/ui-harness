@@ -11,7 +11,7 @@ export default class Css extends React.Component {
       code: {
         color: "#c7254e",
         padding: "2px 4px",
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: "normal",
         fontFamily: FONT_MONO,
         background: "rgba(0, 0, 0, 0.02)",

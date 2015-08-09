@@ -99,10 +99,18 @@ describe("Component Host", function() {
     it("long", () => {
       const header = `
         # Title
+        ## My Subtitle of the thing about the thing
 
-        ${ lorem(10) }
+        ----
+        Lorem \`ipsum dolor\` sit amet, consectetur adipisicing elit, sed do.
 
-        ${ lorem(10) }
+        - One
+        - Two
+        - Three
+
+        ${ lorem(30) }
+
+        ----
       `;
       // console.log(header);
       this.header(header);
