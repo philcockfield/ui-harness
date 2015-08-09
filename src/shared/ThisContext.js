@@ -17,7 +17,8 @@ const PROPS = [
   "cropMarks.offset",
   "margin",
   "align",
-  "header"
+  "header",
+  "hr"
 ];
 
 
@@ -88,8 +89,10 @@ export default class UIHContext {
   height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
   cropMarks(value) { return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
   margin(value) { return this[PROP]("margin", value, { default: 40, type: PropTypes.number }); }
-  header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
   align(value) { return this[PROP]("align", value, { default: "center top", type: PropTypes.string }); }
+  header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
+  hr(value) { return this[PROP]("hr", value, { type: PropTypes.bool }); }
+
 
 
 

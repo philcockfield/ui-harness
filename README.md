@@ -14,7 +14,7 @@ http://uiharness.com
       - css.color("white", 1..100) darken-lighten
       - css.white (same as)
 - Store skipped suites on console {object} (names only) - ERROR.
-
+- Console.run() - automated run.
 
 
 

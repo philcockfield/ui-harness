@@ -44,12 +44,16 @@ describe("Header", function() {
   it("`null`", () => { this.header(null) });
   it("title only <h1>", () => { this.header("# My Header"); });
   it("subtitle only <h2>", () => { this.header(`## ${ lorem(10) } \n---`); });
+  it("title `.hr(true)`", () => { this.header(`# My Title`).hr(true) });
+  it("subtitle `.hr(true)`", () => { this.header(`## ${ lorem(10) }`).hr(true) });
+  it("subtitle ---`.hr(true)`", () => { this.header(`## ${ lorem(10) }\n---`).hr(true) });
+  it("subtitle ---`.hr(false)`", () => { this.header(`## ${ lorem(10) }\n---`).hr(false) });
 
   it("title / subtitle (short)", () => {
     this.header(`
-      # Title
-      ## Subtitle of the thing as a thing.
-      ---
+    # Title
+    ## Subtitle of the thing as a thing.
+    ---
     `);
   });
 

@@ -5,7 +5,7 @@ import bdd from "../../src/shared/bdd";
 import api from "../../src/shared/api-internal";
 
 
-describe.only("ThisContext", () => {
+describe("ThisContext", () => {
   let suite, context;
   afterEach(() => { bdd.reset(); })
   beforeEach(() => {
@@ -124,6 +124,22 @@ describe.only("ThisContext", () => {
 
     it("throws if a string is not specified", () => {
       expect(() => { context.margin(false) }).to.throw();
+    });
+  });
+
+
+  describe("header.hr", function() {
+    it("is [undefined] by default", () => {
+      expect(context.hr()).to.equal(undefined);
+    });
+
+    it("can be set to true", () => {
+      context.header("## My subtitle").hr(true);
+      expect(context.hr()).to.equal(true);
+    });
+
+    it("throws if not boolean", () => {
+      expect(() => { context.hr("hello") }).to.throw();
     });
   });
 });

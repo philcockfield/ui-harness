@@ -42,7 +42,9 @@ export default class Main extends React.Component {
     let header = current.get("header");
     if (header) {
       header = <div style={ styles.headerContainer }>
-                 <MainHeader markdown={ header }/>
+                 <MainHeader
+                    markdown={ header }
+                    hr={ current.get("hr") }/>
                </div>
     }
 

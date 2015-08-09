@@ -4,6 +4,7 @@ import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import { FONT_SANS } from "../GlobalStyles";
 import { Markdown } from "../shared";
+
 const TEXT_COLOR = css.white.darken(0.5);
 const HR_COLOR = "rgba(0, 0, 0, 0.1)";
 
@@ -93,6 +94,16 @@ export default class MainHeader extends React.Component {
 
   render() {
     const styles = this.styles();
+    let { markdown, hr } = this.props;
+    const removeHR = () => { markdown = markdown.replace(/\n-{3,}$/, ""); };
+
+    // Append or remove the <HR> at the end of the markdown
+    if (markdown && hr === true) {
+      removeHR(); // Ensure there is only one <HR>.
+      markdown += "\n---";
+    }
+    if (markdown && hr === false) { removeHR(); };
+
     return (
       <div style={ styles.base } className="uih">
         <div className="uih-header">
@@ -101,7 +112,7 @@ export default class MainHeader extends React.Component {
                 display="block"
                 trimIndent={true}
                 escapeHtml={false}>
-            { this.props.markdown }
+            { markdown }
           </Markdown>
         </div>
       </div>
@@ -112,5 +123,8 @@ export default class MainHeader extends React.Component {
 // API -------------------------------------------------------------------------
 MainHeader.propTypes = {
   markdown: PropTypes.string,
+  hr: PropTypes.bool
 };
-MainHeader.defaultProps = {};
+MainHeader.defaultProps = {
+  hr: false
+};
