@@ -16,6 +16,7 @@ import ComponentHost from "./ComponentHost";
 export default class Main extends React.Component {
   styles() {
     const { current } = this.props;
+    const header = current.get("header");
     return css({
       base: {
         Absolute: 0,
@@ -23,30 +24,32 @@ export default class Main extends React.Component {
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-        overflowY: "auto"
       },
       headerContainer: {
         position: "relative",
-        borderBottom: "solid 1px rgba(0, 0, 0, 0.3)"
       },
       hostContainer: {
         position: "relative",
         flex: "1",
-        minHeight: "50%"
       }
     });
   }
 
   render() {
     const styles = this.styles();
-    let { current } = this.props;
+    const { current } = this.props;
+
+    let header = current.get("header");
+    if (header) {
+      header = <div style={ styles.headerContainer }>
+                 <MainHeader markdown={ header }/>
+               </div>
+    }
 
     return (
       <Card>
         <div style={ styles.base }>
-          <div style={ styles.headerContainer }>
-            <MainHeader current={ current }/>
-          </div>
+          { header }
           <div style={ styles.hostContainer }>
             <ComponentHost current={ current }/>
           </div>

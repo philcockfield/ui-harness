@@ -5,7 +5,7 @@ import bdd from "../../src/shared/bdd";
 import api from "../../src/shared/api-internal";
 
 
-describe("ThisContext", () => {
+describe.only("ThisContext", () => {
   let suite, context;
   afterEach(() => { bdd.reset(); })
   beforeEach(() => {
@@ -97,6 +97,33 @@ describe("ThisContext", () => {
 
     it("throws if a number of string is not passed", () => {
       expect(() => { context.margin({}) }).to.throw();
+    });
+  });
+
+
+  describe("align", function() {
+    it("has a default value", () => {
+      expect(context.align()).to.equal("center top");
+    });
+
+    it("throws if a string is not specified", () => {
+      expect(() => { context.margin(false) }).to.throw();
+    });
+  });
+
+
+  describe("header", function() {
+    it("is undefined by default", () => {
+      expect(context.header()).to.equal(undefined);
+    });
+
+    it("can be set to null", () => {
+      context.header(null);
+      expect(context.header()).to.equal(null);
+    });
+
+    it("throws if a string is not specified", () => {
+      expect(() => { context.margin(false) }).to.throw();
     });
   });
 });

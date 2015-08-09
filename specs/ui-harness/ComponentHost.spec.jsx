@@ -1,4 +1,5 @@
 import React from "react";
+import { lorem } from "js-util/test";
 
 
 export default class MyFoo extends React.Component {
@@ -13,16 +14,20 @@ export default class MyFoo extends React.Component {
 }
 
 
-
 describe("Component Host", function() {
+  this.header(`
+  # Title
+  ## Subtitle thing is a thing
+  ---
+  `);
+
   before(() => {
     this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
   });
 
-
   section("load", () => {
     it("from `<element>`", () => {
-      this.load( <MyFoo foo={123}><span>Hello</span></MyFoo> )
+      this.load( <MyFoo foo={ 123 }><span>Hello</span></MyFoo> )
     });
 
     it("from `Type`", () => {
@@ -39,7 +44,7 @@ describe("Component Host", function() {
 
 
   section("this.props", () => {
-    it("props(now)", () => {
+    it("props(`now`)", () => {
       this.props({ foo: new Date().toString() })
     });
   });
@@ -69,18 +74,42 @@ describe("Component Host", function() {
     it("`120`", () => { this.margin(120); });
   });
 
+
   section("cropMarks", () => {
     it("read", () => {
       console.log("cropMarks():", this.cropMarks());
       console.log("cropMarks.size():", this.cropMarks.size());
       console.log("");
     });
-
     it("`false`", () => { this.cropMarks(false); });
     it("`true`", () => { this.cropMarks(true); });
     it("`cropMarks.size: 10`", () => { this.cropMarks.size(10) });
     it("`cropMarks.size: 20`", () => { this.cropMarks.size(20) });
     it("`cropMarks.offset: 0`", () => { this.cropMarks.offset(1) });
     it("`cropMarks.offset: 5`", () => { this.cropMarks.offset(5) });
+  });
+
+
+  section("header", () => {
+    it("`null`", () => { this.header(null) });
+    it("short", () => {
+      this.header("# My Header")
+    });
+
+    it("long", () => {
+      const header = `
+        # Title
+
+        ${ lorem(10) }
+
+        ${ lorem(10) }
+      `;
+      // console.log(header);
+      this.header(header);
+      // this.header(
+      //   `
+      //
+      //   `);
+    });
   });
 });

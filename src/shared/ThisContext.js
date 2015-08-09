@@ -7,7 +7,7 @@ import { PropTypes } from "js-util/react";
 
 const isBrowser = (typeof window !== 'undefined');
 const PROP = Symbol("Prop");
-const FIELD_KEYS = [
+const PROPS = [
   "props",
   "children",
   "width",
@@ -16,7 +16,8 @@ const FIELD_KEYS = [
   "cropMarks.size",
   "cropMarks.offset",
   "margin",
-  "align"
+  "align",
+  "header"
 ];
 
 
@@ -70,7 +71,7 @@ export default class UIHContext {
    */
   toValues() {
     const result = {};
-    FIELD_KEYS.forEach(key => {
+    PROPS.forEach(key => {
           let propFunc = util.ns(this, key);
           result[key] = propFunc.call(this);
         });
@@ -87,6 +88,7 @@ export default class UIHContext {
   height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
   cropMarks(value) { return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
   margin(value) { return this[PROP]("margin", value, { default: 40, type: PropTypes.number }); }
+  header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
   align(value) { return this[PROP]("align", value, { default: "center top", type: PropTypes.string }); }
 
 
