@@ -39,8 +39,8 @@
     "url-loader": "^0.5.6"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register",
-    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register --watch",
+    "test": "./node_modules/mocha/bin/mocha --recursive --require babel-hook",
+    "tdd": "./node_modules/mocha/bin/mocha --recursive --require babel-hook --watch",
     "specs": "node ./specs/server"
   },
   "repository": {
