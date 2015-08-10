@@ -35,11 +35,19 @@ export default class UIHContext {
           return (currentSuite && currentSuite.id === this.suite.id);
         };
 
+    const beforeChange = {
+      "backdrop": (value) => {
+        console.log("before backdrop", value);
+        return value;
+      }
+    };
+
     // Read|Write helper for data-property methods.
     const propState = {};
     this[PROP] = (key, value, options = {}) => {
           // WRITE.
           if (value !== undefined) {
+            // Perform type validation.
             const type = options.type;
             if (type) {
               const validation = PropTypes.validate(type, value);
@@ -48,9 +56,15 @@ export default class UIHContext {
               }
             }
 
+            // Run before handler (if one exists).
+            if (beforeChange[key]) { value = beforeChange[key](value); }
+
+            // Reset the value if required.
             if (options.resetOn !== undefined && value === options.resetOn) {
               value = options.default;
             }
+
+            // Store the value.
             propState[key] = value;
             if (isCurrent()) { api.setCurrent({ [key]: value }); }
             return this; // When writing the [this] context is returned.
@@ -93,6 +107,7 @@ export default class UIHContext {
   align(value) { return this[PROP]("align", value, { default: "center top", type: AlignmentContainer.propTypes.align }); }
   header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
   hr(value) { return this[PROP]("hr", value, { default: true, type: PropTypes.bool }); }
+  backdrop(value) { return this[PROP]("backdrop", value, { default: 1, type: PropTypes.numberOrString }); }
 
 
 

@@ -161,4 +161,17 @@ describe("ThisContext", () => {
       expect(() => { context.hr("hello") }).to.throw();
     });
   });
+
+
+  describe.only("backdrop", function() {
+    it("has default value", () => {
+      expect(context.backdrop()).to.equal(1);
+    });
+
+    it("throws if not number or string", () => {
+      context.backdrop(0).backdrop("red");
+      let fn = () => { context.backdrop({}); };
+      expect(fn).to.throw();
+    });
+  });
 });
