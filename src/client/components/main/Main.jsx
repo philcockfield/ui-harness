@@ -5,7 +5,6 @@ import { css, PropTypes } from "js-util/react";
 import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
 import Component from "./Component";
-import ComponentAlign from "./ComponentAlign";
 import ComponentHost from "./ComponentHost";
 
 

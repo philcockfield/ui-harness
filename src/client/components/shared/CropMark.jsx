@@ -49,12 +49,15 @@ export default class CropMark extends React.Component {
 
   render() {
     const styles = this.styles();
-    return (
-      <div style={ styles.base }>
-        <div style={ styles.xAxis }></div>
-        <div style={ styles.yAxis }></div>
-      </div>
-    );
+
+    let el = null;
+    if (this.props.size > 0) {
+      el = <div style={ styles.base }>
+             <div style={ styles.xAxis }></div>
+             <div style={ styles.yAxis }></div>
+           </div>
+    }
+    return el;
   }
 }
 

@@ -3,6 +3,7 @@ import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
 import { PropTypes } from "js-util/react";
+import AlignmentContainer from "ui-core/components/AlignmentContainer";
 
 
 const isBrowser = (typeof window !== 'undefined');
@@ -62,7 +63,8 @@ export default class UIHContext {
         };
 
     // Property extensions.
-    this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 20, type: PropTypes.number }); };
+    this.cropMarks = (value) =>{ return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
+    this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 25, type: PropTypes.number }); };
     this.cropMarks.offset = (value) => { return this[PROP]("cropMarks.offset", value, { default: 5, type: PropTypes.number }); };
   }
 
@@ -87,11 +89,10 @@ export default class UIHContext {
   children(value) { return this[PROP]("componentChildren", value); }
   width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
   height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
-  cropMarks(value) { return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
-  margin(value) { return this[PROP]("margin", value, { default: 40, type: PropTypes.number }); }
-  align(value) { return this[PROP]("align", value, { default: "center top", type: PropTypes.string }); }
+  margin(value) { return this[PROP]("margin", value, { default: 60, type: PropTypes.number }); }
+  align(value) { return this[PROP]("align", value, { default: "center top", type: AlignmentContainer.propTypes.align }); }
   header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
-  hr(value) { return this[PROP]("hr", value, { type: PropTypes.bool }); }
+  hr(value) { return this[PROP]("hr", value, { default: true, type: PropTypes.bool }); }
 
 
 

@@ -66,4 +66,6 @@ describe("Header", function() {
   });
 
   it("long", () => { this.header(LONG_HEADER); });
+  it("long `.hr(true)`", () => { this.header(LONG_HEADER).hr(true); });
+  it("long `.hr(false)`", () => { this.header(LONG_HEADER).hr(false); });
 });

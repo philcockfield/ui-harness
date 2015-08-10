@@ -18,13 +18,9 @@ export default class Component extends React.Component {
   }
 
   styles() {
-    const { width, height } = this.size();
     return css({
       base: {
-        // background: "rgba(255, 0, 0, 0.1)", //RED
-        position: "relative",
-        width,
-        height
+        position: "relative"
       }
     });
   }
@@ -42,16 +38,19 @@ export default class Component extends React.Component {
                     current.get("componentChildren"));
     }
 
-    return (
-          current.get("cropMarks") === true
-            ? <CropMarks
-                    size={ current.get("cropMarks.size") }
-                    offset={ current.get("cropMarks.offset") }
-                    display={ width === "100%" ? "block" : "inline-block" }>
-                <div style={ styles.base }>{ element }</div>
-              </CropMarks>
+    const cropMarksSize = current.get("cropMarks")
+        ? current.get("cropMarks.size")
+        : 0
 
-            : <div style={ styles.base }>{ element }</div>
+    return (
+      <CropMarks
+            size={ cropMarksSize }
+            offset={ current.get("cropMarks.offset") }
+            display={ width === "100%" ? "block" : "inline-block" }
+            width={ width }
+            height={ height }>
+        <div style={ styles.base }>{ element }</div>
+      </CropMarks>
     );
   }
 }

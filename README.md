@@ -7,15 +7,15 @@ http://uiharness.com
 
 ## TODO
 
-- edge (alignment)
 - scroll
+- toLength(0..1% | 1..100px)
 - css.color
       - css.color("white", -0.3..0.3) opacity
       - css.color("white", 1..100) darken-lighten
       - css.white (same as)
 - Store skipped suites on console {object} (names only) - ERROR.
 - Console.run() - automated run.
-
+- Server methods
 
 
 ## Development (of the UIHarness)

@@ -3,8 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import Component from "./Component";
-import ComponentAlign from "./ComponentAlign";
-
+import AlignmentContainer from "ui-core/components/AlignmentContainer";
 
 /**
  * The display host for a component under test.
@@ -16,7 +15,6 @@ export default class ComponentHost extends React.Component {
     const margin = current.get("margin");
     return css({
       base: {
-        background: "rgba(255, 0, 0, 0.1)", //RED
         Absolute: [margin, margin, margin, margin],
       }
     });
@@ -30,9 +28,12 @@ export default class ComponentHost extends React.Component {
       <div style={ styles.base }>
         {
           current.get("componentType")
-              ? <ComponentAlign align={ current.get("align") }>
+              ? <AlignmentContainer
+                      align={ current.get("align") }
+                      width={ current.get("width") }
+                      height={ current.get("height") }>
                   <Component current={ current }/>
-                </ComponentAlign>
+                </AlignmentContainer>
               : null
         }
       </div>

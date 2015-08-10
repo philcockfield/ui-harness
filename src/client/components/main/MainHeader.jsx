@@ -4,6 +4,7 @@ import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import { FONT_SANS } from "../GlobalStyles";
 import { Markdown } from "../shared";
+import { trimIndent } from "ui-core/components/Markdown";
 
 const TEXT_COLOR = css.white.darken(0.5);
 const HR_COLOR = "rgba(0, 0, 0, 0.1)";
@@ -95,12 +96,17 @@ export default class MainHeader extends React.Component {
   render() {
     const styles = this.styles();
     let { markdown, hr } = this.props;
-    const removeHR = () => { markdown = markdown.replace(/\n-{3,}$/, ""); };
+    const removeHR = () => { markdown = markdown.replace(/\n\s*-{3,}\n*$/, ""); };
+
+    // Trim the indent
+    // (which may exist if from indented multi-line ES6 template strings).
+    const trimmed = trimIndent(markdown);
+    markdown = trimmed.text;
 
     // Append or remove the <HR> at the end of the markdown
     if (markdown && hr === true) {
       removeHR(); // Ensure there is only one <HR>.
-      markdown += "\n---";
+      markdown += _.repeat(trimmed.indent) + "\n\n---";
     }
     if (markdown && hr === false) { removeHR(); };
 
@@ -110,7 +116,7 @@ export default class MainHeader extends React.Component {
           <Style rules={ HEADER_STYLES } scopeSelector=".uih-header"/>
           <Markdown
                 display="block"
-                trimIndent={true}
+                trimIndent={false}
                 escapeHtml={false}>
             { markdown }
           </Markdown>

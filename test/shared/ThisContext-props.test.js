@@ -11,6 +11,7 @@ describe("ThisContext", () => {
   beforeEach(() => {
     bdd.register();
     suite = describe(`My Suite`, () => { });
+    api.setCurrent({ suite: suite });
     context = suite.meta.thisContext;
   });
 
@@ -18,13 +19,23 @@ describe("ThisContext", () => {
   describe("cropMarks()", () => {
     it("has crop-marks by default", () => {
       expect(context.cropMarks()).to.equal(true);
-      expect(context.cropMarks.size()).to.equal(20);
+      expect(context.cropMarks.size()).to.equal(25);
       expect(context.cropMarks.offset()).to.equal(5);
     });
 
     it("stores crop-marks value", () => {
       context.cropMarks(true).cropMarks(false);
       expect(context.cropMarks()).to.equal(false);
+    });
+
+    it("persists to the [current] map", () => {
+      context
+        .cropMarks(true)
+        .cropMarks.size(50)
+        .cropMarks.offset(0);
+      expect(api.current.get("cropMarks")).to.equal(true);
+      expect(api.current.get("cropMarks.size")).to.equal(50);
+      expect(api.current.get("cropMarks.offset")).to.equal(0);
     });
 
     it("stores extensions (size/offset)", () => {
@@ -106,8 +117,16 @@ describe("ThisContext", () => {
       expect(context.align()).to.equal("center top");
     });
 
+    it("takes a value", () => {
+      expect(context.align("center middle").align()).to.equal("center middle");
+    });
+
     it("throws if a string is not specified", () => {
-      expect(() => { context.margin(false) }).to.throw();
+      expect(() => { context.align(false) }).to.throw();
+    });
+
+    it("throws if a non-supported enum value is specified", () => {
+      expect(() => { context.align("top foo") }).to.throw();
     });
   });
 
@@ -130,7 +149,7 @@ describe("ThisContext", () => {
 
   describe("header.hr", function() {
     it("is [undefined] by default", () => {
-      expect(context.hr()).to.equal(undefined);
+      expect(context.hr()).to.equal(true);
     });
 
     it("can be set to true", () => {
