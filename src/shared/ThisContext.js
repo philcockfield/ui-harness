@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
-import { PropTypes } from "js-util/react";
+import { css, PropTypes } from "js-util/react";
 import AlignmentContainer from "ui-core/components/AlignmentContainer";
 
 
@@ -19,7 +19,9 @@ const PROPS = [
   "margin",
   "align",
   "header",
-  "hr"
+  "hr",
+  "backdrop",
+  "backdropColor",
 ];
 
 
@@ -35,15 +37,7 @@ export default class UIHContext {
           return (currentSuite && currentSuite.id === this.suite.id);
         };
 
-    const beforeChange = {
-      "backdrop": (value) => {
-        console.log("before backdrop", value);
-        return value;
-      }
-    };
-
     // Read|Write helper for data-property methods.
-    const propState = {};
     this[PROP] = (key, value, options = {}) => {
           // WRITE.
           if (value !== undefined) {
@@ -56,25 +50,23 @@ export default class UIHContext {
               }
             }
 
-            // Run before handler (if one exists).
-            if (beforeChange[key]) { value = beforeChange[key](value); }
-
             // Reset the value if required.
             if (options.resetOn !== undefined && value === options.resetOn) {
               value = options.default;
             }
 
             // Store the value.
-            propState[key] = value;
+            this[PROP].state[key] = value;
             if (isCurrent()) { api.setCurrent({ [key]: value }); }
             return this; // When writing the [this] context is returned.
                          // This allows for chaining of write operations.
           }
           // READ.
-          let result = propState[key];
+          let result = this[PROP].state[key];
           if (_.isUndefined(result)) { result = options.default; }
           return result
         };
+    this[PROP].state = {};
 
     // Property extensions.
     this.cropMarks = (value) =>{ return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
@@ -90,7 +82,11 @@ export default class UIHContext {
     const result = {};
     PROPS.forEach(key => {
           let propFunc = util.ns(this, key);
-          result[key] = propFunc.call(this);
+          if (_.isFunction(propFunc)) {
+            result[key] = propFunc.call(this);
+          } else {
+            result[key] = this[PROP].state[key];
+          }
         });
     return result;
   }
@@ -107,7 +103,7 @@ export default class UIHContext {
   align(value) { return this[PROP]("align", value, { default: "center top", type: AlignmentContainer.propTypes.align }); }
   header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
   hr(value) { return this[PROP]("hr", value, { default: true, type: PropTypes.bool }); }
-  backdrop(value) { return this[PROP]("backdrop", value, { default: 1, type: PropTypes.numberOrString }); }
+  backdrop(value) { return this[PROP]("backdrop", value, { default: 0, type: PropTypes.numberOrString }); }
 
 
 
@@ -115,7 +111,10 @@ export default class UIHContext {
   /**
    * Loads the given component.
    *
-   * @param component
+   * @param component:  The component Type
+   *                    or created component element (eg: <MyComponent/>).
+   * @param props:      Optional. The component props (if not passed in with a component element).
+   * @param children:   Optional. The component children (if not passed in with a component element).
    */
   load(component, props, children) {
     // Setup initial conditions.

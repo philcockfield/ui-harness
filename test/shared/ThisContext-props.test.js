@@ -163,9 +163,9 @@ describe("ThisContext", () => {
   });
 
 
-  describe.only("backdrop", function() {
+  describe("backdrop", function() {
     it("has default value", () => {
-      expect(context.backdrop()).to.equal(1);
+      expect(context.backdrop()).to.equal(0);
     });
 
     it("throws if not number or string", () => {

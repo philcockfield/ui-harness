@@ -19,7 +19,8 @@ export default class Card extends React.Component {
         borderColor: "rgba(0, 0, 0, 0.12)",
         borderRadius: 1,
         boxShadow: "0 0 8px 0px rgba(0, 0, 0, 0.1)",
-        padding: this.props.padding
+        padding: this.props.padding,
+        overflow: "hidden"
       }
     });
   }

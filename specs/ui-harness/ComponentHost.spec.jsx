@@ -132,4 +132,13 @@ describe("Component Host", function() {
     it("`cropMarks.offset: 5`", () => { this.cropMarks.offset(5) });
     it("`cropMarks.offset: 10`", () => { this.cropMarks.offset(10) });
   });
+
+
+  section("backdrop (color)", () => {
+    it("`backdrop:0`", () => { this.backdrop(0) });
+    it("`backdrop:0.04`", () => { this.backdrop(0.04) });
+    it("`backdrop:0.5`", () => { this.backdrop(0.5) });
+    it("`backdrop:1`", () => { this.backdrop(1) });
+    it("`backdrop:red`", () => { this.backdrop("red") });
+  });
 });

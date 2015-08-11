@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
@@ -8,6 +9,18 @@ import Component from "./Component";
 import ComponentHost from "./ComponentHost";
 
 
+const backdropColor = (value) => {
+      let color = value;
+      if (_.isNumber(value)) {
+        if (value < 0) { value = 0; }
+        if (value > 1) { value = 1; }
+        color = `rgba(0, 0, 0, ${ value })`;
+      }
+      return color ;
+    };
+
+
+
 /**
  * The Main (center) pane that hosts the component.
  */
@@ -16,6 +29,7 @@ export default class Main extends React.Component {
   styles() {
     const { current } = this.props;
     const header = current.get("header");
+
     return css({
       base: {
         Absolute: 0,
@@ -23,6 +37,7 @@ export default class Main extends React.Component {
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
+        backgroundColor: backdropColor(current.get("backdrop"))
       },
       headerContainer: {
         position: "relative",
