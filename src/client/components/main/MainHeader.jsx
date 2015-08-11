@@ -6,73 +6,79 @@ import { FONT_SANS } from "../GlobalStyles";
 import { Markdown } from "../shared";
 import { trimIndent } from "ui-core/components/Markdown";
 
-const TEXT_COLOR = css.white.darken(0.5);
-const HR_COLOR = "rgba(0, 0, 0, 0.1)";
 
-const HEADER_STYLES = css({
-  "h1": {
-    fontSize: 32,
-    lineHeight: "40px",
-    padding: 0,
-    margin: 0,
-    fontWeight: 700
-  },
-  "h2": {
-    fontSize: 20,
-    lineHeight: "28px",
-    padding: 0,
-    margin: 0,
-    fontWeight: 200,
-    borderColor: HR_COLOR,
-    borderBottomStyle: "solid",
-    borderBottomWidth: "1px",
-    paddingBottom: 8,
-    marginBottom: 10,
-    marginTop: 30
-  },
-  "h2:first-of-type": {
-    border: "none",
-    padding: 0,
-    margin: 0
-  },
-  "h3": {
-    fontSize: 18,
-    padding: 0,
-    margin: 0,
-    marginTop: 30
-  },
-  "h4": {
-    fontSize: 14,
-    textTransform: "uppercase",
-    padding: 0,
-    margin: 0,
-    marginTop: 30,
-    color: css.white.darken(0.3)
-  },
-  "p": {
-    fontWeight: 200,
-    fontSize: 15,
-    lineHeight: "22px",
-    marginTop: 0,
-    marginBottom: 15
-  },
-  "ul": {
-    fontWeight: 200,
-    fontSize: 15,
-    lineHeight: "22px"
-  },
-  "hr": {
-    borderColor: HR_COLOR,
-    borderBottomStyle: "solid",
-    borderBottomWidth: "1px",
-    borderTopWidth: 0,
-    marginTop: 20,
-    marginBottom: 20
-  },
-  "hr:last-child": {
-    marginBottom: 0
-  }
-});
+const elementStyles = (isDark) => {
+  const HR_COLOR = isDark
+      ? "rgba(255, 255, 255, 0.4)"
+      : "rgba(0, 0, 0, 0.1)"
+
+  return css({
+    "h1": {
+      fontSize: 32,
+      lineHeight: "40px",
+      padding: 0,
+      margin: 0,
+      fontWeight: 700
+    },
+    "h2": {
+      fontSize: 20,
+      lineHeight: "28px",
+      padding: 0,
+      margin: 0,
+      fontWeight: 200,
+      borderColor: HR_COLOR,
+      borderBottomStyle: "solid",
+      borderBottomWidth: "1px",
+      paddingBottom: 8,
+      marginBottom: 10,
+      marginTop: 30
+    },
+    "h2:first-of-type": {
+      border: "none",
+      padding: 0,
+      margin: 0
+    },
+    "h3": {
+      fontSize: 18,
+      padding: 0,
+      margin: 0,
+      marginTop: 30
+    },
+    "h4": {
+      fontSize: 14,
+      textTransform: "uppercase",
+      padding: 0,
+      margin: 0,
+      marginTop: 30,
+      opacity: isDark ? 0.6 : 0.4
+    },
+    "p": {
+      fontWeight: 200,
+      fontSize: 15,
+      lineHeight: "22px",
+      marginTop: 0,
+      marginBottom: 15
+    },
+    "ul": {
+      fontWeight: 200,
+      fontSize: 15,
+      lineHeight: "22px"
+    },
+    "hr": {
+      borderColor: HR_COLOR,
+      borderBottomStyle: "solid",
+      borderBottomWidth: "1px",
+      borderTopWidth: 0,
+      marginTop: 20,
+      marginBottom: 20
+    },
+    "hr:last-child": {
+      marginBottom: 0
+    }
+  });
+};
+
+
 
 
 
@@ -82,8 +88,10 @@ const HEADER_STYLES = css({
 @Radium
 export default class MainHeader extends React.Component {
   styles() {
-
-    console.log("isDark", this.props.isDark);
+    const { isDark } = this.props;
+    const TEXT_COLOR = isDark
+        ? "rgba(255, 255, 255, 0.8)"
+        : "rgba(0, 0, 0, 0.5)"
 
     return css({
       base: {
@@ -98,7 +106,7 @@ export default class MainHeader extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { markdown, hr } = this.props;
+    let { markdown, hr, isDark } = this.props;
     const removeHR = () => { markdown = markdown.replace(/\n\s*-{3,}\n*$/, ""); };
 
     // Trim the indent
@@ -116,7 +124,7 @@ export default class MainHeader extends React.Component {
     return (
       <div style={ styles.base } className="uih">
         <div className="uih-header">
-          <Style rules={ HEADER_STYLES } scopeSelector=".uih-header"/>
+          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-header"/>
           <Markdown
                 display="block"
                 trimIndent={false}
