@@ -41,7 +41,7 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --recursive --require ./config/register-babel",
     "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./config/register-babel --watch",
-    "specs": "node ./specs/server"
+    "specs": "node ./specs/start-server"
   },
   "repository": {
     "type": "git",

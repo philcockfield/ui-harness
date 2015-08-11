@@ -34,7 +34,6 @@ const babelLoader = (extension) => {
 };
 
 
-
 /**
  * Retrieves the configuration settings.
  * @param {object} options:

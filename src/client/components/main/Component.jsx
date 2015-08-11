@@ -18,9 +18,12 @@ export default class Component extends React.Component {
   }
 
   styles() {
+    const { width, height } = this.size();
     return css({
       base: {
-        position: "relative"
+        position: "relative",
+        width,
+        height
       }
     });
   }
