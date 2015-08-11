@@ -11,7 +11,7 @@ import webpack from "webpack";
 import fsPath from "path";
 
 export const PORT = 8080;
-const NODE_MODULES_PATH = fsPath.join(__dirname, "../../node_modules");
+const NODE_MODULES_PATH = fsPath.join(__dirname, "../node_modules");
 const LOADER_EXCLUDE = /(node_modules|bower_components)/;
 
 const modulePath = (path) => fsPath.join(NODE_MODULES_PATH, path);
@@ -49,7 +49,7 @@ export const settings = (options = {}) => {
     entry: [
       "webpack/hot/dev-server",
       "webpack-hot-middleware/client",
-      fsPath.join(__dirname, "../client/index.js")
+      fsPath.join(__dirname, "../src/client/index.js")
     ],
 
     output: {

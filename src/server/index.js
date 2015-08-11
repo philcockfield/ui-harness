@@ -6,7 +6,7 @@ import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import * as webpackConfig from "./webpack.config";
+import * as webpackConfig from "../../config/webpack.config";
 import * as serverMethods from "./serverMethods";
 import bdd from "../shared/bdd";
 

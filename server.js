@@ -1,3 +1,3 @@
 "use strict"
-require("./babel-hook");
+require("./config/register-babel");
 module.exports = require("./src/server");
