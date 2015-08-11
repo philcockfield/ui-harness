@@ -136,8 +136,9 @@ describe("Component Host", function() {
 
   section("backdrop (color)", () => {
     it("`backdrop:0`", () => { this.backdrop(0) });
-    it("`backdrop:0.04`", () => { this.backdrop(0.04) });
-    it("`backdrop:0.5`", () => { this.backdrop(0.5) });
+    it("`backdrop:0.02`", () => { this.backdrop(0.02) });
+    it("`backdrop:0.3`", () => { this.backdrop(0.3) });
+    it("`backdrop:0.6`", () => { this.backdrop(0.6) });
     it("`backdrop:1`", () => { this.backdrop(1) });
     it("`backdrop:red`", () => { this.backdrop("red") });
   });

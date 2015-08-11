@@ -82,6 +82,9 @@ const HEADER_STYLES = css({
 @Radium
 export default class MainHeader extends React.Component {
   styles() {
+
+    console.log("isDark", this.props.isDark);
+
     return css({
       base: {
         paddingTop: 15,
@@ -129,8 +132,10 @@ export default class MainHeader extends React.Component {
 // API -------------------------------------------------------------------------
 MainHeader.propTypes = {
   markdown: PropTypes.string,
-  hr: PropTypes.bool
+  hr: PropTypes.bool,
+  isDark: PropTypes.bool,
 };
 MainHeader.defaultProps = {
-  hr: false
+  hr: false,
+  isDark: false
 };

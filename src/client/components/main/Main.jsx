@@ -2,22 +2,12 @@ import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
+import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
 import Component from "./Component";
 import ComponentHost from "./ComponentHost";
-
-
-const backdropColor = (value) => {
-      let color = value;
-      if (_.isNumber(value)) {
-        if (value < 0) { value = 0; }
-        if (value > 1) { value = 1; }
-        color = `rgba(0, 0, 0, ${ value })`;
-      }
-      return color ;
-    };
 
 
 
@@ -26,10 +16,19 @@ const backdropColor = (value) => {
  */
  @Radium
 export default class Main extends React.Component {
+  backgroundColor() {
+    let color = this.props.current.get("backdrop");
+    if (_.isNumber(color)) {
+      if (color < 0) { color = 0; }
+      if (color > 1) { color = 1; }
+      color = css.white.darken(color);
+    }
+    return color;
+  }
+
   styles() {
     const { current } = this.props;
     const header = current.get("header");
-
     return css({
       base: {
         Absolute: 0,
@@ -37,7 +36,7 @@ export default class Main extends React.Component {
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-        backgroundColor: backdropColor(current.get("backdrop"))
+        backgroundColor: this.backgroundColor()
       },
       headerContainer: {
         position: "relative",
@@ -52,13 +51,15 @@ export default class Main extends React.Component {
   render() {
     const styles = this.styles();
     const { current } = this.props;
+    const isDark = Color(this.backgroundColor()).dark();
 
     let header = current.get("header");
     if (header) {
       header = <div style={ styles.headerContainer }>
                  <MainHeader
                     markdown={ header }
-                    hr={ current.get("hr") }/>
+                    hr={ current.get("hr") }
+                    isDark={ isDark }/>
                </div>
     }
 
