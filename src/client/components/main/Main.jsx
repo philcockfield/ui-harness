@@ -29,6 +29,10 @@ export default class Main extends React.Component {
   styles() {
     const { current } = this.props;
     const header = current.get("header");
+    const scroll = current.get("scroll");
+    const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : null
+    const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : null
+
     return css({
       base: {
         Absolute: 0,
@@ -44,6 +48,8 @@ export default class Main extends React.Component {
       hostContainer: {
         position: "relative",
         flex: "1",
+        overflowX: overflowX,
+        overflowY: overflowY
       }
     });
   }

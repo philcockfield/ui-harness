@@ -59,15 +59,19 @@ describe("Component Host", function() {
 
 
   section("this.props", () => {
-    it("props(`now`)", () => {
+    it("props( `{ foo:now }` )", () => {
       this.props({ foo: new Date().toString() })
     });
   });
 
 
   section("children", () => {
-    it("children", () => {
-      this.children( <span>New Children { new Date().toString() }</span> )
+    it("date", () => {
+      this.children( <span>Children: { new Date().toString() }</span> )
+    });
+
+    it("lorem (long)", () => {
+      this.children( <span>Children: { lorem(1000) }</span> )
     });
   });
 
@@ -80,10 +84,23 @@ describe("Component Host", function() {
     });
     it("`null:null`", () => { this.width(null).height(null) });
     it("`350:200`", () => { this.width(350).height(200) });
+    it("`350:null`", () => { this.width(350).height(null) });
     it("`100%:100%`", () => { this.width("100%").height("100%") });
     it("`80%:80%`", () => { this.width("80%").height("80%") });
+
     it("`100%:null`", () => { this.width("100%").height(null) });
     it("`null:100%`", () => { this.width(null).height("100%") });
+
+    it("`1000:null`", () => { this.width(1000).height(null) });
+    it("`null:1000`", () => { this.width(null).height(1000) });
+  });
+
+  section("scroll", () => {
+    it("`scroll:true`", () => { this.scroll(true) });
+    it("`scroll:false`", () => { this.scroll(false) });
+    it("`scroll:'x'`", () => { this.scroll("x") });
+    it("`scroll:'y'`", () => { this.scroll("y") });
+    it("`scroll:'x:y'`", () => { this.scroll("x:y") });
   });
 
 

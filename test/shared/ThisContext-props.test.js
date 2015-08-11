@@ -176,7 +176,7 @@ describe("ThisContext", () => {
   });
 
 
-  describe.only("scroll", function() {
+  describe("scroll", function() {
     it("is not scrolling by default", () => {
       expect(context.scroll()).to.equal(false);
     });

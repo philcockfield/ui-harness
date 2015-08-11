@@ -22,6 +22,7 @@ const PROPS = [
   "hr",
   "backdrop",
   "backdropColor",
+  "scroll"
 ];
 
 
