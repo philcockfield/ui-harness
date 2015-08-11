@@ -104,6 +104,7 @@ export default class UIHContext {
   header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
   hr(value) { return this[PROP]("hr", value, { default: true, type: PropTypes.bool }); }
   backdrop(value) { return this[PROP]("backdrop", value, { default: 0, type: PropTypes.numberOrString }); }
+  scroll(value) { return this[PROP]("scroll", value, { default: false, type: PropTypes.oneOf([true, false, "x", "y", "x:y"]) }); }
 
 
 

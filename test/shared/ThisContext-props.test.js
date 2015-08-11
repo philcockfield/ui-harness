@@ -174,4 +174,27 @@ describe("ThisContext", () => {
       expect(fn).to.throw();
     });
   });
+
+
+  describe.only("scroll", function() {
+    it("is not scrolling by default", () => {
+      expect(context.scroll()).to.equal(false);
+    });
+
+    it("can be x, y or x:y", () => {
+      expect(context.scroll("x").scroll()).to.equal("x");
+      expect(context.scroll("y").scroll()).to.equal("y");
+      expect(context.scroll("x:y").scroll()).to.equal("x:y");
+    });
+
+    it("can be true/false", () => {
+      expect(context.scroll(false).scroll()).to.equal(false);
+      expect(context.scroll(true).scroll()).to.equal(true);
+    });
+
+    it("throws if not supported value", () => {
+      let fn = () => { context.scroll({}) };
+      expect(fn).to.throw();
+    });
+  });
 });
