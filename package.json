@@ -39,8 +39,8 @@
     "url-loader": "^0.5.6"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive --require ./config/register-babel",
-    "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./config/register-babel --watch",
+    "test": "./node_modules/mocha/bin/mocha --recursive --require ./register-babel",
+    "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./register-babel --watch",
     "specs": "node ./specs/start-server",
     "prepublish": "gulp prepublish"
   },

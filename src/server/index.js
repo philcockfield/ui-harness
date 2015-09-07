@@ -6,7 +6,7 @@ import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import * as webpackConfig from "../../config/webpack.config";
+import * as webpackConfig from "./webpack.config";
 import * as serverMethods from "./serverMethods";
 import bdd from "../shared/bdd";
 
@@ -60,7 +60,7 @@ export const start = (options = {}) => {
 
   // Serve static files.
   const get = (route, file) => {
-      file = fsPath.resolve(__dirname, `../public/${ file || route }`);
+      file = fsPath.resolve(`./public/${ file || route }`);
       app.get(route, (req, res) => { res.sendFile(file); });
   };
   get("/", "index.html");
