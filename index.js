@@ -1,2 +1,2 @@
 "use strict"
-module.exports = require("./src/shared/api-module");
+module.exports = require("./lib/shared/api-module");
