@@ -9,5 +9,3 @@
   See also the babel-loader settings within [webpack.config.js]
 */
 require("babel/register")({ stage: 1 });
-
-console.log("babel registered"); // TEMP
