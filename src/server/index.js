@@ -6,7 +6,7 @@ import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import * as webpackConfig from "./webpack.config";
+import * as config from "../webpack-config";
 import * as serverMethods from "./serverMethods";
 import bdd from "../shared/bdd";
 
@@ -33,7 +33,7 @@ const parseSpecs = (paths) => {
 export const start = (options = {}) => {
   const app = express();
   const PORT = options.port || 8080;
-  const settings = webpackConfig.settings({ port:PORT });
+  const webpackConfig = config.browser({ port: PORT });
 
   // Ensure the options is an object.
   if (_.isString(options) || _.isArray(options)) {
@@ -45,11 +45,11 @@ export const start = (options = {}) => {
   let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
   entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
-  entry.forEach(path => { settings.webpack.entry.push(path); });
+  entry.forEach(path => { webpackConfig.entry.push(path); });
 
   // Create the WebPack compiler and "hot-reloading" dev server.
-  const compiler = webpack(settings.webpack);
-  app.use(webpackMiddleware(compiler, settings.devServer));
+  const compiler = webpack(webpackConfig);
+  app.use(webpackMiddleware(compiler, config.devServer({ port: PORT })));
   app.use(webpackHotMiddleware(compiler));
 
   // Iniitalize the [describe/it] statements.

@@ -1,2 +1,3 @@
 "use strict"
-module.exports = require("./lib/shared/api-module");
+require("./src/register-babel");
+module.exports = require("./src/shared/api-module");
