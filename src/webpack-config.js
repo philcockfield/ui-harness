@@ -11,7 +11,7 @@ See:
 var webpack = require("webpack");
 var fsPath = require("path");
 
-var NODE_MODULES_PATH = fsPath.resolve("./node_modules");
+var NODE_MODULES_PATH = fsPath.join(__dirname, "../node_modules");
 var LOADER_EXCLUDE = /(node_modules|bower_components)/;
 
 function modulePath(path) { return fsPath.join(NODE_MODULES_PATH, path); }
@@ -115,7 +115,7 @@ function browser(options) {
   var entry = [
     "webpack/hot/dev-server",
     "webpack-hot-middleware/client",
-    fsPath.resolve("./src/client/index.js")
+    fsPath.join(__dirname, "../client/index.js")
   ];
   var output = {
     filename: "bundle.js",
@@ -124,21 +124,6 @@ function browser(options) {
   };
   return compilerSettings(entry, output);
 };
-
-
-
-// function server(options) {
-//   var entry = [
-//     fsPath.resolve("./src/client/index.js")
-//   ];
-//   var output = {
-//     filename: "client.bundle.js",
-//     path: fsPath.resolve("./build"),
-//     target: "node",
-// 		libraryTarget: "commonjs2"
-//   };
-//   return compilerSettings(entry, output);
-// };
 
 
 
