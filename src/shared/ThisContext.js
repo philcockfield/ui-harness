@@ -101,7 +101,7 @@ export default class UIHContext {
   width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
   height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
   margin(value) { return this[PROP]("margin", value, { default: 60, type: PropTypes.number }); }
-  align(value) { this[PROP]("align", value, { default: "center top", type: AlignmentContainer.propTypes.align }); }
+  align(value) { return this[PROP]("align", value, { default: "center top", type: AlignmentContainer.propTypes.align }); }
   header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
   hr(value) { return this[PROP]("hr", value, { default: true, type: PropTypes.bool }); }
   backdrop(value) { return this[PROP]("backdrop", value, { default: 0, type: PropTypes.numberOrString }); }
