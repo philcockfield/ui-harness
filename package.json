@@ -20,6 +20,7 @@
     "express": "^4.13.0",
     "immutable": "^3.7.4",
     "js-bdd": "^1.0.1",
+    "js-util": "1.0.5",
     "lodash": "^3.6.0",
     "marked": "^0.3.5",
     "node-libs-browser": "^0.5.2",
@@ -30,9 +31,6 @@
     "webpack": "^1.10.1",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^1.1.0"
-  },
-  "peerDependencies": {
-    "js-util": "^1.0.5"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.20",
