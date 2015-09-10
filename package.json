@@ -29,6 +29,7 @@
     "react": "^0.13.3",
     "rest-methods": "^1.0.10",
     "ui-core": "^1.0.4",
+    "url-loader": "^0.5.6",
     "webpack": "^1.10.1",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^1.1.0"
@@ -42,8 +43,7 @@
     "gulp-eslint": "^0.15.0",
     "json-loader": "^0.5.2",
     "mocha": "^2.2.1",
-    "sinon": "^1.15.4",
-    "url-loader": "^0.5.6"
+    "sinon": "^1.15.4"
   },
   "repository": {
     "type": "git",
