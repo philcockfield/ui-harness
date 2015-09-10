@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import Main from "./main";
+import Main from "./Main";
 import IndexColumn from "./IndexColumn";
 import { css, PropTypes } from "js-util/react";
 import GlobalStyles from "./GlobalStyles";
