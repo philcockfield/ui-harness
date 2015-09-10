@@ -79,9 +79,8 @@ var MODULE = {
 
 
 
-function publicPath(options) {
-  options = options || {};
-  var port = options.port || 8080;
+function publicPath(options = {}) {
+  const port = options.port || 8080;
   return "http://localhost:" + port + "/public";
 };
 
@@ -117,18 +116,33 @@ function compilerSettings(entry, output) {
 
 
 
-function browser(options) {
-  var entry = [
-    "webpack/hot/dev-server",
-    "webpack-hot-middleware/client",
-    fsPath.join(__dirname, "/client/index.js")
-  ];
-  var output = {
+function browser(options = {}) {
+  const ENV = options.env || "development"
+  const IS_DEVELOPMENT = ENV === "development";
+  const IS_PRODUCTION = ENV === "production";
+  const entry = [];
+
+  // Entry paths.
+  if (IS_DEVELOPMENT) {
+    entry.push("webpack/hot/dev-server");
+    entry.push("webpack-hot-middleware/client");
+  }
+  entry.push(fsPath.join(__dirname, "/client/index.js"));
+
+  // Output paths.
+  const output = {
     filename: "bundle.js",
-    path: "/",
-    publicPath: publicPath(options)
   };
-  return compilerSettings(entry, output);
+  output.path = IS_DEVELOPMENT ? "/" : "./public";
+  output.publicPath = IS_DEVELOPMENT ? publicPath(options) : undefined;
+
+  // Finish up.
+  const result = compilerSettings(entry, output);
+  if (IS_PRODUCTION) {
+    // Minify JS when in production.
+    result.plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
+  }
+  return result;
 };
 
 

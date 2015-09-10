@@ -29,11 +29,43 @@ const parseSpecs = (paths) => {
  *                          - entry: A string or array of strings to entry points of files
  *                                   to pass to WebPack to build for the client.
  *                          - port: The port to run on (default:8080).
+ *                          - env:  The environment to run in ("development" / "production").
+ * @param callback: Invokd when the server has started.
  */
-export const start = (options = {}) => {
-  const app = express();
+export const start = (options = {}, callback) => {
+  console.log(chalk.grey("Starting..."));
+  console.log("");
+
   const PORT = options.port || 8080;
-  const webpackConfig = config.browser({ port: PORT });
+  const ENV = options.env || process.env.NODE_ENV || "development"
+  const IS_PRODUCTION = ENV === "production";
+  const webpackConfig = config.browser({ port: PORT, env: ENV });
+
+  // Prepare the server.
+  const app = express();
+  const startListening = () => {
+      app.listen(PORT, () => {
+            const HR = chalk.cyan(_.repeat("-", 80));
+            console.log(HR);
+            console.log(chalk.grey(" UIHarness running on"),
+                        chalk.cyan(`localhost:${ PORT }`),
+                        chalk.grey(`(${ ENV })`));
+            console.log(HR, "\n");
+            if (_.isFunction(callback)) { callback(); }
+      });
+    };
+
+  // Setup routing.
+  const get = (route, file) => {
+      file = fsPath.join(__dirname, `../../public/${ file || route }`);
+      app.get(route, (req, res) => { res.sendFile(file); });
+  };
+  get("/", "index.html");
+  get("/normalize.css");
+  get("/favicon.ico");
+  if (IS_PRODUCTION) {
+    get("/public/bundle.js", "bundle.js");
+  }
 
   // Ensure the options is an object.
   if (_.isString(options) || _.isArray(options)) {
@@ -47,31 +79,27 @@ export const start = (options = {}) => {
   entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
   entry.forEach(path => { webpackConfig.entry.push(path); });
 
-  // Create the WebPack compiler and "hot-reloading" dev server.
-  const compiler = webpack(webpackConfig);
-  app.use(webpackMiddleware(compiler, config.devServer({ port: PORT })));
-  app.use(webpackHotMiddleware(compiler));
-
   // Iniitalize the [describe/it] statements.
   parseSpecs(entry);
 
+
   // Configure the server methods (REST API).
-  serverMethods.init({ connect:app });
+  // serverMethods.init({ connect:app });
 
-  // Serve static files.
-  const get = (route, file) => {
-      file = fsPath.join(__dirname, `../../public/${ file || route }`);
-      app.get(route, (req, res) => { res.sendFile(file); });
-  };
-  get("/", "index.html");
-  get("/normalize.css");
-  get("/favicon.ico");
 
-  // Start the server. -----------------------------------------------------------
-  app.listen(PORT, () => {
-        const HR = chalk.cyan(_.repeat("-", 80));
-        console.log(HR);
-        console.log(chalk.grey("UIHarness running on"), chalk.cyan(`localhost:${ PORT }`));
-        console.log(HR, "\n");
-  });
+  // Prepare webpack JS.
+  if (IS_PRODUCTION) {
+    // Compile and minify webpack JS for production.
+    webpack(webpackConfig, (err, stats) => {
+      if (err) { throw err; }
+      startListening();
+    });
+
+  } else {
+    // Create the WebPack compiler and "hot-reloading" dev server.
+    const compiler = webpack(webpackConfig);
+    app.use(webpackMiddleware(compiler, config.devServer({ port: PORT })));
+    app.use(webpackHotMiddleware(compiler));
+    startListening();
+  }
 };
