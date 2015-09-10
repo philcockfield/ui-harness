@@ -60,7 +60,7 @@ export const start = (options = {}) => {
 
   // Serve static files.
   const get = (route, file) => {
-      file = fsPath.resolve(`./public/${ file || route }`);
+      file = fsPath.join(__dirname, `../../public/${ file || route }`);
       app.get(route, (req, res) => { res.sendFile(file); });
   };
   get("/", "index.html");

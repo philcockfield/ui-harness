@@ -1,4 +1,4 @@
-export const ICONS = {
+module.exports = {
   suiteBook: {
     "1x": require("./suite-book.png"),
     "2x": require("./suite-book@2x.png"),

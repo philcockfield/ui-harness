@@ -2,7 +2,8 @@ import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
 import IconImage from "./IconImage";
-import { ICONS } from "../../../images";
+import ICONS from "../../../../public/images";
+
 
 const OFFSET = {
   menu: { x:3, y:6 },

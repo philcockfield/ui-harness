@@ -1,3 +1,2 @@
 "use strict"
-require("./src/register-babel");
-module.exports = require("./src/server");
+module.exports = require("./lib/server");

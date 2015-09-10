@@ -115,7 +115,7 @@ function browser(options) {
   var entry = [
     "webpack/hot/dev-server",
     "webpack-hot-middleware/client",
-    fsPath.join(__dirname, "../client/index.js")
+    fsPath.join(__dirname, "/client/index.js")
   ];
   var output = {
     filename: "bundle.js",

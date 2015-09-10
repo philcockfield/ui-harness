@@ -54,9 +54,11 @@ export default class UIHarness extends React.Component {
     return (
       <div style={ styles.base }>
         <GlobalStyles/>
+
         <div style={[ styles.column, styles.left ]}>
           <IndexColumn current={ current } width={ leftWidth }/>
         </div>
+
         <div style={[ styles.column, styles.main ]}>
           <Main current={ current }/>
         </div>

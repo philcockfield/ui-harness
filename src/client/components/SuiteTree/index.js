@@ -1,2 +1,1 @@
-import SuiteTree from "./SuiteTree";
-export default SuiteTree;
+module.exports = require("./SuiteTree");
