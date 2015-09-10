@@ -8,13 +8,19 @@ See:
 
 */
 
-var webpack = require("webpack");
-var fsPath = require("path");
+import _ from "lodash";
+import webpack from "webpack";
+import fs from "fs";
+import fsPath from "path";
 
-var NODE_MODULES_PATH = fsPath.join(__dirname, "../node_modules");
-var LOADER_EXCLUDE = /(node_modules|bower_components)/;
+const NODE_MODULES_PATH = fsPath.join(__dirname, "../node_modules");
+const LOADER_EXCLUDE = /(node_modules|bower_components)/;
 
-function modulePath(path) { return fsPath.join(NODE_MODULES_PATH, path); }
+function modulePath(path) {
+  const paths = [fsPath.resolve("./node_modules", path), fsPath.join(NODE_MODULES_PATH, path)];
+  return _.find(paths, path => fs.existsSync(path));
+}
+
 function babelLoader (extension) {
   // See: https://github.com/babel/babel-loader#options
   return {
@@ -99,8 +105,8 @@ function devServer(options) {
 
 function compilerSettings(entry, output) {
   return {
-    entry: entry,
-    output: output,
+    entry,
+    output,
     devtool: "#cheap-module-eval-source-map",
     plugins: PLUGINS,
     resolve: RESOLVE,
@@ -128,7 +134,4 @@ function browser(options) {
 
 
 // ----------------------------------------------------------------------------
-module.exports = {
-  devServer: devServer,
-  browser: browser
-};
+module.exports = { devServer, browser };
