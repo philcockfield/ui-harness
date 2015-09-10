@@ -18,6 +18,7 @@ gulp.task("build", function() {
     .pipe(gulp.dest("lib"));
 });
 
+
 gulp.task("prepublish", ["build"]);
 gulp.task("watch", function(callback) { gulp.watch("./src/**/*", ["build"]) });
 gulp.task("default", ["build", "watch"]);
