@@ -133,8 +133,8 @@ function browser(options = {}) {
   const output = {
     filename: "bundle.js",
   };
-  output.path = IS_DEVELOPMENT ? "/" : "./public";
-  output.publicPath = IS_DEVELOPMENT ? publicPath(options) : undefined;
+  output.path = IS_DEVELOPMENT ? "/" : fsPath.join(__dirname, "../public");
+  if (IS_DEVELOPMENT) { output.publicPath = publicPath(options); }
 
   // Finish up.
   const result = compilerSettings(entry, output);
