@@ -90,6 +90,9 @@ export const start = (options = {}, callback) => {
   if (IS_PRODUCTION) {
     // Compile and minify webpack JS for production.
     console.log("webpack bundling...");
+    console.log("-------------------------------------------");
+    console.log(webpackConfig);
+    console.log("");
     webpack(webpackConfig, (err, stats) => {
       if (err) { throw err; }
       startListening();
