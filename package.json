@@ -16,6 +16,7 @@
     "babel-runtime": "^5.8.9",
     "bluebird": "^2.9.33",
     "color": "^0.10.1",
+    "compression": "^1.5.2",
     "express": "^4.13.0",
     "immutable": "^3.7.4",
     "js-bdd": "^1.0.1",

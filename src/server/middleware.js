@@ -2,6 +2,7 @@ import _ from "lodash";
 import fsPath from "path";
 import Promise from "bluebird";
 import express from "express";
+import compression from "compression";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
@@ -36,6 +37,8 @@ export const start = (options = {}, callback) => {
   const PORT = options.port || 8080;
   const ENV = options.env || process.env.NODE_ENV || "development"
   const IS_PRODUCTION = ENV === "production";
+
+  console.log("");
   console.log(`Starting (${ ENV })...`);
 
   // Get the webpack configuration settings.
@@ -43,9 +46,12 @@ export const start = (options = {}, callback) => {
 
   // Prepare the server.
   const app = express();
+  if (IS_PRODUCTION) {
+    app.use(compression());
+  }
+
   const startListening = () => {
       app.listen(PORT, () => {
-            console.log("Started.");
             console.log("");
             console.log("UIHarness");
             console.log(" - port:", PORT);
