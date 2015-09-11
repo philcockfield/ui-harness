@@ -41,10 +41,11 @@ function babelLoader (extension) {
 
 var PLUGINS = [
   // Hot reload plugins:
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin()
+  // new webpack.optimize.OccurenceOrderPlugin(),
+  // new webpack.HotModuleReplacementPlugin(),
+  // new webpack.NoErrorsPlugin()
 ];
+console.log("TODO - put plugins back in");
 
 
 var RESOLVE = {
