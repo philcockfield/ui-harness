@@ -11,14 +11,71 @@ import * as serverMethods from "./serverMethods";
 import bdd from "../shared/bdd";
 
 
-
-
 const parseSpecs = (paths) => {
     bdd.register();
     paths.forEach(path => { require(path); });
     bdd.unregister();
-};
+  };
 
+
+/**
+ * Middleware for running the UIHarness server.
+ * @param {object} options: Configuration settings.
+ *                          If a {string/array} is passed, that value is set as the `entry`
+ *
+ *                          - basePath: The base URL path. Default "/".
+ *                          - entry: A string or array of strings to entry points of files
+ *                                   to pass to WebPack to build for the client.
+ *                          - port: The port to run on (default:8080).
+ *                          - env:  The environment to run in ("development" / "production").
+ *
+ * @param callback: Invoked when the JS has been bundled.
+ */
+export const middleware = (options = {}, callback) => {
+  // Convert string or array options into the "entry" path.
+  options = _.isString(options) || _.isArray(options) ? { entry: options } : options;
+  const PORT = options.port || 8080;
+  const ENV = options.env || process.env.NODE_ENV || "development"
+  const IS_PRODUCTION = ENV === "production";
+  const router = express.Router();
+
+  // Get the webpack configuration settings.
+  const webpackConfig = config.browser({ port: PORT, env: ENV });
+  router.use(express.static(fsPath.join(__dirname, "../../public"), { maxage: "60 days" }))
+  if (IS_PRODUCTION) {
+    router.use(compression());
+  }
+
+  // Prepare entry paths for the WebPack bundle.
+  let entry = options.entry || [];
+  if (!_.isArray(entry)) { entry = [entry]; }
+  entry = entry.map(path => _.startsWith(path, ".") ? fsPath.resolve(path) : path);
+  entry.forEach(path => { webpackConfig.entry.push(path); });
+
+  // Initialize the [describe/it] statements.
+  parseSpecs(entry);
+
+  // Prepare webpack JS.
+  if (IS_PRODUCTION) {
+    // Compile and minify webpack JS for production.
+    console.log("webpack bundling...");
+    webpack(webpackConfig, (err, stats) => {
+      console.log("...webpack bundled into '/public/'.");
+      if (err) { throw err; }
+      if (_.isFunction(callback)) { callback(router); }
+    });
+
+  } else {
+    // Create the WebPack compiler and "hot-reloading" dev server.
+    const compiler = webpack(webpackConfig);
+    router.use(webpackMiddleware(compiler, config.devServer({ port: PORT })));
+    router.use(webpackHotMiddleware(compiler));
+    if (_.isFunction(callback)) { callback(router); }
+  }
+
+  // Finish up.
+  return router;
+};
 
 
 
@@ -27,28 +84,21 @@ const parseSpecs = (paths) => {
  * @param {object} options: Configuration settings.
  *                          If a {string/array} is passed, that value is set as the `entry`
  *
+ *                          - basePath: The base URL path. Default "/".
  *                          - entry: A string or array of strings to entry points of files
  *                                   to pass to WebPack to build for the client.
  *                          - port: The port to run on (default:8080).
  *                          - env:  The environment to run in ("development" / "production").
- * @param callback: Invokd when the server has started.
+ *
+ * @param callback: Invoked when the server has started.
  */
 export const start = (options = {}, callback) => {
+  const BASE_PATH = options.basePath || "/";
   const PORT = options.port || 8080;
   const ENV = options.env || process.env.NODE_ENV || "development"
-  const IS_PRODUCTION = ENV === "production";
 
   console.log("");
   console.log(`Starting (${ ENV })...`);
-
-  // Get the webpack configuration settings.
-  const webpackConfig = config.browser({ port: PORT, env: ENV });
-
-  // Prepare the server.
-  const app = express();
-  if (IS_PRODUCTION) {
-    app.use(compression());
-  }
 
   const startListening = () => {
       app.listen(PORT, () => {
@@ -61,53 +111,6 @@ export const start = (options = {}, callback) => {
       });
     };
 
-  // Setup routing.
-  const get = (route, file) => {
-      file = fsPath.join(__dirname, `../../public/${ file || route }`);
-      app.get(route, (req, res) => { res.sendFile(file); });
-  };
-  get("/", "index.html");
-  get("/normalize.css");
-  get("/favicon.ico");
-  if (IS_PRODUCTION) {
-    get("/public/bundle.js", "bundle.js");
-  }
-
-  // Ensure the options is an object.
-  if (_.isString(options) || _.isArray(options)) {
-    // A string or object was given, convert it to the "entry" option.
-    options = { entry: options };
-  }
-
-  // Prepare entry paths for the WebPack compiler.
-  let entry = options.entry || [];
-  if (!_.isArray(entry)) { entry = [entry]; }
-  entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
-  entry.forEach(path => { webpackConfig.entry.push(path); });
-
-  // Initialize the [describe/it] statements.
-  parseSpecs(entry);
-
-
-  // Configure the server methods (REST API).
-  // serverMethods.init({ connect:app });
-
-
-  // Prepare webpack JS.
-  if (IS_PRODUCTION) {
-    // Compile and minify webpack JS for production.
-    console.log("webpack bundling...");
-    webpack(webpackConfig, (err, stats) => {
-      console.log("...webpack bundled.");
-      if (err) { throw err; }
-      startListening();
-    });
-
-  } else {
-    // Create the WebPack compiler and "hot-reloading" dev server.
-    const compiler = webpack(webpackConfig);
-    app.use(webpackMiddleware(compiler, config.devServer({ port: PORT })));
-    app.use(webpackHotMiddleware(compiler));
-    startListening();
-  }
+  const app = express();
+  app.use(BASE_PATH, middleware(options, () => { startListening(); }));
 };
