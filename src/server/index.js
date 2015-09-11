@@ -40,6 +40,8 @@ export const start = (options = {}, callback) => {
   const IS_PRODUCTION = ENV === "production";
   const webpackConfig = config.browser({ port: PORT, env: ENV });
 
+  console.log("ENV", ENV);
+
   // Prepare the server.
   const app = express();
   const startListening = () => {
