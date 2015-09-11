@@ -1,7 +1,6 @@
 import _ from "lodash";
 import fsPath from "path";
 import Promise from "bluebird";
-import chalk from "chalk";
 import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
@@ -9,6 +8,7 @@ import webpackHotMiddleware from "webpack-hot-middleware";
 import * as config from "../webpack-config";
 import * as serverMethods from "./serverMethods";
 import bdd from "../shared/bdd";
+
 
 
 
@@ -33,8 +33,7 @@ const parseSpecs = (paths) => {
  * @param callback: Invokd when the server has started.
  */
 export const start = (options = {}, callback) => {
-  console.log(chalk.grey("Starting..."));
-  console.log("");
+  console.log("Starting...");
 
   const PORT = options.port || 8080;
   const ENV = options.env || process.env.NODE_ENV || "development"
@@ -45,12 +44,12 @@ export const start = (options = {}, callback) => {
   const app = express();
   const startListening = () => {
       app.listen(PORT, () => {
-            const HR = chalk.cyan(_.repeat("-", 80));
-            console.log(HR);
-            console.log(chalk.grey(" UIHarness running on"),
-                        chalk.cyan(`localhost:${ PORT }`),
-                        chalk.grey(`(${ ENV })`));
-            console.log(HR, "\n");
+            console.log("Started.");
+            console.log("");
+            console.log("UIHarness");
+            console.log(" - port:", PORT);
+            console.log(" - env: ", ENV);
+            console.log("");
             if (_.isFunction(callback)) { callback(); }
       });
     };

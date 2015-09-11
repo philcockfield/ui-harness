@@ -142,6 +142,7 @@ function browser(options = {}) {
     // Minify JS when in production.
     result.plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
   }
+
   return result;
 };
 
