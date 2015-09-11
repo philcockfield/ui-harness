@@ -33,14 +33,13 @@ const parseSpecs = (paths) => {
  * @param callback: Invokd when the server has started.
  */
 export const start = (options = {}, callback) => {
-  console.log("Starting...");
-
   const PORT = options.port || 8080;
   const ENV = options.env || process.env.NODE_ENV || "development"
   const IS_PRODUCTION = ENV === "production";
-  const webpackConfig = config.browser({ port: PORT, env: ENV });
+  console.log(`Starting (${ ENV })...`);
 
-  console.log("ENV", ENV);
+  // Get the webpack configuration settings.
+  const webpackConfig = config.browser({ port: PORT, env: ENV });
 
   // Prepare the server.
   const app = express();
@@ -80,7 +79,7 @@ export const start = (options = {}, callback) => {
   entry = entry.map(path => { return _.startsWith(path, ".") ? fsPath.resolve(path) : path; });
   entry.forEach(path => { webpackConfig.entry.push(path); });
 
-  // Iniitalize the [describe/it] statements.
+  // Initialize the [describe/it] statements.
   parseSpecs(entry);
 
 
