@@ -94,7 +94,10 @@ export const start = (options = {}, callback) => {
     console.log(webpackConfig);
     console.log("");
     webpack(webpackConfig, (err, stats) => {
-      if (err) { throw err; }
+      // if (err) { throw err; }
+      console.log("err", err);
+      console.log("stats", stats);
+
       startListening();
     });
 
