@@ -39,14 +39,6 @@ function babelLoader (extension) {
 };
 
 
-var PLUGINS = [
-  // Hot reload plugins:
-  // new webpack.optimize.OccurenceOrderPlugin(),
-  // new webpack.HotModuleReplacementPlugin(),
-  // new webpack.NoErrorsPlugin()
-];
-console.log("TODO - put plugins back in");
-
 
 var RESOLVE = {
   fallback: NODE_MODULES_PATH,
@@ -108,7 +100,7 @@ function compilerSettings(entry, output) {
     entry,
     output,
     devtool: "#cheap-module-eval-source-map",
-    plugins: PLUGINS,
+    plugins: [],
     resolve: RESOLVE,
     resolveLoader: RESOLVE_LOADER,
     module: MODULE
@@ -121,9 +113,9 @@ function browser(options = {}) {
   const ENV = options.env || "development"
   const IS_DEVELOPMENT = ENV === "development";
   const IS_PRODUCTION = ENV === "production";
-  const entry = [];
 
   // Entry paths.
+  const entry = [];
   if (IS_DEVELOPMENT) {
     entry.push("webpack/hot/dev-server");
     entry.push("webpack-hot-middleware/client");
@@ -131,19 +123,26 @@ function browser(options = {}) {
   entry.push(fsPath.join(__dirname, "/client/index.js"));
 
   // Output paths.
-  const output = {
-    filename: "bundle.js",
-  };
+  const output = { filename: "bundle.js", };
   output.path = IS_DEVELOPMENT ? "/" : fsPath.join(__dirname, "../public");
   if (IS_DEVELOPMENT) { output.publicPath = publicPath(options); }
 
-  // Finish up.
+  // Get the compiler options.
   const result = compilerSettings(entry, output);
   if (IS_PRODUCTION) {
     // Minify JS when in production.
     result.plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
   }
 
+  // Plugins.
+  if (IS_DEVELOPMENT) {
+    // Hot reload plugins:
+    result.plugins.push(new webpack.optimize.OccurenceOrderPlugin());
+    result.plugins.push(new webpack.HotModuleReplacementPlugin());
+    result.plugins.push(new webpack.NoErrorsPlugin());
+  }
+
+  // Finish up.
   return result;
 };
 
