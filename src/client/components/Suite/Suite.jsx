@@ -5,7 +5,7 @@ import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import api from "../../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";
-import SpecList from "./SpecList";
+import SpecList from "../SpecList";
 import Section from "./Section";
 
 

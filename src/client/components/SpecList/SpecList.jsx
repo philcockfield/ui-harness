@@ -4,7 +4,7 @@ import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import { Ul } from "../shared";
 import SpecListItem from "./SpecListItem";
-
+import SpecListServerItem from "./SpecListServerItem";
 
 /**
  * A list of specs.
@@ -23,10 +23,9 @@ export default class SpecList extends React.Component {
     const styles = this.styles();
     const { current } = this.props;
     let specs = this.props.specs.map((spec, i) => {
-            return <SpecListItem
-                      key={i}
-                      spec={ spec }
-                      current={ current }/>
+            return spec.isServer
+                ? <SpecListServerItem key={i} spec={ spec } current={ current }/>
+                : <SpecListItem key={i} spec={ spec } current={ current }/>
           });
 
     return (

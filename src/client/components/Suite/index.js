@@ -1,2 +1,1 @@
-import Suite from "./Suite";
-export default Suite;
+module.exports = require("./Suite");

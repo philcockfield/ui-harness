@@ -5,7 +5,7 @@ import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { FormattedText, Ellipsis, Twisty } from "../shared";
 import api from "../../../shared/api-internal";
-import SpecList from "./SpecList";
+import SpecList from "../SpecList";
 
 
 const isOpenStorage = (section, isOpen) => {
