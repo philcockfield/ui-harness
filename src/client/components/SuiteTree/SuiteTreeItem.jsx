@@ -5,8 +5,7 @@ import { css, PropTypes } from "js-util/react";
 import Color from "color";
 import api from "../../../shared/api-internal";
 import { Ul, Twisty, Center, Ellipsis } from "../shared";
-import IconImage from "../shared/IconImage";
-
+import { IconImage, FormattedText } from "../shared";
 
 const TEXT_COLOR = Color("white").darken(0.6).hexString();
 const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
@@ -222,7 +221,9 @@ export default class SuiteTreeItem extends React.Component {
               }
           </div>
           <div style={ styles.title }>
-            <Ellipsis width={ widths.title }>{ suite.name }</Ellipsis>
+            <Ellipsis width={ widths.title }>
+              <FormattedText>{ suite.name }</FormattedText>
+            </Ellipsis>
           </div>
           { chrevronIcon }
 
