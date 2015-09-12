@@ -1,5 +1,6 @@
 import _ from "lodash";
 import bdd from "js-bdd";
+import bddServer from "./bdd-server";
 import ThisContext from "./ThisContext";
 
 const ORIGINAL_DSL = {}

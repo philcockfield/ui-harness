@@ -19,7 +19,7 @@
     "compression": "^1.5.2",
     "express": "^4.13.0",
     "immutable": "^3.7.4",
-    "js-bdd": "^1.0.2",
+    "js-bdd": "^1.0.3",
     "js-util": "^1.0.5",
     "json-loader": "^0.5.2",
     "lodash": "^3.6.0",
