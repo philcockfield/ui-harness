@@ -103,7 +103,7 @@ export const start = (options = {}, callback) => {
   const startListening = () => {
       app.listen(PORT, () => {
             console.log("");
-            console.log("UIHarness");
+            console.log("UIHarness:");
             console.log(" - port:", PORT);
             console.log(" - env: ", ENV);
             console.log("");
