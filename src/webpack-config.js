@@ -120,7 +120,7 @@ function browser(options = {}) {
     entry.push("webpack/hot/dev-server");
     entry.push("webpack-hot-middleware/client");
   }
-  entry.push(fsPath.join(__dirname, "/client/index.js"));
+  entry.push(fsPath.join(__dirname, "/client.js"));
 
   // Output paths.
   const output = { filename: "bundle.js", };

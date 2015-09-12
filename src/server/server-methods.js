@@ -1,5 +1,5 @@
 import restService from "rest-methods";
-
+import packageJson from "../../package.json";
 
 
 function foo(p1, p2) {
@@ -17,24 +17,23 @@ function foo(p1, p2) {
 
 
 
+const service = restService({
+  name: "ui-harness",
+  basePath: "/api",
+  version: packageJson.version
+});
 
-/**
- * Initializes the server methods.
- * @param {object} options
- *                 - connect: The connect application to use.
- */
-export const init = (options = {}) => {
 
-  // Construct the service.
-  let server = restService({
-    name: "ui-harness",
-    connect: options.connect,
-    basePath: "/api",
-    version: "1.0.0"
-  });
+// Declare methods API.
+service.methods({
+  "invokeSpec": {
+    put: function(id) {
+      console.log("id", id);
+      return { id }
+    }
+  }
+});
 
-  // Declare methods API.
-  server.methods({
-    "foo": foo
-  });
-};
+
+
+export default service;

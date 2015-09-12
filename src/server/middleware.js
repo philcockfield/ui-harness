@@ -7,7 +7,7 @@ import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import * as config from "../webpack-config";
-import * as serverMethods from "./serverMethods";
+import serverMethods from "./server-methods";
 import bdd from "../shared/bdd";
 
 
@@ -72,6 +72,9 @@ export const middleware = (options = {}, callback) => {
     router.use(webpackHotMiddleware(compiler));
     if (_.isFunction(callback)) { callback(router); }
   }
+
+  // Initialize the server-methods.
+  router.use(serverMethods.middleware);
 
   // Finish up.
   return router;

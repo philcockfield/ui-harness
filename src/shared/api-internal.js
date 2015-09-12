@@ -2,8 +2,12 @@ import _ from "lodash";
 import React from "react";
 import Immutable from "immutable";
 import * as util from "js-util";
+import rest from "rest-methods/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";
+
+
+
 
 
 /**
@@ -163,6 +167,29 @@ class Api {
     // Finish up.
     return this;
   }
+
+
+  /**
+   * Invokes a spec on the server.
+   * @param spec: The [Spec] to invoke.
+   * @param callback: Invoked upon completion.
+   */
+  invokeServerSpec(spec, callback) {
+
+    const server = rest();
+
+    server.onReady(() => {
+
+      server.methods.invokeSpec.put(spec.id)
+      .then((result) => {
+        console.log("result", result);
+      })
+
+    });
+
+
+  }
+
 
 
   /**
