@@ -1,7 +1,9 @@
 # ui-harness
-Isolate, test and document modular UI with React.
 
 [![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
+
+Isolate, test and document modular UI with React.
+
 
 http://uiharness.com
 
