@@ -27,7 +27,7 @@ class Api {
   init(callback) {
     // Put state into global namespace.
     bdd.register();
-    global.UIHarness = apiConsole;
+    global.UIHarness = global.uih = apiConsole;
 
     // Insert the <Shell> into the root.
     //    NB: Signal DOM ready after a delay to ensure that the [describe/it]
