@@ -1,4 +1,5 @@
 import _ from "lodash";
+import fs from "fs-extra";
 import fsPath from "path";
 import Promise from "bluebird";
 import express from "express";
@@ -16,6 +17,14 @@ const parseSpecs = (paths) => {
     paths.forEach(path => { require(path); });
     bdd.unregister();
   };
+
+
+export const readFileSync = (path) => {
+  if (fs.existsSync(path)) {
+    return fs.readFileSync(path).toString()
+  }
+};
+
 
 
 /**
@@ -121,4 +130,32 @@ export const start = (options = {}, callback) => {
 
   const app = express();
   app.use(BASE_PATH, middleware(options, () => { startListening(); }));
+};
+
+
+
+
+/**
+ * Creates default project structure (if not present)
+ * and starts the server.
+ */
+export const init = (options = {}, callback) => {
+
+  // Ensure the specs folder exists.
+  const specsPath = fsPath.resolve("./specs/index.js");
+  if (!fs.existsSync(specsPath)) {
+    const sourcePath = fsPath.join(__dirname, "../../src/templates/init-index.js");
+    const js = readFileSync(sourcePath);
+    fs.outputFileSync(specsPath, js);
+  }
+
+  // Prepare the entry path.
+  let entry = options.entry;
+  if (!_.isArray(entry)) { entry = [entry]; }
+  entry = _.chain(entry).compact(entry).flatten(entry).value();
+  entry.push("./specs");
+  options.entry = entry;
+
+  // Start the server.
+  start(options, callback);
 };

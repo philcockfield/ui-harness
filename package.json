@@ -18,6 +18,7 @@
     "color": "^0.10.1",
     "compression": "^1.5.2",
     "express": "^4.13.0",
+    "fs-extra": "^0.24.0",
     "immutable": "^3.7.4",
     "js-bdd": "^1.0.3",
     "js-util": "^1.0.5",
