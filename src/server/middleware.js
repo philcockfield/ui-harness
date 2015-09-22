@@ -50,7 +50,12 @@ export const middleware = (options = {}, callback) => {
   let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
   entry = entry.map(path => _.startsWith(path, ".") ? fsPath.resolve(path) : path);
-  entry.forEach(path => { webpackConfig.entry.push(path); });
+  entry.forEach(path => {
+      // Ensure a specific index entry file if a folder was given.
+      // NB: Not having an entry file can cause build-errors in WebPack.
+      if (!path.endsWith(".js")) { path += "/index.js"; }
+      webpackConfig.entry.push(path);
+  });
 
   // Initialize the [describe/it] statements.
   parseSpecs(entry);
