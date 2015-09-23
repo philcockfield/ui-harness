@@ -144,8 +144,8 @@ export const init = (options = {}, callback) => {
   // Ensure the specs folder exists.
   const specsPath = fsPath.resolve("./specs/index.js");
   if (!fs.existsSync(specsPath)) {
-    const sourcePath = fsPath.join(__dirname, "../../src/templates/init-index.js");
-    const js = readFileSync(sourcePath);
+    // const sourcePath = fsPath.join(__dirname, "../../src/templates/init-index.js");
+    const js = "";
     fs.outputFileSync(specsPath, js);
   }
 
