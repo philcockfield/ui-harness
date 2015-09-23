@@ -6,7 +6,7 @@ import rest from "rest-methods/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";
 
-
+const LOG_LIST = Symbol("log-list");
 
 
 
@@ -16,6 +16,7 @@ import apiConsole from "./api-console";
 class Api {
   constructor() {
     this.current = Immutable.Map();
+    this[LOG_LIST] = Immutable.List();
     this.loadInvokeCount = 0;
   }
 
@@ -175,19 +176,14 @@ class Api {
    * @param callback: Invoked upon completion.
    */
   invokeServerSpec(spec, callback) {
-
     const server = rest();
-
     server.onReady(() => {
-
-      server.methods.invokeSpec.put(spec.id)
-      .then((result) => {
-        console.log("result", result);
-      })
-
+        server.methods.invokeSpec.put(spec.id)
+        .then((result) => {
+          // TODO:
+          console.log("result", result);
+        });
     });
-
-
   }
 
 
@@ -264,6 +260,19 @@ class Api {
     if (this.shell) { this.shell.setState({ current:this.current }); }
     return this;
   };
+
+
+  /**
+   * Logs a value to the output.
+   * @param {array} values: The value or values to append.
+   */
+  log(...values) {
+    values = _.flatten(values);
+    const item = { time: new Date(), values };
+    this[LOG_LIST] = this[LOG_LIST].push(item);
+    this.setCurrent({ log: this[LOG_LIST], showLog: true });
+    return this;
+  }
 
 
   /**

@@ -1,11 +1,11 @@
 import api from "./api-internal";
 
+
 /**
  * The API for manipulating the UIHarness via
  * the browser console.
  */
 class UIHarness {
-
   /**
    * Resets the state of the UIHarness.
    * @param {boolean} hard: Flag indicating if all state from local-storage
@@ -15,6 +15,13 @@ class UIHarness {
     api.reset({ hard: hard });
     return true;
   }
+
+
+  /**
+   * Logs a value to the output.
+   * @param {array} value: The value or values to append.
+   */
+   log(...value) { api.log(value); }
 }
 
 

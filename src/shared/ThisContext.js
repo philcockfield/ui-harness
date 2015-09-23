@@ -142,11 +142,22 @@ export default class UIHContext {
     api.setCurrent({
       componentType: type,
       componentProps: props,
-      componentChildren: children
+      componentChildren: children,
+      showLog: false
     });
 
     // Finish up.
     api.loadInvokeCount += 1;
     return this;
   }
+
+
+  /**
+   * Logs a value to the output.
+   * @param {array} value: The value or values to append.
+   */
+   log(...value) {
+     api.log(value);
+     return this;
+   }
 }
