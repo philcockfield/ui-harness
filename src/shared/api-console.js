@@ -6,6 +6,10 @@ import api from "./api-internal";
  * the browser console.
  */
 class UIHarness {
+  constructor() {
+    this.log.clear = () => api.clearLog();
+  }
+
   /**
    * Resets the state of the UIHarness.
    * @param {boolean} hard: Flag indicating if all state from local-storage

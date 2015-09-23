@@ -276,6 +276,17 @@ class Api {
 
 
   /**
+   * Clears the output log.
+   */
+  clearLog() {
+    // console.log("clear log");
+    this[LOG_LIST] = this[LOG_LIST].clear();
+    this.setCurrent({ log: this[LOG_LIST], showLog: false });
+
+  }
+
+
+  /**
    * Provides common access to localStorage.
    * @param key:         The unique identifier of the value (this is prefixed with the namespace).
    * @param value:       (optional). The value to set (pass null to remove).

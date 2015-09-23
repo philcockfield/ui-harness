@@ -73,6 +73,8 @@ export default class UIHContext {
     this.cropMarks = (value) =>{ return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
     this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 25, type: PropTypes.number }); };
     this.cropMarks.offset = (value) => { return this[PROP]("cropMarks.offset", value, { default: 5, type: PropTypes.number }); };
+
+    this.log.clear = () => api.clearLog();
   }
 
 

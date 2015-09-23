@@ -21,4 +21,5 @@ describe("Output", function() {
     it("`log(123)`", () => { this.log(123); });
     it("`log(123, 'four')`", () => { this.log(123, "four"); });
   });
+  it("`log.clear()`", () => this.log.clear());
 });
