@@ -11,7 +11,7 @@ api.init(() => {
 });
 
 
-// import rest from "rest-methods/browser";
+// import rest from "rest-middleware/browser";
 // const server = rest();
 // server.onReady(() => {
 //   console.log("initialized");

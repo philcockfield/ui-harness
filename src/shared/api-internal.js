@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import Immutable from "immutable";
 import * as util from "js-util";
-import rest from "rest-methods/browser";
+import rest from "rest-middleware/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";
 

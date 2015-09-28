@@ -1,4 +1,4 @@
-import restService from "rest-methods";
+import rest from "rest-middleware";
 import packageJson from "../../package.json";
 
 
@@ -17,7 +17,7 @@ function foo(p1, p2) {
 
 
 
-const service = restService({
+const service = rest({
   name: "ui-harness",
   basePath: "/api",
   version: packageJson.version
