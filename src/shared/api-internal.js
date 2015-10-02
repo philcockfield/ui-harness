@@ -7,7 +7,7 @@ import bdd from "./bdd";
 import apiConsole from "./api-console";
 
 const LOG_LIST = Symbol("log-list");
-
+const COMPONENT = Symbol("component");
 
 
 /**
@@ -59,8 +59,9 @@ class Api {
     } else {
       this.clearLocalStorage("lastInvokedSpec:");
     }
-    this.lastSelectedSuite(null)
+    this.lastSelectedSuite(null);
     this.setCurrent(null);
+    this.component(null);
     return this;
   }
 
@@ -76,6 +77,24 @@ class Api {
           util.localStorage.prop(key, null); // Remove.
         }
       });
+  }
+
+
+  /**
+   * Gets or sets the current component instance.
+   * Pass {null} to clear.
+   */
+  component(value) {
+    if (value !== undefined) {
+      if (value === null) {
+        delete this[COMPONENT];
+        delete apiConsole.component;
+      } else {
+        this[COMPONENT] = value;
+        apiConsole.component = value;
+      }
+    }
+    return this[COMPONENT];
   }
 
 
@@ -120,6 +139,10 @@ class Api {
     // Finish up.
     return this;
   }
+
+
+
+
 
 
   /**

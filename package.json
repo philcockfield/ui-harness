@@ -28,6 +28,7 @@
     "moment": "^2.10.6",
     "node-libs-browser": "^0.5.2",
     "radium": "^0.13.2",
+    "ramda": "^0.17.1",
     "react": "^0.13.3",
     "rest-middleware": "^1.0.21",
     "ui-core": "^1.0.4",

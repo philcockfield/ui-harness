@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import CropMarks from "../shared/CropMarks";
-
+import api from "../../shared/api-internal";
 
 /**
  * Loads and displays a component.
@@ -28,6 +28,7 @@ export default class Component extends React.Component {
     });
   }
 
+
   render() {
     const styles = this.styles();
     const { current } = this.props;
@@ -36,8 +37,10 @@ export default class Component extends React.Component {
     let element;
     let type = current.get("componentType");
     if (type) {
+      const props = current.get("componentProps") || {};
+      props.ref = (c) => api.component(c); // Store component instance on load.
       element = React.createElement(type,
-                    current.get("componentProps"),
+                    props,
                     current.get("componentChildren"));
     }
 

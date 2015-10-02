@@ -1,4 +1,4 @@
-import _ from "lodash";
+import R from "ramda";
 import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
@@ -64,7 +64,7 @@ export default class UIHContext {
           }
           // READ.
           let result = this[PROP].state[key];
-          if (_.isUndefined(result)) { result = options.default; }
+          if (result === undefined) { result = options.default; }
           return result
         };
     this[PROP].state = {};
@@ -85,7 +85,7 @@ export default class UIHContext {
     const result = {};
     PROPS.forEach(key => {
           let propFunc = util.ns(this, key);
-          if (_.isFunction(propFunc)) {
+          if (R.is(Function, propFunc)) {
             result[key] = propFunc.call(this);
           } else {
             result[key] = this[PROP].state[key];
@@ -96,9 +96,15 @@ export default class UIHContext {
 
 
   /**
+   * Resets the UI Harness.
+   */
+  reset(options) { api.reset(options); }
+
+
+
+  /**
    * Gets or sets the current properties.
    */
-  props(value) { return this[PROP]("componentProps", value); }
   children(value) { return this[PROP]("componentChildren", value); }
   width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
   height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
@@ -109,6 +115,19 @@ export default class UIHContext {
   backdrop(value) { return this[PROP]("backdrop", value, { default: 0, type: PropTypes.numberOrString }); }
   scroll(value) { return this[PROP]("scroll", value, { default: false, type: PropTypes.oneOf([true, false, "x", "y", "x:y"]) }); }
 
+  props(value) {
+    if (R.is(Object, value)) {
+      // Cumulatively add given props to the existing
+      // props on the component.
+      const component = api.component();
+      const props = component && component.props;
+      if (props) {
+        R.keys(value).forEach(key => props[key] = value[key]);
+        value = props;
+      }
+    }
+    return this[PROP]("componentProps", value);
+  }
 
 
 
@@ -150,6 +169,20 @@ export default class UIHContext {
 
     // Finish up.
     api.loadInvokeCount += 1;
+    return this;
+  }
+
+
+  /**
+   * Unloads the currently loaded component.
+   */
+  unload() {
+    api.setCurrent({
+      componentType: null,
+      componentProps: null,
+      componentChildren: null
+    });
+    api.component(null);
     return this;
   }
 
