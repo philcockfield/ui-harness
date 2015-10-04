@@ -71,5 +71,5 @@ CropMark.propTypes = {
 CropMark.defaultProps = {
   size: 20,
   offset: 5,
-  color: "rgba(0, 0, 0, 0.15)"
+  color: "rgba(0, 0, 0, 0.08)"
 };
