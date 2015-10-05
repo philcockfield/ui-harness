@@ -61,8 +61,10 @@ export const middleware = (options = {}, callback) => {
   // Prepare entry paths for the WebPack bundle.
   let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
-  if (entry.length === 0 && fs.existsSync(fsPath.resolve("./specs"))) { entry.push("./specs"); }
-  if (entry.length === 0 && fs.existsSync(fsPath.resolve("./src/specs"))) { entry.push("./src/specs"); }
+  if (entry.length === 0) {
+    if (fs.existsSync(fsPath.resolve("./specs"))) { entry.push("./specs"); }
+    if (fs.existsSync(fsPath.resolve("./src/specs"))) { entry.push("./src/specs"); }
+  }
   entry = entry.map(path => _.startsWith(path, ".") ? fsPath.resolve(path) : path);
   entry.forEach(path => {
       // Ensure a specific index entry file if a folder was given.

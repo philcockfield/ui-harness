@@ -7,11 +7,5 @@ describe("ui-harness", function() {
 });
 
 
-describe("react-atoms", function() {
-  require("react-atoms/specs");
-});
-
-
-describe("react-object", function() {
-  require("react-object/specs");
-});
+require("react-atoms/specs");
+require("react-object/lib/specs");

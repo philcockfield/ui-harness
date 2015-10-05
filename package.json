@@ -4,9 +4,9 @@
   "description": "Isolate, test and document modular UI with React.",
   "main": "./index.js",
   "scripts": {
+    "start": "node ./specs.js",
     "test": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel",
     "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel --watch",
-    "specs": "node ./example/start-server",
     "prepublish": "gulp prepublish"
   },
   "dependencies": {
