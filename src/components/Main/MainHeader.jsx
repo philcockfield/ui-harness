@@ -4,7 +4,7 @@ import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import { FONT_SANS } from "../GlobalStyles";
 import { Markdown } from "../shared";
-import { trimIndent } from "ui-core/components/Markdown";
+import { trimIndent } from "react-atoms/components/Markdown";
 
 
 const elementStyles = (isDark) => {

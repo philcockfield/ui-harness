@@ -1,8 +1,8 @@
-import Twisty from "ui-core/components/Twisty";
-import Center from "ui-core/components/Center";
-import CenterX from "ui-core/components/CenterX";
-import CenterY from "ui-core/components/CenterY";
-import Markdown from "ui-core/components/Markdown";
+import Twisty from "react-atoms/components/Twisty";
+import Center from "react-atoms/components/Center";
+import CenterX from "react-atoms/components/CenterX";
+import CenterY from "react-atoms/components/CenterY";
+import Markdown from "react-atoms/components/Markdown";
 
 
 export default {

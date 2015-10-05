@@ -3,7 +3,7 @@ import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
 import { css, PropTypes } from "js-util/react";
-import AlignmentContainer from "ui-core/components/AlignmentContainer";
+import AlignmentContainer from "react-atoms/components/AlignmentContainer";
 
 
 const isBrowser = (typeof window !== 'undefined');

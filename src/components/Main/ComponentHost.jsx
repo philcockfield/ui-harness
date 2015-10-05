@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import Component from "./Component";
-import AlignmentContainer from "ui-core/components/AlignmentContainer";
+import AlignmentContainer from "react-atoms/components/AlignmentContainer";
 
 /**
  * The display host for a component under test.

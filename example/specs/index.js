@@ -7,6 +7,6 @@ describe("ui-harness", function() {
 });
 
 
-describe("ui-core", function() {
-  require("ui-core/specs");
+describe("react-atoms", function() {
+  require("react-atoms/specs");
 });

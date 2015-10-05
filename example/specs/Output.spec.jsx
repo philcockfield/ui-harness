@@ -1,5 +1,5 @@
 import React from "react";
-import Foo from "ui-core/components/Foo";
+import Foo from "react-atoms/components/Foo";
 
 
 describe("Output", function() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { PropTypes } from "js-util/react";
-import Markdown from "ui-core/components/Markdown";
+import Markdown from "react-atoms/components/Markdown";
 
 
 /**
