@@ -1,3 +1,4 @@
+import R from "ramda";
 import _ from "lodash";
 import fs from "fs-extra";
 import fsPath from "path";
@@ -10,6 +11,8 @@ import webpackHotMiddleware from "webpack-hot-middleware";
 import * as config from "../webpack-config";
 import serverMethods from "./server-methods";
 import bdd from "../shared/bdd";
+
+const DEFAULT_PORT = 3030;
 
 
 const parseSpecs = (paths) => {
@@ -35,7 +38,7 @@ export const readFileSync = (path) => {
  *                          - basePath: The base URL path. Default "/".
  *                          - entry: A string or array of strings to entry points of files
  *                                   to pass to WebPack to build for the client.
- *                          - port: The port to run on (default:8080).
+ *                          - port: The port to run on (default:3030).
  *                          - env:  The environment to run in ("development" / "production").
  *
  * @param callback: Invoked when the JS has been bundled.
@@ -43,7 +46,7 @@ export const readFileSync = (path) => {
 export const middleware = (options = {}, callback) => {
   // Convert string or array options into the "entry" path.
   options = _.isString(options) || _.isArray(options) ? { entry: options } : options;
-  const PORT = options.port || 8080;
+  const PORT = options.port || DEFAULT_PORT;
   const ENV = options.env || process.env.NODE_ENV || "development"
   const IS_PRODUCTION = ENV === "production";
   const router = express.Router();
@@ -58,6 +61,7 @@ export const middleware = (options = {}, callback) => {
   // Prepare entry paths for the WebPack bundle.
   let entry = options.entry || [];
   if (!_.isArray(entry)) { entry = [entry]; }
+  if (entry.length === 0 && fs.existsSync(fsPath.resolve("./specs"))) { entry.push("./specs"); }
   entry = entry.map(path => _.startsWith(path, ".") ? fsPath.resolve(path) : path);
   entry.forEach(path => {
       // Ensure a specific index entry file if a folder was given.
@@ -104,14 +108,14 @@ export const middleware = (options = {}, callback) => {
  *                          - basePath: The base URL path. Default "/".
  *                          - entry: A string or array of strings to entry points of files
  *                                   to pass to WebPack to build for the client.
- *                          - port: The port to run on (default:8080).
+ *                          - port: The port to run on (default:3030).
  *                          - env:  The environment to run in ("development" / "production").
  *
  * @param callback: Invoked when the server has started.
  */
 export const start = (options = {}, callback) => {
   const BASE_PATH = options.basePath || "/";
-  const PORT = options.port || 8080;
+  const PORT = options.port || DEFAULT_PORT;
   const ENV = options.env || process.env.NODE_ENV || "development"
 
   console.log("");
@@ -144,7 +148,6 @@ export const init = (options = {}, callback) => {
   // Ensure the specs folder exists.
   const specsPath = fsPath.resolve("./specs/index.js");
   if (!fs.existsSync(specsPath)) {
-    // const sourcePath = fsPath.join(__dirname, "../../src/templates/init-index.js");
     const js = "";
     fs.outputFileSync(specsPath, js);
   }
