@@ -45,6 +45,7 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-eslint": "^0.15.0",
+    "gulp-plumber": "^1.0.1",
     "mocha": "^2.2.1",
     "sinon": "^1.15.4"
   },
