@@ -107,16 +107,21 @@ export const middleware = (options = {}, callback) => {
  * Starts the UIHarness within a development server.
  * @param {object} options: Configuration settings.
  *                          If a {string/array} is passed, that value is set as the `entry`
+ *                          If a number if passed it is assumed to be the port.
  *
  *                          - basePath: The base URL path. Default "/".
- *                          - entry: A string or array of strings to entry points of files
- *                                   to pass to WebPack to build for the client.
- *                          - port: The port to run on (default:3030).
- *                          - env:  The environment to run in ("development" / "production").
+ *                          - entry:    A string or array of strings to entry points of files
+ *                                      to pass to WebPack to build for the client.
+ *                          - port:     The port to run on (default:3030).
+ *                          - env:      The environment to run in ("development" / "production").
  *
  * @param callback: Invoked when the server has started.
  */
 export const start = (options = {}, callback) => {
+  // Wrangle arguments.
+  if (R.is(String, options) || R.is(Array, options)) { options = { entry: options }; };
+  if (R.is(Number, options)) { options = { port: options }; }
+
   const BASE_PATH = options.basePath || "/";
   const PORT = options.port || DEFAULT_PORT;
   const ENV = options.env || process.env.NODE_ENV || "development"
