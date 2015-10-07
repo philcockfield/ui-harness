@@ -114,6 +114,10 @@ export const middleware = (options = {}, callback) => {
  *                                      to pass to WebPack to build for the client.
  *                          - port:     The port to run on (default:3030).
  *                          - env:      The environment to run in ("development" / "production").
+ *                          - babel:    Instructions to regsiter the "babel" transpiler.
+ *                                        - false/undefined:  Not registered.
+ *                                        - true:             Registered with defaults.
+ *                                        - <number>:         The babel "stage" to register with.
  *
  * @param callback: Invoked when the server has started.
  */
@@ -125,10 +129,18 @@ export const start = (options = {}, callback) => {
   const BASE_PATH = options.basePath || "/";
   const PORT = options.port || DEFAULT_PORT;
   const ENV = options.env || process.env.NODE_ENV || "development"
+  const BABEL = options.babel || false;
 
+  // Register babel if required.
+  if (BABEL) {
+    const compilerOptions = {};
+    if (R.is(Number, BABEL)) { compilerOptions.stage = BABEL; }
+    require("babel/register")(compilerOptions);
+  }
+
+  // Start the server.
   console.log("");
   console.log(`Starting (${ ENV })...`);
-
   const startListening = () => {
       app.listen(PORT, () => {
             console.log("");
