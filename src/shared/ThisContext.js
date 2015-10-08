@@ -21,7 +21,6 @@ const PROPS = [
   "header",
   "hr",
   "backdrop",
-  "backdropColor",
   "scroll"
 ];
 
