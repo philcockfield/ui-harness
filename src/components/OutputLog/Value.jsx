@@ -13,7 +13,7 @@ const COLORS = {
 
 
 /**
- * An <Output> log value.
+ * An <OutputLog> log value.
  */
 @Radium
 export default class Value extends React.Component {

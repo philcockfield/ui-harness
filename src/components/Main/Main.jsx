@@ -8,7 +8,7 @@ import Card from "../shared/Card";
 import MainHeader from "./MainHeader";
 import Component from "./Component";
 import ComponentHost from "./ComponentHost";
-import Output from "../Output";
+import OutputLog from "../OutputLog";
 
 
 /**
@@ -74,7 +74,7 @@ export default class Main extends React.Component {
     // Swap out the main host with the log if required.
     const log = current.get("log");
     el = current.get("showLog") && log
-            ? el = <Output items={ log.toJS() }/>
+            ? el = <OutputLog items={ log.toJS() }/>
             : el;
 
     return (

@@ -2,7 +2,7 @@ import React from "react";
 import Foo from "react-atoms/components/Foo";
 
 
-describe("Output", function() {
+describe("OutputLog", function() {
   this.header(`## A tailing output log.`)
 
   before(() => {

@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import OutputItem from "./OutputItem";
+import OutputLogItem from "./OutputLogItem";
 
 
 /**
@@ -32,7 +32,7 @@ export default class Output extends React.Component {
     let { items } = this.props;
     items = items.reverse();
     items = items.map((item, i) => {
-          return <OutputItem key={i} time={ item.time } values={ item.values }/>
+          return <OutputLogItem key={i} time={ item.time } values={ item.values }/>
     });
 
     return (
