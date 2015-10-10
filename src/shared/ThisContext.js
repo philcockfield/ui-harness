@@ -119,8 +119,9 @@ export default class UIHContext {
       // Cumulatively add given props to the existing
       // props on the component.
       const component = api.component();
-      const props = component && component.props;
+      let props = component && component.props;
       if (props) {
+        props = R.clone(props);
         R.keys(value).forEach(key => props[key] = value[key]);
         value = props;
       }
