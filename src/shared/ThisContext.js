@@ -148,8 +148,8 @@ export default class UIHContext {
 
     // If a created <element> was passed de-construct
     // it into it's component parts.
-    if (component._isReactElement) {
-      props = component.props;
+    if (React.isValidElement(component)) {
+      props = R.clone(component.props);
       children = props.children;
       delete props.children;
       type = component.type;

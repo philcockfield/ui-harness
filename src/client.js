@@ -1,11 +1,12 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import * as util from "js-util";
 import api from "./shared/api-internal";
 import Shell from "./components/Shell";
 
 // Render the <Shell> into the DOM.
 api.init(() => {
-    api.shell = React.render(
+    api.shell = ReactDOM.render(
       React.createElement(Shell, { current: api.current }),
       document.getElementById("page-root"));
 });

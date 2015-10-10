@@ -51,6 +51,7 @@ var RESOLVE = {
   */
   alias: {
     "react": modulePath("react"),
+    "react-dom": modulePath("react-dom"),
     "lodash": modulePath("lodash"),
     "immutable": modulePath("immutable"),
     "bluebird": modulePath("bluebird"),

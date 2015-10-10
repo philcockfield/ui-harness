@@ -1,4 +1,3 @@
-import _ from "lodash";
 import * as util from "js-util";
 import marked from "marked";
 

@@ -203,6 +203,7 @@ export default class SuiteTreeItem extends React.Component {
                       onOverSuite={ onOverSuite }
                       width={ width }/>
           });
+      childItems = <Ul>{ childItems }</Ul>;
     }
 
     return (
