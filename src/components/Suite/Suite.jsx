@@ -7,6 +7,8 @@ import api from "../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";
 import SpecList from "../SpecList";
 import Section from "./Section";
+import FlexEdge from "react-atoms/components/FlexEdge";
+import { lorem } from "js-util/test";
 
 
 /**
@@ -17,13 +19,20 @@ export default class Suite extends React.Component {
   styles() {
     return css({
       base: {
-        Absolute: 0,
+        Absolute: 0
       },
       listOuter: {
-        Absolute: "33 0 0 0",
+        Absolute: 0,
         paddingTop: 6,
         overflow: "hidden",
         overflowY: "auto"
+      },
+      propTypesOuter: {
+        maxHeight: "50%",
+        overflow: "hidden",
+        overflowY: "auto",
+        borderTop: "solid 5px rgba(0, 0, 0, 0.1)",
+        paddingTop: 6
       }
     });
   }
@@ -65,13 +74,19 @@ export default class Suite extends React.Component {
           });
     }
 
+
     return (
       <div style={ styles.base }>
-        <SuiteHeader suite={ suite }/>
-        <div style={ styles.listOuter }>
-          <SpecList specs={ specs } current={ current }/>
-          { sections }
-        </div>
+        <FlexEdge orientation="vertical">
+          <SuiteHeader suite={ suite }/>
+          <div style={ styles.listOuter }>
+            <SpecList specs={ specs } current={ current }/>
+            { sections }
+          </div>
+          <div style={ styles.propTypesOuter }>
+            { lorem(50) }
+          </div>
+        </FlexEdge>
       </div>
     );
   }
