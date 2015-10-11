@@ -3,12 +3,13 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
+import FlexEdge from "react-atoms/components/FlexEdge";
 import api from "../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";
 import SpecList from "../SpecList";
 import Section from "./Section";
-import FlexEdge from "react-atoms/components/FlexEdge";
-import { lorem } from "js-util/test";
+import PropTypesComponent from "../PropTypes";
+
 
 
 /**
@@ -17,6 +18,7 @@ import { lorem } from "js-util/test";
 @Radium
 export default class Suite extends React.Component {
   styles() {
+    const PROP_TYPES_PADDING = 6;
     return css({
       base: {
         Absolute: 0
@@ -32,7 +34,9 @@ export default class Suite extends React.Component {
         overflow: "hidden",
         overflowY: "auto",
         borderTop: "solid 5px rgba(0, 0, 0, 0.1)",
-        paddingTop: 6
+        paddingTop: PROP_TYPES_PADDING,
+        paddingRight: PROP_TYPES_PADDING,
+        paddingLeft: PROP_TYPES_PADDING
       }
     });
   }
@@ -84,7 +88,7 @@ export default class Suite extends React.Component {
             { sections }
           </div>
           <div style={ styles.propTypesOuter }>
-            { lorem(50) }
+            <PropTypesComponent/>
           </div>
         </FlexEdge>
       </div>
