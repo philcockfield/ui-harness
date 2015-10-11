@@ -1,3 +1,4 @@
+import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
@@ -38,16 +39,23 @@ export default class Component extends React.Component {
     let element;
     let type = current.get("componentType");
     if (type) {
+      // Props.
       const props = current.get("componentProps") || {};
       props.ref = (c) => api.component(c); // Store component instance on load.
-      element = React.createElement(type,
-                    props,
-                    current.get("componentChildren"));
+
+      // Children.
+      let children = current.get("componentChildren");
+      if (R.is(Array, children)) {
+        // Ensure all children in the array have keys.
+        children.forEach((child, i) => child.key = R.isNil(child.key) ? i : child.key);
+      }
+      element = React.createElement(type, props, children);
     }
 
     const cropMarksSize = current.get("cropMarks")
         ? current.get("cropMarks.size")
         : 0
+
 
     return (
       <CropMarks
