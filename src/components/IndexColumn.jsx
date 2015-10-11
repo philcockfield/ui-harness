@@ -89,9 +89,8 @@ export default class IndexColumn extends React.Component {
         </div>
         <div style={[ styles.outer, styles.specs ]}>
           {
-            currentSuite
-              ? <Suite ref="suite" suite={ currentSuite } current={ current } />
-              : null
+            currentSuite &&
+              <Suite ref="suite" suite={ currentSuite } current={ current } />
           }
         </div>
 

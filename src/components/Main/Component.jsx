@@ -49,7 +49,7 @@ export default class Component extends React.Component {
         // Ensure all children in the array have keys.
         children.forEach((child, i) => {
               if (R.is(Object, child)) {
-                child.key = R.isNil(child.key) ? i : child.key
+                child.key = R.isNil(child.key) ? i : child.key;
               }
             });
       }
