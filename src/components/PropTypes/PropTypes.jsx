@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import { Value } from "react-object";
+import Value from "react-object";
 
 
 
