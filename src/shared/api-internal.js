@@ -87,15 +87,15 @@ class Api {
   component(value) {
     // WRITE.
     if (value !== undefined) {
-      if (value === null && this[COMPONENT]) {
+      if (value === null) {
         // Unload component.
         delete this[COMPONENT];
         delete apiConsole.component;
         this.setCurrent({
-          componentType: null,
-          componentProps: null,
-          componentChildren: null,
-          component: null
+          componentType: undefined,
+          componentProps: undefined,
+          componentChildren: undefined,
+          component: undefined
         });
 
       } else {
@@ -292,7 +292,12 @@ class Api {
   setCurrent(args) {
     // Update the state object.
     if (args) {
-      Object.keys(args).forEach(key => { this.current = this.current.set(key, args[key]) });
+      Object.keys(args).forEach(key => {
+        const value = args[key];
+        this.current = value === undefined
+                ? this.current.remove(key)
+                : this.current.set(key, args[key])
+      });
     } else {
       this.current = this.current.clear();
     }
