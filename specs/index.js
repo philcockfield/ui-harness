@@ -4,6 +4,7 @@ describe("ui-harness", function() {
   require("./header.spec");
   require("./skipped.spec");
   require("./it-server.spec");
+  require("./PropTypes.spec");
 });
 
 

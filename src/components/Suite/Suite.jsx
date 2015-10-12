@@ -1,4 +1,4 @@
-import _ from "lodash";
+import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
@@ -54,17 +54,17 @@ export default class Suite extends React.Component {
   render() {
     const styles = this.styles();
     const { suite, current } = this.props;
-    const hasOnly = _.any(suite.specs, spec => spec.isOnly);
+    const hasOnly = R.any(spec => spec.isOnly, suite.specs);
 
-    let specs = _.filter(suite.specs, (item) => {
+    let specs = R.filter(item => {
           if (item.section) { return false; }
           return hasOnly ? item.isOnly : true;
-        });
+        }, suite.specs);
 
     if (suite.sections) {
       const includeSection = (section) => {
             return hasOnly
-                ? _.any(section.specs(), item => item.isOnly)
+                ? _.any(item => item.isOnly, section.specs())
                 : true;
           };
       var sections = suite.sections.map((section, i) => {
@@ -87,9 +87,12 @@ export default class Suite extends React.Component {
             <SpecList specs={ specs } current={ current }/>
             { sections }
           </div>
-          <div style={ styles.propTypesOuter }>
-            <PropTypesComponent/>
-          </div>
+          {
+            current.get("component") &&
+              <div style={ styles.propTypesOuter }>
+                <PropTypesComponent/>
+              </div>
+          }
         </FlexEdge>
       </div>
     );

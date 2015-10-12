@@ -2,9 +2,11 @@ import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
+import { delay } from "js-util";
 import { css, PropTypes } from "js-util/react";
 import CropMarks from "../shared/CropMarks";
 import api from "../../shared/api-internal";
+
 
 
 /**
@@ -31,6 +33,14 @@ export default class Component extends React.Component {
   }
 
 
+  handleLoaded(componentInstance) {
+    // Store component instance on load.
+    if (!R.isNil(componentInstance)) {
+      api.component(componentInstance);
+    }
+  }
+
+
   render() {
     const styles = this.styles();
     const { current } = this.props;
@@ -41,7 +51,7 @@ export default class Component extends React.Component {
     if (type) {
       // Props.
       const props = current.get("componentProps") || {};
-      props.ref = (c) => api.component(c); // Store component instance on load.
+      props.ref = (c) => delay(() => this.handleLoaded(c));
 
       // Children.
       let children = current.get("componentChildren");

@@ -1,7 +1,8 @@
 import _ from "lodash";
+import R from "ramda";
 import React from "react";
 import Immutable from "immutable";
-import * as util from "js-util";
+import { delay, localStorage } from "js-util";
 import rest from "rest-middleware/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";
@@ -33,7 +34,7 @@ class Api {
     // Insert the <Shell> into the root.
     //    NB: Signal DOM ready after a delay to ensure that the [describe/it]
     //        have fully parsed before initial render. Avoids a redraw.
-    util.delay(() => {
+    delay(() => {
         // Ensure the last loaded suite is set as the current state.
         const suite = this.lastSelectedSuite();
         if (suite) {
@@ -70,11 +71,11 @@ class Api {
    * Removes all ui-harness values stored in local-storage.
    */
   clearLocalStorage(startsWith = null) {
-    util.localStorage.keys().forEach(key => {
+    localStorage.keys().forEach(key => {
         let match = "ui-harness:";
         if (startsWith) { match += startsWith; }
         if (_.startsWith(key, match)) {
-          util.localStorage.prop(key, null); // Remove.
+          localStorage.prop(key, null); // Remove.
         }
       });
   }
@@ -85,15 +86,33 @@ class Api {
    * Pass {null} to clear.
    */
   component(value) {
+    // WRITE.
     if (value !== undefined) {
-      if (value === null) {
+      if (value === null && this[COMPONENT]) {
+        // Unload component.
         delete this[COMPONENT];
         delete apiConsole.component;
+        this.setCurrent({
+          componentType: null,
+          componentProps: null,
+          componentChildren: null,
+          component: null
+        });
+
       } else {
+
+        // Store component instance.
         this[COMPONENT] = value;
         apiConsole.component = value;
+        if (this.current.get("component") !== value) {
+          // NB: Preform instance comparison before updating the
+          //     current state to prevent render loop.
+          this.setCurrent({ component: value });
+        }
       }
     }
+
+    // READ.
     return this[COMPONENT];
   }
 
@@ -280,7 +299,7 @@ class Api {
     }
 
     // Apply to the <Shell>.
-    if (this.shell) { this.shell.setState({ current:this.current }); }
+    if (this.shell) { this.shell.setState({ current: this.current }); }
     return this;
   };
 
@@ -319,7 +338,7 @@ class Api {
    * @return the read value.
    */
   localStorage(key, value, options) {
-    return util.localStorage.prop(`ui-harness:${ key }`, value, options);
+    return localStorage.prop(`ui-harness:${ key }`, value, options);
   }
 }
 

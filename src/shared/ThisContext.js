@@ -177,11 +177,6 @@ export default class UIHContext {
    * Unloads the currently loaded component.
    */
   unload() {
-    api.setCurrent({
-      componentType: null,
-      componentProps: null,
-      componentChildren: null
-    });
     api.component(null);
     return this;
   }
