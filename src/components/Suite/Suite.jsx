@@ -18,7 +18,7 @@ import PropTypesComponent from "../PropTypes";
 @Radium
 export default class Suite extends React.Component {
   styles() {
-    const PROP_TYPES_PADDING = 6;
+    const PROP_TYPES_PADDING = 10;
     return css({
       base: {
         Absolute: 0
@@ -55,6 +55,7 @@ export default class Suite extends React.Component {
     const styles = this.styles();
     const { suite, current } = this.props;
     const hasOnly = R.any(spec => spec.isOnly, suite.specs);
+    const component = current.get("component");
 
     let specs = R.filter(item => {
           if (item.section) { return false; }
@@ -88,10 +89,11 @@ export default class Suite extends React.Component {
             { sections }
           </div>
           {
-            current.get("component") &&
-              <div style={ styles.propTypesOuter }>
-                <PropTypesComponent/>
-              </div>
+            component && <div style={ styles.propTypesOuter }>
+                           <PropTypesComponent
+                              instance={ component }
+                              type={ current.get("componentType") }/>
+                         </div>
           }
         </FlexEdge>
       </div>

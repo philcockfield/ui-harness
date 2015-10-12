@@ -32,7 +32,7 @@
     "react": "^0.14.0",
     "react-atoms": "^1.0.5",
     "react-dom": "^0.14.0",
-    "react-object": "^0.0.1",
+    "react-object": "^1.0.2",
     "rest-middleware": "^1.0.21",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.1",

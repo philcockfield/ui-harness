@@ -1,8 +1,8 @@
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
+import { Value } from "react-object";
 
-import Foo from "react-atoms/components/Foo";
 
 
 /**
@@ -18,14 +18,32 @@ export default class PropTypesComponent extends React.Component {
 
   render() {
     const styles = this.styles();
+    const { instance, type } = this.props;
+    const propTypes = type.propTypes;
+    const props = instance.props
+
+    console.log("instance", instance);
+    console.log("type", type);
+    console.log("props", props);
+    console.log("propTypes", propTypes);
+    console.log("");
+    // console.log("typ", typ);
+
     return (
       <div style={ styles.base }>
-        <Foo>PropTypes</Foo>
+        <Value
+            label="TEMP"
+            value={ props }
+            isExpanded={ true }
+            size={12}/>
       </div>
     );
   }
 }
 
 // API -------------------------------------------------------------------------
-PropTypesComponent.propTypes = {};
+PropTypesComponent.propTypes = {
+  instance: PropTypes.object.isRequired,
+  type: PropTypes.func.isRequired,
+};
 PropTypesComponent.defaultProps = {};
