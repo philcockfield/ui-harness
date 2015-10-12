@@ -1,4 +1,3 @@
-import _ from "lodash";
 import R from "ramda";
 import React from "react";
 import Immutable from "immutable";
@@ -74,7 +73,7 @@ class Api {
     localStorage.keys().forEach(key => {
         let match = "ui-harness:";
         if (startsWith) { match += startsWith; }
-        if (_.startsWith(key, match)) {
+        if (key.startsWith(match)) {
           localStorage.prop(key, null); // Remove.
         }
       });
@@ -256,7 +255,7 @@ class Api {
     // READ.
     let result = this.localStorage(KEY, value);
     if (result) {
-      result.spec = _.find(suite.specs, spec => spec.id === result.spec);
+      result.spec = R.find(spec => spec.id === result.spec, suite.specs);
     }
     return result
   }
@@ -293,7 +292,7 @@ class Api {
   setCurrent(args) {
     // Update the state object.
     if (args) {
-      _.keys(args).forEach(key => { this.current = this.current.set(key, args[key]) });
+      Object.keys(args).forEach(key => { this.current = this.current.set(key, args[key]) });
     } else {
       this.current = this.current.clear();
     }
@@ -309,7 +308,7 @@ class Api {
    * @param {array} values: The value or values to append.
    */
   log(...values) {
-    values = _.flatten(values);
+    values = R.flatten(values);
     const item = { time: new Date(), values };
     this[LOG_LIST] = this[LOG_LIST].push(item);
     this.setCurrent({ log: this[LOG_LIST], showLog: true });
