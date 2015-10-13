@@ -13,13 +13,10 @@ http://uiharness.com
 
     npm install --save-dev ui-harness
 
-Spin up the UIHarness development server:
+Start the UIHarness development server:
 
 ```js
-
-require("ui-harness/server").start({
-  entry: "./specs"
-});
+require("ui-harness/server").start({ entry: "./specs" });
 
 ```
 
