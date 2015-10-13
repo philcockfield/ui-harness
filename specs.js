@@ -1,8 +1,8 @@
-require("babel/register")({ stage: 1 });
 
 // Start the UIHarness server.
 require("./server").start({
-    entry:  "./specs",
+    babel: 1,
+    entry:  "./src/specs",
     port: 3030
     // env: "production"
   });
