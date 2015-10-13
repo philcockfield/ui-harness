@@ -39,3 +39,7 @@ require("ui-harness/server").start({
 - Store skipped suites on console {object} (names only) - ERROR.
 - Console.run() - automated run.
 - Server methods
+
+
+---
+### License: MIT
