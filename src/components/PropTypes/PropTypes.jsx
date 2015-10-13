@@ -16,11 +16,10 @@ export default class PropTypesComponent extends React.Component {
     return css({
       base: {
         position: "relative",
-        borderBox: "box-sizing",
-        paddingTop: 8,
+        paddingTop: 18,
         paddingLeft: 3,
         paddingRight: 3,
-        paddingBottom: 5,
+        paddingBottom: 10,
       },
     });
   }

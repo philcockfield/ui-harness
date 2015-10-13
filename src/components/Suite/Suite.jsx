@@ -17,14 +17,13 @@ import PropTypesComponent from "../PropTypes";
  */
 @Radium
 export default class Suite extends React.Component {
-  styles() {
+  styles(hasPropTypes) {
     return css({
       base: { Absolute: 0 },
       middle: { Absolute: 0 },
       specsList: {
-        Absolute: 0,
+        Absolute: [0, 0, (hasPropTypes ? 27 : 0), 0],
         paddingTop: 6,
-        paddingBottom: 36,
         overflow: "hidden",
         overflowY: "auto"
       },
@@ -54,12 +53,12 @@ export default class Suite extends React.Component {
 
 
   render() {
-    const styles = this.styles();
     const { suite, current } = this.props;
     const hasOnly = R.any(spec => spec.isOnly, suite.specs);
     const componentProps = current.get("componentProps");
     const componentType = current.get("componentType");
     const hasPropTypes = componentType && componentType.propTypes;
+    const styles = this.styles(hasPropTypes);
 
     let specs = R.filter(item => {
           if (item.section) { return false; }
