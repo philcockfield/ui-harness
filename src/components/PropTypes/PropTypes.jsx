@@ -38,7 +38,7 @@ export default class PropTypesComponent extends React.Component {
 
     return (
       <div style={ styles.base }>
-        <ValueList items={ items } />
+        <ValueList items={ items } collapsedTotal={0} />
       </div>
     );
   }
