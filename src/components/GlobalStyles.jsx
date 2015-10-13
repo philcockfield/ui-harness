@@ -27,7 +27,8 @@ export default class GlobalStyles extends React.Component {
         borderRadius: 4,
         margin: 25,
         padding: 15,
-        paddingTop: 10
+        paddingTop: 10,
+        lineHeight: "1.2em"
       },
       "pre code": {
         background: "none",
