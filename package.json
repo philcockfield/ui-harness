@@ -18,6 +18,7 @@
     "color": "^0.10.1",
     "compression": "^1.5.2",
     "express": "^4.13.0",
+    "file-loader": "^0.8.4",
     "fs-extra": "^0.24.0",
     "immutable": "^3.7.4",
     "js-bdd": "^1.0.3",
@@ -42,7 +43,6 @@
   "devDependencies": {
     "babel-eslint": "^3.1.20",
     "chai": "^2.2.0",
-    "file-loader": "^0.8.4",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-eslint": "^0.15.0",
