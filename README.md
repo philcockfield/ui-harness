@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
 
-Isolate, test and document modular UI with React.
+Isolate, test and document modular UI with React using standard "describe/it" testing semantics.  
 
 http://uiharness.com
+
+![ScreenShot](https://cloud.githubusercontent.com/assets/185555/10448258/0471dece-71e8-11e5-983a-028dd7df7a1a.png)
 
 
 ## Quick Start
@@ -16,7 +18,7 @@ Spin up the UIHarness development server:
 ```js
 
 require("ui-harness/server").start({
-  entry: __dirname + "/specs"
+  entry: "./specs"
 });
 
 ```
