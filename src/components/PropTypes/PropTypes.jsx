@@ -1,7 +1,9 @@
+import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import Value from "react-object";
+import { ValueList } from "react-object";
+import Color from "color";
 
 
 
@@ -12,30 +14,31 @@ import Value from "react-object";
 export default class PropTypesComponent extends React.Component {
   styles() {
     return css({
-      base: {}
+      base: {
+        position: "relative",
+        borderBox: "box-sizing",
+        paddingTop: 8,
+        paddingLeft: 3,
+        paddingRight: 3,
+        paddingBottom: 5,
+      },
     });
   }
 
   render() {
     const styles = this.styles();
-    const { instance, type } = this.props;
-    const propTypes = type.propTypes;
-    const props = instance.props
+    const { props, propTypes } = this.props;
 
-    console.log("instance", instance);
-    console.log("type", type);
-    console.log("props", props);
-    console.log("propTypes", propTypes);
-    console.log("");
-    // console.log("typ", typ);
+    const toValueItem = (key) => ({ label: key, value: props[key] });
+    const items = R.pipe(
+      R.keys,
+      R.map(toValueItem),
+      R.reject(R.isNil)
+    )(propTypes);
 
     return (
       <div style={ styles.base }>
-        <Value
-            label="TEMP"
-            value={ props }
-            isExpanded={ true }
-            size={12}/>
+        <ValueList items={ items } />
       </div>
     );
   }
@@ -43,7 +46,7 @@ export default class PropTypesComponent extends React.Component {
 
 // API -------------------------------------------------------------------------
 PropTypesComponent.propTypes = {
-  instance: PropTypes.object.isRequired,
-  type: PropTypes.func.isRequired,
+  props: PropTypes.object.isRequired,
+  propTypes: PropTypes.object.isRequired,
 };
 PropTypesComponent.defaultProps = {};

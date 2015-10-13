@@ -28,5 +28,14 @@ export default class MyComponent extends React.Component {
 }
 MyComponent.propTypes = {
   name: PropTypes.string,
+  obj: PropTypes.shape({
+    color: PropTypes.string,
+    isEnabled: PropTypes.bool
+  }),
 };
-MyComponent.defaultProps = {};
+MyComponent.defaultProps = {
+  obj: {
+    color: "tomato",
+    isEnabled: true
+  }
+};

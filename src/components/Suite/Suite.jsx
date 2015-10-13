@@ -18,7 +18,6 @@ import PropTypesComponent from "../PropTypes";
 @Radium
 export default class Suite extends React.Component {
   styles() {
-    const PROP_TYPES_PADDING = 10;
     return css({
       base: {
         Absolute: 0
@@ -29,14 +28,17 @@ export default class Suite extends React.Component {
         overflow: "hidden",
         overflowY: "auto"
       },
-      propTypesOuter: {
-        maxHeight: "50%",
-        overflow: "hidden",
-        overflowY: "auto",
-        borderTop: "solid 5px rgba(0, 0, 0, 0.1)",
-        paddingTop: PROP_TYPES_PADDING,
-        paddingRight: PROP_TYPES_PADDING,
-        paddingLeft: PROP_TYPES_PADDING
+      propTypesTitle: {
+        Absolute: [null, 0, 0, 0],
+        textAlign: "center",
+        fontWeight: 700,
+        fontSize: 16,
+        textShadow: "0px -1px rgba(0, 0, 0, 0.1)",
+        color: "#fff",
+        background: "#D1D1D1",
+        borderTop: "solid 1px rgba(0, 0, 0, 0.05)",
+        borderBottom: "solid 1px rgba(0, 0, 0, 0.05)",
+        padding: 3
       }
     });
   }
@@ -55,7 +57,9 @@ export default class Suite extends React.Component {
     const styles = this.styles();
     const { suite, current } = this.props;
     const hasOnly = R.any(spec => spec.isOnly, suite.specs);
-    const component = current.get("component");
+    const componentProps = current.get("componentProps");
+    const componentType = current.get("componentType");
+    const hasPropTypes = componentType && componentType.propTypes;
 
     let specs = R.filter(item => {
           if (item.section) { return false; }
@@ -79,7 +83,6 @@ export default class Suite extends React.Component {
           });
     }
 
-
     return (
       <div style={ styles.base }>
         <FlexEdge orientation="vertical">
@@ -87,13 +90,19 @@ export default class Suite extends React.Component {
           <div style={ styles.listOuter }>
             <SpecList specs={ specs } current={ current }/>
             { sections }
+            { hasPropTypes && <div style={ styles.propTypesTitle }>API</div> }
           </div>
           {
-            component && <div style={ styles.propTypesOuter }>
-                           <PropTypesComponent
-                              instance={ component }
-                              type={ current.get("componentType") }/>
-                         </div>
+            hasPropTypes &&
+                <div flexEdge={{
+                      maxHeight: "50%",
+                      overflow: "hidden",
+                      overflowY: "auto",
+                    }}>
+                    <PropTypesComponent
+                        props={ componentProps }
+                        propTypes={ componentType.propTypes }/>
+                </div>
           }
         </FlexEdge>
       </div>
