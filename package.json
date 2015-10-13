@@ -15,6 +15,7 @@
     "babel-loader": "^5.3.2",
     "babel-runtime": "^5.8.9",
     "bluebird": "^2.9.33",
+    "chalk": "^1.1.1",
     "color": "^0.10.1",
     "compression": "^1.5.2",
     "express": "^4.13.0",

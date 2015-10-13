@@ -1,5 +1,5 @@
 import R from "ramda";
-import _ from "lodash";
+import chalk from "chalk";
 import fs from "fs-extra";
 import fsPath from "path";
 import Promise from "bluebird";
@@ -17,16 +17,34 @@ const DEFAULT_PORT = 3030;
 
 const parseSpecs = (paths) => {
     bdd.register();
-    paths.forEach(path => { require(path); });
+    paths.forEach(path => require(path))
     bdd.unregister();
   };
 
 
 export const readFileSync = (path) => {
-  if (fs.existsSync(path)) {
-    return fs.readFileSync(path).toString()
-  }
-};
+    if (fs.existsSync(path)) {
+      return fs.readFileSync(path).toString()
+    }
+  };
+
+
+const formatEntryPaths = (entry) => {
+    entry = entry || [];
+    if (!R.is(Array, entry)) { entry = [entry]; }
+    if (entry.length === 0) {
+      const addIfExists = (path) => {
+          if (fs.existsSync(fsPath.resolve(path))) { entry.push(path); }
+        };
+      addIfExists("./specs");
+      addIfExists("./src/specs");
+    }
+    return entry
+      // Ensure there is a specific index.js entry file if only a folder was given.
+      // NB: Not having a specific entry file can cause build-errors in WebPack.
+      .map(path => path.endsWith(".js") ? path : `${ path }/index.js`);
+  };
+
 
 
 
@@ -45,7 +63,7 @@ export const readFileSync = (path) => {
  */
 export const middleware = (options = {}, callback) => {
   // Convert string or array options into the "entry" path.
-  options = _.isString(options) || _.isArray(options) ? { entry: options } : options;
+  options = R.is(String, options) || R.is(Array, options) ? { entry: options } : options;
   const PORT = options.port || DEFAULT_PORT;
   const ENV = options.env || process.env.NODE_ENV || "development"
   const IS_PRODUCTION = ENV === "production";
@@ -59,22 +77,13 @@ export const middleware = (options = {}, callback) => {
   }
 
   // Prepare entry paths for the WebPack bundle.
-  let entry = options.entry || [];
-  if (!_.isArray(entry)) { entry = [entry]; }
-  if (entry.length === 0) {
-    if (fs.existsSync(fsPath.resolve("./specs"))) { entry.push("./specs"); }
-    if (fs.existsSync(fsPath.resolve("./src/specs"))) { entry.push("./src/specs"); }
-  }
-  entry = entry.map(path => _.startsWith(path, ".") ? fsPath.resolve(path) : path);
-  entry.forEach(path => {
-      // Ensure a specific index entry file if a folder was given.
-      // NB: Not having an entry file can cause build-errors in WebPack.
-      if (!path.endsWith(".js")) { path += "/index.js"; }
-      webpackConfig.entry.push(path);
-  });
+  const entryPaths = formatEntryPaths(options.entry)
+          .map(path => path.startsWith(".") ? fsPath.resolve(path) : path)
+          .filter(path => fs.existsSync(path));
+  entryPaths.forEach(path => webpackConfig.entry.push(path));
 
   // Initialize the [describe/it] statements.
-  parseSpecs(entry);
+  parseSpecs(entryPaths);
 
   // Prepare webpack JS.
   if (IS_PRODUCTION) {
@@ -83,7 +92,7 @@ export const middleware = (options = {}, callback) => {
     webpack(webpackConfig, (err, stats) => {
       console.log("...webpack bundled into '/public/'.");
       if (err) { throw err; }
-      if (_.isFunction(callback)) { callback(router); }
+      if (R.is(Function, callback)) { callback(router); }
     });
 
   } else {
@@ -91,7 +100,7 @@ export const middleware = (options = {}, callback) => {
     const compiler = webpack(webpackConfig);
     router.use(webpackMiddleware(compiler, config.devServer({ port: PORT })));
     router.use(webpackHotMiddleware(compiler));
-    if (_.isFunction(callback)) { callback(router); }
+    if (R.is(Function, callback)) { callback(router); }
   }
 
   // Initialize the server-methods.
@@ -140,45 +149,24 @@ export const start = (options = {}, callback) => {
 
   // Start the server.
   console.log("");
-  console.log(`Starting (${ ENV })...`);
+  console.log(chalk.grey(`Starting (${ ENV })...`));
   const startListening = () => {
+      const entryPaths = formatEntryPaths(options.entry);
       app.listen(PORT, () => {
             console.log("");
-            console.log("UIHarness:");
-            console.log(" - port:", PORT);
-            console.log(" - env: ", ENV);
+            console.log(chalk.green("UIHarness:"));
+            console.log(chalk.grey(" - port: "), PORT);
+            console.log(chalk.grey(" - env:  "), ENV);
+            console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None. Add a './specs' or a './src/specs' folder."));
+            R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
+              const exists = fs.existsSync(fsPath.resolve(path));
+              console.log(chalk.grey("         "), path, exists ? "" : chalk.red("!Does not exist!"));
+            });
             console.log("");
-            if (_.isFunction(callback)) { callback(); }
+            if (R.is(Function, callback)) { callback(); }
       });
     };
 
   const app = express();
   app.use(BASE_PATH, middleware(options, () => { startListening(); }));
-};
-
-
-
-
-/**
- * Creates default project structure (if not present)
- * and starts the server.
- */
-export const init = (options = {}, callback) => {
-
-  // Ensure the specs folder exists.
-  const specsPath = fsPath.resolve("./specs/index.js");
-  if (!fs.existsSync(specsPath)) {
-    const js = "";
-    fs.outputFileSync(specsPath, js);
-  }
-
-  // Prepare the entry path.
-  let entry = options.entry;
-  if (!_.isArray(entry)) { entry = [entry]; }
-  entry = _.chain(entry).compact(entry).flatten(entry).value();
-  entry.push("./specs");
-  options.entry = entry;
-
-  // Start the server.
-  start(options, callback);
 };
