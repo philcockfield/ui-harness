@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
 
-Isolate, test and document modular UI with React using standard "describe/it" testing semantics.  
+Isolate, test and document modular UI with React using familiar "describe/it" testing semantics.  
 
 http://uiharness.com
 
