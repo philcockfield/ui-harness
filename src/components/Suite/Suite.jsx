@@ -19,12 +19,12 @@ import PropTypesComponent from "../PropTypes";
 export default class Suite extends React.Component {
   styles() {
     return css({
-      base: {
-        Absolute: 0
-      },
-      listOuter: {
+      base: { Absolute: 0 },
+      middle: { Absolute: 0 },
+      specsList: {
         Absolute: 0,
         paddingTop: 6,
+        paddingBottom: 36,
         overflow: "hidden",
         overflowY: "auto"
       },
@@ -87,9 +87,11 @@ export default class Suite extends React.Component {
       <div style={ styles.base }>
         <FlexEdge orientation="vertical">
           <SuiteHeader suite={ suite }/>
-          <div style={ styles.listOuter }>
-            <SpecList specs={ specs } current={ current }/>
-            { sections }
+          <div style={ styles.middle }>
+            <div style={ styles.specsList }>
+              <SpecList specs={ specs } current={ current }/>
+              { sections }
+            </div>
             { hasPropTypes && <div style={ styles.propTypesTitle }>API</div> }
           </div>
           {
