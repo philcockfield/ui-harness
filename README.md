@@ -25,12 +25,6 @@ require("ui-harness/server").start({
 
 
 
-## Development (of the UIHarness)
-
-    npm install
-    npm run specs
-
-
 
 
 ## TODO
