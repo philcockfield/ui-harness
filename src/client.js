@@ -1,3 +1,7 @@
+/**
+ * Main entry point for the browser.
+ */
+
 import React from "react";
 import ReactDOM from "react-dom";
 import * as util from "js-util";
