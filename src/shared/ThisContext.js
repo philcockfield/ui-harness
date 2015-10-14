@@ -6,23 +6,66 @@ import { css, PropTypes } from "js-util/react";
 import AlignmentContainer from "react-atoms/components/AlignmentContainer";
 
 
-const isBrowser = (typeof window !== 'undefined');
+const isBrowser = (typeof window !== "undefined");
 const PROP = Symbol("Prop");
-const PROPS = [
-  "props",
-  "children",
-  "width",
-  "height",
-  "cropMarks",
-  "cropMarks.size",
-  "cropMarks.offset",
-  "margin",
-  "align",
-  "header",
-  "hr",
-  "backdrop",
-  "scroll"
-];
+const PROPS = {
+  "children": {
+    key: "componentChildren" // Stored on {current} as this.
+  },
+  "width": {
+    default: "auto",
+    type: PropTypes.numberOrString,
+    resetOn: null
+  },
+  "height": {
+    default: "auto",
+    type: PropTypes.numberOrString,
+    resetOn: null
+  },
+  "cropMarks": {
+    default: true,
+    type: PropTypes.bool
+  },
+  "cropMarks.size": {
+    default: 25,
+    type: PropTypes.number
+  },
+  "cropMarks.offset": {
+    default: 5,
+    type: PropTypes.number
+  },
+  "margin": {
+    default: 60,
+    type: PropTypes.number
+  },
+  "align": {
+    default: "center top",
+    type: AlignmentContainer.propTypes.align
+  },
+  "header": {
+    type: PropTypes.string
+  },
+  "hr": {
+    default: true,
+    type: PropTypes.bool
+  },
+  "backdrop": {
+    default: 0,
+    type: PropTypes.numberOrString
+  },
+  "scroll": {
+    default: false,
+    type: PropTypes.oneOf([true, false, "x", "y", "x:y"])
+   }
+};
+
+
+const getPropParent = (ns, obj) => (
+  ns.length === 0
+      ? obj
+      : getPropParent(R.takeLast(ns.length - 1, ns), obj[ns[0]])
+);
+
 
 
 /**
@@ -38,7 +81,11 @@ export default class UIHContext {
         };
 
     // Read|Write helper for data-property methods.
-    this[PROP] = (key, value, options = {}) => {
+    this[PROP] = (key, value, options) => {
+          options = options || PROPS[key] || {};
+          key = options.key || key; // The property options may provide an alternative
+                                    // key to store as on the {current} map.
+
           // WRITE.
           if (value !== undefined) {
             // Perform type validation.
@@ -68,11 +115,25 @@ export default class UIHContext {
         };
     this[PROP].state = {};
 
-    // Property extensions.
-    this.cropMarks = (value) =>{ return this[PROP]("cropMarks", value, { default: true, type: PropTypes.bool }); }
-    this.cropMarks.size = (value) => { return this[PROP]("cropMarks.size", value, { default: 25, type: PropTypes.number }); };
-    this.cropMarks.offset = (value) => { return this[PROP]("cropMarks.offset", value, { default: 5, type: PropTypes.number }); };
+    // Create property functions.
+    Object.keys(PROPS).forEach(key => {
+        const prop = PROPS[key];
+        if (this[key]) { throw new Error(`Property named '${ key }' already exists.`); }
 
+        // Ensure nested property extensions are added to the hierarchy.
+        // ie. functions as properites of parent functions, for example:
+        //     - cropMarks
+        //     - cropMarks.size
+        const parts = key.split(".");
+        const ns = R.take(parts.length - 1, parts);
+        const propName = R.takeLast(1, parts).join(".");
+        const parent = getPropParent(ns, this)
+
+        // Store the propery.
+        parent[propName] = (value) => this[PROP](key, value);
+    });
+
+    // Property extension methods.
     this.log.clear = () => api.clearLog();
   }
 
@@ -82,7 +143,7 @@ export default class UIHContext {
    */
   toValues() {
     const result = {};
-    PROPS.forEach(key => {
+    Object.keys(PROPS).forEach(key => {
           let propFunc = util.ns(this, key);
           if (R.is(Function, propFunc)) {
             result[key] = propFunc.call(this);
@@ -100,21 +161,12 @@ export default class UIHContext {
   reset(options) { api.reset(options); }
 
 
-
   /**
-   * Gets or sets the current properties.
+   * Cumulatively sets property values on the current component.
+   * @param {object} value:  An object containing {prop:value} to add
    */
-  children(value) { return this[PROP]("componentChildren", value); }
-  width(value) { return this[PROP]("width", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
-  height(value) { return this[PROP]("height", value, { default: "auto", resetOn: null, type: PropTypes.numberOrString }); }
-  margin(value) { return this[PROP]("margin", value, { default: 60, type: PropTypes.number }); }
-  align(value) { return this[PROP]("align", value, { default: "center top", type: AlignmentContainer.propTypes.align }); }
-  header(value) { return this[PROP]("header", value, { type: PropTypes.string }); }
-  hr(value) { return this[PROP]("hr", value, { default: true, type: PropTypes.bool }); }
-  backdrop(value) { return this[PROP]("backdrop", value, { default: 0, type: PropTypes.numberOrString }); }
-  scroll(value) { return this[PROP]("scroll", value, { default: false, type: PropTypes.oneOf([true, false, "x", "y", "x:y"]) }); }
-
   props(value) {
+    // WRITE.
     if (R.is(Object, value)) {
       // Cumulatively add given props to the existing
       // props on the component.
@@ -126,6 +178,8 @@ export default class UIHContext {
         value = props;
       }
     }
+
+    // READ.
     return this[PROP]("componentProps", value);
   }
 
