@@ -5,6 +5,7 @@ import { delay, localStorage } from "js-util";
 import rest from "rest-middleware/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";
+import GettingStarted from "../components/docs/GettingStarted";
 
 const LOG_LIST = Symbol("log-list");
 const COMPONENT = Symbol("component");
@@ -39,6 +40,19 @@ class Api {
         if (suite) {
           this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
         }
+
+        // Show "getting started" if empty.
+        if (Object.keys(bdd.suites).length === 0) {
+          this.setCurrent({
+            header: "## Getting Started",
+            hr: true,
+            scroll: "y",
+            width: "100%"
+          });
+          this.loadComponent(GettingStarted)
+        }
+
+        // Done.
         callback()
     });
 
@@ -159,7 +173,43 @@ class Api {
   }
 
 
+  /**
+   * Loads the given component.
+   *
+   * @param component:  The component Type
+   *                    or created component element (eg: <MyComponent/>).
+   * @param props:      Optional. The component props (if not passed in with a component element).
+   * @param children:   Optional. The component children (if not passed in with a component element).
+   */
+  loadComponent(component, props, children) {
+    // Setup initial conditions.
+    if (!component) { throw new Error("Componnet not specified."); }
 
+    // If a created <element> was passed de-construct
+    // it into it's component parts.
+    let type;
+    if (React.isValidElement(component)) {
+      props = R.clone(component.props);
+      children = props.children;
+      delete props.children;
+      type = component.type;
+
+    } else {
+      type = component;
+    }
+
+    // Store on the current state.
+    this.setCurrent({
+      componentType: type,
+      componentProps: props,
+      componentChildren: children,
+      showLog: false
+    });
+
+    // Finish up.
+    this.loadInvokeCount += 1;
+    return this;
+  }
 
 
 

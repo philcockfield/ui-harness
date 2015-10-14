@@ -38,11 +38,7 @@ export default class SuiteTreeEmpty extends React.Component {
         <div style={ styles.icon }>
           <IconImage name="startStar"/>
         </div>
-        Add some suites to <a
-          style={ styles.a }
-          href="https://github.com/philcockfield/ui-harness/blob/master/docs/getting-started"
-          target="_blank">
-          get started</a>.
+        Add some test suites.
       </div>
     );
   }

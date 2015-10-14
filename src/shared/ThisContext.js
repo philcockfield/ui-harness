@@ -140,35 +140,11 @@ export default class UIHContext {
    * @param children:   Optional. The component children (if not passed in with a component element).
    */
   load(component, props, children) {
-    // Setup initial conditions.
     if (!component) {
       if (isBrowser) { console.warn("Cannot load: a component was not specified (undefined/null)"); }
-      return this;
-    }
-    let type;
-
-    // If a created <element> was passed de-construct
-    // it into it's component parts.
-    if (React.isValidElement(component)) {
-      props = R.clone(component.props);
-      children = props.children;
-      delete props.children;
-      type = component.type;
-
     } else {
-      type = component;
+      api.loadComponent(component, props, children);
     }
-
-    // Store on the current state.
-    api.setCurrent({
-      componentType: type,
-      componentProps: props,
-      componentChildren: children,
-      showLog: false
-    });
-
-    // Finish up.
-    api.loadInvokeCount += 1;
     return this;
   }
 
