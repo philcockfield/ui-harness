@@ -2,10 +2,11 @@ import React from "react";
 import Radium from "radium";
 import Markdown from "react-atoms/components/Markdown";
 import { css, PropTypes } from "js-util/react";
+import api from "../../shared/api-internal";
 
 
 const intro = `
-UIHarness uses familiar \`describe/it\` testing semantics to rapidly
+UIHarness uses familiar \`"describe/it"\` testing semantics to rapidly
 construct test user-interface around your components as you build them.
 
     import React from "react";
@@ -63,6 +64,16 @@ export default class GettingStarted extends React.Component {
     });
   }
 
+  handleInstall() {
+    api.server.quickStart.put("/src")
+    .then(result => {
+      console.log("result", result);
+    })
+    .catch(err => {
+      throw err;
+    })
+  }
+
   render() {
     const styles = this.styles();
     return (
@@ -70,7 +81,9 @@ export default class GettingStarted extends React.Component {
         <div className="markdown" style={ styles.content }>
           <Markdown>{ intro }</Markdown>
           <center style={ styles.buttonContainer }>
-            <a style={ styles.installButton }>Install Sample</a>
+            <a
+              onClick={ this.handleInstall.bind(this) }
+              style={ styles.installButton }>Install Sample</a>
           </center>
         </div>
       </div>

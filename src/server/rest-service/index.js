@@ -1,5 +1,6 @@
 import rest from "rest-middleware";
-import packageJson from "../../package.json";
+import packageJson from "../../../package.json";
+import quickStart from "./quick-start";
 
 
 function foo(p1, p2) {
@@ -28,12 +29,13 @@ const service = rest({
 service.methods({
   "invokeSpec": {
     put: function(id) {
-      console.log("id", id);
+      console.log("invokeSpec -- id:", id);
       return { id }
     }
   }
 });
 
 
-
+// ----------------------------------------------------------------------------
+quickStart(service);
 export default service;

@@ -9,9 +9,10 @@ import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import * as config from "../webpack-config";
-import serverMethods from "./server-methods";
+import restService from "./rest-service";
 import bdd from "../shared/bdd";
 
+const MODULE_PATH = fsPath.join(__dirname, "../..");
 const DEFAULT_PORT = 3030;
 
 
@@ -104,7 +105,7 @@ export const middleware = (options = {}, callback) => {
   }
 
   // Initialize the server-methods.
-  router.use(serverMethods.middleware);
+  router.use(restService.middleware);
 
   // Finish up.
   return router;
@@ -147,6 +148,15 @@ export const start = (options = {}, callback) => {
     require("babel/register")(compilerOptions);
   }
 
+  // Ensure `react` module exists in host module.
+  const ensureModule = (name) => {
+      if (!fs.existsSync(`./node_modules/${ name }`)) {
+        fs.copySync(fsPath.join(MODULE_PATH, `node_modules/${ name }`), `./node_modules/${ name }`);
+      }
+    };
+  ensureModule("react");
+  ensureModule("react-dom");
+
   // Start the server.
   console.log("");
   console.log(chalk.grey(`Starting (${ ENV })...`));
@@ -157,7 +167,7 @@ export const start = (options = {}, callback) => {
             console.log(chalk.green("UIHarness:"));
             console.log(chalk.grey(" - port: "), PORT);
             console.log(chalk.grey(" - env:  "), ENV);
-            console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None. Add a './specs' or a './src/specs' folder."));
+            console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None."));
             R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
               const exists = fs.existsSync(fsPath.resolve(path));
               console.log(chalk.grey("         "), path, exists ? "" : chalk.red("!Does not exist!"));
