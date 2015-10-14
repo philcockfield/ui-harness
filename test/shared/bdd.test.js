@@ -41,16 +41,6 @@ describe("BDD", () => {
   });
 
 
-  it("exposes the namespace method", () => {
-    let fn = () => 0;
-    // console.log("jsBdd", jsBdd);
-    let mock = sinon.mock(jsBdd);
-    mock.expects("namespace").once();
-    bdd.namespace("my-ns", () => 0);
-    mock.verify();
-    mock.restore();
-  });
-
 
   describe("rootSuites()", () => {
     beforeEach(() => { bdd.register(); });
