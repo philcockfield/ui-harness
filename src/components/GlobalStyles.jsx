@@ -11,6 +11,10 @@ export const FONT_MONO = "Menlo, monospace";
 export default class GlobalStyles extends React.Component {
   render() {
     const rules = {
+      ".markdown": {
+        fontFamily: FONT_SANS,
+        lineHeight: "1.8em"
+      },
       "code": {
         color: "#c7254e",
         padding: "2px 4px",
@@ -28,7 +32,8 @@ export default class GlobalStyles extends React.Component {
         margin: 25,
         padding: 15,
         paddingTop: 10,
-        lineHeight: "1.2em"
+        lineHeight: "1.2em",
+        fontSize: 14
       },
       "pre code": {
         background: "none",
