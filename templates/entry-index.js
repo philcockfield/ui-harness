@@ -1,9 +1,10 @@
 /*
   Index of component "visual test" specs.
-  TODO: Add `require` references to your [*.spec.js] files below.
+  TODO:
+    - Add `require` references to your [*.spec.js] files below.
 */
 
 
 // describe("My Module", function() {
-//   require("...");
+//   require("MyComponent.spec.js");
 // });
