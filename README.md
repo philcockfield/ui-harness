@@ -36,7 +36,8 @@ require("ui-harness/server").start({ entry: "./specs" });
 
 - source-maps.
 - hide "API" in index column if there is no propsTypes.
-
+- default create the "/specs" folder from start() method.
+- color prop on sample <MyComponent>.
 -----
 
 - .start("./src/specs") => auto detect non-existence of that path, and look for "/lib" version

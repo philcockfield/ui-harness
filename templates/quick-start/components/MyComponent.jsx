@@ -4,14 +4,14 @@ import React from "react";
 /**
  *
  */
-export default class MyCompoent extends React.Component {
+export default class MyComponent extends React.Component {
   render() {
     return (
-      <div>MyCompoent</div>
+      <div>MyComponent</div>
     );
   }
 }
 
 // API -------------------------------------------------------------------------
-MyCompoent.propTypes = {};
-MyCompoent.defaultProps = {};
+MyComponent.propTypes = {};
+MyComponent.defaultProps = {};

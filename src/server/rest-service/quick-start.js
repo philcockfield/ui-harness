@@ -17,6 +17,18 @@ const copyTemplates = (rootPath = "./src") => {
     copy("components/MyComponent.jsx", "components/MyComponent.jsx");
     copy("specs/index.js", "specs/index.js");
     copy("specs/MyComponent.spec.jsx", "specs/MyComponent.spec.jsx");
+
+    // Ensure `react` module exists in host module.
+    const ensureModule = (name) => {
+        if (!fs.existsSync(`./node_modules/${ name }`)) {
+          fs.copySync(fsPath.join(MODULE_PATH, `node_modules/${ name }`), `./node_modules/${ name }`);
+        }
+      };
+    ensureModule("react");
+    ensureModule("react-dom");
+
+
+    // Finish up.
     return { success: true };
   };
 
@@ -27,7 +39,7 @@ const copyTemplates = (rootPath = "./src") => {
 
 export default (service) => {
   service.methods({
-    quickStart: {
+    initQuickStart: {
       docs: `Initializes the module with a quick-start sample.`,
       put(rootPath) { return copyTemplates(rootPath); }
     }

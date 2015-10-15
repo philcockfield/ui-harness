@@ -148,15 +148,6 @@ export const start = (options = {}, callback) => {
     require("babel/register")(compilerOptions);
   }
 
-  // Ensure `react` module exists in host module.
-  const ensureModule = (name) => {
-      if (!fs.existsSync(`./node_modules/${ name }`)) {
-        fs.copySync(fsPath.join(MODULE_PATH, `node_modules/${ name }`), `./node_modules/${ name }`);
-      }
-    };
-  ensureModule("react");
-  ensureModule("react-dom");
-
   // Start the server.
   console.log("");
   console.log(chalk.grey(`Starting (${ ENV })...`));

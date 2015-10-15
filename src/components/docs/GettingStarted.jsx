@@ -65,13 +65,11 @@ export default class GettingStarted extends React.Component {
   }
 
   handleInstall() {
-    api.server.quickStart.put("/src")
-    .then(result => {
-      console.log("result", result);
-    })
-    .catch(err => {
-      throw err;
-    })
+    api.server.initQuickStart.put("/src")
+      .then(result => {
+        console.log("result", result); // TEMP
+      })
+      .catch(err => { throw err });
   }
 
   render() {
