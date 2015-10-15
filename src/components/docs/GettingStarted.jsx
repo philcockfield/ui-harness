@@ -6,8 +6,8 @@ import api from "../../shared/api-internal";
 
 
 const intro = `
-UIHarness uses familiar \`"describe/it"\` testing semantics to rapidly
-construct test user-interface around your components as you build them.
+UIHarness uses familiar \`"describe/it"\` testing concepts to rapidly
+construct test interfaces around your components as you build them.
 
     import React from "react";
     import MyComponent from "../components/MyComponent";
@@ -24,7 +24,7 @@ construct test user-interface around your components as you build them.
       });
     });
 
-See this “quick start” example working:
+Copy this “quick start” sample into your module:
 `;
 
 

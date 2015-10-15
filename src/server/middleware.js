@@ -148,11 +148,20 @@ export const start = (options = {}, callback) => {
     require("babel/register")(compilerOptions);
   }
 
+  // Ensure each "entry" path exists.
+  let entryPaths = formatEntryPaths(options.entry);
+  entryPaths = entryPaths.length === 0 ? ["./src/specs/index.js"] : entryPaths;
+  entryPaths
+      .map(path => fsPath.resolve(path))
+      .filter(path => !fs.existsSync(path))
+      .forEach(path => {
+        fs.copySync(`${ MODULE_PATH }/templates/entry-index.js`, path)
+      });
+
   // Start the server.
   console.log("");
   console.log(chalk.grey(`Starting (${ ENV })...`));
   const startListening = () => {
-      const entryPaths = formatEntryPaths(options.entry);
       app.listen(PORT, () => {
             console.log("");
             console.log(chalk.green("UIHarness:"));
@@ -160,8 +169,7 @@ export const start = (options = {}, callback) => {
             console.log(chalk.grey(" - env:  "), ENV);
             console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None."));
             R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
-              const exists = fs.existsSync(fsPath.resolve(path));
-              console.log(chalk.grey("         "), path, exists ? "" : chalk.red("!Does not exist!"));
+              console.log(chalk.grey("         "), path);
             });
             console.log("");
             if (R.is(Function, callback)) { callback(); }

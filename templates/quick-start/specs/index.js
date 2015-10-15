@@ -8,6 +8,6 @@
 */
 
 
-describe("Quick Start", function() {
+describe("Quick Start (Sample)", function() {
   require("./MyComponent.spec");
 });
