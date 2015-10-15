@@ -17,7 +17,6 @@ function foo(p1, p2) {
 }
 
 
-
 const service = rest({
   name: "ui-harness",
   basePath: "/api",
@@ -28,6 +27,10 @@ const service = rest({
 // Declare methods API.
 service.methods({
   "invokeSpec": {
+    docs: `
+      Invokes the given specification ("it" statement) on the server.
+      @param {string} id: The unique identifier of the spec to invoke.
+    `,
     put: function(id) {
       console.log("invokeSpec -- id:", id);
       return { id }

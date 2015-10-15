@@ -40,7 +40,11 @@ const copyTemplates = (rootPath = "./src") => {
 export default (service) => {
   service.methods({
     quickStart: {
-      docs: `Initializes the module with a quick-start sample.`,
+      docs: `
+        Initializes the module with a quick-start sample.
+        @param {string} rootPath: Path within the host module of
+                                  the folder to copy templates into.
+      `,
       put(rootPath) { return copyTemplates(rootPath); }
     }
   });
