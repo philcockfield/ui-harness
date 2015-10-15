@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import { IconImage } from "../shared";
+import { IconImage, EmptyLabel } from "../shared";
 
 
 /**
@@ -13,17 +13,11 @@ export default class SuiteTreeEmpty extends React.Component {
     super(props);
   }
   styles() {
-    const textColor = css.white.darken(0.3);
     return css({
       base: {
         paddingTop: 20,
         textAlign: "center",
-        fontSize: 13,
-        fontStyle: "italic",
-        color: textColor,
-        fontWeight: 200
       },
-      a: { color: textColor },
       icon: {
         marginBottom: 12,
         opacity: 0.1
@@ -38,7 +32,7 @@ export default class SuiteTreeEmpty extends React.Component {
         <div style={ styles.icon }>
           <IconImage name="startStar"/>
         </div>
-        Add some test suites.
+        <EmptyLabel>Add some test suites.</EmptyLabel>
       </div>
     );
   }

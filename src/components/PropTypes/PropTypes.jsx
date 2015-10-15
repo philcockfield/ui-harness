@@ -3,7 +3,8 @@ import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
 import { ValueList } from "react-object";
-import Color from "color";
+import { EmptyLabel } from "../shared";
+
 
 
 
@@ -20,7 +21,7 @@ export default class PropTypesComponent extends React.Component {
         paddingLeft: 3,
         paddingRight: 3,
         paddingBottom: 10,
-      },
+      }
     });
   }
 
@@ -35,9 +36,13 @@ export default class PropTypesComponent extends React.Component {
       R.reject(R.isNil)
     )(propTypes);
 
+    const el = items.length > 0
+      ? <ValueList items={ items } collapsedTotal={0} />
+      : <EmptyLabel>No PropTypes on Component</EmptyLabel>
+
     return (
       <div style={ styles.base }>
-        <ValueList items={ items } collapsedTotal={0} />
+        { el }
       </div>
     );
   }

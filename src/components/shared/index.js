@@ -12,9 +12,10 @@ export default {
   Icon: require("./Icon"),
   IconImage: require("./IconImage"),
   Ul: require("./Ul"),
+  EmptyLabel: require("./EmptyLabel"),
 
 
-  // From [core-ui].
+  // From [react-atoms].
   Center,
   CenterX,
   CenterY,
