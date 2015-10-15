@@ -22,7 +22,7 @@ construct test interfaces around your components as you build them.
       it("green", () => this.props({ color: "green" }));
     });
 
-Copy this “quick start” sample into your module:
+To get started quickly you can copy this sample into your module:
 `;
 
 
@@ -36,18 +36,22 @@ export default class GettingStarted extends React.Component {
   styles() {
     return css({
       base: {
-        paddingTop: 40,
-        paddingBottom: 40
+        paddingTop: 80,
+        paddingBottom: 40,
       },
       content: {
-        width: 600,
-        margin: "0 auto"
+        maxWidth: 550,
+        margin: "0 auto",
+        padding: "0 50px"
       },
       buttonContainer: {
-        paddingTop: 30
+        marginTop: 50,
+        display: "block",
+        textAlign: "center"
       },
       installButton: {
         background: "#35A2E4", // Blue.
+        ":hover": { background: "#2D89C2" }, // Darker blue.
         color: "#fff",
         textAlign: "center",
         padding: "20px 40px",
@@ -55,9 +59,6 @@ export default class GettingStarted extends React.Component {
         fontWeight: 900,
         fontSize: 18,
         cursor: "pointer",
-        ":hover": {
-          background: "#2D89C2" // Darker blue.
-        }
       }
     });
   }
@@ -74,11 +75,11 @@ export default class GettingStarted extends React.Component {
       <div className="uih" style={ styles.base }>
         <div className="markdown" style={ styles.content }>
           <Markdown>{ intro }</Markdown>
-          <center style={ styles.buttonContainer }>
+          <div style={ styles.buttonContainer }>
             <a
               onClick={ this.handleInstall.bind(this) }
               style={ styles.installButton }>Install Sample</a>
-          </center>
+          </div>
         </div>
       </div>
     );
