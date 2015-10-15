@@ -39,7 +39,7 @@ const copyTemplates = (rootPath = "./src") => {
 
 export default (service) => {
   service.methods({
-    initQuickStart: {
+    quickStart: {
       docs: `Initializes the module with a quick-start sample.`,
       put(rootPath) { return copyTemplates(rootPath); }
     }
