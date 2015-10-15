@@ -9,6 +9,8 @@ const intro = `
 UIHarness uses familiar \`"describe/it"\` testing concepts to rapidly
 construct test interfaces around your components as you build them.
 
+    // Visual Spec:
+
     import React from "react";
     import MyComponent from "../components/MyComponent";
 
@@ -17,11 +19,7 @@ construct test interfaces around your components as you build them.
         this.load( <MyComponent color="red" /> );
       });
 
-      section("color", () => {
-        it("red", () => this.props({ color: "red" }));
-        it("green", () => this.props({ color: "green" }));
-        it("blue", () => this.props({ color: "blue" }));
-      });
+      it("green", () => this.props({ color: "green" }));
     });
 
 Copy this “quick start” sample into your module:
@@ -66,9 +64,7 @@ export default class GettingStarted extends React.Component {
 
   handleInstall() {
     api.server.initQuickStart.put("/src")
-      .then(result => {
-        console.log("result", result); // TEMP
-      })
+      .then(result => {})
       .catch(err => { throw err });
   }
 
