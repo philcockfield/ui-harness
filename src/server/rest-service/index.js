@@ -26,7 +26,7 @@ const service = rest({
 
 // Declare methods API.
 service.methods({
-  "invokeSpec": {
+  "spec": {
     docs: `
       Invokes the given specification ("it" statement) on the server.
       @param {string} id: The unique identifier of the spec to invoke.

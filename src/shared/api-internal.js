@@ -269,10 +269,12 @@ class Api {
   invokeServerSpec(spec, callback) {
     const server = rest();
     server.onReady(() => {
-        server.methods.invokeSpec.put(spec.id)
+      console.log("Invoking on server...");
+      server.methods.spec.put(spec.id)
         .then((result) => {
           // TODO:
-          console.log("result", result);
+          console.log("result: ", result);
+          console.log("");
         });
     });
   }
