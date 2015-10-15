@@ -38,7 +38,7 @@ export default class PropTypesComponent extends React.Component {
 
     const el = items.length > 0
       ? <ValueList items={ items } collapsedTotal={0} />
-      : <EmptyLabel>No PropTypes on Component</EmptyLabel>
+      : <EmptyLabel>No PropTypes on component.</EmptyLabel>
 
     return (
       <div style={ styles.base }>
