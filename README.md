@@ -15,7 +15,7 @@ With the UIHarness you can go from an empty NPM module, to building clean, isola
 Create a new module with the UIHarness pre-installed by running:
 
 ```bash
-curl https://raw.githubusercontent.com/philcockfield/ui-harness/master/scripts/create.sh | sh
+$ curl http://j.mp/ui-harness | sh
 ```
 
 Then open the browser to [localhost:3030](http://localhost:3030/) and the UIHarness will guide you from there.
@@ -26,7 +26,7 @@ The UIHarness is just a simple NPM module.  To add it to an existing module inst
 
     npm install ui-harness
 
-Then within your entry file start the UIHarness server:
+Then within your entry file start the server:
 ```js
 // index.js
 require("ui-harness/server").start({ babel: 1 });
