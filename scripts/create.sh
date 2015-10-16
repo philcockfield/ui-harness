@@ -13,7 +13,7 @@
 
 create() {
 echo ""
-echo "Creating new UIHarness component module..."
+echo "Creating new UI component module..."
 echo ""
 
 # Create [package.json] file.
