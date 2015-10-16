@@ -24,6 +24,7 @@ require("ui-harness/server").start({ babel: 1 });
 To get started quickly, the following will create a new module with the UIHarness:
 
 ```bash
+curl https://raw.githubusercontent.com/philcockfield/ui-harness/master/scripts/create.sh | sh
 ```
 
 Open the browser, and the UIHarness will guide you from there.
