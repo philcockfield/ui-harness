@@ -43,16 +43,16 @@ fi
 #
 if [ -f ./package.json ]; then
   echo ""
-  echo "Cannot create. This folder is already an NPM module."
-  echo "Run:"
+  echo "Ooops, this folder is already an NPM module."
+  echo "Instead run:"
+  echo ""
   echo "     npm start"
   echo ""
   exit -1
 fi
 
 echo ""
-echo "Creating new UI component module..."
-echo ""
+echo "Creating new UI component module."
 
 
 #
@@ -90,16 +90,17 @@ echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 #
 # Install the `ui-harness` module.
 #
-npm install --save ui-harness
+echo "Running NPM install..."
+npm install ui-harness --save --loglevel error >&-
 
 echo ""
 echo "+ -------------------------------------------------------"
 echo "Module created and initialized successfully."
-echo "To start the UIHarness run:"
+echo "Automaticaly starting the server now using:"
 echo ""
 echo "    npm start"
 echo ""
-echo "Running [npm start] now..."
+echo "Open your browser at http://localhost:3030"
 echo "- -------------------------------------------------------"
 
 #
