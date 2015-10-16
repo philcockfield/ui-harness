@@ -1,10 +1,10 @@
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "js-util/react";
-import { FONT_MONO } from "../GlobalStyles";
+import { FONT_MONO, FONT_SANS } from "../GlobalStyles";
 
 const COLORS = {
-  grey: "rgba(0,0,0,0.2)",
+  grey: "#CFCFCF",
   red: "#C61604",
   blue: "#1900D3",
   black: "#000000",
@@ -18,10 +18,11 @@ const COLORS = {
 @Radium
 export default class Value extends React.Component {
   styles() {
-    const { color, children } = this.props;
+    const { color, mono, size, children } = this.props;
     return css({
       base: {
-        fontFamily: FONT_MONO,
+        fontFamily: mono ? FONT_MONO : FONT_SANS,
+        fontSize: size,
         color: COLORS[color],
         paddingRight: 6
       }
@@ -39,6 +40,10 @@ export default class Value extends React.Component {
 // API -------------------------------------------------------------------------
 Value.propTypes = {
   color: PropTypes.oneOf(["black", "blue", "red", "grey"]),
+  mono: PropTypes.bool,
+  size: PropTypes.numberOrString,
 };
 Value.defaultProps = {
+  mono: true,
+  size: 12
 };

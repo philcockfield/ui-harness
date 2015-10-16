@@ -22,7 +22,7 @@ export default class Output extends React.Component {
         width: "100%",
         padding: 0,
         marginTop: 0,
-        marginBottom: 0,
+        marginBottom: 0
       },
     });
   }

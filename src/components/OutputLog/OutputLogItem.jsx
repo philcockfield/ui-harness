@@ -12,15 +12,13 @@ import moment from "moment";
 export default class OutputItem extends React.Component {
   styles() {
     return css({
-      base: {
-        fontSize: 14
-      },
+      base: {},
       td: {
         borderBottom: "dashed 1px rgba(0, 0, 0, 0.1)",
         padding: 6,
       },
       left: {
-        width: 110
+        width: 80
       }
     });
   }
@@ -37,10 +35,13 @@ export default class OutputItem extends React.Component {
     return (
       <tr style={ styles.base }>
         <td style={[ styles.td, styles.left ]}>
-          <Value color="grey">{ moment(time).format("h:mm:ss:SSSS") }</Value>
+          <Value
+              color="grey"
+              mono={false}
+              size={11}>{ moment(time).format("h:mm:ss:SSSS") }</Value>
         </td>
         <td style={[ styles.td, styles.right ]}>
-          <Value color="red">{ values }</Value>
+          <Value color="red" size={13}>{ values }</Value>
         </td>
       </tr>
     );
