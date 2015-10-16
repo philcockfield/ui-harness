@@ -9,7 +9,7 @@
 #   Are you looking at this in your web browser and would
 #   like to install UIHarness?  Open your termain and run:
 #
-#       curl http://j.mp/ui-harness | sh
+#       curl -L http://j.mp/ui-harness | sh
 #
 # ------------------------------------------------------
 
