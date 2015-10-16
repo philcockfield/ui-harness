@@ -33,6 +33,13 @@ cat > "package.json" <<- EOM
 }
 EOM
 
+cat > ".gitignore" <<- EOM
+.DS_Store
+lib
+node_modules
+npm-debug.log
+EOM
+
 # Insert the startup script.
 # This boots the UIHarness.
 echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
@@ -47,6 +54,7 @@ echo "To start the UIHarness run:"
 echo ""
 echo "    npm start"
 echo ""
+echo "Doing that now..."
 
 # Start the server.
 npm start
