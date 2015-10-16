@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # ------------------------------------------------------
 #
 #   Creates a basic NPM module with the UIHarness
@@ -11,12 +12,21 @@
 #
 # ------------------------------------------------------
 
-create() {
+
+
+#
+# Check if Node is installed and at the right version
+#
+createModule() {
 echo ""
+echo "Please ensure you have Node version >=4.0.0"
 echo "Creating new UI component module..."
 echo ""
 
+
+#
 # Create [package.json] file.
+#
 FOLDER_NAME=${PWD##*/}
 cat > "package.json" <<- EOM
 {
@@ -40,23 +50,30 @@ node_modules
 npm-debug.log
 EOM
 
+#
 # Insert the startup script.
 # This boots the UIHarness.
+#
 echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 
+#
 # Install the `ui-harness` module.
+#
 npm install --save ui-harness
 
 echo ""
-echo "-------------------------------------------------------"
+echo "+ -------------------------------------------------------"
 echo "Module created and initialized successfully."
 echo "To start the UIHarness run:"
 echo ""
 echo "    npm start"
 echo ""
-echo "Doing that now..."
+echo "Running [npm start] now..."
+echo "- -------------------------------------------------------"
 
+#
 # Start the server.
+#
 npm start
 }
 
@@ -65,4 +82,4 @@ npm start
 # Run the script
 #   NOTE: This is run within a function to ensure the entire
 #   script is downloaded before execution starts.
-create
+createModule
