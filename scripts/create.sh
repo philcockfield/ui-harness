@@ -43,7 +43,9 @@ npm install --save ui-harness
 echo ""
 echo "-------------------------------------------------------"
 echo "Module created and initialized successfully."
+echo "To start the UIHarness run:"
 echo ""
+echo "    npm start"
 echo ""
 
 # Start the server.
