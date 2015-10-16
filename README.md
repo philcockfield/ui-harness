@@ -9,32 +9,34 @@ http://uiharness.com
 ![ScreenShot](https://cloud.githubusercontent.com/assets/185555/10448258/0471dece-71e8-11e5-983a-028dd7df7a1a.png)
 
 
-## Quick Start
-
-    npm install --save ui-harness
-
+## Quick Start (1-minute)
 With the UIHarness you can go from an empty NPM module, to building clean, isolated React components using best-practices within 60-seconds.
 
-Create an NPM module and start the UIHarness development server within it's entry script.
-
-```js
-require("ui-harness/server").start({ babel: 1 });
-```
-
-To get started quickly, the following will create a new module with the UIHarness:
+Create a new module with the UIHarness pre-installed by running:
 
 ```bash
 curl https://raw.githubusercontent.com/philcockfield/ui-harness/master/scripts/create.sh | sh
 ```
 
-Open the browser, and the UIHarness will guide you from there.
+Then open the browser to [localhost:3030](http://localhost:3030/) and the UIHarness will guide you from there.
 
 
+## Manual Install
+The UIHarness is just a simple NPM module.  To add it to an existing module install it like normal:
 
+    npm install ui-harness
+
+Then within your entry file start the UIHarness server:
+```js
+// index.js
+require("ui-harness/server").start({ babel: 1 });
+```
+
+
+------
 
 
 ## Conceptual Introduction
-
 The UIHarness allows you to add a one-line startup script to your node module that provides a complete visual test and build harness for creating your components.
 
 #### Creating
@@ -49,9 +51,12 @@ If you are isolating your UI components into their own module (a very good idea)
 This makes your components easy to explore, evaluate, and understand by developers.  This adds no run-time overhead, as consumers of the components will only be requiring the isolated component, not the UIHarness itself, so it never gets built (via [Webpack](https://webpack.github.io/)) into the resulting application bundle.
 
 
+---
+### License: MIT
 
 
 
+---
 ## TODO
 
 - PropTypes as static property (see example: https://github.com/FormidableLabs/radium/tree/master/docs/api)
@@ -79,7 +84,3 @@ This makes your components easy to explore, evaluate, and understand by develope
 - Store skipped suites on console {object} (names only) - ERROR.
 - Console.run() - automated run.
 - Server methods
-
-
----
-### License: MIT
