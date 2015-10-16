@@ -3,6 +3,7 @@ import Center from "react-atoms/components/Center";
 import CenterX from "react-atoms/components/CenterX";
 import CenterY from "react-atoms/components/CenterY";
 import Markdown from "react-atoms/components/Markdown";
+import FlexEdge from "react-atoms/components/FlexEdge";
 
 
 export default {
@@ -20,5 +21,6 @@ export default {
   CenterX,
   CenterY,
   Twisty,
-  Markdown
+  Markdown,
+  FlexEdge
 };

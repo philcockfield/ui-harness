@@ -3,7 +3,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
-import FlexEdge from "react-atoms/components/FlexEdge";
+import { FlexEdge } from "../shared";
 import api from "../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";
 import SpecList from "../SpecList";

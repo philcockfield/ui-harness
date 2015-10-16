@@ -4,7 +4,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
-import Card from "../shared/Card";
+import { Card, FlexEdge } from "../shared";
 import MainHeader from "./MainHeader";
 import Component from "./Component";
 import ComponentHost from "./ComponentHost";
@@ -37,37 +37,34 @@ export default class Main extends React.Component {
       base: {
         Absolute: 0,
         overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "stretch",
         backgroundColor: this.backgroundColor()
-      },
-      headerContainer: {
-        position: "relative",
-      },
-      hostContainer: {
-        position: "relative",
-        flex: "1",
-        overflowX: overflowX,
-        overflowY: overflowY
       }
     });
   }
 
+
+  scroll() {
+    const { current } = this.props;
+    const scroll = current.get("scroll");
+    const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : null
+    const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : null
+    return { scroll, overflowX, overflowY };
+  }
+
+
   render() {
     const styles = this.styles();
     const { current } = this.props;
+    const { overflowX, overflowY } = this.scroll();
     const isDark = Color(this.backgroundColor()).dark();
 
     const header = current.get("header");
     let elHeader;
     if (header) {
-      elHeader = <div style={ styles.headerContainer }>
-                  <MainHeader
+      elHeader = <MainHeader
                     markdown={ header }
                     hr={ current.get("hr") }
                     isDark={ isDark }/>
-                 </div>
     }
 
     let el = <ComponentHost current={ current }/>;
@@ -81,10 +78,10 @@ export default class Main extends React.Component {
     return (
       <Card>
         <div style={ styles.base }>
-          { elHeader }
-          <div style={ styles.hostContainer }>
-            { el }
-          </div>
+          <FlexEdge orientation="vertical">
+            { elHeader }
+            <div flexEdge={{ flex: 1, overflowX, overflowY }}>{ el }</div>
+          </FlexEdge>
         </div>
       </Card>
     );
