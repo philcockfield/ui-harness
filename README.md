@@ -12,7 +12,7 @@ http://uiharness.com
 ## Quick Start (1-minute)
 With the UIHarness you can go from an empty NPM module, to building clean, isolated React components using best-practices within 60-seconds.
 
-Create a new module with the UIHarness pre-installed by running:
+Start a new module with the UIHarness pre-installed by running:
 
 ```bash
 $ curl -L http://j.mp/ui-harness | sh
