@@ -21,7 +21,6 @@ NODE_VERSION=${NODE_VERSION:1} # Remove the "v" prefix (eg. "v0.0.1" => "0.0.1")
 
 
 #
-# Check if Node is installed and at the right version
 #
 #   NOTE: This is run within a function to ensure the entire
 #   script is downloaded before execution starts.
