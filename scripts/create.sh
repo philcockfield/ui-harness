@@ -17,7 +17,9 @@
 NODE_VERSION=$(node --version)
 NODE_VERSION=${NODE_VERSION:1} # Remove the "v" prefix (eg. "v0.0.1" => "0.0.1").
 
-
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
 
 
 #
@@ -46,7 +48,7 @@ if [ -f ./package.json ]; then
   echo "Ooops, this folder is already an NPM module."
   echo "Instead run:"
   echo ""
-  echo "     npm start"
+  echo "     ${CYAN}npm start${NC}"
   echo ""
   exit -1
 fi
@@ -98,9 +100,9 @@ echo "+ -------------------------------------------------------"
 echo "Module created and initialized successfully."
 echo "Automaticaly starting the server now using:"
 echo ""
-echo "    npm start"
+echo "    ${CYAN}npm start${NC}"
 echo ""
-echo "Open your browser at http://localhost:3030"
+echo "Open your browser at ${GREEN}http://localhost:3030${NC}"
 echo "- -------------------------------------------------------"
 
 #
