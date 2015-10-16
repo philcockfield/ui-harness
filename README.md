@@ -15,13 +15,21 @@ http://uiharness.com
 
 With the UIHarness you can go from an empty NPM module, to building clean, isolated React components using best-practices within 60-seconds.
 
-Create an NPM module and start the UIHarness development server within it's entry script:
+Create an NPM module and start the UIHarness development server within it's entry script.
 
 ```js
 require("ui-harness/server").start({ babel: 1 });
 ```
 
+To get started quickly, the following will create a new module with the UIHarness:
+
+```bash
+```
+
 Open the browser, and the UIHarness will guide you from there.
+
+
+
 
 
 ## Conceptual Introduction
