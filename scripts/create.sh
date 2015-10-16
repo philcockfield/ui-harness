@@ -18,8 +18,20 @@
 # Check if Node is installed and at the right version
 #
 createModule() {
+#
+# Module already exists.
+#
+if [ -f ./package.json ]; then
+  echo ""
+  echo "Cannot create. This folder is already an NPM module."
+  echo "Run:"
+  echo "     npm start"
+  echo ""
+  exit -1
+fi
+
 echo ""
-echo "Please ensure you have Node version >=4.0.0"
+echo "Please ensure you Node installed with a version >=4.0.0"
 echo "Creating new UI component module..."
 echo ""
 
