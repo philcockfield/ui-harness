@@ -37,7 +37,6 @@ if [ $? -eq 0 ]; then
   echo ""
   exit -1
 fi
-exit -1
 
 
 #
