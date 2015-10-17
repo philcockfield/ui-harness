@@ -8,23 +8,27 @@ describe("MyComponent", function() {
   ### Getting Started
   This is a sample React component that has been copied into your module.
   Take a look within the \`/src\` folder to edit the
-  \`/components/MyComponent.jsx\` file and it's corresponding **.spec**.
+  \`/components/MyComponent.jsx\` file.
 
-  The "red/green/blue" options on the left are the result of \`"it"\`
-  testing statements in the spec file that change the props of the
-  hosted component:
+  Drill into the suite by clicking on "MyComponent" in the left-hand index.
+
+  The "red/green/blue" options are the result of test \`"it"\`
+  statements in the \`MyComponent.spec.jsx\` file:
 
       // MyComponent.spec.jsx
       it("red", () => this.props({ color: "red" }));
       it("green", () => this.props({ color: "green" }));
       it("blue", () => this.props({ color: "blue" }));
 
-  Try clicking them.
+  **Try clicking on them.**  Each click invokes the statement's function.
+  Now you have the tools to manipulate your component in precise and useful
+  ways while you are crafting it.
 
   At the bottom-left you can see the component's API as defined by it's PropTypes.
-  Now, start copying this pattern to add new components and build out your georgous UI!
-  For more strategies on using the UIHarness see the [docs](https://github.com/philcockfield/ui-harness/blob/master/docs/index.md).
 
+  ### Next Steps
+  Play around extending this component or get to work creating your own amazing new components!
+  For more strategies on using the UIHarness see the [docs](https://github.com/philcockfield/ui-harness/blob/master/docs/index.md).
   `);
 
   before(() => {

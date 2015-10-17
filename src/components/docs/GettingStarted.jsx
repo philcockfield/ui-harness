@@ -36,12 +36,14 @@ export default class GettingStarted extends React.Component {
   componentWillMount() {
     this.setState({
       buttonLabel: "Install Sample",
+      isInstalled: false
     });
   }
 
 
-
   styles() {
+    const DISABLED_BG = "rgba(0, 0, 0, 0.15)";
+
     return css({
       base: {
         paddingTop: 80,
@@ -69,21 +71,41 @@ export default class GettingStarted extends React.Component {
         fontSize: 18,
         cursor: "pointer",
         width: 180
+      },
+      done: {
+        background: DISABLED_BG,
+        ":hover": { background: DISABLED_BG },
+        cursor: "pointer"
       }
     });
   }
 
+
   handleInstall() {
-    this.setState({ buttonLabel: "Copying Files..." })
+    if (this.state.isInstalled || this.state.isInstalling) { return; }
+    this.setState({
+      buttonLabel: "Copying Files...",
+      isInstalling: true
+    })
     api.server.quickStart.put("./src")
       .then(result => {
-          this.setState({ buttonLabel: "Done" })
+          this.setState({
+            isInstalled: true,
+            isInstalling: false,
+            buttonLabel: "Done. Reloading..."
+          });
       })
       .catch(err => { throw err });
   }
 
+
   render() {
     const styles = this.styles();
+    const buttonStyles = [styles.installButton];
+    if (this.state.isInstalled) {
+      buttonStyles.push(styles.done)
+    }
+
     return (
       <div className="uih" style={ styles.base }>
         <div className="markdown" style={ styles.content }>
@@ -91,7 +113,7 @@ export default class GettingStarted extends React.Component {
           <div style={ styles.buttonContainer }>
             <a
               onClick={ this.handleInstall.bind(this) }
-              style={ styles.installButton }>{ this.state.buttonLabel }</a>
+              style={ buttonStyles }>{ this.state.buttonLabel }</a>
           </div>
         </div>
       </div>
