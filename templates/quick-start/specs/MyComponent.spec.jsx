@@ -8,7 +8,9 @@ describe("MyComponent", function() {
   ### Getting Started
   This is a sample React component that has been copied into your module.
   Take a look within the \`/src\` folder to edit the
-  \`/components/MyComponent.jsx\` file.
+  \`/components/MyComponent.jsx\` file.  It's hosted in isolation so you
+  can build with precision, focusing on just one level of complexity at
+  a time.
 
   Drill into the suite by clicking on "MyComponent" in the left-hand index.
 
