@@ -8,6 +8,7 @@ import compression from "compression";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
+import * as util from "js-util";
 import * as config from "../webpack-config";
 import restService from "./rest-service";
 import bdd from "../shared/bdd";
@@ -219,7 +220,6 @@ export const start = (options = {}, callback) => {
  *                or false if the server was not running.
  */
 export const stop = () => {
-  console.log("STOP");
   if (server.instance) {
     server.instance.close();
     delete server.instance;
@@ -243,9 +243,11 @@ export const restart = () => {
       } else {
         const options = server.options;
         stop();
-        start(options)
-          .then(() => resolve())
-          .catch(err => reject(err));
+        util.delay(300, () => {
+          start(options)
+            .then(() => resolve())
+            .catch(err => reject(err));
+        });
       }
   });
 };

@@ -89,11 +89,18 @@ export default class GettingStarted extends React.Component {
     })
     api.server.quickStart.put("./src")
       .then(result => {
+          // Update visual state.
           this.setState({
             isInstalled: true,
             isInstalling: false,
             buttonLabel: "Done. Reloading..."
           });
+
+          // Force the page to reload.
+          // NB: This should happen automatically as a result
+          //     of the hot-reloader, however this ensures that
+          //     it happens, and the new user is not confused.
+          window.location.href = window.location.href;
       })
       .catch(err => { throw err });
   }
