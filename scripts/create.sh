@@ -29,11 +29,11 @@ NC='\033[0m' # No Color.
 
 
 #
-#
 #   NOTE: This is run within a function to ensure the entire
-#   script is downloaded before execution starts.
+#   script is fully downloaded before execution starts.
 #
 function createModule() {
+
 #
 # Ensure the correct version of node is installed.
 #
@@ -102,20 +102,20 @@ echo "${LIGHT_GREY}Running NPM install... (this may take a moment as Babel gets 
 npm install ui-harness --save --loglevel error >&-
 
 #
-# Copy in the quick-start samples.
+# Copy in the quick-start samples (JSX files).
 #
 node ./node_modules/ui-harness/server --samples
 
 
 echo ""
-echo "+ -------------------------------------------------------"
-echo "Module created and initialized successfully."
-echo "Automaticaly starting the server now using:"
+echo "+|-------------------------------------------------------"
+echo "   Module created and initialized successfully."
+echo "   Automaticaly starting the server now using:"
 echo ""
-echo "    ${CYAN}npm start${NC}"
+echo "      ${CYAN}npm start${NC}"
 echo ""
-echo "Open your browser at ${GREEN}http://localhost:3030${NC}"
-echo "- -------------------------------------------------------"
+echo "   Open your browser at ${GREEN}http://localhost:3030${NC}"
+echo "-|-------------------------------------------------------"
 
 #
 # Start the server.
@@ -262,10 +262,6 @@ function semverGT() {
 }
 # END: Semantic version checking.
 # ---------------------------------------------------------------------------------
-
-
-
-
 
 
 
