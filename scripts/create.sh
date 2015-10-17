@@ -92,7 +92,7 @@ echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 #
 # Install the `ui-harness` module.
 #
-echo "Running NPM install..."
+echo "Running NPM install (this may take a moment as Babel gets built)..."
 npm install ui-harness --save --loglevel error >&-
 
 echo ""
