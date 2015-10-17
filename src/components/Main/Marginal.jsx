@@ -55,7 +55,7 @@ const elementStyles = (isDark, isTop) => {
     },
     "h5:first-of-type": firstTitle,
     "p": {
-      fontWeight: 200,
+      fontWeight: 400,
       fontSize: 15,
       lineHeight: "22px",
       marginTop: 0,
@@ -136,8 +136,8 @@ export default class Marginal extends React.Component {
 
     return (
       <div style={ styles.base } className="uih">
-        <div className="uih-header">
-          <Style rules={ elementStyles(isDark, isTop) } scopeSelector=".uih-header"/>
+        <div className="uih-marginal">
+          <Style rules={ elementStyles(isDark, isTop) } scopeSelector=".uih-marginal"/>
           <Markdown
                 display="block"
                 trimIndent={false}
