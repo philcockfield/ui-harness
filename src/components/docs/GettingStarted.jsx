@@ -72,11 +72,19 @@ export default class GettingStarted extends React.Component {
         cursor: "pointer",
         width: 180
       },
-      done: {
-        background: DISABLED_BG,
-        ":hover": { background: DISABLED_BG },
-        cursor: "pointer"
-      }
+      successOuter: {
+        borderTop: "solid 1px rgba(0, 0, 0, 0.1)",
+        paddingTop: 20,
+        color: "#6DBB18"
+      },
+      successTitle: {
+        margin: 0,
+        padding: 0,
+      },
+      successText: {
+        fontStyle: "italic",
+        fontSize: 14
+      },
     });
   }
 
@@ -92,15 +100,8 @@ export default class GettingStarted extends React.Component {
           // Update visual state.
           this.setState({
             isInstalled: true,
-            isInstalling: false,
-            buttonLabel: "Done. Reloading..."
+            isInstalling: false
           });
-
-          // Force the page to reload.
-          // NB: This should happen automatically as a result
-          //     of the hot-reloader, however this ensures that
-          //     it happens, and the new user is not confused.
-          window.location.href = window.location.href;
       })
       .catch(err => { throw err });
   }
@@ -108,20 +109,23 @@ export default class GettingStarted extends React.Component {
 
   render() {
     const styles = this.styles();
-    const buttonStyles = [styles.installButton];
-    if (this.state.isInstalled) {
-      buttonStyles.push(styles.done)
-    }
+    const el = !this.state.isInstalled
+      ? <a
+          onClick={ this.handleInstall.bind(this) }
+          style={ styles.installButton }>{ this.state.buttonLabel }</a>
+      :
+        <div style={ styles.successOuter }>
+          <h2 style={ styles.successTitle }>Success!</h2>
+          <div style={ styles.successText }>
+            The server is restarting and the UIHarness will reload shortly...
+          </div>
+        </div>
 
     return (
       <div className="uih" style={ styles.base }>
         <div className="markdown" style={ styles.content }>
           <Markdown>{ intro }</Markdown>
-          <div style={ styles.buttonContainer }>
-            <a
-              onClick={ this.handleInstall.bind(this) }
-              style={ buttonStyles }>{ this.state.buttonLabel }</a>
-          </div>
+          <div style={ styles.buttonContainer }>{ el }</div>
         </div>
       </div>
     );
