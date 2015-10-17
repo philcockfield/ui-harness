@@ -106,7 +106,7 @@ export default class GettingStarted extends React.Component {
 
           // Ensure the screen does refresh if the hot-reloader
           // does not cause the browser to reload.
-          delay(5000, () => {
+          delay(10000, () => {
             window.location.href = window.location.href;
           });
       })
