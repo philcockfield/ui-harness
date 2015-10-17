@@ -1,13 +1,18 @@
 #!/usr/bin/env sh
 
-
 # ------------------------------------------------------
 #
 #   Creates a basic NPM module with the UIHarness
 #   and startup script installed.
 #
+#   A great starting point for an isolated set of React
+#   components either for your application or published as
+#   library on NPM.
+#
 #   Are you looking at this in your web browser and would
-#   like to install UIHarness?  Open your termain and run:
+#   like to create a module with a UIHarness?
+#
+#   Open your terminal and run:
 #
 #       curl -L http://j.mp/ui-harness | sh
 #
@@ -20,7 +25,7 @@ NODE_VERSION=${NODE_VERSION:1} # Remove the "v" prefix (eg. "v0.0.1" => "0.0.1")
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 LIGHT_GREY='\033[0;37m'
-NC='\033[0m' # No Color
+NC='\033[0m' # No Color.
 
 
 #
