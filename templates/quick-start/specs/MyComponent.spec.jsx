@@ -12,8 +12,8 @@ describe("MyComponent", function() {
 
   Drill into the suite by clicking on "MyComponent" in the left-hand index.
 
-  The "red/green/blue" options are the result of test \`"it"\`
-  statements in the \`MyComponent.spec.jsx\` file:
+  The "red/green/blue" options are the result of \`"it"\`
+  test statements in the \`MyComponent.spec.jsx\` file:
 
       // MyComponent.spec.jsx
       it("red",   () => this.props({ color: "red" }));
