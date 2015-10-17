@@ -113,6 +113,21 @@ export const middleware = (options = {}, callback) => {
 
 
 
+const isPortTaken = (port, fn) => {
+  var net = require('net')
+  var tester = net.createServer()
+  .once('error', function (err) {
+    if (err.code != 'EADDRINUSE') return fn(err)
+    fn(null, true)
+  })
+  .once('listening', function() {
+    tester.once('close', function() { fn(null, false) })
+    .close()
+  })
+  .listen(port)
+}
+
+
 /**
  * Starts the UIHarness within a development server.
  * @param {object} options: Configuration settings.
@@ -158,24 +173,31 @@ export const start = (options = {}, callback) => {
         fs.copySync(`${ MODULE_PATH }/templates/entry-index.js`, path)
       });
 
-  // Start the server.
   console.log("");
   console.log(chalk.grey(`Starting (${ ENV })...`));
-  const startListening = () => {
-      app.listen(PORT, () => {
-            console.log("");
-            console.log(chalk.green("UIHarness:"));
-            console.log(chalk.grey(" - port: "), PORT);
-            console.log(chalk.grey(" - env:  "), ENV);
-            console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None."));
-            R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
-              console.log(chalk.grey("         "), path);
-            });
-            console.log("");
-            if (R.is(Function, callback)) { callback(); }
-      });
-    };
+  const logStarted = () => {
+        console.log("");
+        console.log(chalk.green("UIHarness:"));
+        console.log(chalk.grey(" - port: "), PORT);
+        console.log(chalk.grey(" - env:  "), ENV);
+        console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None."));
+        R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
+          console.log(chalk.grey("         "), path);
+        });
+        console.log("");
+        if (R.is(Function, callback)) { callback(); }
+      };
 
+  // Start the server if the port is not already in use.
   const app = express();
-  app.use(BASE_PATH, middleware(options, () => { startListening(); }));
+  isPortTaken(PORT, (err, isInUse) => {
+        if (isInUse) {
+          console.log(chalk.red(`Port ${ PORT } is already in use.`));
+          console.log("");
+        } else {
+          app.use(BASE_PATH, middleware(options, () => {
+            app.listen(PORT, () => logStarted());
+          }));
+        }
+      });
 };
