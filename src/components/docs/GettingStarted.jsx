@@ -28,7 +28,7 @@ To get started quickly you can copy this sample into your module:
 
 
 const doneMarkdown = `
-# Success!
+# Success
 A sample React component and it's corresponding ".spec" file has been copied
 into your module:
 
@@ -43,7 +43,7 @@ into your module:
 - Reload the browser to see it hosted here in the UIHarness.
 - Play around with \`MyComponent.jsx\` and \`MyComponent.spec.jsx\` to get a
   feel for how the UIHarness works.
-- Then start creating your own glorious UI components!
+- Start creating glorious UI components of your own.
 
 #### Have Fun!
 
