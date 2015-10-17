@@ -96,6 +96,12 @@ echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 echo "${LIGHT_GREY}Running NPM install... (this may take a moment as Babel gets built)${NC}"
 npm install ui-harness --save --loglevel error >&-
 
+#
+# Copy in the quick-start samples.
+#
+node ./node_modules/ui-harness/server --samples
+
+
 echo ""
 echo "+ -------------------------------------------------------"
 echo "Module created and initialized successfully."

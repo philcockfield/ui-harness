@@ -3,7 +3,7 @@ import fsPath from "path";
 const MODULE_PATH = fsPath.join(__dirname, "../../..");
 
 
-const copyTemplates = (rootPath = "./src") => {
+export const copyTemplates = (rootPath = "./src") => {
     // Ensure the path is at the root.
     rootPath = rootPath.replace(/^\./, "").replace(/^\//, "");
     rootPath = fsPath.resolve(`./${ rootPath }`);
