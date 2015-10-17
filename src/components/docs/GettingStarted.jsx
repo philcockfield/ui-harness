@@ -2,6 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Markdown from "react-atoms/components/Markdown";
 import { css, PropTypes } from "js-util/react";
+import { delay } as util from "js-util";
 import api from "../../shared/api-internal";
 
 
@@ -101,6 +102,12 @@ export default class GettingStarted extends React.Component {
           this.setState({
             isInstalled: true,
             isInstalling: false
+          });
+
+          // Ensure the screen does refresh if the hot-reloader
+          // does not cause the browser to reload.
+          util.delay(5000, () => {
+            window.location.href = window.location.href;
           });
       })
       .catch(err => { throw err });
