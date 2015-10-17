@@ -104,7 +104,7 @@ npm install ui-harness --save --loglevel error >&-
 #
 # Copy in the quick-start samples (JSX files).
 #
-node ./node_modules/ui-harness/server --samples
+# node ./node_modules/ui-harness/server --samples
 
 
 echo ""
