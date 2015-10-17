@@ -6,7 +6,7 @@ import { delay } from "js-util";
 import api from "../../shared/api-internal";
 
 
-const intro = `
+const introMarkdown = `
 UIHarness uses familiar \`"describe/it"\` testing concepts to rapidly
 construct test interfaces around your components as you build them.
 
@@ -27,6 +27,29 @@ To get started quickly you can copy this sample into your module:
 `;
 
 
+const doneMarkdown = `
+# Success!
+A sample React component and it's corresponding ".spec" file has been copied
+into your module:
+
+    - <module>
+      |-src
+        |-components
+          |- MyComponent.jsx
+        |-specs
+          |- MyComponent.spec.jsx
+
+#### Next Steps
+- Reload the browser to see it hosted here in the UIHarness.
+- Play around with \`MyComponent.jsx\` and \`MyComponent.spec.jsx\` to get a
+  feel for how the UIHarness works.
+- Then start creating your own glorious UI components!
+
+#### Have Fun!
+
+`;
+
+
 
 
 /**
@@ -43,8 +66,6 @@ export default class GettingStarted extends React.Component {
 
 
   styles() {
-    const DISABLED_BG = "rgba(0, 0, 0, 0.15)";
-
     return css({
       base: {
         paddingTop: 80,
@@ -72,20 +93,7 @@ export default class GettingStarted extends React.Component {
         fontSize: 18,
         cursor: "pointer",
         width: 180
-      },
-      successOuter: {
-        borderTop: "solid 1px rgba(0, 0, 0, 0.1)",
-        paddingTop: 20,
-        color: "#6DBB18"
-      },
-      successTitle: {
-        margin: 0,
-        padding: 0,
-      },
-      successText: {
-        fontStyle: "italic",
-        fontSize: 14
-      },
+      }
     });
   }
 
@@ -103,12 +111,6 @@ export default class GettingStarted extends React.Component {
             isInstalled: true,
             isInstalling: false
           });
-
-          // Ensure the screen does refresh if the hot-reloader
-          // does not cause the browser to reload.
-          delay(10000, () => {
-            window.location.href = window.location.href;
-          });
       })
       .catch(err => { throw err });
   }
@@ -117,23 +119,22 @@ export default class GettingStarted extends React.Component {
   render() {
     const styles = this.styles();
     const el = !this.state.isInstalled
-      ? <a
-          onClick={ this.handleInstall.bind(this) }
-          style={ styles.installButton }>{ this.state.buttonLabel }</a>
-      :
-        <div style={ styles.successOuter }>
-          <h2 style={ styles.successTitle }>Success!</h2>
-          <div style={ styles.successText }>
-            The server is restarting and the UIHarness will reload shortly...
+      ? <div>
+          <Markdown>{ introMarkdown }</Markdown>
+          <div style={ styles.buttonContainer }>
+            <a
+              onClick={ this.handleInstall.bind(this) }
+              style={ styles.installButton }>{ this.state.buttonLabel }</a>
           </div>
+        </div>
+      :
+        <div>
+          <Markdown>{ doneMarkdown }</Markdown>
         </div>
 
     return (
       <div className="uih" style={ styles.base }>
-        <div className="markdown" style={ styles.content }>
-          <Markdown>{ intro }</Markdown>
-          <div style={ styles.buttonContainer }>{ el }</div>
-        </div>
+        <div className="markdown" style={ styles.content }>{ el }</div>
       </div>
     );
   }
