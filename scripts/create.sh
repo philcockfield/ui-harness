@@ -24,6 +24,7 @@ NODE_VERSION=${NODE_VERSION:1} # Remove the "v" prefix (eg. "v0.0.1" => "0.0.1")
 
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
+RED='\033[0;31m'
 LIGHT_GREY='\033[0;37m'
 NC='\033[0m' # No Color.
 
@@ -46,12 +47,26 @@ if [ $? -eq 0 ]; then
 fi
 
 
+# Prompt for name of the module:
+echo "Please enter name of your module/directory:"
+read MODULE_NAME
+if [ -z "$MODULE_NAME" ]; then
+  echo "${RED}Sorry, a module name is required.${NC}"
+  echo ""
+  exit -1
+fi
+if [ ! -d "$MODULE_NAME" ]; then
+  mkdir $MODULE_NAME
+fi
+cd $MODULE_NAME
+
+
 #
 # Module already exists.
 #
 if [ -f ./package.json ]; then
   echo ""
-  echo "Ooops, this folder is already an NPM module."
+  echo "Ooops, the folder '${MODULE_NAME}' is already an NPM module."
   echo "Instead run:"
   echo ""
   echo "     ${CYAN}npm start${NC}"
@@ -66,10 +81,9 @@ echo "Creating new UI component module."
 #
 # Create [package.json] file.
 #
-FOLDER_NAME=${PWD##*/}
 cat > "package.json" <<- EOM
 {
-  "name": "${FOLDER_NAME}",
+  "name": "${MODULE_NAME}",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -95,16 +109,14 @@ EOM
 #
 echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 
+
+
 #
 # Install the `ui-harness` module.
 #
 echo "${LIGHT_GREY}Running NPM install... (this may take a moment as Babel gets built)${NC}"
 npm install ui-harness --save --loglevel error >&-
 
-#
-# Copy in the quick-start samples (JSX files).
-#
-# node ./node_modules/ui-harness/server --samples
 
 
 echo ""
