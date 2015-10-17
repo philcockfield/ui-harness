@@ -45,7 +45,19 @@ export default (service) => {
         @param {string} rootPath: Path within the host module of
                                   the folder to copy templates into.
       `,
-      put(rootPath) { return copyTemplates(rootPath); }
+      put(rootPath) {
+        // Copy the files.
+        const result = copyTemplates(rootPath);
+
+        // Restart the server.
+        // NB: Required here to prevent load-order circular reference.
+        const middleware = require("../middleware");
+        return new Promise((resolve, reject) => {
+          middleware.restart()
+            .then(() => resolve(result))
+            .catch(err => reject(err));
+        });
+      }
     }
   });
 };

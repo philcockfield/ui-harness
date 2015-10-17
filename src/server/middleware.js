@@ -14,6 +14,7 @@ import bdd from "../shared/bdd";
 
 const MODULE_PATH = fsPath.join(__dirname, "../..");
 const DEFAULT_PORT = 3030;
+const server = {};
 
 
 const parseSpecs = (paths) => {
@@ -112,20 +113,22 @@ export const middleware = (options = {}, callback) => {
 };
 
 
-
-const isPortTaken = (port, fn) => {
-  var net = require('net')
-  var tester = net.createServer()
-  .once('error', function (err) {
-    if (err.code != 'EADDRINUSE') return fn(err)
-    fn(null, true)
+const isPortTaken = (port, callback) => {
+  if (!R.is(Function, callback)) { callback = () => 0; }
+  const net = require("net");
+  const tester = net.createServer()
+  .once("error", (err) => {
+    if (err.code != "EADDRINUSE") { return callback(err); }
+    callback(null, true);
   })
-  .once('listening', function() {
-    tester.once('close', function() { fn(null, false) })
-    .close()
+  .once("listening", () => {
+    tester
+      .once("close", function() { callback(null, false) })
+      .close();
   })
-  .listen(port)
+  .listen(port);
 }
+
 
 
 /**
@@ -144,7 +147,7 @@ const isPortTaken = (port, fn) => {
  *                                        - true:             Registered with defaults.
  *                                        - <number>:         The babel "stage" to register with.
  *
- * @param callback: Invoked when the server has started.
+ * @return Promise.
  */
 export const start = (options = {}, callback) => {
   // Wrangle arguments.
@@ -185,19 +188,64 @@ export const start = (options = {}, callback) => {
           console.log(chalk.grey("         "), path);
         });
         console.log("");
-        if (R.is(Function, callback)) { callback(); }
       };
 
   // Start the server if the port is not already in use.
-  const app = express();
-  isPortTaken(PORT, (err, isInUse) => {
-        if (isInUse) {
-          console.log(chalk.red(`Port ${ PORT } is already in use.`));
-          console.log("");
-        } else {
-          app.use(BASE_PATH, middleware(options, () => {
-            app.listen(PORT, () => logStarted());
-          }));
-        }
-      });
+  return new Promise((resolve, reject) => {
+      const app = express();
+      isPortTaken(PORT, (err, isInUse) => {
+            if (isInUse) {
+              console.log(chalk.red(`Port ${ PORT } is already in use.`));
+              console.log("");
+              reject(new Error("Port already in use."));
+            } else {
+              app.use(BASE_PATH, middleware(options, () => {
+                server.options = options;
+                server.instance = app.listen(PORT, () => {
+                  logStarted();
+                  resolve();
+                });
+              }));
+            }
+          });
+  });
+};
+
+
+
+/**
+ * Stops the currently running server.
+ * @return {bool} true if the server was stopped,
+ *                or false if the server was not running.
+ */
+export const stop = () => {
+  console.log("STOP");
+  if (server.instance) {
+    server.instance.close();
+    delete server.instance;
+    delete server.options;
+    return true;
+  } else {
+    return false; // Wasn't running.
+  }
+};
+
+
+
+/**
+ * Restarts the server.
+ * @return Promise.
+ */
+export const restart = () => {
+  return new Promise((resolve, reject) => {
+      if (!server.instance) {
+        resolve(false); // Server not running.
+      } else {
+        const options = server.options;
+        stop();
+        start(options)
+          .then(() => resolve())
+          .catch(err => reject(err));
+      }
+  });
 };
