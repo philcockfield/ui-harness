@@ -16,9 +16,9 @@ describe("MyComponent", function() {
   statements in the \`MyComponent.spec.jsx\` file:
 
       // MyComponent.spec.jsx
-      it("red", () => this.props({ color: "red" }));
+      it("red",   () => this.props({ color: "red" }));
       it("green", () => this.props({ color: "green" }));
-      it("blue", () => this.props({ color: "blue" }));
+      it("blue",  () => this.props({ color: "blue" }));
 
   **Try clicking on them.**  Each click invokes the statement's function.
   Now you have the tools to manipulate your component in precise and useful
