@@ -71,7 +71,7 @@ This makes your components easy to explore, evaluate, and understand by develope
 - hide "API" in index column if there is no propsTypes.
 - default create the "/specs" folder from start() method.
 - color prop on sample <MyComponent>.
-- this.footer(`For quick-start documentation`).
+- test whether port is being used before starting
 -----
 
 - .start("./src/specs") => auto detect non-existence of that path, and look for "/lib" version

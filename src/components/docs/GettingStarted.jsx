@@ -33,6 +33,14 @@ To get started quickly you can copy this sample into your module:
  */
 @Radium
 export default class GettingStarted extends React.Component {
+  componentWillMount() {
+    this.setState({
+      buttonLabel: "Install Sample",
+    });
+  }
+
+
+
   styles() {
     return css({
       base: {
@@ -50,6 +58,7 @@ export default class GettingStarted extends React.Component {
         textAlign: "center"
       },
       installButton: {
+        display: "inline-block",
         background: "#35A2E4", // Blue.
         ":hover": { background: "#2D89C2" }, // Darker blue.
         color: "#fff",
@@ -59,13 +68,17 @@ export default class GettingStarted extends React.Component {
         fontWeight: 900,
         fontSize: 18,
         cursor: "pointer",
+        width: 180
       }
     });
   }
 
   handleInstall() {
+    this.setState({ buttonLabel: "Copying Files..." })
     api.server.quickStart.put("./src")
-      .then(result => {})
+      .then(result => {
+          this.setState({ buttonLabel: "Done" })
+      })
       .catch(err => { throw err });
   }
 
@@ -78,7 +91,7 @@ export default class GettingStarted extends React.Component {
           <div style={ styles.buttonContainer }>
             <a
               onClick={ this.handleInstall.bind(this) }
-              style={ styles.installButton }>Install Sample</a>
+              style={ styles.installButton }>{ this.state.buttonLabel }</a>
           </div>
         </div>
       </div>
