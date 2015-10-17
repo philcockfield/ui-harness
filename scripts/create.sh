@@ -6,8 +6,8 @@
 #   and startup script installed.
 #
 #   A great starting point for an isolated set of React
-#   components either for your application or published as
-#   library on NPM.
+#   components either for your application or published
+#   as a library on NPM.
 #
 #   Are you looking at this in your web browser and would
 #   like to create a module with a UIHarness?
