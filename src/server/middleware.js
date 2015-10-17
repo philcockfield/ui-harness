@@ -50,6 +50,29 @@ const formatEntryPaths = (entry) => {
 
 
 
+const isPortTaken = (port, callback) => {
+    if (!R.is(Function, callback)) { callback = () => 0; }
+    const net = require("net");
+    const tester = net.createServer()
+    .once("error", (err) => {
+      if (err.code !== "EADDRINUSE") { return callback(err); }
+      callback(null, true);
+    })
+    .once("listening", () => {
+      tester
+        .once("close", function() { callback(null, false) })
+        .close();
+    })
+    .listen(port);
+  }
+
+
+
+
+
+
+
+
 
 /**
  * Middleware for running the UIHarness server.
@@ -114,22 +137,6 @@ export const middleware = (options = {}, callback) => {
 };
 
 
-const isPortTaken = (port, callback) => {
-  if (!R.is(Function, callback)) { callback = () => 0; }
-  const net = require("net");
-  const tester = net.createServer()
-  .once("error", (err) => {
-    if (err.code != "EADDRINUSE") { return callback(err); }
-    callback(null, true);
-  })
-  .once("listening", () => {
-    tester
-      .once("close", function() { callback(null, false) })
-      .close();
-  })
-  .listen(port);
-}
-
 
 
 /**
@@ -180,13 +187,15 @@ export const start = (options = {}, callback) => {
   console.log("");
   console.log(chalk.grey(`Starting (${ ENV })...`));
   const logStarted = () => {
+        const packageJson = require(fsPath.resolve("./package.json"));
         console.log("");
         console.log(chalk.green("UIHarness:"));
-        console.log(chalk.grey(" - port: "), PORT);
-        console.log(chalk.grey(" - env:  "), ENV);
-        console.log(chalk.grey(" - specs:"), entryPaths[0] || chalk.magenta("None."));
+        console.log(chalk.grey(" - module: "), `${ packageJson.name }@${ packageJson.version }`);
+        console.log(chalk.grey(" - port:   "), PORT);
+        console.log(chalk.grey(" - env:    "), ENV);
+        console.log(chalk.grey(" - specs:  "), entryPaths[0] || chalk.magenta("None."));
         R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
-          console.log(chalk.grey("         "), path);
+          console.log(chalk.grey("           "), path);
         });
         console.log("");
       };
