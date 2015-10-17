@@ -45,6 +45,9 @@ const PROPS = {
   "header": {
     type: PropTypes.string
   },
+  "footer": {
+    type: PropTypes.string
+  },
   "hr": {
     default: true,
     type: PropTypes.bool

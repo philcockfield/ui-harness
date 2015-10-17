@@ -5,7 +5,7 @@ import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { Card, FlexEdge } from "../shared";
-import MainHeader from "./MainHeader";
+import Marginal from "./Marginal";
 import Component from "./Component";
 import ComponentHost from "./ComponentHost";
 import OutputLog from "../OutputLog";
@@ -58,15 +58,22 @@ export default class Main extends React.Component {
     const { overflowX, overflowY } = this.scroll();
     const isDark = Color(this.backgroundColor()).dark();
 
+    let elHeader, elFooter;
+    const hr = current.get("hr")
+
+    // Header.
     const header = current.get("header");
-    let elHeader;
     if (header) {
-      elHeader = <MainHeader
-                    markdown={ header }
-                    hr={ current.get("hr") }
-                    isDark={ isDark }/>
+      elHeader = <Marginal markdown={ header } edge="top" hr={ hr } isDark={ isDark }/>
     }
 
+    // Footer.
+    const footer = current.get("footer");
+    if (footer) {
+      elFooter = <Marginal markdown={ footer } edge="bottom" hr={ hr } isDark={ isDark }/>
+    }
+
+    // Main content.
     let el = <ComponentHost current={ current }/>;
 
     // Swap out the main host with the log if required.
@@ -81,6 +88,7 @@ export default class Main extends React.Component {
           <FlexEdge orientation="vertical">
             { elHeader }
             <div flexEdge={{ flex: 1, overflowX, overflowY }}>{ el }</div>
+            { elFooter }
           </FlexEdge>
         </div>
       </Card>

@@ -1,17 +1,21 @@
 import React from "react";
 import Radium, { Style } from "radium";
-import Immutable from "immutable";
 import { css, PropTypes } from "js-util/react";
 import { FONT_SANS } from "../GlobalStyles";
 import { Markdown } from "../shared";
 import { trimIndent } from "react-atoms/components/Markdown";
 
 
-const elementStyles = (isDark) => {
+const elementStyles = (isDark, isTop) => {
   const HR_COLOR = isDark
       ? "rgba(255, 255, 255, 0.4)"
       : "rgba(0, 0, 0, 0.1)"
 
+  const firstTitle = {
+    border: "none",
+    padding: 0,
+    margin: 0
+  };
   return css({
     "h1": {
       fontSize: 32,
@@ -33,17 +37,14 @@ const elementStyles = (isDark) => {
       marginBottom: 10,
       marginTop: 30
     },
-    "h2:first-of-type": {
-      border: "none",
-      padding: 0,
-      margin: 0
-    },
+    "h2:first-of-type": firstTitle,
     "h3": {
       fontSize: 18,
       padding: 0,
       margin: 0,
       marginTop: 30
     },
+    "h3:first-of-type": firstTitle,
     "h4": {
       fontSize: 14,
       textTransform: "uppercase",
@@ -52,6 +53,7 @@ const elementStyles = (isDark) => {
       marginTop: 30,
       opacity: isDark ? 0.6 : 0.4
     },
+    "h5:first-of-type": firstTitle,
     "p": {
       fontWeight: 200,
       fontSize: 15,
@@ -67,13 +69,18 @@ const elementStyles = (isDark) => {
     "hr": {
       borderColor: HR_COLOR,
       borderBottomStyle: "solid",
-      borderBottomWidth: "1px",
+      borderBottomWidth: 1,
       borderTopWidth: 0,
       marginTop: 20,
       marginBottom: 20
     },
     "hr:last-child": {
       marginBottom: 0
+    },
+    "hr:first-child": {
+      marginTop: 0,
+      marginBottom: 10,
+      borderBottomWidth: 10,
     }
   });
 };
@@ -81,21 +88,22 @@ const elementStyles = (isDark) => {
 
 
 
-
 /**
- * The header of the [main] component host.
+ * The Header/Footer bar of the [main] component host.
  */
 @Radium
-export default class MainHeader extends React.Component {
+export default class Marginal extends React.Component {
   styles() {
-    const { isDark } = this.props;
+    const { isDark, edge } = this.props;
+    const isTop = edge === "top";
     const TEXT_COLOR = isDark
         ? "rgba(255, 255, 255, 0.8)"
         : "rgba(0, 0, 0, 0.5)"
 
     return css({
       base: {
-        paddingTop: 15,
+        paddingTop: isTop ? 15 : 0,
+        paddingBottom: isTop ? 0 : 10,
         paddingLeft: 20,
         paddingRight: 20,
         fontFamily: FONT_SANS,
@@ -106,8 +114,9 @@ export default class MainHeader extends React.Component {
 
   render() {
     const styles = this.styles();
-    let { markdown, hr, isDark } = this.props;
+    let { markdown, hr, isDark, edge } = this.props;
     const removeHR = () => { markdown = markdown.replace(/\n\s*-{3,}\n*$/, ""); };
+    const isTop = edge === "top";
 
     // Trim the indent
     // (which may exist if from indented multi-line ES6 template strings).
@@ -115,16 +124,20 @@ export default class MainHeader extends React.Component {
     markdown = trimmed.text;
 
     // Append or remove the <HR> at the end of the markdown
-    if (markdown && hr === true) {
-      removeHR(); // Ensure there is only one <HR>.
-      markdown += _.repeat(trimmed.indent) + "\n\n---";
+    if (markdown) {
+      if (hr === true) {
+        removeHR(); // Ensure there is only one <HR>.
+        const INDENT = " ".repeat(trimmed.indent);
+        const HR = isTop ? `${ INDENT }\n\n---` : `---\n\n${ INDENT }`;
+        markdown = isTop ? `${ markdown }${ HR }` : `${ HR }${ markdown }`;
+      }
+      if (hr === false) { removeHR(); };
     }
-    if (markdown && hr === false) { removeHR(); };
 
     return (
       <div style={ styles.base } className="uih">
         <div className="uih-header">
-          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-header"/>
+          <Style rules={ elementStyles(isDark, isTop) } scopeSelector=".uih-header"/>
           <Markdown
                 display="block"
                 trimIndent={false}
@@ -138,12 +151,14 @@ export default class MainHeader extends React.Component {
 }
 
 // API -------------------------------------------------------------------------
-MainHeader.propTypes = {
+Marginal.propTypes = {
   markdown: PropTypes.string,
   hr: PropTypes.bool,
   isDark: PropTypes.bool,
+  edge: PropTypes.oneOf(["top", "bottom"]),
 };
-MainHeader.defaultProps = {
+Marginal.defaultProps = {
   hr: false,
-  isDark: false
+  isDark: false,
+  edge: "top"
 };

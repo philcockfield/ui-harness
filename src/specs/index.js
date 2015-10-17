@@ -1,7 +1,7 @@
 describe("ui-harness", function() {
   require("./ComponentHost.spec");
   require("./OutputLog.spec");
-  require("./header.spec");
+  require("./header-footer.spec");
   require("./skipped.spec");
   require("./it-server.spec");
   require("./PropTypes.spec");

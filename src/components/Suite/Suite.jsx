@@ -81,7 +81,6 @@ export default class Suite extends React.Component {
             }
           });
     }
-
     return (
       <div style={ styles.base }>
         <FlexEdge orientation="vertical">
