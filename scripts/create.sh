@@ -19,6 +19,7 @@ NODE_VERSION=${NODE_VERSION:1} # Remove the "v" prefix (eg. "v0.0.1" => "0.0.1")
 
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
+LIGHT_GREY='\033[0;30m'
 NC='\033[0m' # No Color
 
 
@@ -92,7 +93,7 @@ echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 #
 # Install the `ui-harness` module.
 #
-echo "Running NPM install (this may take a moment as Babel gets built)..."
+echo "${LIGHT_GREY}Running NPM install (this may take a moment as Babel gets built)...${NC}"
 npm install ui-harness --save --loglevel error >&-
 
 echo ""
