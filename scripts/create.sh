@@ -26,6 +26,7 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 RED='\033[0;31m'
 LIGHT_GREY='\033[0;37m'
+PURPLE='\033[0;35m'
 NC='\033[0m' # No Color.
 
 
@@ -48,7 +49,7 @@ fi
 
 
 # Prompt for name of the module:
-echo "Please enter name of your module/directory:"
+echo "${PURPLE}Please enter name of your module/directory:${NC}"
 read MODULE_NAME < /dev/tty
 if [ -z "$MODULE_NAME" ]; then
   echo "${RED}Sorry, a module name is required.${NC}"
