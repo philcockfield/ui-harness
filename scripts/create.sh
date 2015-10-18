@@ -76,7 +76,7 @@ if [ -f ./package.json ]; then
 fi
 
 echo ""
-echo "Creating new UI component module named '${MODULE_NAME}'."
+echo "Creating a new UI component module named '${MODULE_NAME}'."
 
 
 #
