@@ -29,7 +29,7 @@ describe("MyComponent", function() {
   At the bottom-left you can see the component's API as defined by it's PropTypes.
 
   ### Next Steps
-  Play around extending this component or get to work creating your own amazing new components!
+  Play around extending this component or get to work creating your own amazing components!
   For more strategies on using the UIHarness see the [docs](https://github.com/philcockfield/ui-harness/blob/master/docs/index.md).
   `);
 

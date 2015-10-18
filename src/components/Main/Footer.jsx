@@ -16,7 +16,8 @@ export default class Footer extends React.Component {
       },
       markdownOuter: {
         maxWidth: this.props.maxWidth,
-        margin: "0 auto"
+        margin: "0 auto",
+        paddingBottom: 40
       }
     });
   }
