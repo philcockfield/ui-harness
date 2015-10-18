@@ -5,7 +5,8 @@ import Immutable from "immutable";
 import Color from "color";
 import { css, PropTypes } from "js-util/react";
 import { Card, FlexEdge } from "../shared";
-import Marginal from "./Marginal";
+import Header from "./Header";
+import Footer from "./Footer";
 import Component from "./Component";
 import ComponentHost from "./ComponentHost";
 import OutputLog from "../OutputLog";
@@ -26,18 +27,27 @@ export default class Main extends React.Component {
     return color;
   }
 
-  styles() {
+  styles(isDark) {
     const { current } = this.props;
     const header = current.get("header");
     const scroll = current.get("scroll");
     const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : null
     const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : null
 
+    const HR_COLOR = isDark
+        ? "rgba(255, 255, 255, 0.4)"
+        : "rgba(0, 0, 0, 0.1)"
+
     return css({
       base: {
         Absolute: 0,
         overflow: "hidden",
         backgroundColor: this.backgroundColor()
+      },
+      footerHr: {
+        borderTop: `solid 8px ${ HR_COLOR }`,
+        borderBottom: "none",
+        margin: "0 20px",
       }
     });
   }
@@ -46,31 +56,40 @@ export default class Main extends React.Component {
   scroll() {
     const { current } = this.props;
     const scroll = current.get("scroll");
-    const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : null
-    const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : null
+    const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : "hidden";
+    const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : "hidden";
     return { scroll, overflowX, overflowY };
   }
 
 
   render() {
-    const styles = this.styles();
     const { current } = this.props;
     const { overflowX, overflowY } = this.scroll();
     const isDark = Color(this.backgroundColor()).dark();
+    const styles = this.styles(isDark);
 
-    let elHeader, elFooter;
+    let elHeader, elFooter, elFooterHr;
     const hr = current.get("hr")
 
     // Header.
     const header = current.get("header");
     if (header) {
-      elHeader = <Marginal markdown={ header } edge="top" hr={ hr } isDark={ isDark }/>
+      elHeader = <Header
+                    markdown={ header }
+                    edge="top"
+                    hr={ hr }
+                    isDark={ isDark }/>
     }
 
     // Footer.
     const footer = current.get("footer");
     if (footer) {
-      elFooter = <Marginal markdown={ footer } edge="bottom" hr={ hr } isDark={ isDark }/>
+      elFooterHr = <hr style={ styles.footerHr } />
+      elFooter = <Footer
+                    markdown={ footer }
+                    isDark={ isDark }
+                    flexEdge={{ maxHeight: "50%", overflowY: "auto" }}/>
+
     }
 
     // Main content.
@@ -88,6 +107,7 @@ export default class Main extends React.Component {
           <FlexEdge orientation="vertical">
             { elHeader }
             <div flexEdge={{ flex: 1, overflowX, overflowY }}>{ el }</div>
+            { elFooterHr }
             { elFooter }
           </FlexEdge>
         </div>

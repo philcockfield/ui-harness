@@ -1,6 +1,6 @@
 import { lorem } from "js-util/test";
 
-const LONG_HEADER = `
+const LONG_MARKDOWN = `
   # Title
   ## H2 My Subtitle of the thing about the thing.
   ---
@@ -28,23 +28,18 @@ const LONG_HEADER = `
   #### H4 Section
   ${ lorem(40) }
 
-  ---
 `;
 
 
 
 describe("Header/Footer", function() {
-  // this.header(`
-  // # Title
-  // ## Subtitle of the thing as a thing.
-  // ---
-  // `);
-  this.header(LONG_HEADER);
-  this.footer(`
-  ### My footer
-
-  ${ lorem(50) }
+  this.header(`
+  # Title
+  ## Subtitle of the component.
+  ---
   `);
+  // this.header(LONG_MARKDOWN);
+  this.footer(LONG_MARKDOWN);
 
   it("`null`", () => {
     this.header(null);
@@ -75,9 +70,9 @@ describe("Header/Footer", function() {
       `);
     });
 
-    it("long", () => { method(LONG_HEADER); });
-    it("long `.hr(true)`", () => { method(LONG_HEADER).hr(true); });
-    it("long `.hr(false)`", () => { method(LONG_HEADER).hr(false); });
+    it("long", () => { method(LONG_MARKDOWN); });
+    it("long `.hr(true)`", () => { method(LONG_MARKDOWN).hr(true); });
+    it("long `.hr(false)`", () => { method(LONG_MARKDOWN).hr(false); });
   };
 
   section("header", () => contentOptions(this.header));
@@ -90,5 +85,4 @@ describe("Header/Footer", function() {
     it("`backdrop:1`", () => { this.backdrop(1) });
     it("`backdrop:red`", () => { this.backdrop("red") });
   });
-
 });

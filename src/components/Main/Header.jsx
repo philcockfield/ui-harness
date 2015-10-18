@@ -6,7 +6,7 @@ import { Markdown } from "../shared";
 import { trimIndent } from "react-atoms/components/Markdown";
 
 
-const elementStyles = (isDark, isTop) => {
+const elementStyles = (isDark) => {
   const HR_COLOR = isDark
       ? "rgba(255, 255, 255, 0.4)"
       : "rgba(0, 0, 0, 0.1)"
@@ -94,16 +94,15 @@ const elementStyles = (isDark, isTop) => {
 @Radium
 export default class Marginal extends React.Component {
   styles() {
-    const { isDark, edge } = this.props;
-    const isTop = edge === "top";
+    const { isDark } = this.props;
     const TEXT_COLOR = isDark
         ? "rgba(255, 255, 255, 0.8)"
         : "rgba(0, 0, 0, 0.5)"
 
     return css({
       base: {
-        paddingTop: isTop ? 15 : 0,
-        paddingBottom: isTop ? 0 : 10,
+        paddingTop: 15,
+        paddingBottom: 0,
         paddingLeft: 20,
         paddingRight: 20,
         fontFamily: FONT_SANS,
@@ -116,7 +115,6 @@ export default class Marginal extends React.Component {
     const styles = this.styles();
     let { markdown, hr, isDark, edge } = this.props;
     const removeHR = () => { markdown = markdown.replace(/\n\s*-{3,}\n*$/, ""); };
-    const isTop = edge === "top";
 
     // Trim the indent
     // (which may exist if from indented multi-line ES6 template strings).
@@ -128,8 +126,7 @@ export default class Marginal extends React.Component {
       if (hr === true) {
         removeHR(); // Ensure there is only one <HR>.
         const INDENT = " ".repeat(trimmed.indent);
-        const HR = isTop ? `${ INDENT }\n\n---` : `---\n\n${ INDENT }`;
-        markdown = isTop ? `${ markdown }${ HR }` : `${ HR }${ markdown }`;
+        markdown = `${ markdown }${ INDENT }\n\n---`;
       }
       if (hr === false) { removeHR(); };
     }
@@ -137,7 +134,7 @@ export default class Marginal extends React.Component {
     return (
       <div style={ styles.base } className="uih">
         <div className="uih-marginal">
-          <Style rules={ elementStyles(isDark, isTop) } scopeSelector=".uih-marginal"/>
+          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-marginal"/>
           <Markdown
                 display="block"
                 trimIndent={false}
