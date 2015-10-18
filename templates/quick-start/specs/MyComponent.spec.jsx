@@ -22,7 +22,7 @@ describe("MyComponent", function() {
       it("green", () => this.props({ color: "green" }));
       it("blue",  () => this.props({ color: "blue" }));
 
-  **Try clicking on them.**  Each click invokes the statement's function.
+  **Try clicking on them.**  Each click invokes the \`"it"\` statement's function.
   Now you have the tools to manipulate your component in precise and useful
   ways while you are crafting it.
 
