@@ -203,8 +203,8 @@ export const start = (options = {}, callback) => {
   // Start the server if the port is not already in use.
   return new Promise((resolve, reject) => {
       const app = express();
-      isPortTaken(PORT, (err, isInUse) => {
-            if (isInUse) {
+      isPortTaken(PORT, (err, inUse) => {
+            if (inUse) {
               console.log(chalk.red(`Port ${ PORT } is already in use.`));
               console.log("");
               reject(new Error("Port already in use."));
@@ -251,6 +251,7 @@ export const restart = () => {
         resolve(false); // Server not running.
       } else {
         const options = server.options;
+        console.log(chalk.cyan("Restarting UIHarness server"));
         stop();
         util.delay(300, () => {
           start(options)
