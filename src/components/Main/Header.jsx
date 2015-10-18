@@ -68,9 +68,6 @@ const elementStyles = (isDark) => {
     },
     "hr": {
       borderColor: HR_COLOR,
-      borderBottomStyle: "solid",
-      borderBottomWidth: 1,
-      borderTopWidth: 0,
       marginTop: 20,
       marginBottom: 20
     },
@@ -94,11 +91,6 @@ const elementStyles = (isDark) => {
 @Radium
 export default class Marginal extends React.Component {
   styles() {
-    const { isDark } = this.props;
-    const TEXT_COLOR = isDark
-        ? "rgba(255, 255, 255, 0.8)"
-        : "rgba(0, 0, 0, 0.5)"
-
     return css({
       base: {
         paddingTop: 15,
@@ -106,7 +98,7 @@ export default class Marginal extends React.Component {
         paddingLeft: 20,
         paddingRight: 20,
         fontFamily: FONT_SANS,
-        color: TEXT_COLOR
+        color: "rgba(0, 0, 0, 0.5)"
       }
     });
   }
@@ -133,8 +125,8 @@ export default class Marginal extends React.Component {
 
     return (
       <div style={ styles.base } className="uih">
-        <div className="uih-marginal">
-          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-marginal"/>
+        <div className={`uih-header uih-markdown ${ this.props.isDark && "uih-dark" }`}>
+          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-header"/>
           <Markdown
                 display="block"
                 trimIndent={false}

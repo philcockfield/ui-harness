@@ -134,7 +134,7 @@ export default class GettingStarted extends React.Component {
 
     return (
       <div className="uih" style={ styles.base }>
-        <div className="markdown" style={ styles.content }>{ el }</div>
+        <div className="uih-markdown" style={ styles.content }>{ el }</div>
       </div>
     );
   }

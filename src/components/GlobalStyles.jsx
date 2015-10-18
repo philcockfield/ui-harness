@@ -11,10 +11,6 @@ export const FONT_MONO = "Menlo, monospace";
 export default class GlobalStyles extends React.Component {
   render() {
     const rules = {
-      ".markdown": {
-        fontFamily: FONT_SANS,
-        lineHeight: "1.8em"
-      },
       "code": {
         color: "#c7254e",
         padding: "2px 4px",
@@ -38,7 +34,28 @@ export default class GlobalStyles extends React.Component {
       "pre code": {
         background: "none",
         border: "none"
-      }
+      },
+      "hr": {
+        borderTop: "solid 1px rgba(0, 0, 0, 0.2)",
+        borderBottom: 0
+      },
+
+      ".uih-markdown": {
+        fontFamily: FONT_SANS,
+        lineHeight: "1.8em"
+      },
+
+      ".uih-dark": {
+        color: "white",
+      },
+      ".uih-dark hr": {
+        borderColor: "rgba(255, 255, 255, 0.6)",
+      },
+      ".uih-dark code": {
+        color: "white",
+        background: "rgba(255, 255, 255, 0.2)",
+        borderColor: "rgba(255, 255, 255, 0.2)",
+      },
     };
 
     return (<Style rules={ rules } scopeSelector=".uih" />);

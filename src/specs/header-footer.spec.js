@@ -10,7 +10,8 @@ const LONG_MARKDOWN = `
   - Two
   - Three
 
-  ${ lorem(30) }
+
+  Text: ${ lorem(30) }
 
   ## Another H2 Section
   ${ lorem(15) }
@@ -35,7 +36,7 @@ const LONG_MARKDOWN = `
 describe("Header/Footer", function() {
   this.header(`
   # Title
-  ## Subtitle of the component.
+  ## Subtitle of \`the\` component.
   ---
   `);
   // this.header(LONG_MARKDOWN);
