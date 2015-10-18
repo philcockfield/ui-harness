@@ -49,7 +49,7 @@ fi
 
 
 # Prompt for name of the module:
-echo "${PURPLE}Please enter name of your module/directory:${NC}"
+echo "${PURPLE}Please enter the name of your module/directory:${NC}"
 read MODULE_NAME < /dev/tty
 if [ -z "$MODULE_NAME" ]; then
   echo "${RED}Sorry, a module name is required.${NC}"
