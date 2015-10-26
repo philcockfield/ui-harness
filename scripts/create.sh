@@ -89,7 +89,7 @@ cat > "package.json" <<- EOM
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ."
+    "start": "node ./node_modules/ui-harness/server --entry ./src/specs"
   },
   "keywords": [],
   "author": "",
@@ -103,12 +103,6 @@ lib
 node_modules
 npm-debug.log
 EOM
-
-#
-# Insert the startup script.
-# This boots the UIHarness.
-#
-echo 'require("ui-harness/server").start({ babel: 1 });' > index.js
 
 
 
