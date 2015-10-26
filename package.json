@@ -4,7 +4,7 @@
   "description": "Isolate, test and document modular UI with React.",
   "main": "./index.js",
   "scripts": {
-    "start": "node ./specs.js",
+    "start": "node server --entry ./src/specs",
     "test": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel",
     "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel --watch",
     "prepublish": "gulp prepublish"
@@ -27,6 +27,7 @@
     "json-loader": "^0.5.2",
     "lodash": "^3.6.0",
     "marked": "^0.3.5",
+    "minimist": "^1.2.0",
     "moment": "^2.10.6",
     "node-libs-browser": "^0.5.2",
     "radium": "^0.13.2",
