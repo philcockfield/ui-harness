@@ -3,7 +3,21 @@ import MyComponent from "../components/MyComponent";
 
 
 describe("MyComponent", function() {
-  this.header(`## A Simple Component`);
+  this.header(`## A Simple Component`); // Markdown.
+
+  before(() => {
+    // Runs when the Suite loads.  Use this to host your component-under-test.
+    this.load( <MyComponent color="red"/> );
+  });
+
+  it("red", () => this.props({ color: "red" }));
+  it("green", () => this.props({ color: "green" }));
+  it("blue", () => this.props({ color: "blue" }));
+
+
+  /**
+   * Introductory footer text (markdown).
+   */
   this.footer(`
   ### Getting Started
   This is a sample React component that has been copied into your module.
@@ -33,11 +47,5 @@ describe("MyComponent", function() {
   For more strategies on using the UIHarness see the [docs](https://github.com/philcockfield/ui-harness/blob/master/docs/index.md).
   `);
 
-  before(() => {
-    this.load( <MyComponent color="red"/> );
-  });
 
-  it("red", () => this.props({ color: "red" }));
-  it("green", () => this.props({ color: "green" }));
-  it("blue", () => this.props({ color: "blue" }));
 });
