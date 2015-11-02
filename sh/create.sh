@@ -110,7 +110,7 @@ EOM
 # Install the `ui-harness` module.
 #
 echo "${LIGHT_GREY}Running NPM install... (this may take a moment as Babel gets built)${NC}"
-npm install ui-harness --saveDev --loglevel error >&-
+npm install ui-harness --save-dev --loglevel error >&-
 
 
 
