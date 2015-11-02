@@ -112,7 +112,7 @@ export const middleware = (options = {}, callback) => {
   entryPaths.forEach(path => {
           if (!path.match(/^[a-z0-9\.\-\_\s\/]+$/i)) {
             console.warn(chalk.red("WARNING Path contains non-standard characters. Hot-reloading may not work."));
-            console.warn(chalk.red("        Hint: Brackets (.) will cause problems."));
+            console.warn(chalk.red("        Hint: Brackets '(...)' will cause problems."));
             console.log(chalk.cyan(`        ${ path }`));
             console.log("");
           }
