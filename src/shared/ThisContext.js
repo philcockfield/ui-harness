@@ -3,6 +3,7 @@ import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
 import { css, PropTypes } from "js-util/react";
+import schema from "react-schema";
 import AlignmentContainer from "react-atoms/components/AlignmentContainer";
 
 
@@ -94,7 +95,7 @@ export default class UIHContext {
             // Perform type validation.
             const type = options.type;
             if (type) {
-              const validation = PropTypes.validate(type, value);
+              const validation = schema.validate(type, value);
               if (!validation.isValid) {
                 throw new Error(`Invalid '${ key }' value (${ value }). Should be ${ type.toString() }.`)
               }

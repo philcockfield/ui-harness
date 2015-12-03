@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Isolate, test and document modular UI with React.",
   "main": "./index.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "ramda": "^0.17.1",
     "react": "^0.14.2",
     "react-atoms": "^1.0.5",
+    "react-schema": "^1.1.0",
     "react-dom": "^0.14.0",
     "react-object": "^1.0.2",
     "rest-middleware": "^1.0.21",
