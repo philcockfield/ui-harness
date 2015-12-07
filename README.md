@@ -15,7 +15,7 @@ With the UIHarness you can go from an empty NPM module, to cleanly building isol
 Create a new module with the UIHarness pre-installed by running:
 
 ```bash
-$ curl -L http://j.mp/ui-harness | sh
+$ curl http://www.uiharness.com/create | sh
 ```
 
 Then open the browser to [localhost:3030](http://localhost:3030/) and the UIHarness will guide you from there.
