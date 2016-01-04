@@ -18,12 +18,11 @@ const DEFAULT_PORT = 3030;
 const server = {};
 
 
+
 const parseSpecs = (paths) => {
+    require("babel-register"); // Ensure ES6+ within specs can be imported.
     bdd.register();
-    paths.forEach(path => {
-      console.log("TODO: require: ", path);
-      // require(path);
-    });
+    paths.forEach(path => require(path));
     bdd.unregister();
   };
 
