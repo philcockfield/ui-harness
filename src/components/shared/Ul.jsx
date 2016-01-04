@@ -5,8 +5,7 @@ import { css, PropTypes } from "js-util/react";
 /**
  * An unstyled <ul>.
  */
-@Radium
-export default class Ul extends React.Component {
+class Ul extends React.Component {
   styles() {
     return {
       base: {
@@ -32,3 +31,6 @@ Ul.propTypes = {
 Ul.defaultProps = {
   padding: 0
 };
+
+
+export default Radium(Ul);

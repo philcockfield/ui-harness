@@ -14,8 +14,7 @@ const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
 /**
  * An <LI> that renders a single [Suite] list item.
  */
-@Radium
-export default class SuiteTreeItem extends React.Component {
+class SuiteTreeItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isOpen:false, isOver:false, isMounted:false };
@@ -252,3 +251,7 @@ SuiteTreeItem.defaultProps = {
   isRoot: false,
   level: 0
 };
+
+
+
+export default Radium(SuiteTreeItem);

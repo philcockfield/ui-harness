@@ -9,8 +9,7 @@ import api from "../../shared/api-internal";
 /**
  * A single spec within the index list.
  */
-@Radium
-export default class SpecListItem extends React.Component {
+class SpecListItem extends React.Component {
   invokeCount() {
     const { spec, current } = this.props;
     const specInvokeCount = current ? current.get("specInvokeCount") : {};
@@ -76,3 +75,7 @@ SpecListItem.propTypes = {
   current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 SpecListItem.defaultProps = {};
+
+
+
+export default Radium(SpecListItem);

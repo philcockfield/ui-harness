@@ -16,8 +16,7 @@ const isOpenStorage = (section, isOpen) => {
 /**
  * A section of Specs.
  */
-@Radium
-export default class Section extends React.Component {
+class Section extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isOpen: isOpenStorage(this.props.section) };
@@ -91,3 +90,6 @@ Section.propTypes = {
 Section.defaultProps = {
   hasOnly: false
 };
+
+
+export default Radium(Section);

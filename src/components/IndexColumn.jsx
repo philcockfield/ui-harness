@@ -12,8 +12,7 @@ import { FONT_SANS } from "./GlobalStyles";
 /**
  * The index column.
  */
-@Radium
-export default class IndexColumn extends React.Component {
+class IndexColumn extends React.Component {
   componentWillMount() {
     document.addEventListener ("keydown", this.handleKeyDown.bind(this));
   }
@@ -106,3 +105,7 @@ IndexColumn.propTypes = {
   width: React.PropTypes.number.isRequired
 };
 IndexColumn.defaultProps = {};
+
+
+
+export default Radium(IndexColumn);

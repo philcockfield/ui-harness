@@ -7,8 +7,7 @@ import api from "../shared/api-internal";
 
 
 
-@Radium
-export default class MyFoo extends React.Component {
+class MyFoo extends React.Component {
   styles() {
     return css({
       base: {
@@ -28,7 +27,7 @@ export default class MyFoo extends React.Component {
     );
   }
 }
-
+export default Radium(MyFoo);
 
 
 

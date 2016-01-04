@@ -15,8 +15,7 @@ import PropTypesComponent from "../PropTypes";
 /**
  * The index-column view a [Suite]'s set of specs.
  */
-@Radium
-export default class Suite extends React.Component {
+class Suite extends React.Component {
   styles(hasPropTypes) {
     return css({
       base: { Absolute: 0 },
@@ -116,3 +115,7 @@ Suite.propTypes = {
   suite: PropTypes.object.isRequired
 };
 Suite.defaultProps = {};
+
+
+
+export default Radium(Suite);

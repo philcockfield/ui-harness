@@ -15,8 +15,7 @@ const OFFSET = {
 /**
  * Represents a standard sized icon.
  */
-@Radium
-export default class Icon extends React.Component {
+class Icon extends React.Component {
   styles() {
     const iconOffset = OFFSET[this.props.name] || {};
     let clickOffset = {};
@@ -85,3 +84,6 @@ Icon.defaultProps = {
   opacity: 1,
   cursor: "default"
 };
+
+
+export default Radium(Icon);

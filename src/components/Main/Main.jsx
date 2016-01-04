@@ -15,8 +15,7 @@ import OutputLog from "../OutputLog";
 /**
  * The Main (center) pane that hosts the component.
  */
- @Radium
-export default class Main extends React.Component {
+class Main extends React.Component {
   backgroundColor() {
     let color = this.props.current.get("backdrop") || "#fff";
     if (R.is(Number, color)) {
@@ -55,10 +54,10 @@ export default class Main extends React.Component {
 
   scroll() {
     const { current } = this.props;
-    const scroll = current.get("scroll");
-    const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : "hidden";
-    const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : "hidden";
-    return { scroll, overflowX, overflowY };
+    const currentScroll = current.get("scroll");
+    const overflowX = (currentScroll === true || currentScroll === "x" || currentScroll === "x:y") ? "auto" : "hidden";
+    const overflowY = (currentScroll === true || currentScroll === "y" || currentScroll === "x:y") ? "auto" : "hidden";
+    return { scroll: currentScroll, overflowX, overflowY };
   }
 
 
@@ -122,3 +121,6 @@ Main.propTypes = {
   current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 Main.defaultProps = {};
+
+
+export default Radium(Main);

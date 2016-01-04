@@ -12,8 +12,7 @@ import SuiteTreeEmpty from "./SuiteTreeEmpty";
 /**
  * The index tree-view of [Suites].
  */
-@Radium
-export default class SuiteTree extends React.Component {
+class SuiteTree extends React.Component {
   styles() {
     return css({
       base: {
@@ -90,3 +89,7 @@ SuiteTree.propTypes = {
   width: React.PropTypes.number.isRequired
 };
 SuiteTree.defaultProps = {};
+
+
+
+export default Radium(SuiteTree);

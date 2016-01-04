@@ -7,8 +7,7 @@ See:
     https://github.com/kriasoft/react-starter-kit/blob/master/webpack.config.js
 
 */
-
-import _ from "lodash";
+import R from "ramda";
 import webpack from "webpack";
 import fs from "fs";
 import fsPath from "path";
@@ -18,7 +17,7 @@ const LOADER_EXCLUDE = /(node_modules|bower_components)/;
 
 function modulePath(path) {
   const paths = [fsPath.resolve("./node_modules", path), fsPath.join(NODE_MODULES_PATH, path)];
-  return _.find(paths, path => fs.existsSync(path));
+  return R.find(path => fs.existsSync(path), paths);
 }
 
 function babelLoader (extension) {
@@ -27,14 +26,14 @@ function babelLoader (extension) {
     test: extension,
     exclude: LOADER_EXCLUDE,
     loader: 'babel-loader',
-    query: {
-      optional: ['runtime'],
-      cacheDirectory: true,
-      stage: 1  // Experimental:level-1
-                // Allows for @decorators
-                // See: http://babeljs.io/docs/usage/experimental/
-                // For example, used by @Radium (CSS)
-    }
+    // query: {
+    //   optional: ['runtime'],
+    //   cacheDirectory: true,
+    //   stage: 1  // Experimental:level-1
+    //             // Allows for @decorators
+    //             // See: http://babeljs.io/docs/usage/experimental/
+    //             // For example, used by @Radium (CSS)
+    // }
   };
 };
 

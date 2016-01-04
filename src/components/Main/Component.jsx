@@ -12,8 +12,7 @@ import api from "../../shared/api-internal";
 /**
  * Loads and displays a component.
  */
-@Radium
-export default class Component extends React.Component {
+class Component extends React.Component {
   size() {
     const { current } = this.props;
     let width = current.get("width");
@@ -89,3 +88,6 @@ Component.propTypes = {
   current: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 Component.defaultProps = {};
+
+
+export default Radium(Component);

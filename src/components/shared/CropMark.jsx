@@ -6,8 +6,7 @@ import { css, PropTypes } from "js-util/react";
 /**
  * A single crop-mark within the <CropMarks>.
  */
-@Radium
-export default class CropMark extends React.Component {
+class CropMark extends React.Component {
   styles() {
     const SIZE = this.props.size;
     const OFFSET = this.props.offset;
@@ -73,3 +72,6 @@ CropMark.defaultProps = {
   offset: 5,
   color: "rgba(0, 0, 0, 0.08)"
 };
+
+
+export default Radium(CropMark);

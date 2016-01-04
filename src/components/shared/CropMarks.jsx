@@ -8,8 +8,7 @@ import CropMark from "./CropMark";
 /**
  * Positions a set of crop-marks around it's contents.
  */
-@Radium
-export default class CropMarks extends React.Component {
+class CropMarks extends React.Component {
   styles() {
     const { width, height } = this.props;
     return css({
@@ -58,3 +57,6 @@ _.merge(defaultProps, {
 
 CropMarks.propTypes = propTypes
 CropMarks.defaultProps = defaultProps;
+
+
+export default Radium(CropMarks);

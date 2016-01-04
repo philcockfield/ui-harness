@@ -9,8 +9,7 @@ import SpecListServerItem from "./SpecListServerItem";
 /**
  * A list of specs.
  */
-@Radium
-export default class SpecList extends React.Component {
+class SpecList extends React.Component {
   styles() {
     return css({
       base: {
@@ -44,3 +43,6 @@ SpecList.propTypes = {
 SpecList.defaultProps = {
   specs: []
 };
+
+
+export default Radium(SpecList);

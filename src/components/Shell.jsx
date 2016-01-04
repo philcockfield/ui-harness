@@ -12,8 +12,7 @@ const COLUMN_MARGIN = 6;
 /*
 The root shell of the UIHarness.
 */
-@Radium
-export default class UIHarness extends React.Component {
+class UIHarness extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,3 +70,7 @@ export default class UIHarness extends React.Component {
 // API -------------------------------------------------------------------------
 UIHarness.propTypes = {};
 UIHarness.defaultProps = {};
+
+
+
+export default Radium(UIHarness);

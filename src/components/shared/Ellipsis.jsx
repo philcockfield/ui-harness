@@ -6,8 +6,7 @@ import { css, PropTypes } from "js-util/react";
 /**
  * Renders text with overflowing ellipsis (...).
  */
-@Radium
-export default class Ellipsis extends React.Component {
+class Ellipsis extends React.Component {
   styles() {
     return css({
       base: {
@@ -37,3 +36,7 @@ Ellipsis.defaultProps = {
   width: "100%",
   display: "inline-block"
 };
+
+
+
+export default Radium(Ellipsis);

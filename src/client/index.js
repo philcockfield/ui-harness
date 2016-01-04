@@ -22,7 +22,8 @@ server.onReady(() => {
   // Render the <Shell> into the DOM.
   api.init(() => {
       api.shell = ReactDOM.render(
-        React.createElement(Shell, { current: api.current }),
-        document.getElementById("page-root"));
+          React.createElement(Shell, { current: api.current }),
+          document.getElementById("page-root")
+        );
   });
 });

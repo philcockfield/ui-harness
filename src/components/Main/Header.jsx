@@ -88,8 +88,7 @@ const elementStyles = (isDark) => {
 /**
  * The Header/Footer bar of the [main] component host.
  */
-@Radium
-export default class Marginal extends React.Component {
+class Marginal extends React.Component {
   styles() {
     return css({
       base: {
@@ -151,3 +150,6 @@ Marginal.defaultProps = {
   isDark: false,
   edge: "top"
 };
+
+
+export default Radium(Marginal);

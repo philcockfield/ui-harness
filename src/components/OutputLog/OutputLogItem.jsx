@@ -8,8 +8,7 @@ import moment from "moment";
 /**
  * A list item within the output log.
  */
-@Radium
-export default class OutputItem extends React.Component {
+class OutputItem extends React.Component {
   styles() {
     return css({
       base: {},
@@ -56,3 +55,6 @@ OutputItem.propTypes = {
 OutputItem.defaultProps = {
   value: []
 };
+
+
+export default Radium(OutputItem);

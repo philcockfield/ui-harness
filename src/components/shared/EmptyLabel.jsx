@@ -6,8 +6,7 @@ import { css, PropTypes } from "js-util/react";
 /**
  * The text label for an empty collection.
  */
-@Radium
-export default class EmptyLabel extends React.Component {
+class EmptyLabel extends React.Component {
   styles() {
     return css({
       base: {
@@ -43,3 +42,6 @@ EmptyLabel.defaultProps = {
   italic: false,
   align: "center"
 };
+
+
+export default Radium(EmptyLabel);

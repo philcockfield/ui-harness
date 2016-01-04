@@ -15,8 +15,7 @@ const COLORS = {
 /**
  * An <OutputLog> log value.
  */
-@Radium
-export default class Value extends React.Component {
+class Value extends React.Component {
   styles() {
     const { color, mono, size, children } = this.props;
     return css({
@@ -47,3 +46,6 @@ Value.defaultProps = {
   mono: true,
   size: 12
 };
+
+
+export default Radium(Value);

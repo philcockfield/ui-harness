@@ -7,8 +7,7 @@ import { Markdown } from "../shared";
 /**
  * The optional Footer content for the [Main] component host.
  */
-@Radium
-export default class Footer extends React.Component {
+class Footer extends React.Component {
   styles() {
     return css({
       base: {
@@ -46,3 +45,6 @@ Footer.defaultProps = {
   isDark: false,
   maxWidth: 600
 };
+
+
+export default Radium(Footer);
