@@ -106,6 +106,14 @@ EOM
 
 
 
+cat > ".babelrc" <<- EOM
+{
+  "presets": ["es2015", "stage-0", "react"]
+}
+EOM
+
+
+
 #
 # Install the `ui-harness` module.
 #
