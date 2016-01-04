@@ -8,6 +8,16 @@ import { Markdown } from "../shared";
  * The optional Footer content for the [Main] component host.
  */
 class Footer extends React.Component {
+  static propTypes = {
+    markdown: PropTypes.string,
+    isDark: PropTypes.bool,
+    maxWidth: PropTypes.numberOrString,
+  };
+  static defaultProps = {
+    isDark: false,
+    maxWidth: 600
+  };
+
   styles() {
     return css({
       base: {
@@ -34,17 +44,6 @@ class Footer extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Footer.propTypes = {
-  markdown: PropTypes.string,
-  isDark: PropTypes.bool,
-  maxWidth: PropTypes.numberOrString,
-};
-Footer.defaultProps = {
-  isDark: false,
-  maxWidth: 600
-};
 
 
 export default Radium(Footer);

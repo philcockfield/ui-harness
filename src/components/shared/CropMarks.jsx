@@ -5,10 +5,31 @@ import { css, PropTypes } from "js-util/react";
 import CropMark from "./CropMark";
 
 
+// Genearted prop-types.
+let propTypes = _.clone(CropMark.propTypes);
+let defaultProps = _.clone(CropMark.defaultProps);
+
+_.merge(propTypes, {
+  display: PropTypes.oneOf(["block", "inline-block", "inline"]),
+  width: PropTypes.numberOrString,
+  height: PropTypes.numberOrString
+});
+
+_.merge(defaultProps, {
+  display: "block",
+  width: "auto",
+  height: "auto"
+});
+
+
+
 /**
  * Positions a set of crop-marks around it's contents.
  */
 class CropMarks extends React.Component {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
   styles() {
     const { width, height } = this.props;
     return css({
@@ -36,27 +57,6 @@ class CropMarks extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-
-let propTypes = _.clone(CropMark.propTypes);
-let defaultProps = _.clone(CropMark.defaultProps);
-
-_.merge(propTypes, {
-  display: PropTypes.oneOf(["block", "inline-block", "inline"]),
-  width: PropTypes.numberOrString,
-  height: PropTypes.numberOrString
-});
-
-_.merge(defaultProps, {
-  display: "block",
-  width: "auto",
-  height: "auto"
-});
-
-
-CropMarks.propTypes = propTypes
-CropMarks.defaultProps = defaultProps;
 
 
 export default Radium(CropMarks);

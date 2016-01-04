@@ -16,6 +16,12 @@ import PropTypesComponent from "../PropTypes";
  * The index-column view a [Suite]'s set of specs.
  */
 class Suite extends React.Component {
+  static propTypes = {
+    current: PropTypes.instanceOf(Immutable.Map).isRequired,
+    suite: PropTypes.object.isRequired
+  };
+  static defaultProps = {};
+
   styles(hasPropTypes) {
     return css({
       base: { Absolute: 0 },
@@ -108,14 +114,5 @@ class Suite extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Suite.propTypes = {
-  current: PropTypes.instanceOf(Immutable.Map).isRequired,
-  suite: PropTypes.object.isRequired
-};
-Suite.defaultProps = {};
-
-
 
 export default Radium(Suite);

@@ -13,6 +13,13 @@ import { FONT_SANS } from "./GlobalStyles";
  * The index column.
  */
 class IndexColumn extends React.Component {
+  static propTypes = {
+    current: PropTypes.instanceOf(Immutable.Map).isRequired,
+    width: React.PropTypes.number.isRequired
+  };
+  static defaultProps = {};
+
+
   componentWillMount() {
     document.addEventListener ("keydown", this.handleKeyDown.bind(this));
   }
@@ -97,15 +104,5 @@ class IndexColumn extends React.Component {
     );
   }
 }
-
-
-// API -------------------------------------------------------------------------
-IndexColumn.propTypes = {
-  current: PropTypes.instanceOf(Immutable.Map).isRequired,
-  width: React.PropTypes.number.isRequired
-};
-IndexColumn.defaultProps = {};
-
-
 
 export default Radium(IndexColumn);

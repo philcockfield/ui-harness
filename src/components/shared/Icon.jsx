@@ -16,6 +16,22 @@ const OFFSET = {
  * Represents a standard sized icon.
  */
 class Icon extends React.Component {
+  static propTypes = {
+    name: IconImage.propTypes.name,
+    onClick: PropTypes.func,
+    opacity: PropTypes.number,
+    absolute: PropTypes.string,
+    cursor: PropTypes.string,
+    clickOffset: PropTypes.shape({
+      x: React.PropTypes.number,
+      y: React.PropTypes.number
+    }),
+  };
+  static defaultProps = {
+    opacity: 1,
+    cursor: "default"
+  };
+
   styles() {
     const iconOffset = OFFSET[this.props.name] || {};
     let clickOffset = {};
@@ -67,23 +83,5 @@ class Icon extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Icon.propTypes = {
-  name: IconImage.propTypes.name,
-  onClick: PropTypes.func,
-  opacity: PropTypes.number,
-  absolute: PropTypes.string,
-  cursor: PropTypes.string,
-  clickOffset: PropTypes.shape({
-    x: React.PropTypes.number,
-    y: React.PropTypes.number
-  }),
-};
-Icon.defaultProps = {
-  opacity: 1,
-  cursor: "default"
-};
-
 
 export default Radium(Icon);

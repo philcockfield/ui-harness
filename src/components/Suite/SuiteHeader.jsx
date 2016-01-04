@@ -11,6 +11,11 @@ import { FormattedText, Ellipsis } from "../shared";
  * The header bar for the [Suite] index column.
  */
 class SuiteHeader extends React.Component {
+  static propTypes = {
+    suite: PropTypes.object.isRequired
+  };
+  static defaultProps = {};
+
   styles() {
     return css({
       base: {
@@ -72,13 +77,5 @@ class SuiteHeader extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-SuiteHeader.propTypes = {
-  suite: PropTypes.object.isRequired
-};
-SuiteHeader.defaultProps = {};
-
-
 
 export default Radium(SuiteHeader);

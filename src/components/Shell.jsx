@@ -67,10 +67,5 @@ class UIHarness extends React.Component {
 }
 
 
-// API -------------------------------------------------------------------------
-UIHarness.propTypes = {};
-UIHarness.defaultProps = {};
-
-
 
 export default Radium(UIHarness);

@@ -6,6 +6,13 @@ import { css, PropTypes } from "js-util/react";
  * An unstyled <ul>.
  */
 class Ul extends React.Component {
+  static propTypes = {
+    padding: PropTypes.numberOrString
+  };
+  static defaultProps = {
+    padding: 0
+  };
+
   styles() {
     return {
       base: {
@@ -23,13 +30,5 @@ class Ul extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Ul.propTypes = {
-  padding: PropTypes.numberOrString
-};
-Ul.defaultProps = {
-  padding: 0
-};
 
 export default Radium(Ul);

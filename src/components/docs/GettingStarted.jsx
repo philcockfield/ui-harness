@@ -139,9 +139,5 @@ class GettingStarted extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-GettingStarted.propTypes = {};
-GettingStarted.defaultProps = {};
-
 
 export default Radium(GettingStarted);

@@ -89,6 +89,18 @@ const elementStyles = (isDark) => {
  * The Header/Footer bar of the [main] component host.
  */
 class Marginal extends React.Component {
+  static propTypes = {
+    markdown: PropTypes.string,
+    hr: PropTypes.bool,
+    isDark: PropTypes.bool,
+    edge: PropTypes.oneOf(["top", "bottom"]),
+  };
+  static defaultProps = {
+    hr: false,
+    isDark: false,
+    edge: "top"
+  };
+
   styles() {
     return css({
       base: {
@@ -137,19 +149,6 @@ class Marginal extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Marginal.propTypes = {
-  markdown: PropTypes.string,
-  hr: PropTypes.bool,
-  isDark: PropTypes.bool,
-  edge: PropTypes.oneOf(["top", "bottom"]),
-};
-Marginal.defaultProps = {
-  hr: false,
-  isDark: false,
-  edge: "top"
-};
 
 
 export default Radium(Marginal);

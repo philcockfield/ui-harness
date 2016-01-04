@@ -9,6 +9,12 @@ import AlignmentContainer from "react-atoms/components/AlignmentContainer";
  * The display host for a component under test.
  */
 class ComponentHost extends React.Component {
+  static propTypes = {
+    current: PropTypes.instanceOf(Immutable.Map).isRequired
+  };
+  static defaultProps = {};
+
+
   styles() {
     const { current } = this.props;
     const margin = current.get("margin");
@@ -40,11 +46,6 @@ class ComponentHost extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-ComponentHost.propTypes = {
-  current: PropTypes.instanceOf(Immutable.Map).isRequired
-};
-ComponentHost.defaultProps = {};
 
 
 export default Radium(ComponentHost);

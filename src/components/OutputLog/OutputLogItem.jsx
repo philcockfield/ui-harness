@@ -9,6 +9,14 @@ import moment from "moment";
  * A list item within the output log.
  */
 class OutputItem extends React.Component {
+  static propTypes = {
+    time: PropTypes.instanceOf(Date),
+    values: PropTypes.array,
+  };
+  static defaultProps = {
+    value: []
+  };
+
   styles() {
     return css({
       base: {},
@@ -46,15 +54,6 @@ class OutputItem extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-OutputItem.propTypes = {
-  time: PropTypes.instanceOf(Date),
-  values: PropTypes.array,
-};
-OutputItem.defaultProps = {
-  value: []
-};
 
 
 export default Radium(OutputItem);

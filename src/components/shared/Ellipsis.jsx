@@ -7,6 +7,15 @@ import { css, PropTypes } from "js-util/react";
  * Renders text with overflowing ellipsis (...).
  */
 class Ellipsis extends React.Component {
+  static propTypes = {
+    width: PropTypes.numberOrString,
+    display: PropTypes.oneOf(["block", "inline-block", "inline"])
+  };
+  static defaultProps = {
+    width: "100%",
+    display: "inline-block"
+  };
+
   styles() {
     return css({
       base: {
@@ -26,17 +35,5 @@ class Ellipsis extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Ellipsis.propTypes = {
-  width: PropTypes.numberOrString,
-  display: PropTypes.oneOf(["block", "inline-block", "inline"])
-};
-Ellipsis.defaultProps = {
-  width: "100%",
-  display: "inline-block"
-};
-
-
 
 export default Radium(Ellipsis);

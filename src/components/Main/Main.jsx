@@ -16,6 +16,12 @@ import OutputLog from "../OutputLog";
  * The Main (center) pane that hosts the component.
  */
 class Main extends React.Component {
+  static propTypes = {
+    current: PropTypes.instanceOf(Immutable.Map).isRequired
+  };
+  static defaultProps = {};
+
+
   backgroundColor() {
     let color = this.props.current.get("backdrop") || "#fff";
     if (R.is(Number, color)) {
@@ -114,13 +120,6 @@ class Main extends React.Component {
     );
   }
 }
-
-
-// API -------------------------------------------------------------------------
-Main.propTypes = {
-  current: PropTypes.instanceOf(Immutable.Map).isRequired
-};
-Main.defaultProps = {};
 
 
 export default Radium(Main);

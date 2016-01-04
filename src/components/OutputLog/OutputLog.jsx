@@ -9,6 +9,13 @@ import OutputLogItem from "./OutputLogItem";
  * An output log.
  */
 class Output extends React.Component {
+  static propTypes = {
+    items: PropTypes.array
+  };
+  static defaultProps = {
+    items: []
+  };
+
   styles() {
     return css({
       base: {
@@ -43,14 +50,6 @@ class Output extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-Output.propTypes = {
-  items: PropTypes.array
-};
-Output.defaultProps = {
-  items: []
-};
 
 
 export default Radium(Output);

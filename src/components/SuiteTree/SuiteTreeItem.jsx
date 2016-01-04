@@ -15,6 +15,21 @@ const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
  * An <LI> that renders a single [Suite] list item.
  */
 class SuiteTreeItem extends React.Component {
+  static propTypes = {
+    suite: React.PropTypes.object.isRequired,
+    index: React.PropTypes.number.isRequired,
+    total: React.PropTypes.number.isRequired,
+    isRoot: React.PropTypes.bool,
+    level: React.PropTypes.number,
+    selectedSuite: React.PropTypes.object,
+    onOverSuite: React.PropTypes.func.isRequired,
+    width: React.PropTypes.number.isRequired
+  };
+  static defaultProps = {
+    isRoot: false,
+    level: 0
+  };
+
   constructor(props) {
     super(props);
     this.state = { isOpen:false, isOver:false, isMounted:false };
@@ -237,23 +252,6 @@ class SuiteTreeItem extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-SuiteTreeItem.propTypes = {
-  suite: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired,
-  total: React.PropTypes.number.isRequired,
-  isRoot: React.PropTypes.bool,
-  level: React.PropTypes.number,
-  selectedSuite: React.PropTypes.object,
-  onOverSuite: React.PropTypes.func.isRequired,
-  width: React.PropTypes.number.isRequired
-};
-SuiteTreeItem.defaultProps = {
-  isRoot: false,
-  level: 0
-};
-
 
 const SuiteTreeItemRadium = Radium(SuiteTreeItem);
 export default SuiteTreeItemRadium;

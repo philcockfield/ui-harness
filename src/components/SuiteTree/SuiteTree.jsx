@@ -13,6 +13,12 @@ import SuiteTreeEmpty from "./SuiteTreeEmpty";
  * The index tree-view of [Suites].
  */
 class SuiteTree extends React.Component {
+  static propTypes = {
+    selectedSuite: React.PropTypes.object,
+    width: React.PropTypes.number.isRequired
+  };
+  static defaultProps = {};
+
   styles() {
     return css({
       base: {
@@ -82,14 +88,5 @@ class SuiteTree extends React.Component {
     );
   }
 }
-
-// API -------------------------------------------------------------------------
-SuiteTree.propTypes = {
-  selectedSuite: React.PropTypes.object,
-  width: React.PropTypes.number.isRequired
-};
-SuiteTree.defaultProps = {};
-
-
 
 export default Radium(SuiteTree);
