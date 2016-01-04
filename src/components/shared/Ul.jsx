@@ -32,5 +32,4 @@ Ul.defaultProps = {
   padding: 0
 };
 
-
 export default Radium(Ul);

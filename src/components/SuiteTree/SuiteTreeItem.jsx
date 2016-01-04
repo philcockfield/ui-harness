@@ -60,7 +60,7 @@ class SuiteTreeItem extends React.Component {
     return css({
       base: {
         borderTop: ((isRoot && isFirst) ? "none" : "solid 1px rgba(0, 0, 0, 0.04)"),
-        boxSizing: "border-box",
+        boxSizing: "border-box"
       },
       content: {
         position: "relative",
@@ -73,7 +73,7 @@ class SuiteTreeItem extends React.Component {
         ":hover": {
           background: util.color.fromAlpha(-0.02),
           cursor: "pointer"
-        }
+        },
       },
       contentSelected: {
         background: SELECTED_BG_COLOR,
@@ -182,7 +182,7 @@ class SuiteTreeItem extends React.Component {
     const isSelected = this.isSelected();
     const widths = this.widths();
 
-    // Preare selected chrevron pointer.
+    // Prepare selected chrevron pointer.
     if (isSelected) {
       var chrevronIcon = <div style={ styles.drillInIcon }>
                            <IconImage name="chevronRight"/>
@@ -193,7 +193,7 @@ class SuiteTreeItem extends React.Component {
     let childItems;
     if (isOpen && hasChildren) {
       childItems = suite.childSuites.map((suite, i) => {
-            return <SuiteTreeItem key={i}
+            return <SuiteTreeItemRadium key={i}
                       suite={ suite }
                       index={i}
                       total={ totalChildSuites }
@@ -202,11 +202,12 @@ class SuiteTreeItem extends React.Component {
                       onOverSuite={ onOverSuite }
                       width={ width }/>
           });
+
       childItems = <Ul>{ childItems }</Ul>;
     }
 
     return (
-      <li style={[ styles.base ]}>
+      <li style={ styles.base }>
         {/* Item content */}
         <div style={[ styles.content, isSelected && styles.contentSelected ]}
              onClick={ this.handleClick.bind(this) }
@@ -231,6 +232,7 @@ class SuiteTreeItem extends React.Component {
 
         {/* Child suites (RECURSION) */}
         { childItems }
+
       </li>
     );
   }
@@ -253,5 +255,5 @@ SuiteTreeItem.defaultProps = {
 };
 
 
-
-export default Radium(SuiteTreeItem);
+const SuiteTreeItemRadium = Radium(SuiteTreeItem);
+export default SuiteTreeItemRadium;
