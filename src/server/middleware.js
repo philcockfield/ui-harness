@@ -18,9 +18,11 @@ const DEFAULT_PORT = 3030;
 const server = {};
 
 
+
 const parseSpecs = (paths) => {
+    require("babel-register"); // Ensure ES6+ within specs can be imported.
     bdd.register();
-    paths.forEach(path => require(path))
+    paths.forEach(path => require(path));
     bdd.unregister();
   };
 
@@ -91,6 +93,7 @@ const isPortTaken = (port, callback) => {
  * @param callback: Invoked when the JS has been bundled.
  */
 export const middleware = (options = {}, callback) => {
+
   // Convert string or array options into the "entry" path.
   options = R.is(String, options) || R.is(Array, options) ? { entry: options } : options;
   const PORT = options.port || DEFAULT_PORT;
@@ -118,6 +121,7 @@ export const middleware = (options = {}, callback) => {
           }
           webpackConfig.entry.push(path);
         });
+
 
   // Initialize the [describe/it] statements.
   parseSpecs(entryPaths);

@@ -6,8 +6,22 @@ import { css, PropTypes } from "js-util/react";
 /**
  * The text label for an empty collection.
  */
-@Radium
-export default class EmptyLabel extends React.Component {
+class EmptyLabel extends React.Component {
+  static propTypes = {
+    color: PropTypes.string,
+    weight: PropTypes.numberOrString,
+    size: PropTypes.numberOrString,
+    italic: PropTypes.bool,
+    align: PropTypes.oneOf(["left", "center", "right"]),
+  };
+  static defaultProps = {
+    color: css.white.darken(0.3),
+    weight: 300,
+    size: 13,
+    italic: false,
+    align: "center"
+  };
+
   styles() {
     return css({
       base: {
@@ -28,18 +42,5 @@ export default class EmptyLabel extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-EmptyLabel.propTypes = {
-  color: PropTypes.string,
-  weight: PropTypes.numberOrString,
-  size: PropTypes.numberOrString,
-  italic: PropTypes.bool,
-  align: PropTypes.oneOf(["left", "center", "right"]),
-};
-EmptyLabel.defaultProps = {
-  color: css.white.darken(0.3),
-  weight: 300,
-  size: 13,
-  italic: false,
-  align: "center"
-};
+
+export default Radium(EmptyLabel);

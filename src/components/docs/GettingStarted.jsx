@@ -55,8 +55,7 @@ into your module:
 /**
  * A "getting started" introduction.
  */
-@Radium
-export default class GettingStarted extends React.Component {
+class GettingStarted extends React.Component {
   componentWillMount() {
     this.setState({
       buttonLabel: "Install Sample",
@@ -140,6 +139,5 @@ export default class GettingStarted extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-GettingStarted.propTypes = {};
-GettingStarted.defaultProps = {};
+
+export default Radium(GettingStarted);

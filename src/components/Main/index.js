@@ -1,2 +1,1 @@
-import Main from "./Main";
-export default Main;
+module.exports = require("./Main");

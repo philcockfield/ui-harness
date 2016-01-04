@@ -8,8 +8,13 @@ import api from "../../shared/api-internal";
 /**
  * An spec list-item that is invoked on the server.
  */
-@Radium
-export default class SpecListServerItem extends React.Component {
+class SpecListServerItem extends React.Component {
+  static propTypes = {
+    spec: PropTypes.object.isRequired,
+    current: PropTypes.instanceOf(Immutable.Map).isRequired
+  };
+  static defaultProps = {};
+
   styles() {
     return css({
       base: {}
@@ -32,9 +37,4 @@ export default class SpecListServerItem extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-SpecListServerItem.propTypes = {
-  spec: PropTypes.object.isRequired,
-  current: PropTypes.instanceOf(Immutable.Map).isRequired
-};
-SpecListServerItem.defaultProps = {};
+export default Radium(SpecListServerItem);

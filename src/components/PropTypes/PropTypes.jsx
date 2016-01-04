@@ -11,8 +11,13 @@ import { EmptyLabel } from "../shared";
 /**
  * Renders a visual representation of the PropTypes API.
  */
-@Radium
-export default class PropTypesComponent extends React.Component {
+class PropTypesComponent extends React.Component {
+  static propTypes = {
+    props: PropTypes.object.isRequired,
+    propTypes: PropTypes.object.isRequired,
+  };
+  static defaultProps = {};
+
   styles() {
     return css({
       base: {
@@ -48,9 +53,5 @@ export default class PropTypesComponent extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-PropTypesComponent.propTypes = {
-  props: PropTypes.object.isRequired,
-  propTypes: PropTypes.object.isRequired,
-};
-PropTypesComponent.defaultProps = {};
+
+export default Radium(PropTypesComponent);

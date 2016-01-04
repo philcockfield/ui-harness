@@ -6,8 +6,16 @@ import { css, PropTypes } from "js-util/react";
 /**
  * A wrapper that puts content within a card.
  */
-@Radium
-export default class Card extends React.Component {
+class Card extends React.Component {
+  static propTypes = {
+    padding: PropTypes.numberOrString,
+    darken: PropTypes.numberOrString
+  };
+  static defaultProps = {
+    padding: 0,
+    darken: 0
+  };
+
   styles() {
     const BACKGROUND_COLOR = Color("white").darken(this.props.darken);
     return css({
@@ -33,12 +41,5 @@ export default class Card extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-Card.propTypes = {
-  padding: PropTypes.numberOrString,
-  darken: PropTypes.numberOrString
-};
-Card.defaultProps = {
-  padding: 0,
-  darken: 0
-};
+
+export default Radium(Card);

@@ -16,8 +16,17 @@ const isOpenStorage = (section, isOpen) => {
 /**
  * A section of Specs.
  */
-@Radium
-export default class Section extends React.Component {
+class Section extends React.Component {
+  static propTypes = {
+    current: PropTypes.instanceOf(Immutable.Map).isRequired,
+    section: PropTypes.object.isRequired,
+    hasOnly: PropTypes.bool
+  };
+  static defaultProps = {
+    hasOnly: false
+  };
+
+
   constructor(props) {
     super(props);
     this.state = { isOpen: isOpenStorage(this.props.section) };
@@ -82,12 +91,4 @@ export default class Section extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-Section.propTypes = {
-  current: PropTypes.instanceOf(Immutable.Map).isRequired,
-  section: PropTypes.object.isRequired,
-  hasOnly: PropTypes.bool
-};
-Section.defaultProps = {
-  hasOnly: false
-};
+export default Radium(Section);

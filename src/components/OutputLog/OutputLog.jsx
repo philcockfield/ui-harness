@@ -8,8 +8,14 @@ import OutputLogItem from "./OutputLogItem";
 /**
  * An output log.
  */
-@Radium
-export default class Output extends React.Component {
+class Output extends React.Component {
+  static propTypes = {
+    items: PropTypes.array
+  };
+  static defaultProps = {
+    items: []
+  };
+
   styles() {
     return css({
       base: {
@@ -45,10 +51,5 @@ export default class Output extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-Output.propTypes = {
-  items: PropTypes.array
-};
-Output.defaultProps = {
-  items: []
-};
+
+export default Radium(Output);

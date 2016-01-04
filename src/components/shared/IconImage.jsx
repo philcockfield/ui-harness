@@ -9,8 +9,16 @@ import ICONS from "../../../public/images";
 /**
  * Icon image (library).
  */
-@Radium
-export default class Icon extends React.Component {
+class Icon extends React.Component {
+  static propTypes = {
+    name: PropTypes.oneOf(_.keys(ICONS)).isRequired,
+    absolute: PropTypes.string,
+    opacity: PropTypes.number
+  };
+  static defaultProps = {
+    opacity: 1
+  };
+
   styles() {
     const icon = ICONS[this.props.name];
     let base = {
@@ -37,12 +45,4 @@ export default class Icon extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-Icon.propTypes = {
-  name: PropTypes.oneOf(_.keys(ICONS)).isRequired,
-  absolute: PropTypes.string,
-  opacity: PropTypes.number
-};
-Icon.defaultProps = {
-  opacity: 1
-};
+export default Radium(Icon);

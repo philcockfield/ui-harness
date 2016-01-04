@@ -5,8 +5,14 @@ import { css, PropTypes } from "js-util/react";
 /**
  * An unstyled <ul>.
  */
-@Radium
-export default class Ul extends React.Component {
+class Ul extends React.Component {
+  static propTypes = {
+    padding: PropTypes.numberOrString
+  };
+  static defaultProps = {
+    padding: 0
+  };
+
   styles() {
     return {
       base: {
@@ -25,10 +31,4 @@ export default class Ul extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-Ul.propTypes = {
-  padding: PropTypes.numberOrString
-};
-Ul.defaultProps = {
-  padding: 0
-};
+export default Radium(Ul);

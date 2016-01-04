@@ -7,6 +7,5 @@ describe("ui-harness", function() {
   require("./PropTypes.spec");
 });
 
-
 require("react-atoms/specs");
 require("react-object/lib/specs");

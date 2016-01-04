@@ -8,8 +8,15 @@ import moment from "moment";
 /**
  * A list item within the output log.
  */
-@Radium
-export default class OutputItem extends React.Component {
+class OutputItem extends React.Component {
+  static propTypes = {
+    time: PropTypes.instanceOf(Date),
+    values: PropTypes.array,
+  };
+  static defaultProps = {
+    value: []
+  };
+
   styles() {
     return css({
       base: {},
@@ -48,11 +55,5 @@ export default class OutputItem extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-OutputItem.propTypes = {
-  time: PropTypes.instanceOf(Date),
-  values: PropTypes.array,
-};
-OutputItem.defaultProps = {
-  value: []
-};
+
+export default Radium(OutputItem);

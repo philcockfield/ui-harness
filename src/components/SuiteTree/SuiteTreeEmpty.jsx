@@ -7,11 +7,7 @@ import { IconImage, EmptyLabel } from "../shared";
 /**
  * The empty message when no Suites have been declared.
  */
-@Radium
-export default class SuiteTreeEmpty extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+class SuiteTreeEmpty extends React.Component {
   styles() {
     return css({
       base: {
@@ -38,6 +34,5 @@ export default class SuiteTreeEmpty extends React.Component {
   }
 }
 
-// API -------------------------------------------------------------------------
-SuiteTreeEmpty.propTypes = {};
-SuiteTreeEmpty.defaultProps = {};
+
+export default Radium(SuiteTreeEmpty);
