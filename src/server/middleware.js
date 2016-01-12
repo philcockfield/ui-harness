@@ -205,7 +205,7 @@ export const start = (options = {}, callback) => {
         const packageJson = require(fsPath.resolve("./package.json"));
         console.log("");
         console.log(chalk.green("UIHarness:"));
-        console.log(chalk.grey(" - module: "), packageJson.name, chalk.grey(`(v${ packageJson.version })`));
+        console.log(chalk.grey(" - module: "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
         console.log(chalk.grey(" - port:   "), PORT);
         console.log(chalk.grey(" - env:    "), ENV);
         console.log(chalk.grey(" - specs:  "), entryPaths[0] || chalk.magenta("None."));
