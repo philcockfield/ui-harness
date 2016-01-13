@@ -12,19 +12,21 @@ http://uiharness.com
 ## Quick Start (1-minute)
 With the UIHarness you can go from an empty NPM module, to cleanly building isolated React components using best-practices in well under a minute.
 
-Create a new module with the UIHarness pre-installed by running:
+See the quick-start sample repo https://github.com/philcockfield/ui-harness-sample
 
-```bash
-$ curl http://www.uiharness.com/create | sh
-```
+    git clone https://github.com/philcockfield/ui-harness-sample.git
+    npm install
+    npm start
 
-Then open the browser to [localhost:3030](http://localhost:3030/) and the UIHarness will guide you from there.
+
+
+
 
 
 ## Manual Install
 The UIHarness is just a simple NPM module.  To add it to an existing module install it like normal:
 
-    npm install ui-harness
+    npm install --save-dev ui-harness
 
 Then within your entry file start the server:
 ```js
