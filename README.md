@@ -31,7 +31,7 @@ The UIHarness is just a simple NPM module.  To add it to an existing module inst
 Then within your entry file start the server:
 ```js
 // index.js
-require("ui-harness/server").start({ babel: 1 });
+require("ui-harness/server").start({ babel: true });
 ```
 
 

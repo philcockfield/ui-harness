@@ -168,7 +168,7 @@ export const middleware = (options = {}, callback) => {
  *                          - babel:    Instructions to regsiter the "babel" transpiler.
  *                                        - false/undefined:  Not registered.
  *                                        - true:             Registered with defaults.
- *                                        - <number>:         The babel "stage" to register with.
+ *                                        - {Object}:         The babel options to use, see: https://babeljs.io/docs/usage/require/
  *
  * @return Promise.
  */
@@ -184,9 +184,8 @@ export const start = (options = {}, callback) => {
 
   // Register babel if required.
   if (BABEL) {
-    const compilerOptions = {};
-    if (R.is(Number, BABEL)) { compilerOptions.stage = BABEL; }
-    require("babel/register")(compilerOptions);
+    const compilerOptions = R.is(Object, BABEL) ? BABEL : {};
+    require("babel-register")(compilerOptions);
   }
 
   // Ensure each "entry" path exists.
