@@ -1,14 +1,7 @@
 "use strict"
 var R = require("ramda");
 var minimist = require("minimist");
-var middleware = require("./lib/server/middleware");
-
-
-
-/**
- * Public API.
- */
-module.exports = middleware;
+var server = require("./lib/server");
 
 
 
@@ -32,10 +25,10 @@ var argv = process.argv.slice(2);
 if (argv.length > 0) {
   argv = minimist(argv);
   if (R.is(String, argv.entry)) {
-    middleware.start({
+    server.start({
       entry: argv.entry.split(","),
-      port: argv.port || 3030,
-      babel: argv.babel || 1
-    });
+      port: argv.port,
+      babel: argv.babel
+    })
   }
 }

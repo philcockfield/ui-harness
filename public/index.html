@@ -12,6 +12,12 @@
   </head>
   <body>
     <div id="page-root"></div>
+    <script type="text/javascript">
+      // Force `fetch` polyfill to workaround Chrome not displaying request body
+      // in developer tools for the native `fetch`.
+      self.fetch = null;
+    </script>
+    <script src="/webpack-dev-server.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/app.js" type="text/javascript" charset="utf-8"></script>
   </body>
-  <script type="text/javascript" src="public/bundle.js" charset="utf-8"></script>
 </html>

@@ -25,15 +25,7 @@ function babelLoader (extension) {
   return {
     test: extension,
     exclude: LOADER_EXCLUDE,
-    loader: 'babel-loader',
-    // query: {
-    //   optional: ['runtime'],
-    //   cacheDirectory: true,
-    //   stage: 1  // Experimental:level-1
-    //             // Allows for @decorators
-    //             // See: http://babeljs.io/docs/usage/experimental/
-    //             // For example, used by @Radium (CSS)
-    // }
+    loader: 'babel-loader'
   };
 };
 
