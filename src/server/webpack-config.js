@@ -85,6 +85,10 @@ export default (options = {}) => {
   addPlugin(minify, new webpack.optimize.DedupePlugin());
   addPlugin(minify, new webpack.optimize.OccurrenceOrderPlugin(true));
 
+  // Moment.js: only load subset of locales to reduce size.
+  //   See - http://stackoverflow.com/a/25426019/1745661
+  addPlugin(true, new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)  )
+
   // Finish up.
   return config;
 };
