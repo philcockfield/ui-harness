@@ -79,9 +79,11 @@ export default (options = {}) => {
   };
 
   // Configure specific plugins.
-  if (minify) {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
-  }
+  //    See - https://webpack.github.io/docs/list-of-plugins.html
+  const addPlugin = (flag, plugin) => { if (flag === true) { config.plugins.push(plugin); }}
+  addPlugin(minify, new webpack.optimize.UglifyJsPlugin({ minimize: true }));
+  addPlugin(minify, new webpack.optimize.DedupePlugin());
+  addPlugin(minify, new webpack.optimize.OccurrenceOrderPlugin(true));
 
   // Finish up.
   return config;

@@ -58,7 +58,11 @@ export const start = (options = {}) => {
     app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
     // Build JS to determine the file-size.
-    const statsConfig = webpackConfig({ entry, isProduction: true });
+    const statsConfig = webpackConfig({
+      entry,
+      isProduction: true,
+      minify: true
+    });
     const gettingBuildStats = webpackStats(statsConfig, { production: true })
         .then(result => buildStats = result)
         .catch(err => {
