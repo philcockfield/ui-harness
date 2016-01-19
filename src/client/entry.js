@@ -4,6 +4,10 @@
 
 // import R from "ramda";
 
+import Promise from "bluebird";
+
+import React from "react";
+import ReactDom from "react-dom";
 
 import * as util from "js-util/lib/index.js";
 console.log("util", util);

@@ -1,3 +1,4 @@
+import R from "ramda";
 import Promise from "bluebird";
 import webpack from "webpack";
 import MemoryFileSystem from "memory-fs";
@@ -26,41 +27,43 @@ const toSizeStats = (text) => {
 export default (config, options = {}) => {
   return new Promise((resolve, reject) => {
     // Setup initial conditions.
-    const IS_PRODUCTION = options.production || false;
     const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
-    if (IS_PRODUCTION) { process.env.NODE_ENV = "production"; }
+    const IS_PRODUCTION = options.isProduction === true ? true : false;
+    if (IS_PRODUCTION) {
+      process.env.NODE_ENV = "production";
+    }
 
     // Prepare the webpack compiler.
+    config = R.clone(config);
     const compiler = webpack(config);
     const fs = compiler.outputFileSystem = new MemoryFileSystem();
 
     compiler.run((err, stats) => {
-        // Reset the NODE_ENV.
-        process.env.NODE_ENV = ORIGINAL_NODE_ENV;
+          // Reset to the original the NODE_ENV.
+          process.env.NODE_ENV = ORIGINAL_NODE_ENV;
 
-        if (err) {
-          reject(err); // Failed.
-        } else {
+          if (err) {
+            reject(err); // Failed.
+          } else {
 
-          // Read out the generated javascript.
-          const js = fs.readFileSync("/bundle.js");
+            // Read the generated javascript.
+            const js = fs.readFileSync("/bundle.js");
 
-          // Calculate the size of the JS when zipped.
-          const zip = new AdmZip();
-          zip.addFile("bundle.js", new Buffer(js));
+            // Calculate the size of the JS when zipped.
+            const zip = new AdmZip();
+            zip.addFile("bundle.js", new Buffer(js));
 
-          // Prepare response.
-          const msecs = (stats.endTime - stats.startTime);
-          resolve({
-            size: toSizeStats(js),
-            zipped: toSizeStats(zip.toBuffer().toString("utf8")),
-            buildTime: {
-              msecs,
-              secs: +(msecs / 1000).toFixed(1)
-            }
-          });
-
-        }
+            // Prepare response.
+            const msecs = (stats.endTime - stats.startTime);
+            resolve({
+              size: toSizeStats(js),
+              zipped: toSizeStats(zip.toBuffer().toString("utf8")),
+              buildTime: {
+                msecs,
+                secs: +(msecs / 1000).toFixed(1)
+              }
+            });
+          }
     });
   });
 };

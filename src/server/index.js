@@ -39,7 +39,7 @@ export const start = (options = {}) => {
     let buildStats, isStarted;
 
     // Extract options  default values.
-    const ENV = process.env.NODE_ENV || "development"
+    const ENV = process.env.NODE_ENV || "development";
     const PORT = options.port || 3030;
     const BABEL_STAGE = options.babel || 1;
 
@@ -57,8 +57,9 @@ export const start = (options = {}) => {
     const app = webpackDevServer(config);
     app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
-    // Build JS to determine the file-size
-    const gettingBuildStats = webpackStats(config, { production: true })
+    // Build JS to determine the file-size.
+    const statsConfig = webpackConfig({ entry, isProduction: true });
+    const gettingBuildStats = webpackStats(statsConfig, { production: true })
         .then(result => buildStats = result)
         .catch(err => {
             log.error("Failed to :", err);
@@ -67,6 +68,7 @@ export const start = (options = {}) => {
 
     console.log("TODO", "Only build stats for built specs.");
     console.log("TODO", "Initiate the babel register if required");
+    console.log("TODO", "Build the package for size details after starting the server (async)");
 
     // Start the server.
     log.info("");
@@ -85,8 +87,7 @@ export const start = (options = {}) => {
           log.info(chalk.grey(" - port:   "), PORT);
           log.info(chalk.grey(" - env:    "), ENV);
           log.info(chalk.grey(" - time:   "), buildStats.buildTime.secs, "secs");
-          log.info(chalk.grey(" - size:   "), buildStats.size.display);
-          log.info(chalk.grey(" - zipped: "), buildStats.zipped.display);
+          log.info(chalk.grey(" - size:   "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
 
           // Specs.
           log.info(chalk.grey(" - specs:  "), specs[0] || chalk.magenta("None."));

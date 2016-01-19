@@ -10,7 +10,7 @@ const NODE_MODULES_PATH = fsPath.resolve("node_modules");
 const babelLoader = (extension) => {
       // See: https://github.com/babel/babel-loader#options
       return {
-        loader: "babel-loader",
+        loader: "babel",
         test: extension,
         exclude: /(node_modules|bower_components)/,
         query: {
@@ -31,11 +31,18 @@ const modulePath = (path) => {
  * Creates a Webpack compiler instance.
  *
  * @param {Object} options:
- *           - entry: Array of entry paths.
+ *            - entry:          Array of entry paths.
+ *            - isProduction:   Flag indicating if the builder is in production mode.
+ *                              Default false.
+ *            - minify:         Flag indicating if the builder is in production mode.
+ *                              Default false.
  *
  * @return {Object} compiler.
  */
 export default (options = {}) => {
+  const isProduction = options.isProduction || false;
+  const minify = options.minify || false;
+
   const config = {
     entry: options.entry,
     output: { path: "/", filename: "bundle.js" },
@@ -47,11 +54,9 @@ export default (options = {}) => {
         { test: /\.(png|svg)$/, loader: 'url-loader' }
       ]
     },
-    devtool: "cheap-module-eval-source-map",
+    devtool: isProduction ? undefined : "cheap-module-eval-source-map",
     plugins: [],
     resolve: {
-      root: NODE_MODULES_PATH,
-      fallback: NODE_MODULES_PATH,
       moduleDirectories: NODE_MODULES_PATH,
       extensions: ["", ".js", ".jsx", ".json"],
       /*
@@ -67,12 +72,16 @@ export default (options = {}) => {
         "lodash": modulePath("lodash"),
         "immutable": modulePath("immutable"),
         "bluebird": modulePath("bluebird"),
-        "js-util": modulePath("js-util"),
-        "color": modulePath("color")
+        "js-util": modulePath("js-util")
       },
       resolveLoader: { fallback: NODE_MODULES_PATH }
     },
   };
+
+  // Configure specific plugins.
+  if (minify) {
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
+  }
 
   // Finish up.
   return config;
