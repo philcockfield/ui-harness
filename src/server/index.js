@@ -10,7 +10,7 @@ import webpackDevServer from "./webpack-dev-server";
 import specPaths from "./spec-paths";
 import log from "./log";
 
-
+const MINIFY = false;
 
 const listenP = (app, port) => {
     return new Promise((resolve) => app.listen(port, () => resolve()));
@@ -20,16 +20,15 @@ const listenP = (app, port) => {
 
 const calculateBuildStats = (entry) => {
   return new Promise((resolve, reject) => {
-      const minify = false;
       const statsConfig = webpackConfig({
         entry,
         isProduction: true,
-        minify
+        minify: MINIFY
       });
       webpackStats(statsConfig, { production: true })
         .then(buildStats => {
             log.info(chalk.green("Build Stats:"));
-            log.info(chalk.grey(" - minified: "), minify);
+            log.info(chalk.grey(" - minified: "), MINIFY);
             log.info(chalk.grey(" - time:     "), buildStats.buildTime.secs, "secs");
             log.info(chalk.grey(" - size:     "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
             console.log("");
