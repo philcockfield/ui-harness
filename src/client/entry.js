@@ -1,3 +1,23 @@
+// import bdd from "js-bdd";
+
+// import lodash from "lodash";
+
+// import R from "ramda";
+
+
+import * as util from "js-util/lib/index.js";
+console.log("util", util);
+
+// import css from "js-util/lib/react-css";
+
+// import foo from "react-atoms/components/Foo";
+
+import bdd from "js-bdd";
+console.log("bdd", bdd);
+
+
+// console.log("util", util);
+
 /**
  * Main entry point for the browser.
  */
@@ -12,10 +32,10 @@
 
 
 // TEMP
-const array = [1,2,3];
-const mapped = R.map(item => `item-${ item }`, array)
-// console.log("R", R);
-console.log("mapped", mapped);
+// const array = [1,2,3];
+// const mapped = R.map(item => `item-${ item }`, array)
+// // console.log("R", R);
+// console.log("mapped", mapped);
 
 
 
@@ -39,4 +59,4 @@ console.log("mapped", mapped);
 //   });
 // });
 
-console.log("Client!!!");
+console.log("Client!");

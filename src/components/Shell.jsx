@@ -3,7 +3,7 @@ import Radium from "radium";
 import Immutable from "immutable";
 import Main from "./Main";
 import IndexColumn from "./IndexColumn";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "./react-util";
 import GlobalStyles from "./GlobalStyles";
 
 const COLUMN_MARGIN = 6;

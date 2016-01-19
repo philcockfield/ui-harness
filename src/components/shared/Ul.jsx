@@ -1,6 +1,7 @@
 import React from "react";
 import Radium from "radium";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../react-util";
+
 
 /**
  * An unstyled <ul>.

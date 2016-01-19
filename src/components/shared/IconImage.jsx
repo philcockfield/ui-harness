@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import Radium from "radium";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../react-util";
 import ICONS from "../../../public/images";
 
 

@@ -10,7 +10,7 @@ const NODE_MODULES_PATH = fsPath.resolve("node_modules");
 const babelLoader = (extension) => {
       // See: https://github.com/babel/babel-loader#options
       return {
-        loader: "babel",
+        loader: "babel-loader",
         test: extension,
         exclude: /(node_modules|bower_components)/,
         query: {
@@ -50,7 +50,9 @@ export default (options = {}) => {
     devtool: "cheap-module-eval-source-map",
     plugins: [],
     resolve: {
+      root: NODE_MODULES_PATH,
       fallback: NODE_MODULES_PATH,
+      moduleDirectories: NODE_MODULES_PATH,
       extensions: ["", ".js", ".jsx", ".json"],
       /*
       Aliases
@@ -59,6 +61,7 @@ export default (options = {}) => {
             - Single version of modules are loaded.
       */
       alias: {
+        "ramda": modulePath("ramda"),
         "react": modulePath("react"),
         "react-dom": modulePath("react-dom"),
         "lodash": modulePath("lodash"),

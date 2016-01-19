@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../react-util";
 import IconImage from "./IconImage";
 import ICONS from "../../../public/images";
 

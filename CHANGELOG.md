@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - YYYY-MM-DD
 #### Added
 #### Changed
+- Moved from WebPack middleware to use the WebpackDevServer.
+  - This was done because reload issues were occuring with the middleware (it is less well supported) and is no longer necessary with an firmer understanding of the `proxy` feature of the WebpackDevServer which allows for a server-app to be used.
 #### Deprecated
 #### Removed
 #### Fixed

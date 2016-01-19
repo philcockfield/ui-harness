@@ -7,7 +7,7 @@
     "start": "node server --entry ./src/specs",
     "test": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel",
     "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel --watch",
-    "prepublish": "gulp prepublish"
+    "prepublish": "gulp lint && gulp build"
   },
   "dependencies": {
     "babel-core": "^6.3.21",
@@ -28,8 +28,8 @@
     "filesize": "^3.1.5",
     "fs-extra": "^0.24.0",
     "immutable": "^3.7.4",
-    "js-bdd": "^1.0.3",
-    "js-util": "^1.0.5",
+    "js-bdd": "^2.0.0",
+    "js-util": "^2.0.2",
     "json-loader": "^0.5.2",
     "lodash": "^3.6.0",
     "marked": "^0.3.5",

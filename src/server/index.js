@@ -36,7 +36,6 @@ const listenP = (app, port) => {
  */
 export const start = (options = {}) => {
   return new Promise((resolve, reject) => {
-
     let buildStats, isStarted;
 
     // Extract options  default values.

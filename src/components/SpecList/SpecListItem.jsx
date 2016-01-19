@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../react-util";
 import { Ellipsis, FormattedText } from "../shared";
 import api from "../../shared/api-internal";
 
