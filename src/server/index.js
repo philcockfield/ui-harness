@@ -18,6 +18,32 @@ const listenP = (app, port) => {
 
 
 
+const calculateBuildStats = (entry) => {
+  return new Promise((resolve, reject) => {
+      const minify = false;
+      const statsConfig = webpackConfig({
+        entry,
+        isProduction: true,
+        minify
+      });
+      webpackStats(statsConfig, { production: true })
+        .then(buildStats => {
+            log.info(chalk.green("Build Stats:"));
+            log.info(chalk.grey(" - minified: "), minify);
+            log.info(chalk.grey(" - time:     "), buildStats.buildTime.secs, "secs");
+            log.info(chalk.grey(" - size:     "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
+            console.log("");
+            resolve(buildStats);
+        })
+        .catch(err => {
+            log.error("Failed to :", err);
+            reject(err);
+        });
+  });
+};
+
+
+
 /**
  * Starts the UIHarness development server.
  * @param {Object} options
@@ -36,7 +62,6 @@ const listenP = (app, port) => {
  */
 export const start = (options = {}) => {
   return new Promise((resolve, reject) => {
-    let buildStats, isStarted;
 
     // Extract options  default values.
     const ENV = process.env.NODE_ENV || "development";
@@ -57,51 +82,32 @@ export const start = (options = {}) => {
     const app = webpackDevServer(config);
     app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
-    // Build JS to determine the file-size.
-    const statsConfig = webpackConfig({
-      entry,
-      isProduction: true,
-      minify: true
-    });
-    const gettingBuildStats = webpackStats(statsConfig, { production: true })
-        .then(result => buildStats = result)
-        .catch(err => {
-            log.error("Failed to :", err);
-            reject(err);
-        });
 
     console.log("TODO", "Only build stats for built specs.");
     console.log("TODO", "Initiate the babel register if required");
-    console.log("TODO", "Build the package for size details after starting the server (async)");
 
     // Start the server.
     log.info("");
     log.info(chalk.grey(`Starting (${ ENV })...`));
-    const startingServer = listenP(app, PORT);
-
-    // Finish up.
-    Promise.all([startingServer, gettingBuildStats])
+    const startingServer = listenP(app, PORT)
       .then(() => {
-
           // Server details.
           const packageJson = require(fsPath.resolve("./package.json"));
           log.info("");
           log.info(chalk.green("UIHarness:"));
-          log.info(chalk.grey(" - module: "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
-          log.info(chalk.grey(" - port:   "), PORT);
-          log.info(chalk.grey(" - env:    "), ENV);
-          log.info(chalk.grey(" - time:   "), buildStats.buildTime.secs, "secs");
-          log.info(chalk.grey(" - size:   "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
+          log.info(chalk.grey(" - module:   "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
+          log.info(chalk.grey(" - port:     "), PORT);
+          log.info(chalk.grey(" - env:      "), ENV);
 
           // Specs.
-          log.info(chalk.grey(" - specs:  "), specs[0] || chalk.magenta("None."));
+          log.info(chalk.grey(" - specs:    "), specs[0] || chalk.magenta("None."));
           R.takeLast(specs.length - 1, specs).forEach(path => {
-            log.info(chalk.grey("           "), path);
+            log.info(chalk.grey("             "), path);
           });
 
           // Finish up.
           log.info("");
-          resolve({});
-      })
+          calculateBuildStats(entry).then(() => resolve({}));
+      });
   });
 };
