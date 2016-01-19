@@ -5,8 +5,8 @@
   "main": "./index.js",
   "scripts": {
     "start": "node server --entry ./src/specs",
-    "test": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel",
-    "tdd": "./node_modules/mocha/bin/mocha --recursive --require ./src/register-babel --watch",
+    "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register",
+    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register --watch",
     "prepublish": "gulp lint && gulp build"
   },
   "dependencies": {
@@ -40,13 +40,13 @@
     "radium": "^0.13.2",
     "ramda": "^0.17.1",
     "react": "^0.14.5",
-    "react-atoms": "^1.0.5",
+    "react-atoms": "^2.0.0",
     "react-dom": "^0.14.5",
-    "react-object": "^1.0.2",
+    "react-object": "^2.0.1",
     "react-schema": "^1.1.0",
     "rest-middleware": "^1.0.21",
     "url-loader": "^0.5.6",
-    "webpack": "^1.12.9",
+    "webpack": "^1.12.11",
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
