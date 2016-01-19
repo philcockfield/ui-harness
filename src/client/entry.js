@@ -1,12 +1,22 @@
 /**
  * Main entry point for the browser.
  */
+// import R from "ramda";
+
 // import React from "react";
 // import ReactDOM from "react-dom";
-// import rest from "rest-middleware/browser";
 // import api from "../shared/api-internal";
 // import bdd from "../shared/bdd";
 // import Shell from "../components/Shell";
+
+
+
+// TEMP
+const array = [1,2,3];
+const mapped = R.map(item => `item-${ item }`, array)
+// console.log("R", R);
+console.log("mapped", mapped);
+
 
 
 
@@ -29,4 +39,4 @@
 //   });
 // });
 
-console.log("Client!!");
+console.log("Client!!!");

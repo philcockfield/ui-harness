@@ -1,10 +1,21 @@
 import R from "ramda";
+import Promise from "bluebird";
 import chalk from "chalk";
 import express from "express";
 import fsPath from "path";
 import webpack from "webpack";
-import WebpackDevServer from "webpack-dev-server";
+import webpackConfig from "./webpack-config";
+import webpackStats from "./webpack-stats";
+import webpackDevServer from "./webpack-dev-server";
+import specPaths from "./spec-paths";
 import log from "./log";
+
+
+
+const listenP = (app, port) => {
+    return new Promise((resolve) => app.listen(port, () => resolve()));
+  };
+
 
 
 /**
@@ -21,66 +32,71 @@ import log from "./log";
  *                    See: https://babeljs.io/docs/usage/experimental/
  *                    Default: 1
  *
+ * @return {Promise}.
  */
 export const start = (options = {}) => {
-  // Setup initial conditions.
+  return new Promise((resolve, reject) => {
 
-  // Extract options  default values.
-  const ENV = process.env.NODE_ENV || "development"
-  const SPECS_ENTRY = options.entry;
-  const PORT = options.port || 3030;
-  const BABEL_STAGE = options.babel || 1;
+    let buildStats, isStarted;
 
-  // Entry JS paths to build.
-  const entryPaths = [];
-  entryPaths.push(fsPath.join(__dirname, "../client/index.js"));
+    // Extract options  default values.
+    const ENV = process.env.NODE_ENV || "development"
+    const PORT = options.port || 3030;
+    const BABEL_STAGE = options.babel || 1;
 
-  // Webpack compiler.
-  const compiler = webpack({
-    entry: entryPaths,
-    module: {
-      loaders: [
-        {
-          exclude: /node_modules/,
-          loader: "babel",
-          query: {
-            // plugins: ["./build/babelRelayPlugin"],
-          },
-          test: /\.js$/,
-        }
-      ]
-    },
-    output: { filename: "app.js", path: "/" }
-  });
+    // Prepare the Webpack configuration.
+    // const specs = specPaths(options.entry);
+    console.log("TEMP add specs array");
+    const specs = []; // TEMP
+    const entry = R.flatten([
+      fsPath.join(__dirname, "../client/entry.js"),
+      specs
+    ]);
+    const config = webpackConfig({ entry });
 
-  // Development server.
-  const app = new WebpackDevServer(compiler, {
-    // noInfo: true, // Suppress boring information.
-    // quiet: true, // Don’t output anything to the console.
+    // Create the development server.
+    const app = webpackDevServer(config);
+    app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
-    contentBase: "/public/",
-    // proxy: {"/graphql": `http://localhost:${GRAPHQL_PORT}`},
-    publicPath: "/js/",
-    stats: { colors: true }
-  });
-
-  // Serve static resources.
-  app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
-
-  // Start the server.
-  log.info("");
-  log.info(chalk.grey(`Starting (${ ENV })...`));
-  app.listen(PORT, () => {
-        const packageJson = require(fsPath.resolve("./package.json"));
-        log.info("");
-        log.info(chalk.green("UIHarness:"));
-        log.info(chalk.grey(" - module: "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
-        log.info(chalk.grey(" - port:   "), PORT);
-        log.info(chalk.grey(" - env:    "), ENV);
-        log.info(chalk.grey(" - specs:  "), entryPaths[0] || chalk.magenta("None."));
-        R.takeLast(entryPaths.length - 1, entryPaths).forEach(path => {
-          log.info(chalk.grey("           "), path);
+    // Build JS to determine the file-size
+    const gettingBuildStats = webpackStats(config, { production: true })
+        .then(result => buildStats = result)
+        .catch(err => {
+            log.error("Failed to :", err);
+            reject(err);
         });
-        log.info("");
+
+    console.log("TODO", "Only build stats for built specs.");
+    console.log("TODO", "Initiate the babel register if required");
+
+    // Start the server.
+    log.info("");
+    log.info(chalk.grey(`Starting (${ ENV })...`));
+    const startingServer = listenP(app, PORT);
+
+    // Finish up.
+    Promise.all([startingServer, gettingBuildStats])
+      .then(() => {
+
+          // Server details.
+          const packageJson = require(fsPath.resolve("./package.json"));
+          log.info("");
+          log.info(chalk.green("UIHarness:"));
+          log.info(chalk.grey(" - module: "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
+          log.info(chalk.grey(" - port:   "), PORT);
+          log.info(chalk.grey(" - env:    "), ENV);
+          log.info(chalk.grey(" - time:   "), buildStats.buildTime.secs, "secs");
+          log.info(chalk.grey(" - size:   "), buildStats.size.display);
+
+          // Specs.
+          log.info(chalk.grey(" - specs:  "), specs[0] || chalk.magenta("None."));
+          R.takeLast(specs.length - 1, specs).forEach(path => {
+            log.info(chalk.grey("           "), path);
+          });
+
+          // Finish up.
+          log.info("");
+          resolve({});
+      })
   });
 };
