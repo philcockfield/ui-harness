@@ -1,5 +1,6 @@
 import React from "react";
 import Radium from "radium";
+import Color from "color";
 import { css, PropTypes } from "../react-util";
 
 
@@ -15,7 +16,7 @@ class EmptyLabel extends React.Component {
     align: PropTypes.oneOf(["left", "center", "right"]),
   };
   static defaultProps = {
-    color: css.white.darken(0.3),
+    color: Color("white").darken(0.3).hexString(),
     weight: 300,
     size: 13,
     italic: false,

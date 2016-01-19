@@ -48,7 +48,7 @@ class Section extends React.Component {
         textAlign: "center",
         fontSize: 13,
         fontStyle: "italic",
-        color: css.white.darken(0.3),
+        color: Color("white").darken(0.5).hexString(),
         paddingTop: 10,
         paddingBottom: 20
       }

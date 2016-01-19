@@ -27,7 +27,7 @@ class Main extends React.Component {
     if (R.is(Number, color)) {
       if (color < 0) { color = 0; }
       if (color > 1) { color = 1; }
-      color = css.white.darken(color);
+      color = Color("white").darken(color).hexString();
     }
     return color;
   }
