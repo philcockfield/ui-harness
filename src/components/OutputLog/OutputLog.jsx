@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "../react-util";

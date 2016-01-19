@@ -1,4 +1,4 @@
-import _ from "lodash";
+import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "../react-util";
@@ -6,16 +6,16 @@ import CropMark from "./CropMark";
 
 
 // Genearted prop-types.
-let propTypes = _.clone(CropMark.propTypes);
-let defaultProps = _.clone(CropMark.defaultProps);
+let propTypes = R.clone(CropMark.propTypes);
+let defaultProps = R.clone(CropMark.defaultProps);
 
-_.merge(propTypes, {
+propTypes = R.merge(propTypes, {
   display: PropTypes.oneOf(["block", "inline-block", "inline"]),
   width: PropTypes.numberOrString,
   height: PropTypes.numberOrString
 });
 
-_.merge(defaultProps, {
+defaultProps = R.merge(propTypes, {
   display: "block",
   width: "auto",
   height: "auto"
