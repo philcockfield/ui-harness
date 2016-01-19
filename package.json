@@ -10,6 +10,7 @@
     "prepublish": "gulp lint && gulp build"
   },
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "babel-core": "^6.3.21",
     "babel-eslint": "5.0.0-beta6",
     "babel-loader": "^6.2.0",

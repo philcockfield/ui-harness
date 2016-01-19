@@ -86,6 +86,7 @@ export const start = (options = {}) => {
           log.info(chalk.grey(" - env:    "), ENV);
           log.info(chalk.grey(" - time:   "), buildStats.buildTime.secs, "secs");
           log.info(chalk.grey(" - size:   "), buildStats.size.display);
+          log.info(chalk.grey(" - zipped: "), buildStats.zipped.display);
 
           // Specs.
           log.info(chalk.grey(" - specs:  "), specs[0] || chalk.magenta("None."));

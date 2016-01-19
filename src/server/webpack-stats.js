@@ -3,7 +3,15 @@ import webpack from "webpack";
 import MemoryFileSystem from "memory-fs";
 import moment from "moment";
 import filesize from "filesize";
+import AdmZip from "adm-zip";
 
+
+const toSizeStats = (text) => {
+      return {
+        bytes: text.length,
+        display: filesize(text.length)
+      };
+    };
 
 
 /**
@@ -34,14 +42,18 @@ export default (config, options = {}) => {
           reject(err); // Failed.
         } else {
 
-          // Prepare response.
+          // Read out the generated javascript.
           const js = fs.readFileSync("/bundle.js");
+
+          // Calculate the size of the JS when zipped.
+          const zip = new AdmZip();
+          zip.addFile("bundle.js", new Buffer(js));
+
+          // Prepare response.
           const msecs = (stats.endTime - stats.startTime);
           resolve({
-            size: {
-              bytes: js.length,
-              display: filesize(js.length)
-            },
+            size: toSizeStats(js),
+            zipped: toSizeStats(zip.toBuffer().toString("utf8")),
             buildTime: {
               msecs,
               secs: +(msecs / 1000).toFixed(1)
