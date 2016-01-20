@@ -23,7 +23,7 @@ construct test interfaces around your components as you build them.
       it("green", () => this.props({ color: "green" }));
     });
 
-To get started quickly you can copy this sample into your module:
+See more [documentation here](https://github.com/philcockfield/ui-harness/blob/master/docs/index.md).
 `;
 
 
