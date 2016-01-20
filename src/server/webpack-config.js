@@ -34,14 +34,11 @@ const modulePath = (path) => {
  *            - entry:          Array of entry paths.
  *            - isProduction:   Flag indicating if the builder is in production mode.
  *                              Default false.
- *            - minify:         Flag indicating if the builder is in production mode.
- *                              Default false.
  *
  * @return {Object} compiler.
  */
 export default (options = {}) => {
   const isProduction = options.isProduction || false;
-  const minify = options.minify || false;
 
   const config = {
     entry: options.entry,
@@ -55,7 +52,6 @@ export default (options = {}) => {
       ]
     },
     devtool: isProduction ? undefined : "cheap-module-eval-source-map",
-    plugins: [],
     resolve: {
       moduleDirectories: NODE_MODULES_PATH,
       extensions: ["", ".js", ".jsx", ".json"],
@@ -76,18 +72,23 @@ export default (options = {}) => {
       },
       resolveLoader: { fallback: NODE_MODULES_PATH }
     },
+    plugins: [
+      // https://github.com/webpack/docs/wiki/optimization#deduplication
+      new webpack.optimize.DedupePlugin(),
+
+      // [Moment.js] only load subset of locales to reduce size.
+      //   See - http://stackoverflow.com/a/25426019/1745661
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+    ]
   };
 
-  // Configure specific plugins.
+  // Configure optional plugins.
   //    See - https://webpack.github.io/docs/list-of-plugins.html
+  //        - https://github.com/webpack/docs/wiki/optimization
+  //
   const addPlugin = (flag, plugin) => { if (flag === true) { config.plugins.push(plugin); }}
-  addPlugin(minify, new webpack.optimize.UglifyJsPlugin({ minimize: true }));
-  addPlugin(minify, new webpack.optimize.DedupePlugin());
-  addPlugin(minify, new webpack.optimize.OccurrenceOrderPlugin(true));
-
-  // Moment.js: only load subset of locales to reduce size.
-  //   See - http://stackoverflow.com/a/25426019/1745661
-  addPlugin(true, new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)  )
+  addPlugin(isProduction, new webpack.optimize.UglifyJsPlugin({ minimize: true }));
+  addPlugin(isProduction, new webpack.optimize.OccurrenceOrderPlugin(true));
 
   // Finish up.
   return config;

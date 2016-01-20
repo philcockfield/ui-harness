@@ -18,33 +18,33 @@ const listenP = (app, port) => {
 
 
 
-const logBuildStats = (buildStats, title) => {
+const logBuildStats = (buildStats, isProduction, title) => {
       log.info(title || "Build Stats:");
-      log.info(chalk.grey(" - minified: "), MINIFY);
+      log.info(chalk.grey(" - minified: "), isProduction);
       log.info(chalk.grey(" - time:     "), buildStats.buildTime.secs, "secs");
       log.info(chalk.grey(" - size:     "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
       log.info("");
     };
 
 
-const calculateBuildStats = (entry) => {
-  return new Promise((resolve, reject) => {
-      const statsConfig = webpackConfig({
-        entry,
-        isProduction: true,
-        minify: MINIFY
-      });
-      webpackBuilder(statsConfig)
-        .then(buildStats => {
-            logBuildStats(buildStats);
-            resolve(buildStats);
-        })
-        .catch(err => {
-            log.error("Failed to :", err);
-            reject(err);
-        });
-  });
-};
+// const calculateBuildStats = (entry) => {
+//   return new Promise((resolve, reject) => {
+//       const statsConfig = webpackConfig({
+//         entry,
+//         isProduction: true,
+//         // minify: MINIFY
+//       });
+//       webpackBuilder(statsConfig)
+//         .then(buildStats => {
+//             logBuildStats(buildStats);
+//             resolve(buildStats);
+//         })
+//         .catch(err => {
+//             log.error("Failed to :", err);
+//             reject(err);
+//         });
+//   });
+// };
 
 
 
@@ -54,16 +54,16 @@ const calculateBuildStats = (entry) => {
  */
 export const bundle = () => {
   return new Promise((resolve, reject) => {
+      const isProduction = false;
       const config = webpackConfig({
         entry: fsPath.join(__dirname, "../client/entry.js"),
-        isProduction: true,
-        minify: false
+        isProduction
       });
 
       const saveTo = fsPath.join(__dirname, "../../public/js/ui-harness.js");
       webpackBuilder(config, { save: saveTo })
         .then(buildStats => {
-            logBuildStats(buildStats, `${ chalk.green("Saved UIHarness bundle to:") } ${ chalk.cyan(saveTo) }`);
+            logBuildStats(buildStats, isProduction, `${ chalk.green("Saved UIHarness bundle to:") } ${ chalk.cyan(saveTo) }`);
             resolve(buildStats);
         })
         .catch(err => {
@@ -101,11 +101,8 @@ export const start = (options = {}) => {
     const BABEL_STAGE = options.babel || 1;
 
     // Prepare the Webpack configuration.
-    // const specs = specPaths(options.entry);
-    console.log("TEMP add specs array");
-    const specs = []; // TEMP
+    const specs = specPaths(options.entry);
     const entry = R.flatten([
-      fsPath.join(__dirname, "../client/entry.js"),
       specs
     ]);
     const config = webpackConfig({ entry });
@@ -115,8 +112,8 @@ export const start = (options = {}) => {
     app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
 
-    console.log("TODO", "Only build stats for built specs.");
     console.log("TODO", "Initiate the babel register if required");
+    console.log("TODO", "Write stats for build specs");
 
     // Start the server.
     log.info("");
@@ -139,8 +136,12 @@ export const start = (options = {}) => {
 
           // Finish up.
           log.info("");
+          resolve({});
           // calculateBuildStats(entry).then(() => resolve({}));
-          // bundle();
+
+          console.log("TODO", "Don't bundle - expose this from a `npm run` command");
+          bundle();
+
       });
   });
 };
