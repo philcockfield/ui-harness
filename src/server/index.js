@@ -4,17 +4,11 @@ import chalk from "chalk";
 import express from "express";
 import fs from "fs-extra";
 import fsPath from "path";
-// import webpack from "webpack";
 import webpackConfig from "./webpack-config";
 import webpackBuilder from "./webpack-builder";
 import webpackDevServer from "./webpack-dev-server";
 import { formatSpecPaths, formatEntryPaths } from "./paths";
 import log from "./log";
-
-
-const listenP = (app, port) => {
-    return new Promise((resolve) => app.listen(port, () => resolve()));
-  };
 
 
 
@@ -46,10 +40,7 @@ export const start = (options = {}) => {
 
     // Prepare the Webpack configuration.
     const specs = formatSpecPaths(options.entry);
-    const entry = R.flatten([
-      specs
-    ]);
-    const config = webpackConfig({ entry });
+    const config = webpackConfig({ entry: specs });
 
     // Create the development server.
     const app = webpackDevServer(config);
@@ -60,11 +51,11 @@ export const start = (options = {}) => {
     console.log("TODO", "Write stats for build specs");
 
 
+
     // Start the server.
-    log.info("");
+    log.info("\n");
     log.info(chalk.grey(`Starting (${ ENV })...`));
-    const startingServer = listenP(app, PORT)
-      .then(() => {
+    app.listen(PORT, () => {
           // Server details.
           const packageJson = require(fsPath.resolve("./package.json"));
           log.info("");
@@ -82,7 +73,7 @@ export const start = (options = {}) => {
           // Finish up.
           log.info("");
           resolve({});
-      });
+    });
   });
 };
 
