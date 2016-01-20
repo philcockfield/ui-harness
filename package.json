@@ -3,8 +3,9 @@
   "version": "2.0.2",
   "description": "Isolate, test and document modular UI with React.",
   "scripts": {
+    "postinstall": "npm run bundle:ui-harness",
     "start": "node start --entry=./src/specs",
-    "bundle:uih": "node bundle --entry=./src/client/entry.js --output=./public/js/ui-harness.js",
+    "bundle:ui-harness": "node bundle --entry=./src/client/entry.js --output=./public/js/ui-harness.js",
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register",
     "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register --watch",
     "prepublish": "gulp lint && gulp build"
