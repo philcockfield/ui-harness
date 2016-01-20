@@ -1,4 +1,6 @@
 import R from "ramda";
+import fs from "fs-extra";
+import fsPath from "path";
 import Promise from "bluebird";
 import webpack from "webpack";
 import MemoryFileSystem from "memory-fs";
@@ -15,39 +17,37 @@ const toSizeStats = (text) => {
     };
 
 
+
 /**
- * Builds the given Webpack configuration to a file.
+ * Builds the given Webpack configuration to memory.
  *
  * @param {Object} config: The Webpack configuration object.
  * @param {Object} options:
- *                    - production: Flag indicating if the build should be as production.
+ *                    - save: Path to save the JS output to.
  *
  * @return {Promise}.
  */
 export default (config, options = {}) => {
   return new Promise((resolve, reject) => {
-    // Setup initial conditions.
-    const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
-    const IS_PRODUCTION = options.isProduction === true ? true : false;
-    if (IS_PRODUCTION) {
-      process.env.NODE_ENV = "production";
-    }
 
     // Prepare the webpack compiler.
     config = R.clone(config);
     const compiler = webpack(config);
-    const fs = compiler.outputFileSystem = new MemoryFileSystem();
+    const fsMemory = compiler.outputFileSystem = new MemoryFileSystem();
 
+    // Compile the JS.
     compiler.run((err, stats) => {
-          // Reset to the original the NODE_ENV.
-          process.env.NODE_ENV = ORIGINAL_NODE_ENV;
-
           if (err) {
             reject(err); // Failed.
           } else {
 
             // Read the generated javascript.
-            const js = fs.readFileSync("/bundle.js");
+            const js = fsMemory.readFileSync("/bundle.js");
+
+            // Save to a file if requested.
+            if (R.is(String, options.save)) {
+              fs.outputFileSync(options.save, js);
+            }
 
             // Calculate the size of the JS when zipped.
             const zip = new AdmZip();

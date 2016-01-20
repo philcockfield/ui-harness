@@ -5,7 +5,7 @@ import express from "express";
 import fsPath from "path";
 import webpack from "webpack";
 import webpackConfig from "./webpack-config";
-import webpackStats from "./webpack-stats";
+import webpackBuilder from "./webpack-builder";
 import webpackDevServer from "./webpack-dev-server";
 import specPaths from "./spec-paths";
 import log from "./log";
@@ -18,6 +18,15 @@ const listenP = (app, port) => {
 
 
 
+const logBuildStats = (buildStats, title) => {
+      log.info(title || "Build Stats:");
+      log.info(chalk.grey(" - minified: "), MINIFY);
+      log.info(chalk.grey(" - time:     "), buildStats.buildTime.secs, "secs");
+      log.info(chalk.grey(" - size:     "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
+      log.info("");
+    };
+
+
 const calculateBuildStats = (entry) => {
   return new Promise((resolve, reject) => {
       const statsConfig = webpackConfig({
@@ -25,13 +34,9 @@ const calculateBuildStats = (entry) => {
         isProduction: true,
         minify: MINIFY
       });
-      webpackStats(statsConfig, { production: true })
+      webpackBuilder(statsConfig)
         .then(buildStats => {
-            log.info(chalk.green("Build Stats:"));
-            log.info(chalk.grey(" - minified: "), MINIFY);
-            log.info(chalk.grey(" - time:     "), buildStats.buildTime.secs, "secs");
-            log.info(chalk.grey(" - size:     "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
-            console.log("");
+            logBuildStats(buildStats);
             resolve(buildStats);
         })
         .catch(err => {
@@ -40,6 +45,34 @@ const calculateBuildStats = (entry) => {
         });
   });
 };
+
+
+
+/**
+ * Bundles the UIHarness itself and saves it to the [/public/js] folder.
+ * @return {Promise}.
+ */
+export const bundle = () => {
+  return new Promise((resolve, reject) => {
+      const config = webpackConfig({
+        entry: fsPath.join(__dirname, "../client/entry.js"),
+        isProduction: true,
+        minify: false
+      });
+
+      const saveTo = fsPath.join(__dirname, "../../public/js/ui-harness.js");
+      webpackBuilder(config, { save: saveTo })
+        .then(buildStats => {
+            logBuildStats(buildStats, `${ chalk.green("Saved UIHarness bundle to:") } ${ chalk.cyan(saveTo) }`);
+            resolve(buildStats);
+        })
+        .catch(err => {
+            log.error("Failed to bundle the UIHarness:", err);
+            reject(err);
+        });
+  });
+};
+
 
 
 
@@ -106,7 +139,8 @@ export const start = (options = {}) => {
 
           // Finish up.
           log.info("");
-          calculateBuildStats(entry).then(() => resolve({}));
+          // calculateBuildStats(entry).then(() => resolve({}));
+          // bundle();
       });
   });
 };
