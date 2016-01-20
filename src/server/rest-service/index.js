@@ -1,6 +1,5 @@
 import rest from "rest-middleware";
 import packageJson from "../../../package.json";
-import quickStart from "./quick-start";
 
 
 function foo(p1, p2) {
@@ -40,5 +39,4 @@ service.methods({
 
 
 // ----------------------------------------------------------------------------
-quickStart(service);
 export default service;
