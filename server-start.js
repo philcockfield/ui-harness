@@ -3,13 +3,16 @@ var R = require("ramda");
 var minimist = require("minimist");
 var server = require("./lib/server");
 
+var args = process.argv.slice(2);
+args = args.length > 0 ? args = minimist(args) : null;
 
 
 /**
  * Look for arguments passed in at the command-line,
  * and start the server if required.
  *
- * Arguments:
+ * Command-line arguments:
+ *
  *           --entry: Required. Path to the specs files (comma seperated if more than one).
  *                    If not present the server is not started.
  *                    Example: --entry ./src/specs
@@ -21,14 +24,10 @@ var server = require("./lib/server");
  *                    See: https://babeljs.io/docs/usage/experimental/
  *                    Default: 1
  */
-var argv = process.argv.slice(2);
-if (argv.length > 0) {
-  argv = minimist(argv);
-  if (R.is(String, argv.entry)) {
-    server.start({
-      entry: argv.entry.split(","),
-      port: argv.port,
-      babel: argv.babel
-    })
-  }
+if (args && R.is(String, args.entry)) {
+  server.start({
+    entry: args.entry.split(","),
+    port: args.port,
+    babel: args.babel
+  });
 }
