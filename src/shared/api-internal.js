@@ -1,7 +1,8 @@
 import R from "ramda";
 import React from "react";
 import Immutable from "immutable";
-import { delay, localStorage } from "js-util";
+import { delay } from "js-util";
+import localStorage from "js-util/lib/local-storage";
 import rest from "rest-middleware/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";

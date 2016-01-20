@@ -40,7 +40,7 @@
     "radium": "^0.13.2",
     "ramda": "^0.17.1",
     "react": "^0.14.6",
-    "react-atoms": "^2.0.1",
+    "react-atoms": "^2.0.3",
     "react-dom": "^0.14.6",
     "react-object": "^2.0.1",
     "react-schema": "^1.1.0",

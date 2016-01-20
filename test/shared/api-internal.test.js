@@ -1,11 +1,12 @@
-import _ from "lodash";
+import R from "ramda";
 import { expect } from "chai";
 import sinon from "sinon";
 import api from "../../src/shared/api-internal";
 import bdd from "../../src/shared/bdd";
 import ThisContext from "../../src/shared/ThisContext";
 import Immutable from "immutable";
-import * as util from "js-util";
+import { delay } from "js-util";
+import localStorage from "js-util/lib/local-storage";
 
 
 describe("API Internal", () => {
@@ -31,7 +32,6 @@ describe("API Internal", () => {
       api.reset();
       expect(api.current.toJS()).to.eql({});
       expect(api.lastSelectedSuite()).not.to.exist;
-
     });
 
     it("clears local storage (hard)", () => {
@@ -57,9 +57,9 @@ describe("API Internal", () => {
     api.lastSelectedSuite(suite);
 
     const KEY = "ui-harness:lastSelectedSuite";
-    expect(_.any(util.localStorage.keys(), item => KEY)).to.equal(true);
+    expect(R.any(item => KEY, localStorage.keys())).to.equal(true);
     api.clearLocalStorage();
-    expect(_.any(util.localStorage.keys(), item => KEY)).to.equal(false);
+    expect(R.any(item => KEY, localStorage.keys())).to.equal(false);
   });
 
 
@@ -149,7 +149,7 @@ describe("API Internal", () => {
       let spec;
       describe("my suite", function() {
         spec = it("my spec", function(done) {
-          util.delay(10, () => { done() });
+          delay(10, () => { done() });
         });
       });
       api.invokeSpec(spec, () => { done() });
