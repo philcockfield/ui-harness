@@ -1,6 +1,7 @@
 "use strict"
 var R = require("ramda");
 var minimist = require("minimist");
+var chalk = require("chalk");
 var server = require("./lib/server");
 
 var args = process.argv.slice(2);
@@ -9,7 +10,7 @@ args = args.length > 0 ? args = minimist(args) : null;
 
 /**
  * Look for arguments passed in at the command-line,
- * and start the server if required.
+ * and starts the server if required.
  *
  * Command-line arguments:
  *
@@ -30,4 +31,6 @@ if (args && R.is(String, args.entry)) {
     port: args.port,
     babel: args.babel
   });
+} else {
+  console.log(chalk.red("No entry path was specified, for example: `--entry ./src/specs`\n"));
 }

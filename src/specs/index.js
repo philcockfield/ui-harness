@@ -1,5 +1,5 @@
 
-console.log("specs");
+console.log("TODO: /specs/index.js");
 
 
 // describe("ui-harness", function() {

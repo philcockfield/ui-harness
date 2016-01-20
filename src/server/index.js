@@ -2,15 +2,15 @@ import R from "ramda";
 import Promise from "bluebird";
 import chalk from "chalk";
 import express from "express";
+import fs from "fs-extra";
 import fsPath from "path";
-import webpack from "webpack";
+// import webpack from "webpack";
 import webpackConfig from "./webpack-config";
 import webpackBuilder from "./webpack-builder";
 import webpackDevServer from "./webpack-dev-server";
-import specPaths from "./spec-paths";
+import { formatSpecPaths, formatEntryPaths } from "./paths";
 import log from "./log";
 
-const MINIFY = false;
 
 const listenP = (app, port) => {
     return new Promise((resolve) => app.listen(port, () => resolve()));
@@ -18,70 +18,12 @@ const listenP = (app, port) => {
 
 
 
-const logBuildStats = (buildStats, isProduction, title) => {
-      log.info(title || "Build Stats:");
-      log.info(chalk.grey(" - minified: "), isProduction);
-      log.info(chalk.grey(" - time:     "), buildStats.buildTime.secs, "secs");
-      log.info(chalk.grey(" - size:     "), buildStats.size.display, chalk.grey("=>"), buildStats.zipped.display, chalk.grey("zipped"));
-      log.info("");
-    };
-
-
-// const calculateBuildStats = (entry) => {
-//   return new Promise((resolve, reject) => {
-//       const statsConfig = webpackConfig({
-//         entry,
-//         isProduction: true,
-//         // minify: MINIFY
-//       });
-//       webpackBuilder(statsConfig)
-//         .then(buildStats => {
-//             logBuildStats(buildStats);
-//             resolve(buildStats);
-//         })
-//         .catch(err => {
-//             log.error("Failed to :", err);
-//             reject(err);
-//         });
-//   });
-// };
-
-
-
-/**
- * Bundles the UIHarness itself and saves it to the [/public/js] folder.
- * @return {Promise}.
- */
-export const bundle = () => {
-  return new Promise((resolve, reject) => {
-      const isProduction = false;
-      const config = webpackConfig({
-        entry: fsPath.join(__dirname, "../client/entry.js"),
-        isProduction
-      });
-
-      const saveTo = fsPath.join(__dirname, "../../public/js/ui-harness.js");
-      webpackBuilder(config, { save: saveTo })
-        .then(buildStats => {
-            logBuildStats(buildStats, isProduction, `${ chalk.green("Saved UIHarness bundle to:") } ${ chalk.cyan(saveTo) }`);
-            resolve(buildStats);
-        })
-        .catch(err => {
-            log.error("Failed to bundle the UIHarness:", err);
-            reject(err);
-        });
-  });
-};
-
-
-
-
 /**
  * Starts the UIHarness development server.
- * @param {Object} options
+ *
+ * @param {Object} options:
+ *
  *           --entry: Required. Path to the specs files (comma seperated if more than one).
- *                    If not present the server is not started.
- *                    Example: --entry ./src/specs
  *
  *           --port:  Optional. The port to start the server on.
  *                    Default: 3030
@@ -94,6 +36,8 @@ export const bundle = () => {
  */
 export const start = (options = {}) => {
   return new Promise((resolve, reject) => {
+    // Setup initial conditions.
+    if (R.isNil(options.entry)) { throw new Error(`Entry path(s) must be specified.`); }
 
     // Extract options  default values.
     const ENV = process.env.NODE_ENV || "development";
@@ -101,7 +45,7 @@ export const start = (options = {}) => {
     const BABEL_STAGE = options.babel || 1;
 
     // Prepare the Webpack configuration.
-    const specs = specPaths(options.entry);
+    const specs = formatSpecPaths(options.entry);
     const entry = R.flatten([
       specs
     ]);
@@ -114,6 +58,7 @@ export const start = (options = {}) => {
 
     console.log("TODO", "Initiate the babel register if required");
     console.log("TODO", "Write stats for build specs");
+
 
     // Start the server.
     log.info("");
@@ -137,11 +82,70 @@ export const start = (options = {}) => {
           // Finish up.
           log.info("");
           resolve({});
-          // calculateBuildStats(entry).then(() => resolve({}));
+      });
+  });
+};
 
-          console.log("TODO", "Don't bundle - expose this from a `npm run` command");
-          bundle();
 
+
+
+/**
+ * Bundles the UIHarness itself and saves it to the [/public/js] folder.
+ *
+ * @param {Object} options:
+ *
+ *           --entry:         Required. Path(s) to the files to build.
+ *
+ *           --output:        Optional. Path to save the output to.
+ *
+ *           --isProduction:  Optional. Flag indicating if the JS should be build in production mode
+ *                            meaning optimizations (like minification) are employed.
+ *                            Default: false
+ *
+ *           --silent:        Optional. Flag indicating if results should be logged.
+ *                            Default: false
+ *
+ * @return {Promise}.
+ */
+export const bundle = (options = {}) => {
+  return new Promise((resolve, reject) => {
+    // Setup initial conditions.
+    let { entry, output, isProduction, silent } = options;
+    if (!entry) { throw new Error(`Entry path(s) must be specified.`); }
+    if (!R.is(Array, entry)) { entry = [entry]; }
+    isProduction = isProduction || false;
+    output = R.is(String, output) && fsPath.resolve(output);
+
+    // Prepare the webpack configuration.
+    const config = webpackConfig({
+      entry: formatEntryPaths(entry),
+      isProduction
+    });
+
+    const logStats = (stats) => {
+          if (silent === true) { return; }
+          log.info(chalk.green("Bundle:"));
+          log.info(chalk.grey(" - production: "), isProduction);
+          log.info(chalk.grey(" - minified:   "), isProduction);
+          log.info(chalk.grey(" - time:       "), stats.buildTime.secs, "secs");
+          log.info(chalk.grey(" - size:       "), stats.size.display, chalk.grey("=>"), stats.zipped.display, chalk.grey("zipped"));
+          log.info(chalk.grey(" - saved:      "), output || false);
+          log.info("");
+          return stats;
+        };
+
+    const save = (stats) => {
+          if (output) { fs.outputFileSync(output, stats.js) }
+          return stats;
+        };
+
+    webpackBuilder(config)
+      .then(result => save(result))
+      .then(result => logStats(result))
+      .then(result => resolve(result))
+      .catch(err => {
+          log.error("Failed to bundle the UIHarness:", err);
+          reject(err);
       });
   });
 };

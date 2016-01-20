@@ -1,12 +1,20 @@
 import R from "ramda";
 import fs from "fs-extra";
 import fsPath from "path";
+import chalk from "chalk";
 import log from "./log";
 import bdd from "../shared/bdd";
-import chalk from "chalk";
 
 
-const formatEntryPaths = (entry) => {
+/**
+ * Prepare entry paths for the WebPack bundle.
+ *
+ * @param {String|Array} entry: Paths to entry points of files to pass
+ *                              to WebPack to build for the client.
+ *
+ * @return {Object} of paths.
+ */
+export const formatEntryPaths = (entry) => {
     entry = entry || [];
     if (!R.is(Array, entry)) { entry = [entry]; }
     if (entry.length === 0) {
@@ -30,37 +38,32 @@ const formatEntryPaths = (entry) => {
 
 
 
-const parseSpecs = (paths) => {
-    require("babel-register"); // Ensure ES6+ within specs can be imported.
-    bdd.register();
-    paths.forEach(path => require(path));
-    bdd.unregister();
-  };
-
-
 
 
 /**
- * Prepare entry paths for the WebPack bundle.
+ * Prepare spec paths for the WebPack bundle.
  *
  * @param {String|Array} entry: Paths to entry points of files to pass
  *                              to WebPack to build for the client.
  *
  * @return {Object} of paths.
  */
-export default (entry) => {
+export const formatSpecPaths = (entry) => {
   const paths = formatEntryPaths(entry);
 
   // Parse the specs.
-  parseSpecs(paths)
+  require("babel-register"); // Ensure ES6+ within specs can be imported.
+  bdd.register();
+  paths.forEach(path => require(path));
+  bdd.unregister();
 
   // Check for non-standard characters within the paths.
   paths.forEach(path => {
           if (!path.match(/^[a-z0-9\.\-\_\s\/]+$/i)) {
-            console.warn(chalk.red("WARNING Path contains non-standard characters. Hot-reloading may not work."));
-            console.warn(chalk.red("        Hint: Brackets '(...)' will cause problems."));
-            console.log(chalk.cyan(`        ${ path }`));
-            console.log("");
+            log.warn(chalk.red("WARNING Path contains non-standard characters. Hot-reloading may not work."));
+            log.warn(chalk.red("        Hint: Brackets '(...)' will cause problems."));
+            log.warn(chalk.cyan(`        ${ path }`));
+            log.warn("");
           }
         });
 
