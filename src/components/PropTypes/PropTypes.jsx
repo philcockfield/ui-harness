@@ -1,7 +1,7 @@
 import R from "ramda";
 import React from "react";
 import Radium from "radium";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 import { ValueList } from "react-object";
 import { EmptyLabel } from "../shared";
 

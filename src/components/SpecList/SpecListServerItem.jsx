@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 import api from "../../shared/api-internal";
 
 

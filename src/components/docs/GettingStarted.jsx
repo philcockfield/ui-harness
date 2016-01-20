@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Markdown from "react-atoms/components/Markdown";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 import { delay } from "js-util";
 import api from "../../shared/api-internal";
 

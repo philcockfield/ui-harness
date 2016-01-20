@@ -1,5 +1,5 @@
 import React from "react";
-import { PropTypes } from "../react-util";
+import { PropTypes } from "../util";
 import Markdown from "react-atoms/components/Markdown";
 
 

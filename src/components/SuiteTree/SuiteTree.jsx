@@ -3,7 +3,7 @@ import Radium from "radium";
 import api from "../../shared/api-internal";
 import bdd from "../../shared/bdd";
 import { Ul } from "../shared";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 import SuiteTreeItem from "./SuiteTreeItem";
 import SuiteTreeEmpty from "./SuiteTreeEmpty";
 

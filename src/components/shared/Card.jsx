@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Color from "color";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 
 
 

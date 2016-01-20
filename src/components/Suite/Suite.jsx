@@ -2,7 +2,7 @@ import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 import { FlexEdge } from "../shared";
 import api from "../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";

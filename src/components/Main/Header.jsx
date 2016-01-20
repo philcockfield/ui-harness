@@ -1,6 +1,6 @@
 import React from "react";
 import Radium, { Style } from "radium";
-import { css, PropTypes } from "../react-util";
+import { css, PropTypes } from "../util";
 import { FONT_SANS } from "../GlobalStyles";
 import { Markdown } from "../shared";
 import { trimIndent } from "react-atoms/components/Markdown";
