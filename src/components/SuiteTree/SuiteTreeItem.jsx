@@ -1,6 +1,7 @@
 import React from "react";
 import Radium from "radium";
-import * as util from "js-util";
+import { delay } from "js-util";
+import { fromAlpha } from "js-util/lib/color";
 import { css, PropTypes } from "../util";
 import Color from "color";
 import api from "../../shared/api-internal";
@@ -8,7 +9,7 @@ import { Ul, Twisty, Center, Ellipsis } from "../shared";
 import { IconImage, FormattedText } from "../shared";
 
 const TEXT_COLOR = Color("white").darken(0.6).hexString();
-const SELECTED_BG_COLOR = util.color.fromAlpha(-0.08);
+const SELECTED_BG_COLOR = fromAlpha(-0.08);
 
 
 /**
@@ -44,9 +45,7 @@ class SuiteTreeItem extends React.Component {
 
     // Indicate that the component is rendered.
     // NB: Used to prevent <Twisty> from animating on inital load.
-    util.delay(() => {
-      this.setState({ isMounted:true });
-    });
+    delay(() => this.setState({ isMounted:true }));
   }
 
 
@@ -86,7 +85,7 @@ class SuiteTreeItem extends React.Component {
         paddingLeft: (27 + widths.indent),
         marginRight: 120,
         ":hover": {
-          background: util.color.fromAlpha(-0.02),
+          background: fromAlpha(-0.02),
           cursor: "pointer"
         },
       },
