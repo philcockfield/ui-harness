@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
 
-Isolate, test and document modular UI with React using familiar "describe/it" testing semantics.  
+Isolate, test and document modular UI with React using familiar `describe/it` testing semantics.  
 
 http://uiharness.com
 
@@ -23,23 +23,47 @@ See the quick-start sample repo https://github.com/philcockfield/ui-harness-samp
 
 
 
-## Manual Install
-The UIHarness is just a simple NPM module.  To add it to an existing module install it like normal:
+## Manual Setup
+The UIHarness is just a simple NPM module.  Simply add it to you `package.json` file:
 
-    npm install --save-dev ui-harness
-
-Then within your entry file start the server:
-```js
-// index.js
-require("ui-harness/server").start({ babel: true });
+```json
+{
+  "name": "my-components",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node ./node_modules/ui-harness/start --entry=./src/specs",
+  },
+  "devDependencies": {
+    "ui-harness": "^3.0.0"
+  },
+  "engines": { "node": ">=5.0.0" }
+}
 ```
 
+From here you can start developing your React components.  All the core dependencies for `react` and `babel` transpiling are made available to your module by virtue of the one `ui-harness` dependency.
+
+Now simply run:
+
+    npm start
+
+And navigate your browser to `http://localhost:3030`
+
+#### Project Structure
+The `package.json` above assumes a project structure like this:
+
+    my-components
+    |— src
+      |— components       # React components here.
+      |— specs            # Spec files here.
+         |— index.js      # --entry to the "describe/it" visual specification files.
+
+For a working sample see: https://github.com/philcockfield/ui-harness-sample
 
 ------
 
 
 ## Conceptual Introduction
-The UIHarness allows you to add a one-line startup script to your node module that provides a complete visual test and build harness for creating your components.
+The UIHarness allows you to add a one-line startup script to your node module that provides a complete visual test and build harness for creating and bundling your components.
 
 #### Creating
 As a tool for crafting your components and their API's in isolation, the UIHarness dramatically improves the quality and reuse potential of your UI investment.  You will be falling into the "pit of success" conforming to best-practices that also make your job faster and easier.
