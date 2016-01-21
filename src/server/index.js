@@ -57,7 +57,6 @@ export const start = (options = {}) => {
           log.info(chalk.green("UIHarness:"));
           log.info(chalk.grey(" - module:   "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
           log.info(chalk.grey(" - port:     "), PORT);
-          log.info(chalk.grey(" - env:      "), ENV);
           log.info(chalk.grey(" - react:    "), `v${ reactJson.version }`);
 
           // Specs.
