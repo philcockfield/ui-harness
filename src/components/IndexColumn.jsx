@@ -83,7 +83,7 @@ class IndexColumn extends React.Component {
     const styles = this.styles();
     const { current, width } = this.props;
     const currentSuite = current.get("suite");
-    const indexMode = current.get("indexMode");
+    const indexMode = api.indexMode();
 
     let elSuite;
     if (currentSuite && indexMode === "suite") {
