@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Isolate, test and document modular UI with React.",
   "scripts": {
     "postinstall": "npm run bundle:ui-harness",
