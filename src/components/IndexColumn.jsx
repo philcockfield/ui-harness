@@ -85,9 +85,7 @@ class IndexColumn extends React.Component {
     const currentSuite = current.get("suite");
     const indexMode = current.get("indexMode");
 
-    console.log("current.toJS()", current.toJS());
     let elSuite;
-    console.log("currentSuite", currentSuite);
     if (currentSuite && indexMode === "suite") {
       elSuite = <Suite ref="suite" suite={ currentSuite } current={ current } />;
     }
