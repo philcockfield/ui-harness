@@ -1,5 +1,6 @@
-import _ from "lodash";
+import R from "ramda";
 import bdd from "js-bdd";
+import { compact } from "js-util";
 import bddServer from "./bdd-server";
 import ThisContext from "./ThisContext";
 
@@ -24,9 +25,9 @@ export default {
         return parent ? getRoot(parent) : suite;
     };
     let suites = bdd.suites();
-    suites = _.filter(suites, suite => suite.parentSuite === undefined || suite.isOnly);
+    suites = suites.filter(suite => suite.parentSuite === undefined || suite.isOnly);
     suites = suites.map(suite => getRoot(suite));
-    suites = _.compact(_.unique(suites));
+    suites = compact(R.uniq(suites));
     return suites;
   },
 

@@ -65,7 +65,6 @@ export default (options = {}) => {
         "ramda": modulePath("ramda"),
         "react": modulePath("react"),
         "react-dom": modulePath("react-dom"),
-        "lodash": modulePath("lodash"),
         "immutable": modulePath("immutable"),
         "bluebird": modulePath("bluebird"),
         "js-util": modulePath("js-util")
