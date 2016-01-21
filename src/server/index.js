@@ -45,11 +45,6 @@ export const start = (options = {}) => {
     const app = webpackDevServer(config);
     app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
-
-    console.log("TODO", "Write stats for build specs");
-
-
-
     // Start the server.
     log.info("\n");
     log.info(chalk.grey(`Starting (${ ENV })...`));

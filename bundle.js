@@ -27,9 +27,6 @@ args = args.length > 0 ? args = minimist(args) : null;
  *
  */
 if (args && R.is(String, args.entry)) {
-
-  console.log(chalk.red("TODO - change package.json script `bundle:uih` to use --prod"));
-
   server.bundle({
     entry: args.entry.split(","),
     output: args.output,
