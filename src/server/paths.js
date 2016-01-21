@@ -6,6 +6,23 @@ import log from "./log";
 import bdd from "../shared/bdd";
 
 
+
+/**
+ * Retrieves the absolute path to the root module, which will be either:
+ *   - the referencing parent module (typically)
+ *   - or the ui-harness itself (when under development).
+ *
+ * @return {String}.
+ */
+export const rootModulePath = () => {
+  const parent = fsPath.resolve("../");
+  return fsPath.basename(parent) === "node_modules"
+    ? fsPath.resolve("../../")
+    : fsPath.resolve("./");
+};
+
+
+
 /**
  * Prepare entry paths for the WebPack bundle.
  *

@@ -2,9 +2,9 @@ import R from "ramda";
 import webpack from "webpack";
 import fs from "fs-extra";
 import fsPath from "path";
+import { rootModulePath } from "./paths";
 
-
-const NODE_MODULES_PATH = fsPath.resolve("node_modules");
+const NODE_MODULES_PATH = fsPath.join(rootModulePath(), "node_modules");
 
 
 const babelLoader = (extension) => {
