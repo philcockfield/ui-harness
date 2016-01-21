@@ -52,7 +52,6 @@ export const formatSpecPaths = (entry) => {
   const paths = formatEntryPaths(entry);
 
   // Parse the specs.
-  require("babel-register"); // Ensure ES6+ within specs can be imported.
   bdd.register();
   paths.forEach(path => require(path));
   bdd.unregister();

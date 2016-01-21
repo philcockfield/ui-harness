@@ -22,10 +22,6 @@ import log from "./log";
  *           --port:  Optional. The port to start the server on.
  *                    Default: 3030
  *
- *           --babel: Optional. The babel "stage" to transpile using.
- *                    See: https://babeljs.io/docs/usage/experimental/
- *                    Default: 1
- *
  * @return {Promise}.
  */
 export const start = (options = {}) => {
@@ -38,6 +34,9 @@ export const start = (options = {}) => {
     const PORT = options.port || 3030;
     const BABEL_STAGE = options.babel || 1;
 
+    // Ensure ES6+ within specs can be imported.
+    require("babel-register");
+
     // Prepare the Webpack configuration.
     const specs = formatSpecPaths(options.entry);
     const config = webpackConfig({ entry: specs });
@@ -47,7 +46,6 @@ export const start = (options = {}) => {
     app.use("/", express.static(fsPath.resolve(__dirname, "../../public")));
 
 
-    console.log("TODO", "Initiate the babel register if required");
     console.log("TODO", "Write stats for build specs");
 
 

@@ -21,15 +21,11 @@ args = args.length > 0 ? args = minimist(args) : null;
  *           --port:  Optional. The port to start the server on.
  *                    Default: 3030
  *
- *           --babel: Optional. The babel "stage" to transpile using.
- *                    See: https://babeljs.io/docs/usage/experimental/
- *                    Default: 1
  */
 if (args && R.is(String, args.entry)) {
   server.start({
     entry: args.entry.split(","),
-    port: args.port,
-    babel: args.babel
+    port: args.port
   });
 } else {
   console.log(chalk.red("No entry path was specified, for example: `--entry ./src/specs`\n"));
