@@ -9,5 +9,5 @@ describe("ui-harness", function() {
 
 
 
-// require("react-atoms/specs");
-// require("react-object/lib/specs");
+require("react-atoms/specs");
+require("react-object/lib/specs");
