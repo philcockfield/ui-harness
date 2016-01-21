@@ -3,7 +3,6 @@
   "version": "3.0.0",
   "description": "Isolate, test and document modular UI with React.",
   "scripts": {
-    "postinstall": "npm run bundle:ui-harness",
     "start": "node start --entry=./src/specs",
     "bundle:ui-harness": "node bundle --prod --entry=./src/client/entry.js --output=./public/js/ui-harness.js",
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register",
