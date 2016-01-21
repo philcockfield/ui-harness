@@ -10,7 +10,7 @@ import webpackDevServer from "./webpack-dev-server";
 import { formatSpecPaths, formatEntryPaths } from "./paths";
 import log from "./log";
 
-const NODE_MODULES = fsPath.join(__dirname, "../../node_modules");
+const NODE_MODULES = fsPath.resolve("./node_modules");
 
 
 /**
