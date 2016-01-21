@@ -22,9 +22,7 @@ class SpecListServerItem extends React.Component {
   }
 
   handleClick() {
-    api.invokeServerSpec(this.props.spec, () => {
-      console.log("done");
-    })
+    console.log("TODO", "Delete");
   }
 
   render() {

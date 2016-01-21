@@ -4,7 +4,6 @@ import React from "react";
 import Immutable from "immutable";
 import { delay } from "js-util";
 import localStorage from "js-util/lib/local-storage";
-import rest from "rest-middleware/browser";
 import bdd from "./bdd";
 import apiConsole from "./api-console";
 import GettingStarted from "../components/docs/GettingStarted";
@@ -255,25 +254,6 @@ class Api {
 
     // Finish up.
     return this;
-  }
-
-
-  /**
-   * Invokes a spec on the server.
-   * @param spec: The [Spec] to invoke.
-   * @param callback: Invoked upon completion.
-   */
-  invokeServerSpec(spec, callback) {
-    const server = rest();
-    server.onReady(() => {
-      console.log("Invoking on server...");
-      server.methods.spec.put(spec.id)
-        .then((result) => {
-          // TODO:
-          console.log("result: ", result);
-          console.log("");
-        });
-    });
   }
 
 
