@@ -1,12 +1,30 @@
 "use strict"
 var R = require("ramda");
+var fs = require("fs-extra");
+var path = require("path");
 var minimist = require("minimist");
 var chalk = require("chalk");
 var toBool = require("js-util").toBool;
+var shell = require("shelljs");
+
+// Ensure the 'lib' has been built.
+if (!fs.existsSync(path.join(__dirname, "lib"))) {
+  shell.exec("gulp build");
+}
 var server = require("./lib/server");
 
+
+// Retrieve command-line arguments.
 var args = process.argv.slice(2);
-args = args.length > 0 ? args = minimist(args) : null;
+args = args.length > 0 ? args = minimist(args) : {};
+
+
+// Set initialization paths if [--init] was passed.
+if (args.init) {
+  args.prod = true;
+  args.entry = "./src/client/entry.js";
+  args.output = "./public/js/ui-harness.js";
+}
 
 
 /**
@@ -26,7 +44,7 @@ args = args.length > 0 ? args = minimist(args) : null;
  *                      Default: true
  *
  */
-if (args && R.is(String, args.entry)) {
+if (R.is(String, args.entry)) {
   server.bundle({
     entry: args.entry.split(","),
     output: args.output,

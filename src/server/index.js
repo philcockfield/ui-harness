@@ -99,6 +99,7 @@ export const bundle = (options = {}) => {
     if (!R.is(Array, entry)) { entry = [entry]; }
     isProduction = isProduction || false;
     output = R.is(String, output) && fsPath.resolve(output);
+    log.silent = silent || false;
 
     // Prepare the webpack configuration.
     const config = webpackConfig({
@@ -107,7 +108,6 @@ export const bundle = (options = {}) => {
     });
 
     const logStats = (stats) => {
-          if (silent === true) { return; }
           log.info(chalk.green("Bundle:"));
           log.info(chalk.grey(" - production: "), isProduction);
           log.info(chalk.grey(" - minified:   "), isProduction);
@@ -123,6 +123,7 @@ export const bundle = (options = {}) => {
           return stats;
         };
 
+    log.info(chalk.grey(`Building '${ entry }'...`));
     webpackBuilder(config)
       .then(result => save(result))
       .then(result => logStats(result))

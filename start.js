@@ -5,7 +5,7 @@ var chalk = require("chalk");
 var server = require("./lib/server");
 
 var args = process.argv.slice(2);
-args = args.length > 0 ? args = minimist(args) : null;
+args = args.length > 0 ? args = minimist(args) : {};
 
 
 /**
@@ -22,7 +22,7 @@ args = args.length > 0 ? args = minimist(args) : null;
  *                    Default: 3030
  *
  */
-if (args && R.is(String, args.entry)) {
+if (R.is(String, args.entry)) {
   server.start({
     entry: args.entry.split(","),
     port: args.port
