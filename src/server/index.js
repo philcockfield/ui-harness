@@ -10,6 +10,7 @@ import webpackDevServer from "./webpack-dev-server";
 import { formatSpecPaths, formatEntryPaths } from "./paths";
 import log from "./log";
 
+const NODE_MODULES = fsPath.join(__dirname, "../../node_modules");
 
 
 /**
@@ -51,11 +52,13 @@ export const start = (options = {}) => {
     app.listen(PORT, () => {
           // Server details.
           const packageJson = require(fsPath.resolve("./package.json"));
+          const reactJson = require(fsPath.join(NODE_MODULES, "react/package.json"));
           log.info("");
           log.info(chalk.green("UIHarness:"));
           log.info(chalk.grey(" - module:   "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
           log.info(chalk.grey(" - port:     "), PORT);
           log.info(chalk.grey(" - env:      "), ENV);
+          log.info(chalk.grey(" - react:    "), `v${ reactJson.version }`);
 
           // Specs.
           log.info(chalk.grey(" - specs:    "), specs[0] || chalk.magenta("None."));
