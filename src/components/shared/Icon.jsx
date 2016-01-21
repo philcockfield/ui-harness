@@ -1,3 +1,4 @@
+import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import { css, PropTypes } from "../util";
@@ -59,7 +60,7 @@ class Icon extends React.Component {
 
   handleClick(e) {
     const handler = this.props.onClick;
-    if (_.isFunction(handler)) { handler(e); }
+    if (R.is(Function, handler)) { handler(e); }
   }
 
   handleMouseDown() { this.setState({ isDown:true }); }

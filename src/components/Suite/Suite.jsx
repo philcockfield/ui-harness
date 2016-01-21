@@ -73,7 +73,7 @@ class Suite extends React.Component {
     if (suite.sections) {
       const includeSection = (section) => {
             return hasOnly
-                ? _.any(item => item.isOnly, section.specs())
+                ? R.any(item => item.isOnly, section.specs())
                 : true;
           };
       var sections = suite.sections.map((section, i) => {

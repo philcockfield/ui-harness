@@ -142,13 +142,13 @@ class SuiteTreeItem extends React.Component {
       const { suite, selectedSuite } = this.props;
       if (!selectedSuite) { return false; }
       if (selectedSuite.id.length <= suite.id.length) { return false; }
-      return _.startsWith(selectedSuite.id, suite.id);
+      return selectedSuite.id.startsWith(suite.id);
   }
 
 
   toggle(isOpen) {
       if (this.hasChildren()) {
-        if (_.isUndefined(isOpen)) { isOpen = !this.state.isOpen; }
+        if (isOpen === undefined) { isOpen = !this.state.isOpen; }
         this.setState({ isOpen: isOpen });
         this.storageIsOpen(isOpen);
       }

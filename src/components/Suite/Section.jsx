@@ -66,7 +66,7 @@ class Section extends React.Component {
     const { section, hasOnly, current } = this.props;
     const { isOpen } = this.state;
     let specs = section.specs();
-    if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
+    if (hasOnly) { specs = specs.filter(spec => spec.isOnly); }
 
     return (
       <div style={ styles.base }>
