@@ -1,7 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import { lorem } from "js-util/test";
-import { css, PropTypes } from "js-util/react";
+import { lorem, css, PropTypes } from "./util";
 import Foo from "react-atoms/components/Foo";
 import api from "../shared/api-internal";
 

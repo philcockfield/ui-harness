@@ -1,6 +1,6 @@
 import React from "react";
 import Foo from "react-atoms/components/Foo";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "./util";
 
 
 
@@ -19,23 +19,25 @@ describe("PropTypes", function() {
 
 // ----------------------------------------------------------------------------
 
+
 export default class MyComponent extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    obj: PropTypes.shape({
+      color: PropTypes.string,
+      isEnabled: PropTypes.bool
+    })
+  };
+  static defaultProps = {
+    obj: {
+      color: "tomato",
+      isEnabled: true
+    }
+  };
+
   render() {
     return (
       <div>MyComponent</div>
     );
   }
 }
-MyComponent.propTypes = {
-  name: PropTypes.string,
-  obj: PropTypes.shape({
-    color: PropTypes.string,
-    isEnabled: PropTypes.bool
-  }),
-};
-MyComponent.defaultProps = {
-  obj: {
-    color: "tomato",
-    isEnabled: true
-  }
-};

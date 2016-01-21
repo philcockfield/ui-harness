@@ -42,7 +42,7 @@
     "react": "^0.14.6",
     "react-atoms": "^2.0.3",
     "react-dom": "^0.14.6",
-    "react-object": "^2.0.1",
+    "react-object": "^2.0.7",
     "react-schema": "^1.1.0",
     "rest-middleware": "^1.0.21",
     "url-loader": "^0.5.6",
