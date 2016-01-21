@@ -24,7 +24,7 @@ export default {
         return parent ? getRoot(parent) : suite;
     };
     let suites = bdd.suites();
-    suites = _.filter(suites, suite => _.isUndefined(suite.parentSuite) || suite.isOnly);
+    suites = _.filter(suites, suite => suite.parentSuite === undefined || suite.isOnly);
     suites = suites.map(suite => getRoot(suite));
     suites = _.compact(_.unique(suites));
     return suites;

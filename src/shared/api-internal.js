@@ -1,4 +1,5 @@
 import R from "ramda";
+import Promise from "bluebird";
 import React from "react";
 import Immutable from "immutable";
 import { delay } from "js-util";
@@ -25,17 +26,15 @@ class Api {
 
   /**
    * Initializes the UIHarness environment.
-   * @param {Function} callback: Invoked when ready to initialize the DOM.
+   * @return {Promise}.
    */
-  init(callback) {
-    // Put state into global namespace.
-    bdd.register();
-    global.UIHarness = global.uih = apiConsole;
+  init() {
+    return new Promise((resolve, reject) => {
 
-    // Insert the <Shell> into the root.
-    //    NB: Signal DOM ready after a delay to ensure that the [describe/it]
-    //        have fully parsed before initial render. Avoids a redraw.
-    delay(() => {
+        // Put state into global namespace.
+        bdd.register();
+        global.UIHarness = global.uih = apiConsole;
+
         // Ensure the last loaded suite is set as the current state.
         const suite = this.lastSelectedSuite();
         if (suite) {
@@ -54,11 +53,8 @@ class Api {
         }
 
         // Done.
-        callback()
+        resolve({});
     });
-
-    // Finish up.
-    return this;
   }
 
 
