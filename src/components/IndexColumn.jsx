@@ -83,6 +83,14 @@ class IndexColumn extends React.Component {
     const styles = this.styles();
     const { current, width } = this.props;
     const currentSuite = current.get("suite");
+    const indexMode = current.get("indexMode");
+
+    console.log("current.toJS()", current.toJS());
+    let elSuite;
+    console.log("currentSuite", currentSuite);
+    if (currentSuite && indexMode === "suite") {
+      elSuite = <Suite ref="suite" suite={ currentSuite } current={ current } />;
+    }
 
     return (
       <div style={ styles.base }
@@ -94,12 +102,8 @@ class IndexColumn extends React.Component {
           <SuiteTree ref="suiteTree" selectedSuite={ currentSuite } width={ width } />
         </div>
         <div style={[ styles.outer, styles.specs ]}>
-          {
-            currentSuite &&
-              <Suite ref="suite" suite={ currentSuite } current={ current } />
-          }
+          { elSuite }
         </div>
-
       </div>
     );
   }
