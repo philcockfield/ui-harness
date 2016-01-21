@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import { FormattedText, Ellipsis, Twisty } from "../shared";
 import api from "../../shared/api-internal";
 import SpecList from "../SpecList";
@@ -48,7 +48,7 @@ class Section extends React.Component {
         textAlign: "center",
         fontSize: 13,
         fontStyle: "italic",
-        color: css.white.darken(0.3),
+        color: Color("white").darken(0.5).hexString(),
         paddingTop: 10,
         paddingBottom: 20
       }
@@ -66,7 +66,7 @@ class Section extends React.Component {
     const { section, hasOnly, current } = this.props;
     const { isOpen } = this.state;
     let specs = section.specs();
-    if (hasOnly) { specs = _.filter(specs, spec => spec.isOnly); }
+    if (hasOnly) { specs = specs.filter(spec => spec.isOnly); }
 
     return (
       <div style={ styles.base }>

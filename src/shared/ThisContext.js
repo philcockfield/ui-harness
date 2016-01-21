@@ -2,10 +2,9 @@ import R from "ramda";
 import React from "react";
 import api from "./api-internal";
 import * as util from "js-util";
-import { css, PropTypes } from "js-util/react";
-import schema from "react-schema";
+import css from "js-util/lib/react-css";
+import schema, { PropTypes } from "react-schema";
 import AlignmentContainer from "react-atoms/components/AlignmentContainer";
-
 
 const isBrowser = (typeof window !== "undefined");
 const PROP = Symbol("Prop");

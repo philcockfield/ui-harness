@@ -1,7 +1,6 @@
-import _ from "lodash";
 import React from "react";
 import Radium from "radium";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import ICONS from "../../../public/images";
 
 
@@ -11,7 +10,7 @@ import ICONS from "../../../public/images";
  */
 class Icon extends React.Component {
   static propTypes = {
-    name: PropTypes.oneOf(_.keys(ICONS)).isRequired,
+    name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
     absolute: PropTypes.string,
     opacity: PropTypes.number
   };

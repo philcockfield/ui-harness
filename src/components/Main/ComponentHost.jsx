@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import Component from "./Component";
 import AlignmentContainer from "react-atoms/components/AlignmentContainer";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import { Ul } from "../shared";
 import SpecListItem from "./SpecListItem";
 import SpecListServerItem from "./SpecListServerItem";

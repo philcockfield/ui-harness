@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "./util";
 import api from "../shared/api-internal";
 import SuiteTree from "./SuiteTree";
 import Suite from "./Suite";
@@ -83,6 +83,12 @@ class IndexColumn extends React.Component {
     const styles = this.styles();
     const { current, width } = this.props;
     const currentSuite = current.get("suite");
+    const indexMode = api.indexMode();
+
+    let elSuite;
+    if (currentSuite && indexMode === "suite") {
+      elSuite = <Suite ref="suite" suite={ currentSuite } current={ current } />;
+    }
 
     return (
       <div style={ styles.base }
@@ -94,12 +100,8 @@ class IndexColumn extends React.Component {
           <SuiteTree ref="suiteTree" selectedSuite={ currentSuite } width={ width } />
         </div>
         <div style={[ styles.outer, styles.specs ]}>
-          {
-            currentSuite &&
-              <Suite ref="suite" suite={ currentSuite } current={ current } />
-          }
+          { elSuite }
         </div>
-
       </div>
     );
   }

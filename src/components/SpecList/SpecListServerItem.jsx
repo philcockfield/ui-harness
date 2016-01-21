@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import api from "../../shared/api-internal";
 
 
@@ -22,9 +22,7 @@ class SpecListServerItem extends React.Component {
   }
 
   handleClick() {
-    api.invokeServerSpec(this.props.spec, () => {
-      console.log("done");
-    })
+    console.log("TODO", "Delete");
   }
 
   render() {

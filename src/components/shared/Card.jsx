@@ -1,7 +1,9 @@
 import React from "react";
 import Radium from "radium";
 import Color from "color";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
+
+
 
 /**
  * A wrapper that puts content within a card.

@@ -3,7 +3,7 @@ import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
 import Color from "color";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import { Card, FlexEdge } from "../shared";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -27,7 +27,7 @@ class Main extends React.Component {
     if (R.is(Number, color)) {
       if (color < 0) { color = 0; }
       if (color > 1) { color = 1; }
-      color = css.white.darken(color);
+      color = Color("white").darken(color).hexString();
     }
     return color;
   }

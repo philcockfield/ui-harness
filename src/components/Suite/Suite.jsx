@@ -2,7 +2,7 @@ import R from "ramda";
 import React from "react";
 import Radium from "radium";
 import Immutable from "immutable";
-import { css, PropTypes } from "js-util/react";
+import { css, PropTypes } from "../util";
 import { FlexEdge } from "../shared";
 import api from "../../shared/api-internal";
 import SuiteHeader from "./SuiteHeader";
@@ -73,7 +73,7 @@ class Suite extends React.Component {
     if (suite.sections) {
       const includeSection = (section) => {
             return hasOnly
-                ? _.any(item => item.isOnly, section.specs())
+                ? R.any(item => item.isOnly, section.specs())
                 : true;
           };
       var sections = suite.sections.map((section, i) => {
