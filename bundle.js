@@ -25,8 +25,8 @@ if (args.init) {
   console.log(chalk.red("TODO - Turn on --prod"));
 
   // args.prod = true;
-  args.entry = "./src/client/entry.js";
-  args.output = "./public/js/ui-harness.js";
+  args.entry = path.join(__dirname, "/lib/client/entry.js");
+  args.output = path.join(__dirname, "/public/js/ui-harness.js");
 }
 
 

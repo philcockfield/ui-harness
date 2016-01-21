@@ -115,7 +115,7 @@ export const bundle = (options = {}) => {
           log.info(chalk.grey(" - minified:   "), isProduction);
           log.info(chalk.grey(" - time:       "), stats.buildTime.secs, "secs");
           log.info(chalk.grey(" - size:       "), stats.size.display, chalk.grey("=>"), stats.zipped.display, chalk.grey("zipped"));
-          log.info(chalk.grey(" - saved:      "), output || false);
+          log.info(chalk.grey(" - saved to:   "), output || false);
           log.info("");
           return stats;
         };
