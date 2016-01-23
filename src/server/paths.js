@@ -79,7 +79,7 @@ export const formatSpecPaths = (entry) => {
             log.warn(chalk.red("WARNING Path contains non-standard characters. Hot-reloading may not work."));
             log.warn(chalk.red("        Hint: Brackets '(...)' will cause problems."));
             log.warn(chalk.cyan(`        ${ path }`));
-            log.warn("");
+            log.warn('');
           }
         });
 

@@ -117,7 +117,7 @@ class Marginal extends React.Component {
   render() {
     const styles = this.styles();
     let { markdown, hr, isDark, edge } = this.props;
-    const removeHR = () => { markdown = markdown.replace(/\n\s*-{3,}\n*$/, ""); };
+    const removeHR = () => { markdown = markdown.replace(/\n\s*-{3,}\n*$/, ''); };
 
     // Trim the indent
     // (which may exist if from indented multi-line ES6 template strings).

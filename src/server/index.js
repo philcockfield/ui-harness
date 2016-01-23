@@ -53,7 +53,7 @@ export const start = (options = {}) => {
           // Server details.
           const packageJson = require(fsPath.resolve("./package.json"));
           const reactJson = require(fsPath.join(NODE_MODULES, "react/package.json"));
-          log.info("");
+          log.info('');
           log.info(chalk.green("UIHarness:"));
           log.info(chalk.grey(" - module:   "), packageJson.name, chalk.grey(`(v${ packageJson.version || "0.0.0" })`));
           log.info(chalk.grey(" - port:     "), PORT);
@@ -66,7 +66,7 @@ export const start = (options = {}) => {
           });
 
           // Finish up.
-          log.info("");
+          log.info('');
           resolve({});
     });
   });
@@ -116,7 +116,7 @@ export const bundle = (options = {}) => {
           log.info(chalk.grey(" - time:       "), stats.buildTime.secs, "secs");
           log.info(chalk.grey(" - size:       "), stats.size.display, chalk.grey("=>"), stats.zipped.display, chalk.grey("zipped"));
           log.info(chalk.grey(" - saved to:   "), output || false);
-          log.info("");
+          log.info('');
           return stats;
         };
 

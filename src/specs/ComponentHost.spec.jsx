@@ -78,7 +78,7 @@ describe("Component Host", function() {
     it("read", () => {
       console.log("width():", this.width());
       console.log("height():", this.height());
-      console.log("");
+      console.log('');
     });
     it("`null:null`", () => { this.width(null).height(null) });
     it("`350:200`", () => { this.width(350).height(200) });
@@ -136,7 +136,7 @@ describe("Component Host", function() {
       console.log("cropMarks.size():", this.cropMarks.size());
       console.log("cropMarks.offset():", this.cropMarks.offset());
       console.log("api.current.toJS()", api.current.toJS());
-      console.log("");
+      console.log('');
     });
     it("`false`", () => { this.cropMarks(false); });
     it("`true`", () => { this.cropMarks(true); });

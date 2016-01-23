@@ -53,7 +53,7 @@ class SuiteTreeItem extends React.Component {
     const { level, width } = this.props;
     let indent = 0;
     if (level > 0) { indent = 15 * level; }
-    const content = (width ? (width - (indent + 27)) : ""); // Set so that ellipsis show.
+    const content = (width ? (width - (indent + 27)) : ''); // Set so that ellipsis show.
     return {
       indent,
       content,

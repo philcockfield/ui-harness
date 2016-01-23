@@ -54,7 +54,7 @@ export default (options = {}) => {
     devtool: isProduction ? undefined : "cheap-module-eval-source-map",
     resolve: {
       moduleDirectories: NODE_MODULES_PATH,
-      extensions: ["", ".js", ".jsx", ".json"],
+      extensions: ['', ".js", ".jsx", ".json"],
       /*
       Aliases
           Ensures common libraries are:

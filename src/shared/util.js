@@ -23,7 +23,7 @@ export const formatText = (text) => {
  */
 export const escapeHtml = (text) => {
   let isWithinBlock = false;
-  let result = "";
+  let result = '';
   let i = 0;
   for (let char of text) {
     // Don't escape <HTML> that is wihtin the markdown `tick` block.
