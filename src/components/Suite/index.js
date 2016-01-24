@@ -1,1 +1,1 @@
-module.exports = require("./Suite");
+module.exports = require('./Suite');

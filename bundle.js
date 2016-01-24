@@ -9,7 +9,7 @@ var shell = require("shelljs");
 
 // Ensure the 'lib' has been built.
 if (!fs.existsSync(path.join(__dirname, "lib"))) {
-  shell.exec("gulp build");
+  shell.exec("npm run build");
 }
 var server = require("./lib/server");
 

@@ -1,17 +1,16 @@
-import R from "ramda";
-import bdd from "js-bdd";
-import { compact } from "js-util";
-import bddServer from "./bdd-server";
-import ThisContext from "./ThisContext";
+import R from 'ramda';
+import bdd from 'js-bdd';
+import { compact } from 'js-util';
+import ThisContext from './ThisContext';
 
-const ORIGINAL_DSL = {}
+const ORIGINAL_DSL = {};
 
 export default {
   supportedMethods: [
-    "describe",
-    "before",
-    "it",
-    "section"
+    'describe',
+    'before',
+    'it',
+    'section',
   ],
   suites: bdd.allSuites,
 
@@ -21,8 +20,8 @@ export default {
    */
   rootSuites() {
     const getRoot = (suite) => {
-        const parent = suite.parentSuite;
-        return parent ? getRoot(parent) : suite;
+      const parent = suite.parentSuite;
+      return parent ? getRoot(parent) : suite;
     };
     let suites = bdd.suites();
     suites = suites.filter(suite => suite.parentSuite === undefined || suite.isOnly);
@@ -39,13 +38,13 @@ export default {
   register() {
     // Put the BDD domain-specific language into the global global.
     this.supportedMethods.forEach(name => {
-          ORIGINAL_DSL[name] = global[name];
-          global[name] = bdd[name];
-        });
+      ORIGINAL_DSL[name] = global[name];
+      global[name] = bdd[name];
+    });
 
     // Create the special context API that is used as [this]
     // within [describe/it] blocks.
-    bdd.contextFactory = (type) => { return new ThisContext(type); };
+    bdd.contextFactory = (type) => new ThisContext(type);
   },
 
 
@@ -55,8 +54,8 @@ export default {
    */
   unregister() {
     this.supportedMethods.forEach(name => {
-          global[name] = ORIGINAL_DSL[name];
-        });
+      global[name] = ORIGINAL_DSL[name];
+    });
   },
 
 

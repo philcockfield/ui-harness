@@ -1,1 +1,1 @@
-module.exports = require("./OutputLog");
+module.exports = require('./OutputLog');

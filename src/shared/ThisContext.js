@@ -1,65 +1,65 @@
-import R from "ramda";
-import React from "react";
-import api from "./api-internal";
-import * as util from "js-util";
-import css from "js-util/lib/react-css";
-import schema, { PropTypes } from "react-schema";
-import AlignmentContainer from "react-atoms/components/AlignmentContainer";
+import R from 'ramda';
+import api from './api-internal';
+import * as util from 'js-util';
+import schema, { PropTypes } from 'react-schema';
+import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
+import log from '../shared/log';
 
-const isBrowser = (typeof window !== "undefined");
-const PROP = Symbol("Prop");
+
+const isBrowser = (typeof window !== 'undefined');
+const PROP = Symbol('Prop');
 const PROPS = {
-  "children": {
-    key: "componentChildren" // Stored on {current} as this.
+  children: {
+    key: 'componentChildren', // Stored on {current} as this.
   },
-  "width": {
-    default: "auto",
+  width: {
+    default: 'auto',
     type: PropTypes.numberOrString,
-    resetOn: null
+    resetOn: null,
   },
-  "height": {
-    default: "auto",
+  height: {
+    default: 'auto',
     type: PropTypes.numberOrString,
-    resetOn: null
+    resetOn: null,
   },
-  "cropMarks": {
+  cropMarks: {
     default: true,
-    type: PropTypes.bool
+    type: PropTypes.bool,
   },
-  "cropMarks.size": {
+  'cropMarks.size': {
     default: 25,
-    type: PropTypes.number
+    type: PropTypes.number,
   },
-  "cropMarks.offset": {
+  'cropMarks.offset': {
     default: 5,
-    type: PropTypes.number
+    type: PropTypes.number,
   },
-  "margin": {
+  margin: {
     default: 60,
-    type: PropTypes.number
+    type: PropTypes.number,
   },
-  "align": {
-    default: "center top",
-    type: AlignmentContainer.propTypes.align
+  align: {
+    default: 'center top',
+    type: AlignmentContainer.propTypes.align,
   },
-  "header": {
-    type: PropTypes.string
+  header: {
+    type: PropTypes.string,
   },
-  "footer": {
-    type: PropTypes.string
+  footer: {
+    type: PropTypes.string,
   },
-  "hr": {
+  hr: {
     default: true,
-    type: PropTypes.bool
+    type: PropTypes.bool,
   },
-  "backdrop": {
+  backdrop: {
     default: 0,
-    type: PropTypes.numberOrString
+    type: PropTypes.numberOrString,
   },
-  "scroll": {
+  scroll: {
     default: false,
-    type: PropTypes.oneOf([true, false, "x", "y", "x:y"])
-   }
+    type: PropTypes.oneOf([true, false, 'x', 'y', 'x:y']),
+  },
 };
 
 
@@ -79,61 +79,61 @@ export default class UIHContext {
   constructor() {
     // Determine whether this is the currently loaded suite.
     const isCurrent = () => {
-          const currentSuite = api.current.get("suite");
-          return (currentSuite && currentSuite.id === this.suite.id);
-        };
+      const currentSuite = api.current.get('suite');
+      return (currentSuite && currentSuite.id === this.suite.id);
+    };
 
     // Read|Write helper for data-property methods.
     this[PROP] = (key, value, options) => {
-          options = options || PROPS[key] || {};
-          key = options.key || key; // The property options may provide an alternative
-                                    // key to store as on the {current} map.
+      options = options || PROPS[key] || {};
+      key = options.key || key; // The property options may provide an alternative
+                                // key to store as on the {current} map.
 
-          // WRITE.
-          if (value !== undefined) {
-            // Perform type validation.
-            const type = options.type;
-            if (type) {
-              const validation = schema.validate(type, value);
-              if (!validation.isValid) {
-                throw new Error(`Invalid '${ key }' value (${ value }). Should be ${ type.toString() }.`)
-              }
-            }
-
-            // Reset the value if required.
-            if (options.resetOn !== undefined && value === options.resetOn) {
-              value = options.default;
-            }
-
-            // Store the value.
-            this[PROP].state[key] = value;
-            if (isCurrent()) { api.setCurrent({ [key]: value }); }
-            return this; // When writing the [this] context is returned.
-                         // This allows for chaining of write operations.
+      // WRITE.
+      if (value !== undefined) {
+        // Perform type validation.
+        const type = options.type;
+        if (type) {
+          const validation = schema.validate(type, value);
+          if (!validation.isValid) {
+            const msg = `Invalid '${ key }' value (${ value }). Should be ${ type.toString() }.`;
+            throw new Error(msg);
           }
-          // READ.
-          let result = this[PROP].state[key];
-          if (result === undefined) { result = options.default; }
-          return result
-        };
+        }
+
+        // Reset the value if required.
+        if (options.resetOn !== undefined && value === options.resetOn) {
+          value = options.default;
+        }
+
+        // Store the value.
+        this[PROP].state[key] = value;
+        if (isCurrent()) { api.setCurrent({ [key]: value }); }
+        return this; // When writing the [this] context is returned.
+                     // This allows for chaining of write operations.
+      }
+      // READ.
+      let result = this[PROP].state[key];
+      if (result === undefined) { result = options.default; }
+      return result;
+    };
     this[PROP].state = {};
 
     // Create property functions.
     Object.keys(PROPS).forEach(key => {
-        const prop = PROPS[key];
-        if (this[key]) { throw new Error(`Property named '${ key }' already exists.`); }
+      if (this[key]) { throw new Error(`Property named '${ key }' already exists.`); }
 
-        // Ensure nested property extensions are added to the hierarchy.
-        // ie. functions as properites of parent functions, for example:
-        //     - cropMarks
-        //     - cropMarks.size
-        const parts = key.split(".");
-        const ns = R.take(parts.length - 1, parts);
-        const propName = R.takeLast(1, parts).join(".");
-        const parent = getPropParent(ns, this)
+      // Ensure nested property extensions are added to the hierarchy.
+      // ie. functions as properites of parent functions, for example:
+      //     - cropMarks
+      //     - cropMarks.size
+      const parts = key.split('.');
+      const ns = R.take(parts.length - 1, parts);
+      const propName = R.takeLast(1, parts).join('.');
+      const parent = getPropParent(ns, this);
 
-        // Store the propery.
-        parent[propName] = (value) => this[PROP](key, value);
+      // Store the propery.
+      parent[propName] = (value) => this[PROP](key, value);
     });
 
     // Property extension methods.
@@ -147,13 +147,13 @@ export default class UIHContext {
   toValues() {
     const result = {};
     Object.keys(PROPS).forEach(key => {
-          let propFunc = util.ns(this, key);
-          if (R.is(Function, propFunc)) {
-            result[key] = propFunc.call(this);
-          } else {
-            result[key] = this[PROP].state[key];
-          }
-        });
+      const propFunc = util.ns(this, key);
+      if (R.is(Function, propFunc)) {
+        result[key] = propFunc.call(this);
+      } else {
+        result[key] = this[PROP].state[key];
+      }
+    });
     return result;
   }
 
@@ -183,7 +183,7 @@ export default class UIHContext {
     }
 
     // READ.
-    return this[PROP]("componentProps", value);
+    return this[PROP]('componentProps', value);
   }
 
 
@@ -193,12 +193,17 @@ export default class UIHContext {
    *
    * @param component:  The component Type
    *                    or created component element (eg: <MyComponent/>).
-   * @param props:      Optional. The component props (if not passed in with a component element).
-   * @param children:   Optional. The component children (if not passed in with a component element).
+   *
+   * @param props:      Optional. The component props
+   *                    (if not passed in with a component element).
+   *
+   * @param children:   Optional. The component children
+   *                    (if not passed in with a component element).
+   *
    */
   load(component, props, children) {
     if (!component) {
-      if (isBrowser) { console.warn("Cannot load: a component was not specified (undefined/null)"); }
+      if (isBrowser) { log.warn('Cannot load: a component was not specified (undefined/null)'); }
     } else {
       api.loadComponent(component, props, children);
     }
