@@ -1,15 +1,14 @@
-import R from "ramda";
-import Promise from "bluebird";
-import React from "react";
-import Immutable from "immutable";
-import { delay } from "js-util";
-import localStorage from "js-util/lib/local-storage";
-import bdd from "./bdd";
-import apiConsole from "./api-console";
-import GettingStarted from "../components/docs/GettingStarted";
+import R from 'ramda';
+import Promise from 'bluebird';
+import React from 'react';
+import Immutable from 'immutable';
+import localStorage from 'js-util/lib/local-storage';
+import bdd from './bdd';
+import apiConsole from './api-console';
+import GettingStarted from '../components/docs/GettingStarted';
 
-const LOG_LIST = Symbol("log-list");
-const COMPONENT = Symbol("component");
+const LOG_LIST = Symbol('log-list');
+const COMPONENT = Symbol('component');
 
 
 /**
@@ -28,31 +27,30 @@ class Api {
    * @return {Promise}.
    */
   init() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
+      // Put state into global namespace.
+      bdd.register();
+      global.UIHarness = global.uih = apiConsole;
 
-        // Put state into global namespace.
-        bdd.register();
-        global.UIHarness = global.uih = apiConsole;
+      // Ensure the last loaded suite is set as the current state.
+      const suite = this.lastSelectedSuite();
+      if (suite) {
+        this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite: false });
+      }
 
-        // Ensure the last loaded suite is set as the current state.
-        const suite = this.lastSelectedSuite();
-        if (suite) {
-          this.loadSuite(this.lastSelectedSuite(), { storeAsLastSuite:false });
-        }
+      // Show 'getting started' if empty.
+      if (Object.keys(bdd.suites).length === 0) {
+        this.setCurrent({
+          header: '## Getting Started',
+          hr: true,
+          scroll: 'y',
+          width: '100%',
+        });
+        this.loadComponent(GettingStarted);
+      }
 
-        // Show "getting started" if empty.
-        if (Object.keys(bdd.suites).length === 0) {
-          this.setCurrent({
-            header: "## Getting Started",
-            hr: true,
-            scroll: "y",
-            width: "100%"
-          });
-          this.loadComponent(GettingStarted)
-        }
-
-        // Done.
-        resolve({});
+      // Done.
+      resolve({});
     });
   }
 
@@ -67,7 +65,7 @@ class Api {
     if (hard) {
       this.clearLocalStorage();
     } else {
-      this.clearLocalStorage("lastInvokedSpec:");
+      this.clearLocalStorage('lastInvokedSpec:');
     }
     this.lastSelectedSuite(null);
     this.setCurrent(null);
@@ -81,12 +79,12 @@ class Api {
    */
   clearLocalStorage(startsWith = null) {
     localStorage.keys().forEach(key => {
-        let match = "ui-harness:";
-        if (startsWith) { match += startsWith; }
-        if (key.startsWith(match)) {
-          localStorage.prop(key, null); // Remove.
-        }
-      });
+      let match = 'ui-harness:';
+      if (startsWith) { match += startsWith; }
+      if (key.startsWith(match)) {
+        localStorage.prop(key, null); // Remove.
+      }
+    });
   }
 
 
@@ -105,15 +103,13 @@ class Api {
           componentType: undefined,
           componentProps: undefined,
           componentChildren: undefined,
-          component: undefined
+          component: undefined,
         });
-
       } else {
-
         // Store component instance.
         this[COMPONENT] = value;
         apiConsole.component = value;
-        if (this.current.get("component") !== value) {
+        if (this.current.get('component') !== value) {
           // NB: Preform instance comparison before updating the
           //     current state to prevent render loop.
           this.setCurrent({ component: value });
@@ -138,7 +134,7 @@ class Api {
   loadSuite(suite, { storeAsLastSuite = true } = {}) {
     // Setup initial conditions.
     if (!suite) { return this; }
-    if (this.current.get("suite") === suite) { return this; }
+    if (this.current.get('suite') === suite) { return this; }
 
     // Only load the suite if it does not have children
     // ie. is not a container/folder suite.
@@ -147,7 +143,7 @@ class Api {
       this.setCurrent(null);
 
       // Prepare the new current state.
-      let current = suite.meta.thisContext.toValues();
+      const current = suite.meta.thisContext.toValues();
       current.suite = suite;
       current.indexMode = this.indexMode();
       current.isBeforeInvoked = false;
@@ -158,7 +154,7 @@ class Api {
       this.invokeBeforeHandlers(suite);
 
       // If the last invoked spec on the suite contained a load.
-      let lastInvokedSpec = this.lastInvokedSpec(suite);
+      const lastInvokedSpec = this.lastInvokedSpec(suite);
       if (lastInvokedSpec && lastInvokedSpec.spec && lastInvokedSpec.isLoader) {
         this.invokeSpec(lastInvokedSpec.spec);
       }
@@ -174,12 +170,17 @@ class Api {
    *
    * @param component:  The component Type
    *                    or created component element (eg: <MyComponent/>).
-   * @param props:      Optional. The component props (if not passed in with a component element).
-   * @param children:   Optional. The component children (if not passed in with a component element).
+   *
+   * @param props:      Optional. The component props (if not passed in with
+   *                    a component element).
+   *
+   * @param children:   Optional. The component children (if not passed in
+   *                    with a component element).
+   *
    */
   loadComponent(component, props, children) {
     // Setup initial conditions.
-    if (!component) { throw new Error("Componnet not specified."); }
+    if (!component) { throw new Error('Componnet not specified.'); }
 
     // If a created <element> was passed de-construct
     // it into it's component parts.
@@ -189,7 +190,6 @@ class Api {
       children = props.children;
       delete props.children;
       type = component.type;
-
     } else {
       type = component;
     }
@@ -199,7 +199,7 @@ class Api {
       componentType: type,
       componentProps: props,
       componentChildren: children,
-      showLog: false
+      showLog: false,
     });
 
     // Finish up.
@@ -216,11 +216,11 @@ class Api {
    *                    - false if they have already been invoked.
    */
   invokeBeforeHandlers(suite) {
-    if (this.current.get("isBeforeInvoked")) { return false; }
+    if (this.current.get('isBeforeInvoked')) { return false; }
     const self = suite.meta.thisContext;
     suite.beforeHandlers.invoke(self);
-    this.current = this.current.set("isBeforeInvoked", true);
-    return true
+    this.current = this.current.set('isBeforeInvoked', true);
+    return true;
   }
 
 
@@ -234,23 +234,23 @@ class Api {
     // Setup initial conditions.
     const suite = spec.parentSuite;
     const self = suite.meta.thisContext;
-    this.invokeBeforeHandlers(suite)
-    let loadInvokeCountBefore = this.loadInvokeCount;
+    this.invokeBeforeHandlers(suite);
+    const loadInvokeCountBefore = this.loadInvokeCount;
 
     // Invoke the methods.
     spec.invoke(self, callback);
 
     // Store a reference to last-invoked spec.
     this.lastInvokedSpec(suite, {
-      spec: spec,
-      isLoader: (this.loadInvokeCount > loadInvokeCountBefore)
+      spec,
+      isLoader: (this.loadInvokeCount > loadInvokeCountBefore),
     });
 
     // Increment the current invoke count for the spec.
-    let specInvokeCount = this.current.get("specInvokeCount") || {};
-    let total = specInvokeCount[spec.id] || 0;
+    const specInvokeCount = this.current.get('specInvokeCount') || {};
+    const total = specInvokeCount[spec.id] || 0;
     specInvokeCount[spec.id] = total + 1;
-    this.setCurrent({ specInvokeCount: specInvokeCount });
+    this.setCurrent({ specInvokeCount });
 
     // Finish up.
     return this;
@@ -263,7 +263,7 @@ class Api {
    */
   lastSelectedSuite(suite) {
     if (suite) { suite = suite.id; }
-    const result = this.localStorage("lastSelectedSuite", suite);
+    const result = this.localStorage('lastSelectedSuite', suite);
     return bdd.suites[result];
   }
 
@@ -272,21 +272,21 @@ class Api {
    * Gets or sets the last spec for the given suite
    * that was invoked that had a `.load()` call within it.
    */
-  lastInvokedSpec(suite, { spec, isLoader = false} = {}) {
+  lastInvokedSpec(suite, { spec, isLoader = false } = {}) {
     const KEY = `lastInvokedSpec:${ suite.id }`;
     let value;
     if (spec !== undefined) {
       // WRITE.
-      value = { spec: spec.id, isLoader: isLoader }
+      value = { isLoader, spec: spec.id };
       spec = spec.id;
     }
 
     // READ.
-    let result = this.localStorage(KEY, value);
+    const result = this.localStorage(KEY, value);
     if (result) {
-      result.spec = R.find(spec => spec.id === result.spec, suite.specs);
+      result.spec = R.find(s => s.id === result.spec, suite.specs);
     }
-    return result
+    return result;
   }
 
 
@@ -295,16 +295,16 @@ class Api {
    * @param {string} mode: tree|suite
    */
   indexMode(mode) {
-    let result = this.localStorage("indexMode", mode, { default: "tree" });
+    let result = this.localStorage('indexMode', mode, { default: 'tree' });
     if (mode !== undefined) {
       // WRITE (store in current state).
-      this.setCurrent({ indexMode:mode });
+      this.setCurrent({ indexMode: mode });
     }
 
     // READ.
-    result = result || "tree";
-    if (result !== "tree" && this.current.get("suite") === undefined) {
-      result = "tree"
+    result = result || 'tree';
+    if (result !== 'tree' && this.current.get('suite') === undefined) {
+      result = 'tree';
     }
     return result;
   }
@@ -313,7 +313,7 @@ class Api {
   /**
    * Updates the current state with the given values.
    *     NOTE: These values are cumulatively added to the state.
-   *           Use "reset" to clear the state.
+   *           Use 'reset' to clear the state.
    *
    * @param args:  An object containing they [key:values] to set
    *               or null to clear values.
@@ -325,7 +325,7 @@ class Api {
         const value = args[key];
         this.current = value === undefined
                 ? this.current.remove(key)
-                : this.current.set(key, args[key])
+                : this.current.set(key, args[key]);
       });
     } else {
       this.current = this.current.clear();
@@ -334,7 +334,7 @@ class Api {
     // Apply to the <Shell>.
     if (this.shell) { this.shell.setState({ current: this.current }); }
     return this;
-  };
+  }
 
 
   /**
@@ -354,19 +354,23 @@ class Api {
    * Clears the output log.
    */
   clearLog() {
-    // console.log("clear log");
+    // console.log('clear log');
     this[LOG_LIST] = this[LOG_LIST].clear();
     this.setCurrent({ log: this[LOG_LIST], showLog: false });
-
   }
 
 
   /**
    * Provides common access to localStorage.
-   * @param key:         The unique identifier of the value (this is prefixed with the namespace).
-   * @param value:       (optional). The value to set (pass null to remove).
+   *
+   * @param key:          The unique identifier of the value (this is
+   *                      prefixed with the namespace).
+   *
+   * @param value:        (optional). The value to set (pass null to remove).
+   *
    * @param options:
-   *           default:  (optional). The default value to return if the session does not contain the value (ie. undefined).
+   *           default:   (optional). The default value to return if the session
+   *                      does not contain the value (ie. undefined).
    *
    * @return the read value.
    */

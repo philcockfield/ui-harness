@@ -1,5 +1,5 @@
-import WebpackDevServer from "webpack-dev-server";
-import webpack from "webpack";
+import WebpackDevServer from 'webpack-dev-server';
+import webpack from 'webpack';
 
 
 
@@ -16,11 +16,10 @@ export default (config) => {
     // hot: true,
     noInfo: true, // Suppress boring information.
 
-    contentBase: "/public/",
-    // proxy: {"/graphql": `http://localhost:${GRAPHQL_PORT}`},
-    publicPath: "/js/",
-    stats: { colors: true }
-
+    contentBase: '/public/',
+    // proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
+    publicPath: '/js/',
+    stats: { colors: true },
   };
 
   // Finish up.

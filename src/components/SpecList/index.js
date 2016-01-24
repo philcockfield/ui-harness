@@ -1,1 +1,1 @@
-module.exports = require("./SpecList");
+module.exports = require('./SpecList');

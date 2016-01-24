@@ -1,19 +1,19 @@
-import React from "react";
-import Foo from "react-atoms/components/Foo";
-import { css, PropTypes } from "./util";
+import React from 'react';
+import Foo from 'react-atoms/components/Foo';
+import { css, PropTypes } from './util';
 
 
 
-describe("PropTypes", function() {
+describe('PropTypes', function() {
   this.header(`## Renders a visual representation of the PropTypes API.`);
 
   before(() => {
     this.load( <MyComponent/> );
   });
 
-  it("`unload`", () => this.unload());
-  it("`load: <MyComponent>`", () => this.load( <MyComponent/> ));
-  it("`load: <Foo>`", () => this.load( <Foo>Foo</Foo> ));
+  it('`unload`', () => this.unload());
+  it('`load: <MyComponent>`', () => this.load( <MyComponent/> ));
+  it('`load: <Foo>`', () => this.load( <Foo>Foo</Foo> ));
 });
 
 
@@ -30,7 +30,7 @@ export default class MyComponent extends React.Component {
   };
   static defaultProps = {
     obj: {
-      color: "tomato",
+      color: 'tomato',
       isEnabled: true
     }
   };

@@ -1,9 +1,11 @@
-import R from "ramda";
-import fs from "fs-extra";
-import fsPath from "path";
-import chalk from "chalk";
-import log from "./log";
-import bdd from "../shared/bdd";
+/* eslint max-len:0 */
+
+import R from 'ramda';
+import fs from 'fs-extra';
+import fsPath from 'path';
+import chalk from 'chalk';
+import log from '../shared/log';
+import bdd from '../shared/bdd';
 
 
 
@@ -15,10 +17,10 @@ import bdd from "../shared/bdd";
  * @return {String}.
  */
 export const rootModulePath = () => {
-  const parent = fsPath.resolve("../");
-  return fsPath.basename(parent) === "node_modules"
-    ? fsPath.resolve("../../")
-    : fsPath.resolve("./");
+  const parent = fsPath.resolve('../');
+  return fsPath.basename(parent) === 'node_modules'
+    ? fsPath.resolve('../../')
+    : fsPath.resolve('./');
 };
 
 
@@ -32,26 +34,26 @@ export const rootModulePath = () => {
  * @return {Object} of paths.
  */
 export const formatEntryPaths = (entry) => {
-    entry = entry || [];
-    if (!R.is(Array, entry)) { entry = [entry]; }
-    if (entry.length === 0) {
-      entry.push("./specs");
-      entry.push("./src/specs");
-    }
-    return entry
-        // Ensure there is a specific index.js entry file if only a folder was given.
-        // NB: Not having a specific entry file can cause build-errors in WebPack.
-        .map(path => path.endsWith(".js") ? path : `${ path }/index.js`)
+  entry = entry || [];
+  if (!R.is(Array, entry)) { entry = [entry]; }
+  if (entry.length === 0) {
+    entry.push('./specs');
+    entry.push('./src/specs');
+  }
+  return entry
+    // Ensure there is a specific index.js entry file if only a folder was given.
+    // NB: Not having a specific entry file can cause build-errors in WebPack.
+    .map(path => path.endsWith('.js') ? path : `${ path }/index.js`)
 
-        // Escape white-spaces within paths.
-        .map(path => path.replace(/ /, "\ "))
+    // Escape white-spaces within paths.
+    .map(path => path.replace(/ /, '\ '))
 
-        // Resolve relative (.) paths into fully-qualified paths.
-        .map(path => path.startsWith(".") ? fsPath.resolve(path) : path)
+    // Resolve relative (.) paths into fully-qualified paths.
+    .map(path => path.startsWith('.') ? fsPath.resolve(path) : path)
 
-        // Remove any paths that don't actually exist.
-        .filter(path => fs.existsSync(path));
-  };
+    // Remove any paths that don't actually exist.
+    .filter(path => fs.existsSync(path));
+};
 
 
 
@@ -75,13 +77,13 @@ export const formatSpecPaths = (entry) => {
 
   // Check for non-standard characters within the paths.
   paths.forEach(path => {
-          if (!path.match(/^[a-z0-9\.\-\_\s\/]+$/i)) {
-            log.warn(chalk.red("WARNING Path contains non-standard characters. Hot-reloading may not work."));
-            log.warn(chalk.red("        Hint: Brackets '(...)' will cause problems."));
-            log.warn(chalk.cyan(`        ${ path }`));
-            log.warn('');
-          }
-        });
+    if (!path.match(/^[a-z0-9\.\-\_\s\/]+$/i)) {
+      log.warn(chalk.red('WARNING Path contains non-standard characters. Hot-reloading may not work.'));
+      log.warn(chalk.red('        Hint: Brackets "(...)" will cause problems.'));
+      log.warn(chalk.cyan(`        ${ path }`));
+      log.warn('');
+    }
+  });
 
   // Finish up.
   return paths;

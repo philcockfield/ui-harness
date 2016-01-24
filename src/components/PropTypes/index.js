@@ -1,1 +1,1 @@
-module.exports = require("./PropTypes").default;
+module.exports = require('./PropTypes').default;

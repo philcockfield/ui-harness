@@ -1,4 +1,4 @@
-import api from "./api-internal";
+import api from './api-internal';
 
 
 /**
@@ -16,7 +16,7 @@ class UIHarness {
    *                        should be cleared away, or just current selection state.
    */
   reset({ hard = false } = {}) {
-    api.reset({ hard: hard });
+    api.reset({ hard });
     return true;
   }
 
