@@ -4,5 +4,11 @@
   "rules": {
     "no-multiple-empty-lines": 0,
     "no-param-reassign": 0
+  },
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "section": true
   }
 }
