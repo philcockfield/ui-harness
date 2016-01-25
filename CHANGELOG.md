@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- Relay/GraphQL support.
+- Passing `proxy` option through to server start method.  This allows things like the GraphQL proxy to be configured.
+
 #### Changed
 - Referencing [Babel](https://babeljs.io/) dependencies via `js-babel` and `js-babel-dev` modules.
 - Linting updated to use [AirBnB style guide](https://github.com/airbnb/javascript).

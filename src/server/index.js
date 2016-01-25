@@ -20,10 +20,14 @@ const NODE_MODULES = fsPath.resolve('./node_modules');
  *
  * @param {Object} options:
  *
- *           --entry: Required. Path to the specs files (comma seperated if more than one).
+ *           --entry:   Required. Path to the specs files (comma seperated if more than one).
  *
- *           --port:  Optional. The port to start the server on.
- *                    Default: 3030
+ *           --port:    Optional. The port to start the server on.
+ *                      Default: 3030
+ *
+ *           -- proxy:  Optional. An object containing { path, host } mappings
+ *                      to proxy server requests to.
+ *                      (https://webpack.github.io/docs/webpack-dev-server.html#proxy)
  *
  * @return {Promise}.
  */
@@ -43,7 +47,7 @@ export const start = (options = {}) => new Promise((resolve) => {
   const config = webpackConfig({ entry: specs });
 
   // Create the development server.
-  const app = webpackDevServer(config);
+  const app = webpackDevServer(config, { proxy: options.proxy });
   app.use('/', express.static(fsPath.resolve(__dirname, '../../public')));
 
   // Start the server.

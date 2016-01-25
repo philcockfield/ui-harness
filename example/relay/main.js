@@ -26,5 +26,6 @@ graphQLServer.listen(GRAPHQL_PORT, () => {
 // Start the UIHarness.
 uiharness.start({
   entry: fsPath.resolve("./src/specs"),
-  port: UIHARNESS_PORT
-})
+  port: UIHARNESS_PORT,
+  proxy: { "/graphql": `http://localhost:${ GRAPHQL_PORT }` }
+});
