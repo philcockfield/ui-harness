@@ -5,6 +5,7 @@ const log = (items) => {
 };
 
 
+
 /**
  * Stub log shim.
  * Pipe these log items into a proper service log.
