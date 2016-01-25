@@ -44,7 +44,7 @@ export const start = (options = {}) => new Promise((resolve) => {
 
   // Prepare the Webpack configuration.
   const specs = formatSpecPaths(options.entry);
-  const config = webpackConfig({ entry: specs });
+  const config = webpackConfig({ entry: specs, outputFile: 'specs.js' });
 
   // Create the development server.
   const app = webpackDevServer(config, { proxy: options.proxy });

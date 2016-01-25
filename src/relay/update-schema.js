@@ -1,8 +1,6 @@
-import R from 'ramda';
 import fs from 'fs-extra';
-import fsPath from 'path';
 import { isBlank } from 'js-util/lib/util';
-import { graphql, GraphQLSchema }  from 'graphql';
+import { graphql, GraphQLSchema } from 'graphql';
 import { introspectionQuery, printSchema } from 'graphql/utilities';
 
 
@@ -16,10 +14,10 @@ import { introspectionQuery, printSchema } from 'graphql/utilities';
  * @param {String} outputDir: The absolute directory to save the file to.
  *
  * @param {String} outputFile: The name of the files (.json and .graphql) to wirte.
- *                             Default: "schema".
+ *                             Default: 'schema'.
  *
  */
-export default (schemaPath, outputDir, outputFile = "schema") => new Promise((resolve, reject) => {
+export default (schemaPath, outputDir, outputFile = 'schema') => new Promise((resolve, reject) => {
 
   // Setup initial conditions.
   if (isBlank(outputDir)) { return reject(new Error(`An output directory was not specified`)); }
@@ -34,28 +32,29 @@ export default (schemaPath, outputDir, outputFile = "schema") => new Promise((re
   }
   const Schema = require(schemaPath).Schema;
   if (!(Schema instanceof GraphQLSchema)) {
-    return reject(new Error(`The module at the path '${ schemaPath }' does not expose a {Schema}.`));
+    return reject(
+      new Error(`The module at the path '${ schemaPath }' does not expose a {Schema}.`)
+    );
   }
 
   (async () => {
     // Save JSON of full schema introspection for Babel Relay Plugin to use.
     const jsonResult = await (graphql(Schema, introspectionQuery));
     if (jsonResult.errors) {
-      const error = new Error("Failed while introspecting schema.");
+      const error = new Error('Failed while introspecting schema.');
       error.errors = jsonResult.errors;
       return reject(error);
-    } else {
-      fs.outputFileSync(
-        paths.json,
-        JSON.stringify(jsonResult, null, 2)
-      );
     }
+    fs.outputFileSync(
+      paths.json,
+      JSON.stringify(jsonResult, null, 2)
+    );
 
     // Save user readable type system shorthand of schema.
     fs.outputFileSync(paths.graphql, printSchema(Schema));
 
     // Finish up.
-    resolve({ paths })
+    resolve({ paths });
   })();
 });
 

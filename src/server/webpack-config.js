@@ -1,8 +1,11 @@
 import webpack from 'webpack';
 import fsPath from 'path';
 import { rootModulePath } from './paths';
+// import babelRelayPlugin from '../relay/babel-relay-plugin';
+
 
 const NODE_MODULES_PATH = fsPath.join(rootModulePath(), 'node_modules');
+const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/entry');
 
 
 const babelLoader = (extension) => ({
@@ -11,7 +14,8 @@ const babelLoader = (extension) => ({
   test: extension,
   exclude: /(node_modules|bower_components)/,
   query: {
-    // plugins: ['./build/babelRelayPlugin'],
+    // plugins: [babelRelayPlugin],
+    // plugins: [fsPath.resolve("./src/relay/babel-relay-plugin")],
   },
 });
 
@@ -21,18 +25,24 @@ const babelLoader = (extension) => ({
  * Creates a Webpack compiler instance.
  *
  * @param {Object} options:
- *            - entry:          Array of entry paths.
- *            - isProduction:   Flag indicating if the builder is in production mode.
- *                              Default false.
+ *            -- entry:           Array of entry paths.
+ *            -- isProduction:    Flag indicating if the builder is in production mode.
+ *                                Default false.
+ *            -- outputFile:      The name of the output file.
+ *                                Default: 'bundle.js'.
  *
  * @return {Object} compiler.
  */
 export default (options = {}) => {
   const isProduction = options.isProduction || false;
+  const outputFile = options.outputFile || 'bundle.js';
 
   const config = {
-    entry: options.entry,
-    output: { path: '/', filename: 'bundle.js' },
+    entry: {
+      app: options.entry,
+      vendor: ['react', 'react-dom', UIHARNESS_ENTRY],
+    },
+    output: { path: '/', filename: outputFile },
     module: {
       loaders: [
         babelLoader(/\.js$/),
@@ -48,12 +58,17 @@ export default (options = {}) => {
       resolveLoader: { fallback: NODE_MODULES_PATH },
     },
     plugins: [
-      // https://github.com/webpack/docs/wiki/optimization#deduplication
-      new webpack.optimize.DedupePlugin(),
+      // Remove duplicate code.
+      //    See - https://github.com/webpack/docs/wiki/optimization#deduplication
+      // new webpack.optimize.DedupePlugin(),
 
       // [Moment.js] only load subset of locales to reduce size.
-      //   See - http://stackoverflow.com/a/25426019/1745661
+      //    See - http://stackoverflow.com/a/25426019/1745661
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+
+      // Break out common libs into their own code-chunk.
+      //    See - https://webpack.github.io/docs/code-splitting.html#split-app-and-vendor-code
+      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
     ],
   };
 
