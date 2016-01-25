@@ -1,0 +1,34 @@
+require('babel-register');
+require('babel-polyfill');
+var fsPath = require('path');
+var minimist = require('minimist');
+var updateSchema = require('../src/relay/update-schema').default;
+
+
+// Read-in command line args.
+var args = process.argv.slice(2);
+args = args.length > 0 ? args = minimist(args) : { _:[] };
+
+
+// Determine which example to start.
+var example = args._[0] || "relay";
+switch (example) {
+  case "relay": require('./relay/main'); break;
+
+  case "schema:update":
+    updateSchema(
+      fsPath.join(__dirname, './relay/data/schema.js'),
+      fsPath.join(__dirname, './relay/data')
+    )
+      .then(result => {
+        console.log('Schema updated:')
+        console.log(" - ", result.paths.json);
+        console.log(" - ", result.paths.graphql);
+        console.log("");
+      })
+      .catch(err => console.error('REJECT: ', err));
+    break;
+
+  default:
+    console.log(`Example '${ example }' not found.`);
+}

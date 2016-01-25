@@ -20,6 +20,7 @@ import { introspectionQuery, printSchema } from 'graphql/utilities';
  *
  */
 export default (schemaPath, outputDir, outputFile = "schema") => new Promise((resolve, reject) => {
+
   // Setup initial conditions.
   if (isBlank(outputDir)) { return reject(new Error(`An output directory was not specified`)); }
   const paths = {
