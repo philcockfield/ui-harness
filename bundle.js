@@ -21,7 +21,7 @@ args = args.length > 0 ? args = minimist(args) : {};
 
 // Set initialization paths if [--init] was passed.
 if (args.init) {
-  // args.prod = true;
+  args.prod = args.prod;
   args.entry = path.join(__dirname, '/lib/client/entry.js');
   args.output = path.join(__dirname, '/public/js/ui-harness.js');
 }
