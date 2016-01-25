@@ -1,8 +1,8 @@
-"use strict"
-var R = require("ramda");
-var minimist = require("minimist");
-var chalk = require("chalk");
-var server = require("./lib/server");
+'use strict'
+var R = require('ramda');
+var minimist = require('minimist');
+var chalk = require('chalk');
+var server = require('./lib/server');
 
 var args = process.argv.slice(2);
 args = args.length > 0 ? args = minimist(args) : {};
@@ -24,9 +24,9 @@ args = args.length > 0 ? args = minimist(args) : {};
  */
 if (R.is(String, args.entry)) {
   server.start({
-    entry: args.entry.split(","),
+    entry: args.entry.split(','),
     port: args.port
   });
 } else {
-  console.log(chalk.red("No entry path was specified, for example: `--entry ./src/specs`\n"));
+  console.log(chalk.red('No entry path was specified, for example: `--entry ./src/specs`\n'));
 }
