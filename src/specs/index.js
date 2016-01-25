@@ -13,21 +13,20 @@ require('react-object/lib/specs');
 
 
 
-console.log("specs loaded");
+// TEMP: Load sample Relay component.
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Relay from 'react-relay';
 
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import Relay from 'react-relay';
+import App from '../client/temp/components/App';
+import AppHomeRoute from '../client/temp/routes/AppHomeRoute';
 
-// import App from '../client/temp/components/App';
-// import AppHomeRoute from '../client/temp/routes/AppHomeRoute';
-//
-// describe('Relay', function() {
-//   before(() => {
-//     const el = <Relay.RootContainer
-//                   Component={App}
-//                   route={new AppHomeRoute()}/>
-//
-//     this.load(el);
-//   });
-// });
+describe('relay', function() {
+  before(() => {
+    const el = <Relay.RootContainer
+                  Component={App}
+                  route={new AppHomeRoute()}/>
+
+    this.load(el);
+  });
+});

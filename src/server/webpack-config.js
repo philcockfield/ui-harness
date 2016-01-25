@@ -3,6 +3,15 @@ import fsPath from 'path';
 import { rootModulePath } from './paths';
 // import babelRelayPlugin from '../relay/babel-relay-plugin';
 
+// console.log("babelRelayPlugin", babelRelayPlugin);
+// const f = new babelRelayPlugin();
+// console.log("f", f);
+
+
+// Hack: Prevent error with `fetch` which attempts to look for a `self` object.
+//       This occurs when parsing the `react-relay` module on the server while compiling.
+global.self = { fetch: null };
+
 
 const NODE_MODULES_PATH = fsPath.join(rootModulePath(), 'node_modules');
 const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/entry');
@@ -15,7 +24,7 @@ const babelLoader = (extension) => ({
   exclude: /(node_modules|bower_components)/,
   query: {
     // plugins: [babelRelayPlugin],
-    // plugins: [fsPath.resolve("./src/relay/babel-relay-plugin")],
+    plugins: [fsPath.resolve("./src/relay/babel-relay-plugin")],
   },
 });
 
@@ -37,10 +46,11 @@ export default (options = {}) => {
   const isProduction = options.isProduction || false;
   const outputFile = options.outputFile || 'bundle.js';
 
+
   const config = {
     entry: {
       app: options.entry,
-      vendor: ['react', 'react-dom', UIHARNESS_ENTRY],
+      vendor: ['react', 'react-dom', 'react-relay', UIHARNESS_ENTRY],
     },
     output: { path: '/', filename: outputFile },
     module: {
