@@ -21,9 +21,6 @@ args = args.length > 0 ? args = minimist(args) : {};
 
 // Set initialization paths if [--init] was passed.
 if (args.init) {
-
-  console.log(chalk.red("TODO - Turn on --prod"));
-
   // args.prod = true;
   args.entry = path.join(__dirname, "/lib/client/entry.js");
   args.output = path.join(__dirname, "/public/js/ui-harness.js");
