@@ -15,20 +15,6 @@ var example = args._[0] || "relay";
 switch (example) {
   case "relay": require('./relay/server'); break;
 
-  case "schema:update":
-    updateSchema(
-      fsPath.join(__dirname, './relay/data/schema.js'),
-      fsPath.join(__dirname, './relay/data')
-    )
-      .then(result => {
-        console.log('Schema updated:')
-        console.log(" - ", result.paths.json);
-        console.log(" - ", result.paths.graphql);
-        console.log("");
-      })
-      .catch(err => console.error('REJECT: ', err));
-    break;
-
   default:
     console.log(`Example '${ example }' not found.`);
 }
