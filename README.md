@@ -1,5 +1,4 @@
 # ui-harness
-
 [![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
 
 Isolate, test and document modular UI with React using familiar `describe/it` testing semantics.  
@@ -79,14 +78,24 @@ This makes your components easy to explore, evaluate, and understand by develope
 
 
 ## Examples
+##### Simple
 From within the `/ui-harness` project folder, to see the core set of specs used to build the UIHarness itself, along with specs for associated component libraries, run:
 
     npm start
 
+##### Relay / GraphQL
 
 To see an example of Relay/GraphQL working within UIHarness run:
 
     node example relay
+
+Based on the [relay-starter-kit](https://github.com/relayjs/relay-starter-kit), this takes a command-line argument of `--graphqlSchema`, which is the path to the GraphQL `schema.js` file.
+
+From there the UIHarness will build the `schema.json` output, and compile it into the Webpack output sent to the client using the [babel-relay-plugin](https://www.npmjs.com/package/babel-relay-plugin).
+
+To rebuild the schema (when changes have been made to it), simply delete the `schema.json` file and restart the UIHarness.
+
+
 
 
 ---

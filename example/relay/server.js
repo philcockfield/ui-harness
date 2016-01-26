@@ -24,7 +24,8 @@ graphQLServer.use('/', graphQLHTTP({
 
 // Start the GraphQL server.
 graphQLServer.listen(GRAPHQL_PORT, () => {
-  console.log(`${ chalk.magenta('GraphQL Server') } running on http://localhost:${ GRAPHQL_PORT }`);
+  log.info();
+  log.info(`${ chalk.magenta('GraphQL Server') } running on http://localhost:${ GRAPHQL_PORT }`);
 
   // Start the UIHarness.
   uiharness.start({
