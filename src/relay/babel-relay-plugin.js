@@ -1,6 +1,10 @@
-const getBabelRelayPlugin = require('babel-relay-plugin');
+/*
+  The path to the [schema.json] file is passed in within a temporarily stored
+  global variables.
 
-export default (schemaJsonPath) => {
-  var schema = require(schemaJsonPath); // TEMP hard-coded path.
-  return getBabelRelayPlugin(schema.data)
-};
+  See: [./init-relay] for more details on this.
+*/
+
+const babelRelayPlugin = require('babel-relay-plugin');
+const schema = require(global.__relayPluginSchemaJsonPath);
+export default babelRelayPlugin(schema.data);
