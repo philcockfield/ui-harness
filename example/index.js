@@ -13,7 +13,7 @@ args = args.length > 0 ? args = minimist(args) : { _:[] };
 // Determine which example to start.
 var example = args._[0] || "relay";
 switch (example) {
-  case "relay": require('./relay/main'); break;
+  case "relay": require('./relay/server'); break;
 
   case "schema:update":
     updateSchema(

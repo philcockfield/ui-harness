@@ -67,7 +67,6 @@ export const start = (options = {}) => new Promise((resolve, reject) => {
     // Server details.
     const packageJson = require(fsPath.resolve('./package.json'));
     const reactJson = require(fsPath.join(NODE_MODULES, 'react/package.json'));
-    log.info('');
     log.info(chalk.green('UIHarness:'));
     log.info(chalk.grey(' - module:   '), packageJson.name, chalk.grey(`(v${ packageJson.version || '0.0.0' })`));
     log.info(chalk.grey(' - port:     '), PORT);
