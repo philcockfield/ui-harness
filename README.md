@@ -33,9 +33,9 @@ The UIHarness is just a simple NPM module.  Simply add it to you `package.json` 
     "start": "node ./node_modules/ui-harness/start --entry=./src/specs",
   },
   "devDependencies": {
-    "ui-harness": "^3.0.0"
+    "ui-harness": "^3.1.0"
   },
-  "engines": { "node": ">=5.0.0" }
+  "engines": { "node": ">=5.5.0" }
 }
 ```
 
