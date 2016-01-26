@@ -8,16 +8,19 @@ import webpack from 'webpack';
  *
  * @param {Object} config: The Webpack configuration object.
  *
+ * @param {Object} options:
+ *                   -- proxy:  Optional. An object containing { path, host }
+ *                              mappings to proxy server requests to.
+ *                              (https://webpack.github.io/docs/webpack-dev-server.html#proxy)
+ *
  * @return The dev-server instance.
  */
-export default (config) => {
+export default (config, options = {}) => {
   const compiler = webpack(config);
   const settings = {
-    // hot: true,
-    noInfo: true, // Suppress boring information.
-
+    noInfo: true, // Lower the noise in the console.
     contentBase: '/public/',
-    // proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
+    proxy: options.proxy,
     publicPath: '/js/',
     stats: { colors: true },
   };

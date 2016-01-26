@@ -15,10 +15,12 @@
     <script type="text/javascript">
       // Force `fetch` polyfill to workaround Chrome not displaying request body
       // in developer tools for the native `fetch`.
+      // ----
+      // Used by `react-relay`.
       self.fetch = null;
     </script>
     <script src="/webpack-dev-server.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/ui-harness.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/bundle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/vendor.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/specs.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>

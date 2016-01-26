@@ -77,5 +77,17 @@ If you are isolating your UI components into their own module (a very good idea)
 This makes your components easy to explore, evaluate, and understand by developers.  This adds no run-time overhead, as consumers of the components will only be requiring the isolated component, not the UIHarness itself, so it never gets built (via [Webpack](https://webpack.github.io/)) into the resulting application bundle.
 
 
+
+## Examples
+From within the `/ui-harness` project folder, to see the core set of specs used to build the UIHarness itself, along with specs for associated component libraries, run:
+
+    npm start
+
+
+To see an example of Relay/GraphQL working within UIHarness run:
+
+    node example relay
+
+
 ---
 ### License: MIT

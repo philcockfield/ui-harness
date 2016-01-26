@@ -1,13 +1,14 @@
 /**
  * Main entry point for the UIHarness in the browser.
  */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import api from '../shared/api-internal';
 import bdd from '../shared/bdd';
 import Shell from '../components/Shell';
-
-
+//
+//
 // Ensure the 'describe/it' statements are in the global namespace.
 bdd.register();
 
@@ -15,7 +16,7 @@ bdd.register();
 // Render the <Shell> into the DOM.
 const render = () => {
   api.shell = ReactDOM.render(
-    React.createElement(Shell, { current: api.current }),
+    <Shell current={ api.current }/>,
     document.getElementById('page-root')
   );
 };

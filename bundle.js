@@ -1,17 +1,17 @@
-"use strict"
-var R = require("ramda");
-var fs = require("fs-extra");
-var path = require("path");
-var minimist = require("minimist");
-var chalk = require("chalk");
-var toBool = require("js-util").toBool;
-var shell = require("shelljs");
+'use strict'
+var R = require('ramda');
+var fs = require('fs-extra');
+var path = require('path');
+var minimist = require('minimist');
+var chalk = require('chalk');
+var toBool = require('js-util').toBool;
+var shell = require('shelljs');
 
 // Ensure the 'lib' has been built.
-if (!fs.existsSync(path.join(__dirname, "lib"))) {
-  shell.exec("npm run build");
+if (!fs.existsSync(path.join(__dirname, 'lib'))) {
+  shell.exec('npm run build');
 }
-var server = require("./lib/server");
+var server = require('./lib/server');
 
 
 // Retrieve command-line arguments.
@@ -21,9 +21,9 @@ args = args.length > 0 ? args = minimist(args) : {};
 
 // Set initialization paths if [--init] was passed.
 if (args.init) {
-  // args.prod = true;
-  args.entry = path.join(__dirname, "/lib/client/entry.js");
-  args.output = path.join(__dirname, "/public/js/ui-harness.js");
+  args.prod = args.prod;
+  args.entry = path.join(__dirname, '/src/client/entry.js');
+  args.output = path.join(__dirname, '/public/js/ui-harness.js');
 }
 
 
@@ -46,10 +46,10 @@ if (args.init) {
  */
 if (R.is(String, args.entry)) {
   server.bundle({
-    entry: args.entry.split(","),
+    entry: args.entry.split(','),
     output: args.output,
     isProduction: toBool(args.prod)
   });
 } else {
-  console.log(chalk.red("No entry path was specified, for example: `--entry ./src/specs`\n"));
+  console.log(chalk.red('No entry path was specified, for example: `--entry ./src/specs`\n'));
 }
