@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "Isolate, test and document modular UI with React.",
   "scripts": {
     "start": "node start --entry=./src/specs",
