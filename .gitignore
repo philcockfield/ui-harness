@@ -3,5 +3,6 @@ lib
 node_modules
 npm-debug.log
 /public/js
-/example/**/*.graphql
 test/.temp
+/example/relay/data/schema.graphql
+/example/relay/data/schema.json
