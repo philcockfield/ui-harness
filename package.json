@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "description": "Isolate, test and document modular UI with React.",
   "scripts": {
     "start": "node start --entry=./src/specs",
@@ -46,6 +46,7 @@
     "react-object": "^2.0.9",
     "react-relay": "^0.6.1",
     "react-schema": "^1.1.0",
+    "semver": "^5.1.0",
     "shelljs": "^0.5.3",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.11",

@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Added
 - Relay/GraphQL support.
 - Passing `proxy` option through to server start method.  This allows things like the GraphQL proxy to be configured.
+- Force min-version of Node at startup. (`>=5.5.0` at time of writing).
 
 #### Changed
 - Referencing [Babel](https://babeljs.io/) dependencies via `js-babel` and `js-babel-dev` modules.

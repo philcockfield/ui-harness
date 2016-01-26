@@ -1,11 +1,7 @@
 import webpack from 'webpack';
 import fsPath from 'path';
 import { rootModulePath } from './paths';
-// import babelRelayPlugin from '../relay/babel-relay-plugin';
-
-// console.log("babelRelayPlugin", babelRelayPlugin);
-// const f = new babelRelayPlugin();
-// console.log("f", f);
+import babelRelayPlugin from '../relay/babel-relay-plugin';
 
 
 // Hack: Prevent error with `fetch` which attempts to look for a `self` object.
@@ -23,8 +19,8 @@ const babelLoader = (extension) => ({
   test: extension,
   exclude: /(node_modules|bower_components)/,
   query: {
-    // plugins: [babelRelayPlugin],
-    plugins: [fsPath.resolve("./src/relay/babel-relay-plugin")],
+    // plugins: [babelRelayPlugin('../../example/relay/data/schema.json')],
+    // plugins: [fsPath.resolve("./src/relay/babelRelayPlugin")],
   },
 });
 
@@ -45,7 +41,6 @@ const babelLoader = (extension) => ({
 export default (options = {}) => {
   const isProduction = options.isProduction || false;
   const outputFile = options.outputFile || 'bundle.js';
-
 
   const config = {
     entry: {
