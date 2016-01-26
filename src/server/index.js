@@ -6,13 +6,17 @@ import chalk from 'chalk';
 import express from 'express';
 import fs from 'fs-extra';
 import fsPath from 'path';
+import shell from 'shelljs';
+import semver from 'semver';
 import webpackConfig from './webpack-config';
 import webpackBuilder from './webpack-builder';
 import webpackDevServer from './webpack-dev-server';
 import { formatSpecPaths, formatEntryPaths } from './paths';
 import log from '../shared/log';
 
+const REQUIRED_NODE_VERSION = '>=5.5.0';
 const NODE_MODULES = fsPath.resolve('./node_modules');
+
 
 
 /**
@@ -27,7 +31,7 @@ const NODE_MODULES = fsPath.resolve('./node_modules');
  *
  * @return {Promise}.
  */
-export const start = (options = {}) => new Promise((resolve) => {
+export const start = (options = {}) => new Promise((resolve, reject) => {
   // Setup initial conditions.
   if (R.isNil(options.entry)) { throw new Error(`Entry path(s) must be specified.`); }
 
@@ -35,7 +39,14 @@ export const start = (options = {}) => new Promise((resolve) => {
   const ENV = process.env.NODE_ENV || 'development';
   const PORT = options.port || 3030;
 
-  // Ensure ES6+ within specs can be imported.
+  // Ensure the minimum version of node is supported.
+  const nodeVersion = semver.clean(shell.exec('node -v', { silent: true }).output);
+  if (!semver.satisfies(nodeVersion, REQUIRED_NODE_VERSION)) {
+    const msg = `The UIHarness requires node version ${ REQUIRED_NODE_VERSION }.`;
+    return reject(new Error(msg));
+  }
+
+  // Ensure ES6+ within the specs can be imported.
   require('babel-register');
 
   // Prepare the Webpack configuration.
