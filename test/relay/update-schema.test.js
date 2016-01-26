@@ -7,7 +7,7 @@ const OUTPUT_DIR = fsPath.resolve("./test/.temp");
 const SCHEMA_PATH = fsPath.resolve("./test/relay/data/schema.js");
 
 
-describe.only('update-schema', function() {
+describe('update-schema', function() {
   afterEach(() => fs.removeSync(OUTPUT_DIR));
 
   it('rejects if the schema path does not exist', (done) => {
