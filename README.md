@@ -104,6 +104,10 @@ From there the UIHarness will build the `schema.json` output, and compile it int
 To rebuild the schema (when changes have been made to it), simply delete the `schema.json` file and restart the UIHarness.
 
 
+# Links
+- [Landing Page](http://uiharness.com)
+- [Documentation](https://philcockfield.gitbooks.io/ui-harness/content/index.html)
+
 
 
 ---
