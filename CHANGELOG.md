@@ -14,7 +14,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Linting updated to use [AirBnB style guide](https://github.com/airbnb/javascript).
 
 #### Deprecated
+
 #### Removed
+- Removed the `bundle` and `bundle:init` scripts.  The UIHarness client is now bundled as a chunk within the main Webpack build.
+
 #### Fixed
 #### Security
 
