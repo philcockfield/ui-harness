@@ -4,7 +4,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Relay from 'react-relay';
 import api from '../shared/api-internal';
 import bdd from '../shared/bdd';
 import Shell from '../components/Shell';

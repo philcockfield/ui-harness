@@ -23,11 +23,11 @@ const babelLoader = (extension, isRelayEnabled) => {
     query: {
       plugins: [],
     },
-  }
+  };
 
   // Add optional plugins.
   if (isRelayEnabled) {
-    loader.query.plugins.push(fsPath.resolve("./src/relay/babel-relay-plugin"));
+    loader.query.plugins.push(fsPath.resolve('./src/relay/babel-relay-plugin'));
   }
 
   // Finish up.

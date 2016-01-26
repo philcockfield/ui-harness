@@ -61,11 +61,11 @@ export const start = (options = {}) => new Promise((resolve, reject) => {
     const { graphqlSchema } = options;
     const isRelayEnabled = R.is(String, graphqlSchema);
     if (isRelayEnabled) {
-        try {
-          await initRelay(graphqlSchema);
-        } catch (err) {
-          return reject(err);
-        }
+      try {
+        await initRelay(graphqlSchema);
+      } catch (err) {
+        return reject(err);
+      }
     }
 
     // Prepare the Webpack configuration.
@@ -73,7 +73,7 @@ export const start = (options = {}) => new Promise((resolve, reject) => {
     const config = webpackConfig({
       isRelayEnabled,
       entry: specs,
-      outputFile: 'specs.js'
+      outputFile: 'specs.js',
     });
 
     // Create the development server.

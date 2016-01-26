@@ -1,4 +1,3 @@
-import R from 'ramda';
 import Promise from 'bluebird';
 import fs from 'fs-extra';
 import fsPath from 'path';
@@ -24,7 +23,7 @@ export default (schemaPath) => new Promise((resolve, reject) => {
 
     // Extract path information.
     const dir = fsPath.dirname(schemaPath);
-    const file = fsPath.basename(schemaPath, ".js");
+    const file = fsPath.basename(schemaPath, '.js');
     const jsonPath = fsPath.join(dir, `${ file }.json`);
 
     // Ensure the [schema.json] exists.
