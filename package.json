@@ -12,7 +12,7 @@
     "lint": "eslint ./src",
     "build": "babel src --out-dir lib --source-maps",
     "build:watch": "npm run build -- --watch",
-    "prepublish": "npm test && npm run lint && npm build"
+    "prepublish": "npm test && npm run lint && npm run build"
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
