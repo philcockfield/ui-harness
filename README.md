@@ -78,12 +78,12 @@ This makes your components easy to explore, evaluate, and understand by develope
 
 
 ## Examples
-##### Simple
+#### Simple Example
 From within the `/ui-harness` project folder, to see the core set of specs used to build the UIHarness itself, along with specs for associated component libraries, run:
 
     npm start
 
-##### Relay / GraphQL
+#### Relay Example
 
 To see an example of Relay/GraphQL working within UIHarness run:
 
