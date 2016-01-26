@@ -1,10 +1,10 @@
 'use strict'
-require('babel-polyfill');
 var R = require('ramda');
 var minimist = require('minimist');
 var chalk = require('chalk');
-var server = require('./lib/server');
+var server = require('./lib/server').default;
 var log = require('./lib/shared/log').default;
+
 
 // Read-in command-line arguments.
 var args = process.argv.slice(2);
