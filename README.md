@@ -91,6 +91,15 @@ To see an example of Relay/GraphQL working within UIHarness run:
 
 Based on the [relay-starter-kit](https://github.com/relayjs/relay-starter-kit), this takes a command-line argument of `--graphqlSchema`, which is the path to the GraphQL `schema.js` file.
 
+```js
+uiharness.start({
+  entry: fsPath.resolve("./example/relay/specs"),
+  port: UIHARNESS_PORT,
+  proxy: { "/graphql": `http://localhost:${ GRAPHQL_PORT }` },
+  graphqlSchema: fsPath.resolve("./example/relay/data/schema.js")
+})
+```
+
 From there the UIHarness will build the `schema.json` output, and compile it into the Webpack output sent to the client using the [babel-relay-plugin](https://www.npmjs.com/package/babel-relay-plugin).
 
 To rebuild the schema (when changes have been made to it), simply delete the `schema.json` file and restart the UIHarness.
