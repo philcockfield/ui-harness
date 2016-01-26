@@ -93,10 +93,9 @@ Based on the [relay-starter-kit](https://github.com/relayjs/relay-starter-kit), 
 
 ```js
 uiharness.start({
-  entry: fsPath.resolve("./example/relay/specs"),
-  port: UIHARNESS_PORT,
-  proxy: { "/graphql": `http://localhost:${ GRAPHQL_PORT }` },
-  graphqlSchema: fsPath.resolve("./example/relay/data/schema.js")
+  entry: './example/relay/specs',
+  proxy: { '/graphql': 'http://localhost:8080' },
+  graphqlSchema: path.resolve('./example/relay/data/schema.js')
 })
 ```
 
