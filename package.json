@@ -15,7 +15,6 @@
   "dependencies": {
     "adm-zip": "^0.4.7",
     "babel-loader": "^6.2.0",
-    "babel-preset-react": "^6.3.13",
     "bluebird": "^3.1.4",
     "chalk": "^1.1.1",
     "color": "^0.11.1",
@@ -28,7 +27,7 @@
     "graphql": "^0.4.14",
     "graphql-relay": "^0.3.6",
     "immutable": "^3.7.4",
-    "js-babel": "^6.0.0",
+    "js-babel-ui": "^6.0.0",
     "js-bdd": "^2.0.0",
     "js-util": "^2.0.2",
     "js-yaml": "^3.5.2",
