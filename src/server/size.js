@@ -31,7 +31,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
 
     // Initial message.
     let msg;
-    msg = 'Calculating size of javascript files';
+    msg = 'Bundling and calculating size of javascript files';
     msg = isProduction ? `${ msg }(production)` : msg;
     msg += '...\n';
     log.info(chalk.grey(msg));
