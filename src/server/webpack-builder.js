@@ -1,5 +1,6 @@
 import R from 'ramda';
 import Promise from 'bluebird';
+import fsPath from 'path';
 import webpack from 'webpack';
 import MemoryFileSystem from 'memory-fs';
 import filesize from 'filesize';
@@ -11,6 +12,23 @@ const toSizeStats = (text) => ({
   display: filesize(text.length),
 });
 
+
+const getInfo = (fsMemory, file) => {
+  // Read the generated javascript.
+  const js = fsMemory.readFileSync(file);
+
+  // Calculate the size of the JS when zipped.
+  const zip = new AdmZip();
+  zip.addFile('file.js', new Buffer(js));
+
+  // Prepare stats.
+  return {
+    file,
+    js,
+    size: toSizeStats(js),
+    zipped: toSizeStats(zip.toBuffer().toString('utf8')),
+  };
+};
 
 
 
@@ -30,23 +48,25 @@ export default (config) => new Promise((resolve, reject) => {
     if (err) {
       reject(err); // Failed.
     } else {
-      // Read the generated javascript.
-      const js = fsMemory.readFileSync('/bundle.js');
 
-      // Calculate the size of the JS when zipped.
-      const zip = new AdmZip();
-      zip.addFile('bundle.js', new Buffer(js));
+      // Get info about each code chunk.
+      const app = getInfo(
+        fsMemory,
+        fsPath.join(config.output.path, config.output.filename),
+      );
+      const vendor = getInfo(
+        fsMemory,
+        '/vendor.js'
+      );
 
-      // Prepare response.
+      // Finish up.
       const msecs = (stats.endTime - stats.startTime);
       resolve({
-        js,
-        size: toSizeStats(js),
-        zipped: toSizeStats(zip.toBuffer().toString('utf8')),
         buildTime: {
           msecs,
           secs: +(msecs / 1000).toFixed(1),
         },
+        modules: { app, vendor },
       });
     }
   });

@@ -13,6 +13,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [3.3.0] - 2016-01-27
+#### Added
+- Calculating built JS size statistics (run `$ node size`);
+
+
+
 ## [3.2.0] - 2016-01-27
 #### Added
 - Configuration settings specified in a `.uiharness.yml` file within the in the root of the project.

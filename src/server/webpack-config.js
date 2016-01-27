@@ -3,7 +3,7 @@ import fsPath from 'path';
 import { rootModulePath } from './paths';
 
 const NODE_MODULES_PATH = fsPath.join(rootModulePath(), 'node_modules');
-const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/entry');
+const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/ui-harness');
 
 
 
@@ -88,7 +88,7 @@ export default (options = {}) => {
 
       // Break out common libs into their own code-chunk.
       //    See - https://webpack.github.io/docs/code-splitting.html#split-app-and-vendor-code
-      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
+      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', path: '/', filename: 'vendor.js' }),
     ],
   };
 

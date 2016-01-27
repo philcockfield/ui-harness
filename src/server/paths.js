@@ -25,6 +25,24 @@ export const rootModulePath = () => {
 
 
 
+const ROOT_PATH = rootModulePath();
+
+
+
+/**
+ * Trims the root module path from the given path (if it exists).
+ * @param {String} path: The path to modify.
+ * @return {String}.
+ */
+export const trimRootModulePath = (path) => {
+  if (!R.is(String, path)) { return path; }
+  return path.startsWith(ROOT_PATH)
+            ? `.${ path.substr(ROOT_PATH.length, path.length) }`
+            : path;
+};
+
+
+
 /**
  * Prepare entry paths for the WebPack bundle.
  *
