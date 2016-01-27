@@ -5,14 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
-- Configuration settings specified within `.uiharness.yml` in the root of the project.
-
 #### Changed
 #### Deprecated
 #### Removed
 #### Fixed
 #### Security
 
+
+
+## [3.2.0] - 2016-01-27
+#### Added
+- Configuration settings specified in a `.uiharness.yml` file within the in the root of the project.
 
 
 
