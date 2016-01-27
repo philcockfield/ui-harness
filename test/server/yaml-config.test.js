@@ -57,7 +57,7 @@ describe('YAML config (.uiharness)', function() {
   });
 
 
-  describe.only('API: .uiharness.yml', function() {
+  describe('API: .uiharness.yml', function() {
     let config;
     beforeEach(() => {
       config = yamlConfig.load('./test/server/sample.yml');
