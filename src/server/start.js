@@ -7,7 +7,7 @@ import shell from 'shelljs';
 import semver from 'semver';
 import webpackConfig from './webpack-config';
 import webpackDevServer from './webpack-dev-server';
-import { formatSpecPaths, rootModulePath } from './paths';
+import { formatSpecPaths, rootModulePath, trimRootModulePath } from './paths';
 import log from '../shared/log';
 import initRelay from '../relay/init-relay';
 
@@ -16,13 +16,7 @@ const ROOT_PATH = rootModulePath();
 const NODE_MODULES = fsPath.resolve('./node_modules');
 
 
-const displayPath = (path) => {
-  if (!R.is(String, path)) { return path; }
-  return path.startsWith(ROOT_PATH)
-            ? `.${ path.substr(ROOT_PATH.length, path.length) }`
-            : path;
-};
-
+const displayPath = (path) => trimRootModulePath(path);
 
 
 
