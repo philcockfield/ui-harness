@@ -7,12 +7,22 @@ import shell from 'shelljs';
 import semver from 'semver';
 import webpackConfig from './webpack-config';
 import webpackDevServer from './webpack-dev-server';
-import { formatSpecPaths } from './paths';
+import { formatSpecPaths, rootModulePath } from './paths';
 import log from '../shared/log';
 import initRelay from '../relay/init-relay';
 
 const REQUIRED_NODE_VERSION = '>=5.5.0';
+const ROOT_PATH = rootModulePath();
 const NODE_MODULES = fsPath.resolve('./node_modules');
+
+
+const displayPath = (path) => {
+  if (!R.is(String, path)) { return path; }
+  return path.startsWith(ROOT_PATH)
+            ? `.${ path.substr(ROOT_PATH.length, path.length) }`
+            : path;
+};
+
 
 
 
@@ -88,11 +98,14 @@ export default (options = {}) => new Promise((resolve, reject) => {
       log.info(chalk.grey(' - module:   '), packageJson.name, chalk.grey(`(v${ moduleVersion })`));
       log.info(chalk.grey(' - port:     '), PORT);
       log.info(chalk.grey(' - react:    '), `v${ reactJson.version }`);
+      if (isRelayEnabled) {
+        log.info(chalk.grey(' - schema:   '), displayPath(graphqlSchema));
+      }
 
       // Specs.
-      log.info(chalk.grey(' - specs:    '), specs[0] || chalk.magenta('None.'));
+      log.info(chalk.grey(' - specs:    '), displayPath(specs[0]) || chalk.magenta('None.'));
       R.takeLast(specs.length - 1, specs).forEach(path => {
-        log.info(chalk.grey('             '), path);
+        log.info(chalk.grey('             '), displayPath(path));
       });
 
       // Finish up.
