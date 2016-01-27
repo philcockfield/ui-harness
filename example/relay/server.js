@@ -32,7 +32,7 @@ graphQLServer.listen(GRAPHQL_PORT, () => {
     entry: './example/relay/specs',
     port: UIHARNESS_PORT,
     proxy: { '/graphql': `http://localhost:${ GRAPHQL_PORT }` },
-    graphqlSchema: fsPath.resolve('./example/relay/data/schema.js')
+    graphqlSchema: './example/relay/data/schema.js'
   })
   .catch(err => {
     log.error(chalk.red(`Error while starting UIHarness:`));

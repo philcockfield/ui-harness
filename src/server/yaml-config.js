@@ -7,6 +7,13 @@ import { rootModulePath } from './paths';
 
 const ROOT_PATH = rootModulePath();
 
+const formatPath = (path) => {
+  if (!R.is(String, path)) { return path; }
+  return path.startsWith('.')
+    ? fsPath.join(ROOT_PATH, path)
+    : path;
+};
+
 
 
 /**
@@ -23,12 +30,11 @@ export const parse = (text) => {
     throw new Error(`The [.uiharness.yml] file is invalid. ${ err.message }`);
   }
 
-  // Format the entry.
-  if (!R.is(String, yaml.entry)) {
-    yaml.entry = "./src/specs";
-  }
-  if (yaml.entry.startsWith('.')) {
-    yaml.entry = fsPath.join(ROOT_PATH, yaml.entry);
+  // Format paths.
+  yaml.entry = R.is(String, yaml.entry) ? yaml.entry : "./src/specs";
+  yaml.entry = formatPath(yaml.entry);
+  if (yaml.graphqlSchema) {
+    yaml.graphqlSchema = formatPath(yaml.graphqlSchema);
   }
 
   // Finish up.

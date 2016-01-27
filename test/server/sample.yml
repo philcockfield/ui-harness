@@ -1,2 +1,5 @@
 entry: ./foo/specs
 port: 1234
+graphqlSchema: ./data/schema.js
+proxy:
+  /graphql: http://localhost:8080

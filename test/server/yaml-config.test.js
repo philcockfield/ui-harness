@@ -57,18 +57,28 @@ describe('YAML config (.uiharness)', function() {
   });
 
 
-  describe('config API', function() {
+  describe.only('API: .uiharness.yml', function() {
     let config;
     beforeEach(() => {
       config = yamlConfig.load('./test/server/sample.yml');
     });
 
-    it('has an entry path', () => {
-      expect(config.entry).to.equal(fsPath.resolve("./foo/specs"));
-    });
+    describe('start', function() {
+      it('has an "entry" path (relative => absolute)', () => {
+        expect(config.entry).to.equal(fsPath.resolve("./foo/specs"));
+      });
 
-    it('has a port', () => {
-      expect(config.port).to.equal(1234);
+      it('has a "port"', () => {
+        expect(config.port).to.equal(1234);
+      });
+
+      it('has a "proxy"', () => {
+        expect(config.proxy).to.eql({ '/graphql': 'http://localhost:8080' });
+      });
+
+      it('has a "graphqlSchema" path (relative => absolute)', () => {
+        expect(config.graphqlSchema).to.equal(fsPath.resolve('./data/schema.js'));
+      });
     });
   });
 });

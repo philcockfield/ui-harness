@@ -64,9 +64,12 @@ export default (options = {}) => new Promise((resolve, reject) => {
     require('babel-register');
 
     // Initialize the Relay/GraphQL schema (if specified).
-    const { graphqlSchema } = options;
+    let { graphqlSchema } = options;
     const isRelayEnabled = R.is(String, graphqlSchema);
     if (isRelayEnabled) {
+      graphqlSchema = graphqlSchema.startsWith('.')
+          ? fsPath.join(ROOT_PATH, graphqlSchema)
+          : graphqlSchema;
       try {
         await initRelay(graphqlSchema);
       } catch (err) {
