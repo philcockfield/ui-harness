@@ -54,7 +54,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     // Write output.
     log.info(chalk.green('Code Size:'));
     log.info(chalk.grey(' - minified:   '), isProduction);
-    log.info(chalk.grey(' - time:       '), stats.buildTime.secs, 'secs');
+    log.info(chalk.grey(' - build time: '), stats.buildTime.secs, 'secs');
     log.info();
 
     const logModule = (key, title, data) => {
