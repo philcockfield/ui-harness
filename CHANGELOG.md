@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased] - YYYY-MM-DD
+#### Added
+#### Changed
+#### Deprecated
+#### Removed
+#### Fixed
+#### Security
+
+
+
+## [3.2.0] - 2016-01-27
+#### Added
+- Configuration settings specified in a `.uiharness.yml` file within the in the root of the project.
+
+
+
 ## [3.1.0] - 2016-01-26
 #### Added
 - Relay/GraphQL support.

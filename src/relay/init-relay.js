@@ -37,14 +37,13 @@ export default (schemaPath) => new Promise((resolve, reject) => {
 
     // Initialize the plugin with the path to the [schema.json].
 
-    // HACK:  Momentarily store the path to the GraphQL Schema in a global variable.
+    // HACK:  Store the path to the GraphQL Schema in a global variable.
     //        This is so the path can be dynamically set for the `babel-relay-plugin`
     //        and not hard-coded, which is the only way the Realy samples show how this works.
     //        There is no apparent way to pass an actual instance of the `babel-relay-plugin`
     //        (with the schema path dynamically set) into the WebPack babel-loader.
     global.__relayPluginSchemaJsonPath = jsonPath;
     require('./babel-relay-plugin');
-    delete global.__relayPluginSchemaJsonPath;
 
     // Finish up.
     resolve({ jsonPath });
