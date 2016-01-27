@@ -1,3 +1,4 @@
+
 import R from 'ramda';
 import fs from 'fs-extra';
 import fsPath from 'path';
@@ -31,7 +32,7 @@ export const parse = (text) => {
   }
 
   // Format paths.
-  yaml.entry = R.is(String, yaml.entry) ? yaml.entry : "./src/specs";
+  yaml.entry = R.is(String, yaml.entry) ? yaml.entry : './src/specs';
   yaml.entry = formatPath(yaml.entry);
   if (yaml.graphqlSchema) {
     yaml.graphqlSchema = formatPath(yaml.graphqlSchema);
@@ -54,11 +55,11 @@ export const parse = (text) => {
  */
 export const load = (path) => {
   // Setup initial conditions.
-  path = isBlank(path) ? fsPath.join(ROOT_PATH, '.uiharness.yml') : path
+  path = isBlank(path) ? fsPath.join(ROOT_PATH, '.uiharness.yml') : path;
   path = path.startsWith('.') ? fsPath.resolve(path) : path;
 
   // Ensure the path exists.
-  if (!fs.existsSync(path)) { return; }
+  if (!fs.existsSync(path)) { return undefined; }
 
   // Load and parse the file.
   const yaml = fs.readFileSync(path, 'utf8');
