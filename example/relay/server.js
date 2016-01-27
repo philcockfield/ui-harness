@@ -6,8 +6,8 @@ import fsPath from 'path';
 import graphQLHTTP from 'express-graphql';
 import chalk from 'chalk';
 import { Schema } from './data/schema';
-import * as uiharness from '../../src/server';
-import log from '../../src/shared/log';
+import uiharness from '../../lib/server';
+import log from '../../lib/shared/log';
 
 const GRAPHQL_PORT = 8080;
 const UIHARNESS_PORT = 3030;
