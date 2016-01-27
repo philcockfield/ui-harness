@@ -56,7 +56,7 @@ export default (config) => new Promise((resolve, reject) => {
       );
       const vendor = getInfo(
         fsMemory,
-        "/vendor.js"
+        '/vendor.js'
       );
 
       // Finish up.

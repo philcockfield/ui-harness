@@ -3,7 +3,7 @@ import Promise from 'bluebird';
 import chalk from 'chalk';
 import webpackBuilder from './webpack-builder';
 import webpackConfig from './webpack-config';
-import { formatEntryPaths, rootModulePath, trimRootModulePath } from './paths';
+import { formatEntryPaths, trimRootModulePath } from './paths';
 import log from '../shared/log';
 
 
@@ -32,7 +32,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     // Initial message.
     let msg;
     msg = 'Calculating size of javascript files';
-    msg = isProduction ? msg + ' (production)' : msg;
+    msg = isProduction ? `${ msg }(production)` : msg;
     msg += '...\n';
     log.info(chalk.grey(msg));
 
