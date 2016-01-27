@@ -3,6 +3,7 @@ var R = require('ramda');
 var minimist = require('minimist');
 var chalk = require('chalk');
 var server = require('./lib/server').default;
+var yamlConfig = require('./lib/server/yaml-config');
 var log = require('./lib/shared/log').default;
 
 
@@ -11,9 +12,19 @@ var args = process.argv.slice(2);
 args = args.length > 0 ? args = minimist(args) : {};
 
 
+// Look for an entry string.
+const config = yamlConfig.load();
+let entry = args.entry;
+if (!R.is(String, args.entry)) {
+  entry = config && config.entry;
+}
+
 /**
  * Look for arguments passed in at the command-line,
  * and starts the server if required.
+ *
+ * If arguments are no explicitly passed at the command-line, then the values are
+ * retrieved from the [.uiharness.yml] file if present.
  *
  * Command-line arguments:
  *
@@ -25,10 +36,10 @@ args = args.length > 0 ? args = minimist(args) : {};
  *                    Default: 3030
  *
  */
-if (R.is(String, args.entry)) {
+if (entry) {
   server.start({
-    entry: args.entry.split(','),
-    port: args.port
+    entry: entry.split(','),
+    port: args.port || (config && config.port)
   })
   .catch(err => {
     log.error(chalk.red('Failed to start.'));
@@ -36,5 +47,12 @@ if (R.is(String, args.entry)) {
     log.error()
   });
 } else {
-  log.error(chalk.red('No entry path was specified, for example: `--entry ./src/specs`\n'));
+  let msg = 'No entry path was specified.';
+  msg += 'Make sure you have a [.uiharness.yml] file, or pass a --entry, '
+  msg += 'for example: `--entry ./src/specs`\n';
+  log.error();
+  log.error(chalk.red('No entry path was specified for the UIHarness.'));
+  log.error(chalk.grey('  Make sure you have a [.uiharness.yml] file in the root of the project,'));
+  log.error(chalk.grey('  or pass a --entry command line argument, for example: `--entry ./src/specs`'));
+  log.error();
 }
