@@ -106,7 +106,7 @@ To rebuild the schema (when changes have been made to it), simply delete the `sc
 
 
 # Links
-- [Landing Page](http://uiharness.com) - [uiharness.com](http://uiharness.com)
+- [uiharness.com](http://uiharness.com)
 - [Documentation](https://philcockfield.gitbooks.io/ui-harness/content/index.html) ([edit](https://www.gitbook.com/book/philcockfield/ui-harness/edit))
 
 
