@@ -24,7 +24,11 @@ See the quick-start sample repo https://github.com/philcockfield/ui-harness-samp
 
 
 ## Manual Setup
-The UIHarness is just a simple NPM module.  Simply add it to you `package.json` file:
+The UIHarness is just a simple NPM module.  
+
+    npm install -save-dev ui-harness
+
+Simply add it to you `package.json` file, with a `start` script:
 
 ```json
 {
