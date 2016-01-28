@@ -14,6 +14,7 @@ With the UIHarness you can go from an empty NPM module, to cleanly building isol
 See the quick-start sample repo https://github.com/philcockfield/ui-harness-sample
 
     git clone https://github.com/philcockfield/ui-harness-sample.git
+    cd ui-harness-sample
     npm install
     npm start
 
@@ -33,7 +34,7 @@ The UIHarness is just a simple NPM module.  Simply add it to you `package.json` 
     "start": "node ./node_modules/ui-harness/start --entry=./src/specs",
   },
   "devDependencies": {
-    "ui-harness": "^3.1.0"
+    "ui-harness": "^3.3.0"
   },
   "engines": { "node": ">=5.5.0" }
 }
@@ -54,26 +55,26 @@ The `package.json` above assumes a project structure like this:
     |— src
       |— components       # React components here.
       |— specs            # Spec files here.
-         |— index.js      # --entry to the "describe/it" visual specification files.
+         |— index.js      # --entry to the "describe/it" visual spec files.
 
-For a working sample see: https://github.com/philcockfield/ui-harness-sample
+For a working example see the [ui-harness-sample](https://github.com/philcockfield/ui-harness-sample) repo. To deviate from this typical structure simply organize your module folders as you wish and change the `--entry` path passed to the start script.
 
 ------
 
 
 ## Conceptual Introduction
-The UIHarness allows you to add a one-line startup script to your node module that provides a complete visual test and build harness for creating and bundling your components.
+The [UIHarness](http://uiharness.com) allows you to add a one-line startup script to your node module that provides a complete visual test and build harness for creating and bundling your components.
 
 #### Creating
-As a tool for crafting your components and their API's in isolation, the UIHarness dramatically improves the quality and reuse potential of your UI investment.  You will be falling into the "pit of success" conforming to best-practices that also make your job faster and easier.
+As a tool for crafting your components and their API's in isolation, the UIHarness dramatically improves the quality and reuse potential of your UI investment.  You will be falling into the "pit of success" conforming to best-practices that also make your job faster and easier, and importantly - **more fun**.
 
 #### Documentation
 Creating components in this manner has the knock-on effect of providing a visual API and documentation explorer for your component system.  Sharing and socializing code and API's, both within your team, and publicly to the world, is a big part of making software a success.  Functional documentation is a by-product of building components in the UIHarness.
 
 #### Publishing
-If you are isolating your UI components into their own module (a very good idea), you can add the UIHarness, create and test your components with it, and then publish your module to NPM with the UIHarness as the startup option (`npm start`).  
+If you are isolating your UI components into their own discreet modules (a very good idea!), you can add the UIHarness as a dev-dependency (`--save-dev`), create and test your components within it, and then [publish](https://docs.npmjs.com/cli/publish) your module to NPM with the UIHarness as the startup option (`npm start`).  
 
-This makes your components easy to explore, evaluate, and understand by developers.  This adds no run-time overhead, as consumers of the components will only be requiring the isolated component, not the UIHarness itself, so it never gets built (via [Webpack](https://webpack.github.io/)) into the resulting application bundle.
+This makes your components easy to explore, evaluate, and understand by other developers.  The UIHarness adds no run-time overhead to your module, as consumers of the components will only be requiring the isolated component, not the UIHarness itself, so it never gets built (via [Webpack](https://webpack.github.io/)) into the resulting application bundle.
 
 
 
@@ -105,7 +106,7 @@ To rebuild the schema (when changes have been made to it), simply delete the `sc
 
 
 # Links
-- [Landing Page](http://uiharness.com)
+- [Landing Page](http://uiharness.com) - [uiharness.com](http://uiharness.com)
 - [Documentation](https://philcockfield.gitbooks.io/ui-harness/content/index.html) ([edit](https://www.gitbook.com/book/philcockfield/ui-harness/edit))
 
 
