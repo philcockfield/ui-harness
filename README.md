@@ -102,7 +102,7 @@ uiharness.start({
 
 From there the UIHarness will build the `schema.json` output, and compile it into the Webpack output sent to the client using the [babel-relay-plugin](https://www.npmjs.com/package/babel-relay-plugin).
 
-To rebuild the schema (when changes have been made to it), simply delete the `schema.json` file and restart the UIHarness.
+To rebuild the schema (when changes have been made to it), simply delete the generated `schema.json` file and restart the UIHarness.
 
 
 # Links
