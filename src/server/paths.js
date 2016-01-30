@@ -96,8 +96,8 @@ export const formatSpecPaths = (entry) => {
   // Check for non-standard characters within the paths.
   paths.forEach(path => {
     if (!path.match(/^[a-z0-9\.\-\_\s\/]+$/i)) {
-      log.warn(chalk.red('WARNING Path contains non-standard characters. Hot-reloading may not work.'));
-      log.warn(chalk.red('        Hint: Brackets "(...)" will cause problems.'));
+      log.warn(chalk.red('WARNING Path contains non-standard characters. Auto-reloading may not work.'));
+      log.warn(chalk.red('        Hint: Brackets in the path "(...)" will cause problems.'));
       log.warn(chalk.cyan(`        ${ path }`));
       log.warn('');
     }
