@@ -13,7 +13,7 @@ args = args.length > 0 ? args = minimist(args) : {};
 
 
 // Look for an entry string.
-const config = yamlConfig.load();
+const config = yamlConfig.load() || {};
 const entry = args.entry || (config && config.entry);
 
 
@@ -26,18 +26,18 @@ const entry = args.entry || (config && config.entry);
  *
  * Command-line arguments:
  *
- *           --entry: Required. Path to the specs files (comma seperated if more than one).
- *                    If not present the server is not started.
- *                    Example: --entry ./src/specs
+ *    --entry:          Required. Path to the specs files (comma separated if more than one).
+ *                      If not present the server is not started.
+ *                      Example: --entry ./src/specs
  *
- *           --port:  Optional. The port to start the server on.
- *                    Default: 3030
+ *    --port:           Optional. The port to start the server on.
+ *                      Default: 3030
  *
  */
 if (entry) {
   server.start({
     entry: entry.split(','),
-    port: args.port || (config && config.port)
+    port: args.port || config.port,
   })
   .catch(err => {
     log.error(chalk.red('Failed to start.'));

@@ -34,7 +34,7 @@ const displayPath = (path) => trimRootModulePath(path);
  *                         to proxy server requests to.
  *                         (https://webpack.github.io/docs/webpack-dev-server.html#proxy)
  *
- *   -- graphqlSchema:     Optional. The absolute path to the GraphQL `schema.js`.
+ *   -- graphqlSchema:     Optional. A path to the GraphQL `schema.js` file.
  *                         If not specified Relay will not be enabled.
  *
  * @return {Promise}.

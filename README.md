@@ -81,6 +81,41 @@ If you are isolating your UI components into their own discreet modules (a very 
 This makes your components easy to explore, evaluate, and understand by other developers.  The UIHarness adds no run-time overhead to your module, as consumers of the components will only be requiring the isolated component, not the UIHarness itself, so it never gets built (via [Webpack](https://webpack.github.io/)) into the resulting application bundle.
 
 
+## Startup Arguments and Configuration
+The following arguments can be passed to the UIHarness at startup as command-line arguments:
+
+- `--entry` Path to the specs files (comma separated if more than one).
+
+- `--port` The port to run the harness on.  Default: `3030`
+
+For example:
+
+```json
+"scripts": {
+  "start": "node ./node_modules/ui-harness/start --entry=./src/specs --port=1234",
+}
+```
+
+
+#### .uiharness.yml
+These values can alternatively be declared in a `.uiharness.yml` configuration file in the root of your project, with the following additional values that can only be declared within a YAML configuration:
+
+- `--graphqlSchema`
+A path to the [GraphQL](https://facebook.github.io/graphql/) `schema.js` file. If not specified [Relay](https://facebook.github.io/relay/) will not be enabled.
+
+- `--proxy` An object containing `{ path, host }` mappings to proxy server requests to ([reference](https://webpack.github.io/docs/webpack-dev-server.html#proxy)).
+
+
+```yml
+entry: ./src/specs
+port: 3030
+graphqlSchema: './data/schema.js'
+proxy:
+  /graphql: http://localhost:8080
+```
+
+
+
 
 ## Examples
 #### Simple Example
