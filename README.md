@@ -92,7 +92,7 @@ For example:
 
 ```json
 "scripts": {
-  "start": "node ./node_modules/ui-harness/start --entry=./src/specs --port=1234",
+  "start": "node ./node_modules/ui-harness/start --entry=./src/specs --port=1234"
 }
 ```
 
