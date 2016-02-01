@@ -115,6 +115,27 @@ proxy:
 ```
 
 
+## Calculating Build Size
+It's important to keep an eye on the size of the bundled javascript during development, before it's too late to do anything about it.
+
+The UIHarness provides build size feedback with the following command:
+
+    node size           # Builds code in development mode.
+    node size --prod    # Builds in production mode, minifying code (slower).
+
+For example, you might add these as scripts to your `package.json`:
+
+```json
+  "scripts": {
+    "size": "node ./node_modules/ui-harness/size",
+    "size:prod": "node ./node_modules/ui-harness/size --prod"
+  }
+```
+
+Producing the following output in the terminal window:
+
+![Terminal:Size](https://cloud.githubusercontent.com/assets/185555/12727679/d11bb1ba-c982-11e5-96b2-f3346ae11ac1.jpg)
+
 
 
 ## Examples
