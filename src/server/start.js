@@ -87,6 +87,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     // Create the development server.
     const app = webpackDevServer(config, { proxy });
     app.use('/', express.static(fsPath.resolve(__dirname, '../../public')));
+    app.use('/images', express.static(fsPath.join(ROOT_PATH, 'images')));
 
     // Start the server.
     log.info('\n');
