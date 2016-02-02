@@ -97,7 +97,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       const reactJson = require(fsPath.join(NODE_MODULES, 'react/package.json'));
       const moduleVersion = packageJson.version || '0.0.0';
       log.info(chalk.green('UIHarness:'));
-      log.info(chalk.grey(' - module:   '), packageJson.name, chalk.grey(`(v${ moduleVersion })`));
+      log.info(chalk.grey(' - module:   '), chalk.cyan(packageJson.name), chalk.grey(`(v${ moduleVersion })`));
       log.info(chalk.grey(' - port:     '), port);
       log.info(chalk.grey(' - react:    '), `v${ reactJson.version }`);
       if (isRelayEnabled) {
