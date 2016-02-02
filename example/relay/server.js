@@ -28,6 +28,7 @@ graphQLServer.listen(GRAPHQL_PORT, () => {
   log.info(`${ chalk.magenta('GraphQL Server') } running on http://localhost:${ GRAPHQL_PORT }`);
 
   // Start the UIHarness.
+  // The parameters could also be specified within a [.uiharness.yml] configuration file.
   uiharness.start({
     entry: './example/relay/specs',
     port: UIHARNESS_PORT,

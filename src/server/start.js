@@ -10,13 +10,15 @@ import webpackDevServer from './webpack-dev-server';
 import { formatSpecPaths, rootModulePath, trimRootModulePath } from './paths';
 import log from '../shared/log';
 import initRelay from '../relay/init-relay';
+import * as yamlConfig from './yaml-config';
 
 const REQUIRED_NODE_VERSION = '>=5.5.0';
 const ROOT_PATH = rootModulePath();
 const NODE_MODULES = fsPath.resolve('./node_modules');
-
+const YAML_CONFIG = yamlConfig.load() || {};
 
 const displayPath = (path) => trimRootModulePath(path);
+
 
 
 
@@ -41,12 +43,16 @@ const displayPath = (path) => trimRootModulePath(path);
  */
 export default (options = {}) => new Promise((resolve, reject) => {
   (async () => {
-    // Setup initial conditions.
-    if (R.isNil(options.entry)) { throw new Error(`Entry path(s) must be specified.`); }
 
-    // Extract options  default values.
-    const ENV = process.env.NODE_ENV || 'development';
-    const PORT = options.port || 3030;
+    // Extract options or default values.
+    const entry = options.entry || YAML_CONFIG.entry;
+    const env = process.env.NODE_ENV || 'development';
+    const port = options.port || YAML_CONFIG.port || 3030;
+    const proxy = options.proxy || YAML_CONFIG.proxy;
+    let graphqlSchema = options.graphqlSchema || YAML_CONFIG.graphqlSchema;
+
+    // Ensure required values exist.
+    if (R.isNil(entry)) { throw new Error(`Entry path(s) must be specified.`); }
 
     // Ensure the minimum version of node is supported.
     const nodeVersion = semver.clean(shell.exec('node -v', { silent: true }).output);
@@ -58,7 +64,6 @@ export default (options = {}) => new Promise((resolve, reject) => {
     require('babel-register');
 
     // Initialize the Relay/GraphQL schema (if specified).
-    let { graphqlSchema } = options;
     const isRelayEnabled = R.is(String, graphqlSchema);
     if (isRelayEnabled) {
       graphqlSchema = graphqlSchema.startsWith('.')
@@ -72,7 +77,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     }
 
     // Prepare the Webpack configuration.
-    const specs = formatSpecPaths(options.entry);
+    const specs = formatSpecPaths(entry);
     const config = webpackConfig({
       isRelayEnabled,
       entry: specs,
@@ -80,20 +85,20 @@ export default (options = {}) => new Promise((resolve, reject) => {
     });
 
     // Create the development server.
-    const app = webpackDevServer(config, { proxy: options.proxy });
+    const app = webpackDevServer(config, { proxy });
     app.use('/', express.static(fsPath.resolve(__dirname, '../../public')));
 
     // Start the server.
     log.info('\n');
-    log.info(chalk.grey(`Starting (${ ENV })...`));
-    app.listen(PORT, () => {
+    log.info(chalk.grey(`Starting (${ env })...`));
+    app.listen(port, () => {
       // Server details.
       const packageJson = require(fsPath.resolve('./package.json'));
       const reactJson = require(fsPath.join(NODE_MODULES, 'react/package.json'));
       const moduleVersion = packageJson.version || '0.0.0';
       log.info(chalk.green('UIHarness:'));
       log.info(chalk.grey(' - module:   '), packageJson.name, chalk.grey(`(v${ moduleVersion })`));
-      log.info(chalk.grey(' - port:     '), PORT);
+      log.info(chalk.grey(' - port:     '), port);
       log.info(chalk.grey(' - react:    '), `v${ reactJson.version }`);
       if (isRelayEnabled) {
         log.info(chalk.grey(' - schema:   '), displayPath(graphqlSchema));

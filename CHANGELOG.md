@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- Reading `graphqlSchema` and `proxy` from the `.uiharness.yml` configuration file.
+
 #### Changed
 #### Deprecated
 #### Removed
