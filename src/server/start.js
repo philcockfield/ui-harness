@@ -104,7 +104,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       log.info(chalk.grey(' - port:     '), port);
       log.info(chalk.grey(' - react:    '), `v${ reactJson.version }`);
       if (isRelayEnabled) {
-        log.info(chalk.grey(' - schema:   '), displayPath(graphqlSchema));
+        log.info(chalk.grey(' - graphql:  '), displayPath(graphqlSchema));
       }
 
       // Specs.
