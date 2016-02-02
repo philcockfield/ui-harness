@@ -8,7 +8,8 @@ import updateSchema from './update-schema';
  * Initializes Relay, ensuring the GraphQL [schema.json] exists and
  * the relay-babel plugin has access to it.
  *
- * @param {String} schemaPath: The absolute path to the GraphQL `schema.js`.
+ * @param {String} schemaPath:  The absolute path to the GraphQL
+ *                              `schema.js` or `schema.json` file.
  *
  * @return {Promise}.
  */
@@ -22,12 +23,13 @@ export default (schemaPath) => new Promise((resolve, reject) => {
     }
 
     // Extract path information.
+    const isJson = schemaPath.endsWith('.json');
     const dir = fsPath.dirname(schemaPath);
-    const file = fsPath.basename(schemaPath, '.js');
+    const file = fsPath.basename(schemaPath, isJson ? '.json' : '.js');
     const jsonPath = fsPath.join(dir, `${ file }.json`);
 
     // Ensure the [schema.json] exists.
-    if (!fs.existsSync(jsonPath)) {
+    if (!isJson && !fs.existsSync(jsonPath)) {
       try {
         await updateSchema(schemaPath, dir, file);
       } catch (err) {

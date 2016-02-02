@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Reading `graphqlSchema` and `proxy` from the `.uiharness.yml` configuration file.
 
 #### Changed
+- Relay configuration supports taking a path to a `.json` file from the `graphqlSchema` argument.
+
 #### Deprecated
 #### Removed
 #### Fixed

@@ -26,7 +26,7 @@ export default (schemaPath, outputDir, outputFile = 'schema') => new Promise((re
     graphql: `${ outputDir }/${ outputFile }.graphql`,
   };
 
-  // Load the schema.
+  // Ensure the schema exists.
   if (!fs.existsSync(schemaPath)) {
     return reject(new Error(`A schema at the path '${ schemaPath }' does not exist.`));
   }
@@ -57,11 +57,3 @@ export default (schemaPath, outputDir, outputFile = 'schema') => new Promise((re
     resolve({ paths });
   })();
 });
-
-
-//
-// // Save user readable type system shorthand of schema
-// fs.writeFileSync(
-//   fsPath.join(__dirname, './relay/data/schema.graphql'),
-//   printSchema(Schema)
-// );
