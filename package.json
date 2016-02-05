@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
-    "babel-loader": "^6.2.0",
     "babel-relay-plugin": "^0.6.3",
     "bluebird": "^3.2.1",
     "chalk": "^1.1.1",

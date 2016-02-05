@@ -43,6 +43,8 @@ const displayPath = (path) => trimRootModulePath(path);
  */
 export default (options = {}) => new Promise((resolve, reject) => {
   (async () => {
+    // Setup initial conditions.
+    const packageJson = require(fsPath.resolve('./package.json'));
 
     // Extract options or default values.
     const entry = options.entry || YAML_CONFIG.entry;
@@ -87,14 +89,13 @@ export default (options = {}) => new Promise((resolve, reject) => {
     // Create the development server.
     const app = webpackDevServer(config, { proxy });
     app.use('/', express.static(fsPath.resolve(__dirname, '../../public')));
-    app.use('/images', express.static(fsPath.join(ROOT_PATH, 'images')));
+    app.use(`/${ packageJson.name }/images`, express.static(fsPath.join(ROOT_PATH, 'images')));
 
     // Start the server.
     log.info('\n');
     log.info(chalk.grey(`Starting (${ env })...`));
     app.listen(port, () => {
       // Server details.
-      const packageJson = require(fsPath.resolve('./package.json'));
       const reactJson = require(fsPath.join(NODE_MODULES, 'react/package.json'));
       const moduleVersion = packageJson.version || '0.0.0';
       const packageName = chalk.magenta(packageJson.name);
