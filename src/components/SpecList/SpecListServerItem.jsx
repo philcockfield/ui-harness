@@ -22,7 +22,7 @@ class SpecListServerItem extends React.Component {
   }
 
   handleClick() {
-    console.log('TODO', 'Delete');
+    // console.log('TODO', 'Delete');
   }
 
   render() {
