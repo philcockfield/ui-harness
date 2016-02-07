@@ -7,6 +7,18 @@ import { css, PropTypes } from "../util";
  * A single crop-mark within the <CropMarks>.
  */
 class CropMark extends React.Component {
+  static propTypes = {
+    edge: PropTypes.oneOf(["topLeft", "topRight", "bottomLeft", "bottomRight"]),
+    length: PropTypes.number,
+    offset: PropTypes.number,
+    color: React.PropTypes.string,
+  };
+  static defaultProps = {
+    size: 20,
+    offset: 5,
+    color: "rgba(0, 0, 0, 0.15)",
+  };
+
   styles() {
     const SIZE = this.props.size;
     const OFFSET = this.props.offset;
@@ -59,19 +71,6 @@ class CropMark extends React.Component {
     return el;
   }
 }
-
-// API -------------------------------------------------------------------------
-CropMark.propTypes = {
-  edge: PropTypes.oneOf(["topLeft", "topRight", "bottomLeft", "bottomRight"]),
-  length: PropTypes.number,
-  offset: PropTypes.number,
-  color: React.PropTypes.string,
-};
-CropMark.defaultProps = {
-  size: 20,
-  offset: 5,
-  color: "rgba(0, 0, 0, 0.08)"
-};
 
 
 export default Radium(CropMark);

@@ -5,7 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- Reading `graphqlSchema` and `proxy` from the `.uiharness.yml` configuration file.
+- Exposing `/<package-name>/images` as a static web-server path for image assets.
+
 #### Changed
+- Relay configuration supports taking a path to a `.json` file from the `graphqlSchema` argument.
+
 #### Deprecated
 #### Removed
 #### Fixed
