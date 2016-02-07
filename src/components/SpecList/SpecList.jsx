@@ -1,10 +1,11 @@
-import React from "react";
-import Radium from "radium";
-import Immutable from "immutable";
-import { css, PropTypes } from "../util";
-import { Ul } from "../shared";
-import SpecListItem from "./SpecListItem";
-import SpecListServerItem from "./SpecListServerItem";
+import React from 'react';
+import Radium from 'radium';
+import Immutable from 'immutable';
+import { css, PropTypes } from '../util';
+import { Ul } from '../shared';
+import SpecListItem from './SpecListItem';
+import SpecListServerItem from './SpecListServerItem';
+
 
 /**
  * A list of specs.
@@ -12,28 +13,28 @@ import SpecListServerItem from "./SpecListServerItem";
 class SpecList extends React.Component {
   static propTypes = {
     specs: PropTypes.arrayOf(PropTypes.object),
-    current: PropTypes.instanceOf(Immutable.Map).isRequired
+    current: PropTypes.instanceOf(Immutable.Map).isRequired,
   };
   static defaultProps = {
-    specs: []
+    specs: [],
   };
 
   styles() {
     return css({
       base: {
-        paddingBottom: 25
-      }
+        paddingBottom: 25,
+      },
     });
   }
 
   render() {
     const styles = this.styles();
     const { current } = this.props;
-    let specs = this.props.specs.map((spec, i) => {
-            return spec.isServer
-                ? <SpecListServerItem key={i} spec={ spec } current={ current }/>
-                : <SpecListItem key={i} spec={ spec } current={ current }/>
-          });
+    const specs = this.props.specs.map((spec, i) => (
+      spec.isServer
+          ? <SpecListServerItem key={i} spec={ spec } current={ current }/>
+          : <SpecListItem key={i} spec={ spec } current={ current }/>
+    ));
 
     return (
       <div style={ styles.base }>

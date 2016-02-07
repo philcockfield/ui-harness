@@ -1,14 +1,14 @@
-import React from "react";
-import Radium from "radium";
-import { css, PropTypes } from "../util";
-import { FONT_MONO, FONT_SANS } from "../GlobalStyles";
+import React from 'react';
+import Radium from 'radium';
+import { css, PropTypes } from '../util';
+import { FONT_MONO, FONT_SANS } from '../GlobalStyles';
 
 const COLORS = {
-  grey: "#CFCFCF",
-  red: "#C61604",
-  blue: "#1900D3",
-  black: "#000000",
-  green: "007500#"
+  grey: '#CFCFCF',
+  red: '#C61604',
+  blue: '#1900D3',
+  black: '#000000',
+  green: '007500#',
 };
 
 
@@ -17,24 +17,25 @@ const COLORS = {
  */
 class Value extends React.Component {
   static propTypes = {
-    color: PropTypes.oneOf(["black", "blue", "red", "grey"]),
+    color: PropTypes.oneOf(['black', 'blue', 'red', 'grey']),
     mono: PropTypes.bool,
     size: PropTypes.numberOrString,
+    children: PropTypes.node,
   };
   static defaultProps = {
     mono: true,
-    size: 12
+    size: 12,
   };
 
   styles() {
-    const { color, mono, size, children } = this.props;
+    const { color, mono, size } = this.props;
     return css({
       base: {
         fontFamily: mono ? FONT_MONO : FONT_SANS,
         fontSize: size,
         color: COLORS[color],
-        paddingRight: 6
-      }
+        paddingRight: 6,
+      },
     });
   }
 

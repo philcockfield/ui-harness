@@ -1,6 +1,6 @@
-import React from "react";
-import Radium from "radium";
-import { css, PropTypes } from "../util";
+import React from 'react';
+import Radium from 'radium';
+import { PropTypes } from '../util';
 
 
 /**
@@ -8,10 +8,11 @@ import { css, PropTypes } from "../util";
  */
 class Ul extends React.Component {
   static propTypes = {
-    padding: PropTypes.numberOrString
+    padding: PropTypes.numberOrString,
+    children: PropTypes.node,
   };
   static defaultProps = {
-    padding: 0
+    padding: 0,
   };
 
   styles() {
@@ -19,8 +20,8 @@ class Ul extends React.Component {
       base: {
         margin: 0,
         padding: this.props.padding,
-        listStyleType: "none"
-      }
+        listStyleType: 'none',
+      },
     };
   }
 

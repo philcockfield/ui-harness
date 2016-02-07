@@ -1,7 +1,7 @@
-import React from "react";
-import Radium from "radium";
-import { css, PropTypes } from "../util";
-import { IconImage, EmptyLabel } from "../shared";
+import React from 'react';
+import Radium from 'radium';
+import { css } from '../util';
+import { IconImage, EmptyLabel } from '../shared';
 
 
 /**
@@ -12,12 +12,12 @@ class SuiteTreeEmpty extends React.Component {
     return css({
       base: {
         paddingTop: 20,
-        textAlign: "center",
+        textAlign: 'center',
       },
       icon: {
         marginBottom: 12,
-        opacity: 0.1
-      }
+        opacity: 0.1,
+      },
     });
   }
 

@@ -1,15 +1,16 @@
-import R from "ramda";
-import React from "react";
-import Radium from "radium";
-import Immutable from "immutable";
-import Color from "color";
-import { css, PropTypes } from "../util";
-import { Card, FlexEdge } from "../shared";
-import Header from "./Header";
-import Footer from "./Footer";
-import Component from "./Component";
-import ComponentHost from "./ComponentHost";
-import OutputLog from "../OutputLog";
+/* eslint max-len:0 */
+
+import R from 'ramda';
+import React from 'react';
+import Radium from 'radium';
+import Immutable from 'immutable';
+import Color from 'color';
+import { css, PropTypes } from '../util';
+import { Card, FlexEdge } from '../shared';
+import Header from './Header';
+import Footer from './Footer';
+import ComponentHost from './ComponentHost';
+import OutputLog from '../OutputLog';
 
 
 /**
@@ -17,52 +18,46 @@ import OutputLog from "../OutputLog";
  */
 class Main extends React.Component {
   static propTypes = {
-    current: PropTypes.instanceOf(Immutable.Map).isRequired
+    current: PropTypes.instanceOf(Immutable.Map).isRequired,
   };
   static defaultProps = {};
 
 
   backgroundColor() {
-    let color = this.props.current.get("backdrop") || "#fff";
+    let color = this.props.current.get('backdrop') || '#fff';
     if (R.is(Number, color)) {
       if (color < 0) { color = 0; }
       if (color > 1) { color = 1; }
-      color = Color("white").darken(color).hexString();
+      color = Color('white').darken(color).hexString();
     }
     return color;
   }
 
   styles(isDark) {
-    const { current } = this.props;
-    const header = current.get("header");
-    const scroll = current.get("scroll");
-    const overflowX = (scroll === true || scroll === "x" || scroll === "x:y") ? "auto" : null
-    const overflowY = (scroll === true || scroll === "y" || scroll === "x:y") ? "auto" : null
-
     const HR_COLOR = isDark
-        ? "rgba(255, 255, 255, 0.4)"
-        : "rgba(0, 0, 0, 0.1)"
+        ? 'rgba(255, 255, 255, 0.4)'
+        : 'rgba(0, 0, 0, 0.1)';
 
     return css({
       base: {
         Absolute: 0,
-        overflow: "hidden",
-        backgroundColor: this.backgroundColor()
+        overflow: 'hidden',
+        backgroundColor: this.backgroundColor(),
       },
       footerHr: {
         borderTop: `solid 8px ${ HR_COLOR }`,
-        borderBottom: "none",
-        margin: "0 20px",
-      }
+        borderBottom: 'none',
+        margin: '0 20px',
+      },
     });
   }
 
 
   scroll() {
     const { current } = this.props;
-    const currentScroll = current.get("scroll");
-    const overflowX = (currentScroll === true || currentScroll === "x" || currentScroll === "x:y") ? "auto" : "hidden";
-    const overflowY = (currentScroll === true || currentScroll === "y" || currentScroll === "x:y") ? "auto" : "hidden";
+    const currentScroll = current.get('scroll');
+    const overflowX = (currentScroll === true || currentScroll === 'x' || currentScroll === 'x:y') ? 'auto' : 'hidden';
+    const overflowY = (currentScroll === true || currentScroll === 'y' || currentScroll === 'x:y') ? 'auto' : 'hidden';
     return { scroll: currentScroll, overflowX, overflowY };
   }
 
@@ -73,36 +68,37 @@ class Main extends React.Component {
     const isDark = Color(this.backgroundColor()).dark();
     const styles = this.styles(isDark);
 
-    let elHeader, elFooter, elFooterHr;
-    const hr = current.get("hr")
+    let elHeader;
+    let elFooter;
+    let elFooterHr;
+    const hr = current.get('hr');
 
     // Header.
-    const header = current.get("header");
+    const header = current.get('header');
     if (header) {
-      elHeader = <Header
-                    markdown={ header }
-                    edge="top"
-                    hr={ hr }
-                    isDark={ isDark }/>
+      elHeader = (<Header
+        markdown={ header }
+        edge="top"
+        hr={ hr }
+        isDark={ isDark }/>);
     }
 
     // Footer.
-    const footer = current.get("footer");
+    const footer = current.get('footer');
     if (footer) {
-      elFooterHr = <hr style={ styles.footerHr } />
-      elFooter = <Footer
-                    markdown={ footer }
-                    isDark={ isDark }
-                    flexEdge={{ maxHeight: "50%", overflowY: "auto" }}/>
-
+      elFooterHr = <hr style={ styles.footerHr } />;
+      elFooter = (<Footer
+        markdown={ footer }
+        isDark={ isDark }
+        flexEdge={{ maxHeight: '50%', overflowY: 'auto' }}/>);
     }
 
     // Main content.
     let el = <ComponentHost current={ current }/>;
 
     // Swap out the main host with the log if required.
-    const log = current.get("log");
-    el = current.get("showLog") && log
+    const log = current.get('log');
+    el = current.get('showLog') && log
             ? el = <OutputLog items={ log.toJS() }/>
             : el;
 

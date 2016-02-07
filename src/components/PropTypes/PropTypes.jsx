@@ -1,9 +1,11 @@
-import R from "ramda";
-import React from "react";
-import Radium from "radium";
-import { css, PropTypes } from "../util";
-import { ValueList } from "react-object";
-import { EmptyLabel } from "../shared";
+/* eslint react/prop-types:0 */
+
+import R from 'ramda';
+import React from 'react';
+import Radium from 'radium';
+import { css, PropTypes } from '../util';
+import { ValueList } from 'react-object';
+import { EmptyLabel } from '../shared';
 
 
 
@@ -21,12 +23,12 @@ class PropTypesComponent extends React.Component {
   styles() {
     return css({
       base: {
-        position: "relative",
+        position: 'relative',
         paddingTop: 18,
         paddingLeft: 3,
         paddingRight: 3,
         paddingBottom: 10,
-      }
+      },
     });
   }
 
@@ -43,12 +45,10 @@ class PropTypesComponent extends React.Component {
 
     const el = items.length > 0
       ? <ValueList items={ items } collapsedTotal={0} />
-      : <EmptyLabel>No PropTypes on component.</EmptyLabel>
+      : <EmptyLabel>No PropTypes on component.</EmptyLabel>;
 
     return (
-      <div style={ styles.base }>
-        { el }
-      </div>
+      <div style={ styles.base }>{ el }</div>
     );
   }
 }

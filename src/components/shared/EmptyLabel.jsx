@@ -1,7 +1,7 @@
-import React from "react";
-import Radium from "radium";
-import Color from "color";
-import { css, PropTypes } from "../util";
+import React from 'react';
+import Radium from 'radium';
+import Color from 'color';
+import { css, PropTypes } from '../util';
 
 
 /**
@@ -13,25 +13,26 @@ class EmptyLabel extends React.Component {
     weight: PropTypes.numberOrString,
     size: PropTypes.numberOrString,
     italic: PropTypes.bool,
-    align: PropTypes.oneOf(["left", "center", "right"]),
+    align: PropTypes.oneOf(['left', 'center', 'right']),
+    children: PropTypes.node,
   };
   static defaultProps = {
-    color: Color("white").darken(0.3).hexString(),
+    color: Color('white').darken(0.3).hexString(),
     weight: 300,
     size: 13,
     italic: false,
-    align: "center"
+    align: 'center',
   };
 
   styles() {
     return css({
       base: {
         fontSize: this.props.size,
-        fontStyle: this.props.italic && "italic" ,
+        fontStyle: this.props.italic && 'italic',
         color: this.props.color,
         fontWeight: this.props.weight,
-        textAlign: this.props.align
-      }
+        textAlign: this.props.align,
+      },
     });
   }
 

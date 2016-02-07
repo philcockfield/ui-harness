@@ -5,7 +5,9 @@
     "no-multiple-empty-lines": 0,
     "no-param-reassign": 0,
     "new-cap": 0,
-    "padded-blocks": 0
+    "padded-blocks": 0,
+    "new-cap": [0, { "capIsNewExceptions": ["React.Component"] }],
+    "react/jsx-closing-bracket-location": [2, { "location": "after-props" }]
   },
   "env": {
     "mocha": true

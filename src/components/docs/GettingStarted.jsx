@@ -1,9 +1,7 @@
-import React from "react";
-import Radium from "radium";
-import Markdown from "react-atoms/components/Markdown";
-import { css, PropTypes } from "../util";
-import { delay } from "js-util";
-import api from "../../shared/api-internal";
+import React from 'react';
+import Radium from 'radium';
+import Markdown from 'react-atoms/components/Markdown';
+import { css } from '../util';
 
 
 const introMarkdown = `
@@ -41,9 +39,9 @@ class GettingStarted extends React.Component {
       },
       content: {
         maxWidth: 550,
-        margin: "0 auto",
-        padding: "0 50px"
-      }
+        margin: '0 auto',
+        padding: '0 50px',
+      },
     });
   }
 
