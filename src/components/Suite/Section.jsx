@@ -1,16 +1,15 @@
-import React from "react";
-import Radium from "radium";
-import Immutable from "immutable";
-import Color from "color";
-import { css, PropTypes } from "../util";
-import { FormattedText, Ellipsis, Twisty } from "../shared";
-import api from "../../shared/api-internal";
-import SpecList from "../SpecList";
+import React from 'react';
+import Radium from 'radium';
+import Immutable from 'immutable';
+import Color from 'color';
+import { css, PropTypes } from '../util';
+import { FormattedText, Ellipsis, Twisty } from '../shared';
+import api from '../../shared/api-internal';
+import SpecList from '../SpecList';
 
 
-const isOpenStorage = (section, isOpen) => {
-    return api.localStorage(section.id, isOpen, { default:true });
-  };
+const isOpenStorage = (section, isOpen) =>
+  api.localStorage(section.id, isOpen, { default: true });
 
 
 /**
@@ -20,46 +19,46 @@ class Section extends React.Component {
   static propTypes = {
     current: PropTypes.instanceOf(Immutable.Map).isRequired,
     section: PropTypes.object.isRequired,
-    hasOnly: PropTypes.bool
+    hasOnly: PropTypes.bool,
   };
   static defaultProps = {
-    hasOnly: false
+    hasOnly: false,
   };
 
 
   constructor(props) {
     super(props);
-    this.state = { isOpen: isOpenStorage(this.props.section) };
+    this.state = { isOpen: isOpenStorage(props.section) };
   }
 
   styles() {
     return css({
       base: {},
       titleBar: {
-        background: "rgba(0, 0, 0, 0.05)",
-        borderTop: "solid 1px rgba(0, 0, 0, 0.04)",
-        color: Color("white").darken(0.5).hexString(),
+        background: 'rgba(0, 0, 0, 0.05)',
+        borderTop: 'solid 1px rgba(0, 0, 0, 0.04)',
+        color: Color('white').darken(0.5).hexString(),
         fontSize: 14,
-        padding: "6px 10px",
+        padding: '6px 10px',
         marginBottom: 3,
-        cursor: "pointer"
+        cursor: 'pointer',
       },
       empty: {
-        textAlign: "center",
+        textAlign: 'center',
         fontSize: 13,
-        fontStyle: "italic",
-        color: Color("white").darken(0.5).hexString(),
+        fontStyle: 'italic',
+        color: Color('white').darken(0.5).hexString(),
         paddingTop: 10,
-        paddingBottom: 20
-      }
+        paddingBottom: 20,
+      },
     });
   }
 
-  handleClick() {
+  handleClick = () => {
     const isOpen = !this.state.isOpen;
-    this.setState({ isOpen:isOpen });
+    this.setState({ isOpen });
     isOpenStorage(this.props.section, isOpen);
-  }
+  };
 
   render() {
     const styles = this.styles();
@@ -70,7 +69,7 @@ class Section extends React.Component {
 
     return (
       <div style={ styles.base }>
-        <div style={ styles.titleBar } onClick={ this.handleClick.bind(this) }>
+        <div style={ styles.titleBar } onClick={ this.handleClick }>
           <Ellipsis>
             <Twisty margin="0 5px 0 0" isOpen={ this.state.isOpen }/>
             <FormattedText>{ section.name }</FormattedText>

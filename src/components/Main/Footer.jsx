@@ -1,7 +1,7 @@
-import React from "react";
-import Radium from "radium";
-import { css, PropTypes } from "../util";
-import { Markdown } from "../shared";
+import React from 'react';
+import Radium from 'radium';
+import { css, PropTypes } from '../util';
+import { Markdown } from '../shared';
 
 
 /**
@@ -15,19 +15,19 @@ class Footer extends React.Component {
   };
   static defaultProps = {
     isDark: false,
-    maxWidth: 600
+    maxWidth: 600,
   };
 
   styles() {
     return css({
       base: {
-        padding: "0 20px"
+        padding: '0 20px',
       },
       markdownOuter: {
         maxWidth: this.props.maxWidth,
-        margin: "0 auto",
-        paddingBottom: 40
-      }
+        margin: '0 auto',
+        paddingBottom: 40,
+      },
     });
   }
 
@@ -36,7 +36,7 @@ class Footer extends React.Component {
     return (
       <div style={ styles.base } className="uih">
         <div style={ styles.markdownOuter }>
-          <Markdown className={`uih-markdown ${ this.props.isDark && "uih-dark" }`}>
+          <Markdown className={`uih-markdown ${ this.props.isDark && 'uih-dark' }`}>
             { this.props.markdown }
           </Markdown>
         </div>

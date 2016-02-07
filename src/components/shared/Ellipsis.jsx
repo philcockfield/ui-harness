@@ -1,6 +1,6 @@
-import React from "react";
-import Radium from "radium";
-import { css, PropTypes } from "../util";
+import React from 'react';
+import Radium from 'radium';
+import { css, PropTypes } from '../util';
 
 
 /**
@@ -9,11 +9,12 @@ import { css, PropTypes } from "../util";
 class Ellipsis extends React.Component {
   static propTypes = {
     width: PropTypes.numberOrString,
-    display: PropTypes.oneOf(["block", "inline-block", "inline"])
+    display: PropTypes.oneOf(['block', 'inline-block', 'inline']),
+    children: PropTypes.node,
   };
   static defaultProps = {
-    width: "100%",
-    display: "inline-block"
+    width: '100%',
+    display: 'inline-block',
   };
 
   styles() {
@@ -21,10 +22,10 @@ class Ellipsis extends React.Component {
       base: {
         display: this.props.display,
         width: this.props.width,
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis"
-      }
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
     });
   }
 

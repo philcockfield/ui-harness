@@ -1,7 +1,7 @@
-import React from "react";
-import Radium from "radium";
-import Color from "color";
-import { css, PropTypes } from "../util";
+import React from 'react';
+import Radium from 'radium';
+import Color from 'color';
+import { css, PropTypes } from '../util';
 
 
 
@@ -11,27 +11,28 @@ import { css, PropTypes } from "../util";
 class Card extends React.Component {
   static propTypes = {
     padding: PropTypes.numberOrString,
-    darken: PropTypes.numberOrString
+    darken: PropTypes.numberOrString,
+    children: PropTypes.node,
   };
   static defaultProps = {
     padding: 0,
-    darken: 0
+    darken: 0,
   };
 
   styles() {
-    const BACKGROUND_COLOR = Color("white").darken(this.props.darken);
+    const BACKGROUND_COLOR = Color('white').darken(this.props.darken);
     return css({
       base: {
         background: BACKGROUND_COLOR.hexString(),
         Absolute: 0,
-        borderStyle: "solid",
+        borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: "rgba(0, 0, 0, 0.12)",
+        borderColor: 'rgba(0, 0, 0, 0.12)',
         borderRadius: 1,
-        boxShadow: "0 0 8px 0px rgba(0, 0, 0, 0.1)",
+        boxShadow: '0 0 8px 0px rgba(0, 0, 0, 0.1)',
         padding: this.props.padding,
-        overflow: "hidden"
-      }
+        overflow: 'hidden',
+      },
     });
   }
 

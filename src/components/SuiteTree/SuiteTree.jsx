@@ -1,11 +1,11 @@
-import React from "react";
-import Radium from "radium";
-import api from "../../shared/api-internal";
-import bdd from "../../shared/bdd";
-import { Ul } from "../shared";
-import { css, PropTypes } from "../util";
-import SuiteTreeItem from "./SuiteTreeItem";
-import SuiteTreeEmpty from "./SuiteTreeEmpty";
+import React from 'react';
+import Radium from 'radium';
+import api from '../../shared/api-internal';
+import bdd from '../../shared/bdd';
+import { Ul } from '../shared';
+import { css, PropTypes } from '../util';
+import SuiteTreeItem from './SuiteTreeItem';
+import SuiteTreeEmpty from './SuiteTreeEmpty';
 
 
 /**
@@ -13,8 +13,8 @@ import SuiteTreeEmpty from "./SuiteTreeEmpty";
  */
 class SuiteTree extends React.Component {
   static propTypes = {
-    selectedSuite: React.PropTypes.object,
-    width: React.PropTypes.number.isRequired
+    selectedSuite: PropTypes.object,
+    width: PropTypes.number.isRequired,
   };
   static defaultProps = {};
 
@@ -22,16 +22,16 @@ class SuiteTree extends React.Component {
     return css({
       base: {
         Absolute: 0,
-        userSelect: "none",
-        overflow: "hidden",
-        overflowY: "auto"
-      }
+        userSelect: 'none',
+        overflow: 'hidden',
+        overflowY: 'auto',
+      },
     });
   }
 
-  handleOverSuite(e) { this.mouseOverItem = e; }
-  handleMouseLeave() { this.mouseOverItem = null; }
-  handleKeyDown(e) {
+  handleOverSuite = (e) => { this.mouseOverItem = e; };
+  handleMouseLeave = () => { this.mouseOverItem = null; };
+  handleKeyDown = (e) => {
     const { selectedSuite } = this.props;
     const item = this.mouseOverItem;
     const suite = item ? item.suite : null;
@@ -44,7 +44,7 @@ class SuiteTree extends React.Component {
         case 39: // RIGHT.
           if (suite) {
             if (selectedSuite && selectedSuite.id === suite.id) {
-              api.indexMode("suite"); // Drill into already loaded suite.
+              api.indexMode('suite'); // Drill into already loaded suite.
             } else {
               api.loadSuite(suite); // Load the new suite.
             }
@@ -52,9 +52,11 @@ class SuiteTree extends React.Component {
             item.toggle(true);
           }
           break;
+
+        default: // Ignore.
       }
     }
-  }
+  };
 
 
   render() {
@@ -62,22 +64,22 @@ class SuiteTree extends React.Component {
     const { selectedSuite, width } = this.props;
 
     // Filter on root suites.
-    const suites = bdd.rootSuites()
-    const items = suites.map((suite, i) => {
-        return <SuiteTreeItem
-                  key={i}
-                  suite={ suite }
-                  index={i}
-                  total={ suites.length }
-                  isRoot={ true }
-                  selectedSuite={ selectedSuite }
-                  onOverSuite={ this.handleOverSuite.bind(this) }
-                  width={ width }/>
-    });
+    const suites = bdd.rootSuites();
+    const items = suites.map((suite, i) => (
+      <SuiteTreeItem
+        isRoot
+        key={i}
+        index={i}
+        suite={ suite }
+        total={ suites.length }
+        selectedSuite={ selectedSuite }
+        onOverSuite={ this.handleOverSuite }
+        width={ width }/>
+    ));
 
     return (
       <div style={ styles.base }
-           onMouseLeave={ this.handleMouseLeave.bind(this) }>
+        onMouseLeave={ this.handleMouseLeave }>
         {
           items.length > 0
             ? <Ul>{ items }</Ul>

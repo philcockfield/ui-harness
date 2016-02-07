@@ -1,10 +1,11 @@
-import React from "react";
-import Radium from "radium";
-import Immutable from "immutable";
-import Color from "color";
-import { css, PropTypes } from "../util";
-import { Ellipsis, FormattedText } from "../shared";
-import api from "../../shared/api-internal";
+import React from 'react';
+import Radium from 'radium';
+import Immutable from 'immutable';
+import Color from 'color';
+import { css, PropTypes } from '../util';
+import { Ellipsis, FormattedText } from '../shared';
+import api from '../../shared/api-internal';
+
 
 /**
  * A single spec within the index list.
@@ -12,13 +13,13 @@ import api from "../../shared/api-internal";
 class SpecListItem extends React.Component {
   static propTypes = {
     spec: PropTypes.object.isRequired,
-    current: PropTypes.instanceOf(Immutable.Map).isRequired
+    current: PropTypes.instanceOf(Immutable.Map).isRequired,
   };
   static defaultProps = {};
 
   invokeCount() {
     const { spec, current } = this.props;
-    const specInvokeCount = current ? current.get("specInvokeCount") : {};
+    const specInvokeCount = current ? current.get('specInvokeCount') : {};
     return specInvokeCount
               ? specInvokeCount[spec.id] || 0
               : 0;
@@ -27,23 +28,23 @@ class SpecListItem extends React.Component {
   styles() {
     return css({
       base: {
-        position: "relative",
-        cursor: "pointer",
-        background: this.state.isOver ? "rgba(0, 0, 0, 0.03)" : "none",
+        position: 'relative',
+        cursor: 'pointer',
+        background: this.state.isOver ? 'rgba(0, 0, 0, 0.03)' : 'none',
       },
       name: {
-        color: Color("white").darken(0.5).hexString(),
+        color: Color('white').darken(0.5).hexString(),
         fontSize: 14,
-        lineHeight: "28px",
+        lineHeight: '28px',
         paddingLeft: 28,
       },
       bullet: {
-        Absolute: "11 null null 13",
+        Absolute: '11 null null 13',
         width: 6,
         height: 6,
-        background: this.invokeCount() === 0 ? "rgba(0, 0, 0, 0.22)" : "#4A90E2", // BLUE
-        borderRadius: 3
-      }
+        background: this.invokeCount() === 0 ? 'rgba(0, 0, 0, 0.22)' : '#4A90E2', // BLUE
+        borderRadius: 3,
+      },
     });
   }
 
@@ -51,18 +52,18 @@ class SpecListItem extends React.Component {
     api.invokeSpec(this.props.spec);
   }
 
-  handleMouseEnter() { this.setState({ isOver:true }); }
-  handleMouseLeave() { this.setState({ isOver:false }); }
-  handleClick() { this.invoke(); }
+  handleMouseEnter = () => { this.setState({ isOver: true }); };
+  handleMouseLeave = () => { this.setState({ isOver: false }); };
+  handleClick = () => { this.invoke(); };
 
   render() {
     const styles = this.styles();
-    let { spec } = this.props;
+    const { spec } = this.props;
     return (
       <li style={ styles.base }
-          onMouseEnter={ this.handleMouseEnter.bind(this) }
-          onMouseLeave={ this.handleMouseLeave.bind(this) }
-          onClick={ this.handleClick.bind(this) }>
+        onMouseEnter={ this.handleMouseEnter }
+        onMouseLeave={ this.handleMouseLeave }
+        onClick={ this.handleClick }>
 
         <div style={ styles.bullet }/>
         <div style={ styles.name }>
