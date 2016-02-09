@@ -60,6 +60,9 @@ const PROPS = {
     default: false,
     type: PropTypes.oneOf([true, false, 'x', 'y', 'x:y']),
   },
+  context: {
+    type: PropTypes.object,
+  },
 };
 
 

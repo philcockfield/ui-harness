@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import R from 'ramda';
 import { expect } from 'chai';
 import ThisContext from '../../src/shared/ThisContext';
 import bdd from '../../src/shared/bdd';
@@ -99,7 +99,7 @@ describe('ThisContext', () => {
 
   describe('margin', function() {
     it('it has a default value', () => {
-      expect(_.isNumber(context.margin())).to.equal(true);
+      expect(R.is(Number, context.margin())).to.equal(true);
     });
 
     it('stores values', () => {
@@ -195,6 +195,28 @@ describe('ThisContext', () => {
     it('throws if not supported value', () => {
       let fn = () => { context.scroll({}) };
       expect(fn).to.throw();
+    });
+  });
+
+
+
+  describe.only('context', function() {
+    it('has no context by default', () => {
+      expect(context.context()).to.equal(undefined);
+    });
+
+    it('throws if not an object', () => {
+      expect(() => context.context(123)).to.throw();
+    });
+
+    it('stores the given object', () => {
+      const self = { foo: 123 };
+      expect(context.context(self).context()).to.equal(self);
+    });
+
+    it('is chainable', () => {
+      const result = context.context({ foo:123 });
+      expect(result).to.equal(context);
     });
   });
 });
