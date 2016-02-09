@@ -210,8 +210,12 @@ describe('ThisContext', () => {
     });
 
     it('stores the given object', () => {
-      const self = { foo: 123 };
-      expect(context.context(self).context()).to.equal(self);
+      const myContext = {
+        getState: () => true,
+        dispatch: () => true,
+        subscribe: () => true,
+      };
+      expect(context.context(myContext).context()).to.equal(myContext);
     });
 
     it('is chainable', () => {
