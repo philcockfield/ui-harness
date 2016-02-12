@@ -8,7 +8,7 @@
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register",
     "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register --watch",
     "lint": "eslint --ext .js,.jsx ./src",
-    "build": "babel src --out-dir lib --source-maps",
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
     "build:watch": "npm run build -- --watch",
     "prepublish": "npm test && npm run lint && npm run build"
   },
@@ -27,6 +27,7 @@
     "graphql": "^0.4.14",
     "graphql-relay": "^0.3.6",
     "immutable": "^3.7.4",
+    "js-babel": "^6.0.0",
     "js-babel-ui": "^6.0.0",
     "js-bdd": "^2.0.0",
     "js-util": "^2.0.2",
@@ -45,12 +46,13 @@
     "react-relay": "^0.6.1",
     "react-schema": "^1.1.0",
     "semver": "^5.1.0",
-    "shelljs": "^0.5.3",
+    "shelljs": "^0.6.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.11",
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.5.1",
     "chai": "^3.4.1",
     "js-babel-dev": "^6.0.0",
     "mocha": "^2.2.1",
