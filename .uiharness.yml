@@ -1,2 +1,15 @@
 entry: ./src/specs
 port: 3030
+build:
+  prod: true
+  outputFolder: ./.build/my-folder
+
+  modules:
+    main: ./src/client/ui-harness.js
+    single:
+      - ./src/components/GlobalStyles.jsx
+      - ./src/components/util.js
+
+  vendor:
+    - react
+    - react-dom

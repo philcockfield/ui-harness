@@ -45,7 +45,7 @@ if (entry) {
   .catch(err => {
     log.error(chalk.red('Failed to calculate JS size.'));
     log.error(chalk.red(err.message));
-    log.error()
+    log.error();
   });
 
 } else {
