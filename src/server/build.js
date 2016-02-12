@@ -73,19 +73,20 @@ export default (buildConfig = {}, options = {}) => {
       }
 
       // Finish up.
-      resolve({ filename, stats, isProduction, entry });
+      resolve({ filename, stats, entry });
     })();
   });
 
 
   const logModule = (filename, data, modules) => {
+    // console.log("data", data);
     // General information.
     log.info('', chalk.blue(filename));
-    log.info(chalk.grey('   - minified: '), isProduction);
     log.info(
       chalk.grey('   - size:     '),
       data.size.display, chalk.grey('=>'),
-      chalk.magenta(data.zipped.display), chalk.grey('zipped')
+      chalk.magenta(data.zipped.display), chalk.grey('zipped'),
+      chalk.grey(isProduction ? '(minified)' : '')
     );
 
     // List modules/paths.
@@ -97,17 +98,18 @@ export default (buildConfig = {}, options = {}) => {
 
     // Output path.
     const outputPath = fsPath.join(outputFolder, `${ filename }.js`);
-    log.info(chalk.grey('   - outout:   '), trimRootModulePath(outputPath));
+    log.info(chalk.grey('   - output:   '), trimRootModulePath(outputPath));
     log.info();
   };
 
 
-  const logModules = (modules) => {
+  const logModules = (modules, elapsedSeconds) => {
+    // Log each built module.
     modules.forEach(item => {
       logModule(item.filename, item.stats.modules.app, item.entry);
     });
-    const last = R.last(modules);
-    logModule('vendor', last.stats.modules.vendor, vendor);
+    logModule('vendor', R.last(modules).stats.modules.vendor, vendor);
+    log.info(chalk.green(`${ elapsedSeconds } seconds`));
   };
 
 
@@ -117,8 +119,11 @@ export default (buildConfig = {}, options = {}) => {
       .map(key => buildItem(key, buildConfig.modules[key]));
     Promise.all(builders)
       .then(results => {
-        logModules(results);
-        resolve({});
+        const secs = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
+        const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
+        logModules(results, secs);
+
+        resolve({ files, secs });
       })
       .catch(err => reject(err));
   });

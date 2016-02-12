@@ -151,6 +151,18 @@ Producing the following output in the terminal window:
 ![Terminal:Size](https://cloud.githubusercontent.com/assets/185555/12995230/c974f83a-d18a-11e5-914c-48589704df78.png)
 
 
+##### Building from the API
+You can invoke a build via the API by passing an object of the same structure as the `build` settings within `.uiharness.yml` to the build function:
+
+```js
+import uiharness from 'ui-harness';
+
+uiharness.build({ settings }) // See YAML build settings above.
+  .then(result => { ... })
+  .catch(err => { ... });
+
+```
+
 
 ## Examples
 #### Simple Example

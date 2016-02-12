@@ -31,9 +31,6 @@ args = args.length > 0 ? args = minimist(args) : {};
 
   // Start the build.
   server.build(buildConfig)
-    .then(result => {
-      console.log("result", result);
-    })
     .catch(err => {
       log.error(chalk.red('Failed to build.'));
       log.error(chalk.red(err.message));
