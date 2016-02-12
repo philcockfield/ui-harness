@@ -148,7 +148,7 @@ The build function can be invoked from the command line.  For example, you might
 
 Producing the following output in the terminal window:
 
-![Terminal:Size](https://cloud.githubusercontent.com/assets/185555/12727679/d11bb1ba-c982-11e5-96b2-f3346ae11ac1.jpg)
+![Terminal:Size](https://cloud.githubusercontent.com/assets/185555/12995230/c974f83a-d18a-11e5-914c-48589704df78.png)
 
 
 
