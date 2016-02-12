@@ -115,14 +115,13 @@ export default (options = {}) => new Promise((resolve, reject) => {
       });
 
       // Proxy.
-      let proxy = YAML_CONFIG.proxy;
-      if (proxy) {
-        const formatProxy = (item) => {
-          return `${ chalk.grey(item.from, '=>') } ${ item.to }`;
-        };
-        proxy = Object.keys(proxy).map(key => ({ from: key, to: proxy[key] }));
-        log.info(chalk.grey(' - proxy:    '), formatProxy(proxy[0]));
-        R.takeLast(proxy.length - 1, proxy).forEach(item => {
+      if (YAML_CONFIG.proxy) {
+        const formatProxy = (item) => `${ chalk.grey(item.from, '=>') } ${ item.to }`;
+        const proxyItems = Object
+          .keys(YAML_CONFIG.proxy)
+          .map(key => ({ from: key, to: proxy[key] }));
+        log.info(chalk.grey(' - proxy:    '), formatProxy(proxyItems[0]));
+        R.takeLast(proxyItems.length - 1, proxyItems).forEach(item => {
           log.info(chalk.grey('             '), formatProxy(item));
         });
       }
