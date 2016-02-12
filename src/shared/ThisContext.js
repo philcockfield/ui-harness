@@ -12,6 +12,10 @@ const PROPS = {
   children: {
     key: 'componentChildren', // Stored on {current} as this.
   },
+  context: {
+    type: PropTypes.object,
+    key: 'componentContext',
+  },
   width: {
     default: 'auto',
     type: PropTypes.numberOrString,
@@ -59,9 +63,6 @@ const PROPS = {
   scroll: {
     default: false,
     type: PropTypes.oneOf([true, false, 'x', 'y', 'x:y']),
-  },
-  context: {
-    type: PropTypes.object,
   },
 };
 
