@@ -63,8 +63,11 @@ export default (buildConfig = {}, options = {}) => {
 
       // Save the file.
       try {
-        fs.outputFileSync(fsPath.join(outputFolder, `${ filename }.js`), stats.modules.app.js.toString());
-        fs.outputFileSync(fsPath.join(outputFolder, 'vendor.js'), stats.modules.vendor.js.toString());
+        const save = (file, js) => {
+          fs.outputFileSync(fsPath.join(outputFolder, file), js.toString('utf8'));
+        };
+        save(`${ filename }.js`, stats.modules.app.js);
+        save(`vendor.js`, stats.modules.vendor.js);
       } catch (err) {
         return reject(err);
       }
@@ -101,10 +104,10 @@ export default (buildConfig = {}, options = {}) => {
 
   const logModules = (modules) => {
     modules.forEach(item => {
-      logModule(item.filename, item.stats.modules.app, item.entry)
+      logModule(item.filename, item.stats.modules.app, item.entry);
     });
     const last = R.last(modules);
-    logModule('vendor', last.stats.modules.vendor, vendor)
+    logModule('vendor', last.stats.modules.vendor, vendor);
   };
 
 
@@ -115,6 +118,7 @@ export default (buildConfig = {}, options = {}) => {
     Promise.all(builders)
       .then(results => {
         logModules(results);
+        resolve({});
       })
       .catch(err => reject(err));
   });
