@@ -50,6 +50,10 @@ const babelLoader = (extension, isRelayEnabled) => {
  *            -- isRelayEnabled:  Flag indicating if relay is being used.
  *                                Default: false.
  *
+ *            -- vendor:          An array of vendor modules or entry paths.
+ *                                Pass empty-array for no vendor modules
+ *                                otherwise the default set of vendors is included.
+ *
  * @return {Object} compiler.
  */
 export default (options = {}) => {
@@ -57,10 +61,15 @@ export default (options = {}) => {
   const outputFile = options.outputFile || 'bundle.js';
   const isRelayEnabled = options.isRelayEnabled || false;
 
+  let vendor = options.vendor;
+  if (vendor === undefined) {
+    vendor = ['react', 'react-dom', 'react-relay', UIHARNESS_ENTRY];
+  }
+
   const config = {
     entry: {
       app: options.entry,
-      vendor: ['react', 'react-dom', 'react-relay', UIHARNESS_ENTRY],
+      vendor,
     },
     output: { path: '/', filename: outputFile },
     module: {

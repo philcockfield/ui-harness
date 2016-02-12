@@ -61,7 +61,9 @@ export const formatEntryPaths = (entry) => {
   return entry
     // Ensure there is a specific index.js entry file if only a folder was given.
     // NB: Not having a specific entry file can cause build-errors in WebPack.
-    .map(path => path.endsWith('.js') ? path : `${ path }/index.js`)
+    .map(path => path.endsWith('.js') || path.endsWith('.jsx')
+        ? path
+        : `${ path }/index.js`)
 
     // Escape white-spaces within paths.
     .map(path => path.replace(/ /, '\ '))

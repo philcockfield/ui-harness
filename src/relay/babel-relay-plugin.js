@@ -4,7 +4,9 @@
 
   See: [./init-relay] for more details on this.
 */
+const getBabelRelayPlugin = require('babel-relay-plugin');
 
-const babelRelayPlugin = require('babel-relay-plugin');
+
+// Generate the plugin.
 const schema = require(global.__relayPluginSchemaJsonPath);
-export default babelRelayPlugin(schema.data);
+module.exports = getBabelRelayPlugin(schema.data);

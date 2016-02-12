@@ -115,27 +115,53 @@ proxy:
 ```
 
 
-## Calculating Build Size
-It's important to keep an eye on the size of the bundled javascript during development, before it's too late to do anything about it.
+## Building
+You can use the UIHarness to output your built JS bundles.  You can also use this function to keep an eye on the size of your JS before it's too late to do anything about it.
 
-The UIHarness provides build size feedback with the following command:
+Declare a `build` section within the `.uiharness.yml` with the following fields:
 
-    node size           # Builds code in development mode.
-    node size --prod    # Builds in production mode, minifying code (slower).
+```yaml
+build:
+  prod: true
+  outputFolder: ./.build/my-folder
 
-For example, you might add these as scripts to your `package.json`:
+  modules:
+    main: ./src/app.js
+    single:
+      - ./src/components/foo.jsx
+      - ./src/util/bar.js
+
+  vendor:
+    - react
+    - react-dom
+
+```
+
+##### Command Line
+The build function can be invoked from the command line.  For example, you might add these as scripts to your `package.json`:
 
 ```json
   "scripts": {
-    "size": "node ./node_modules/ui-harness/size",
-    "size:prod": "node ./node_modules/ui-harness/size --prod"
+    "bundle": "node ./node_modules/ui-harness/build",
   }
 ```
 
 Producing the following output in the terminal window:
 
-![Terminal:Size](https://cloud.githubusercontent.com/assets/185555/12727679/d11bb1ba-c982-11e5-96b2-f3346ae11ac1.jpg)
+![Terminal:Size](https://cloud.githubusercontent.com/assets/185555/12995230/c974f83a-d18a-11e5-914c-48589704df78.png)
 
+
+##### Building from the API
+You can invoke a build via the API by passing an object of the same structure as the `build` settings within `.uiharness.yml` to the build function:
+
+```js
+import uiharness from 'ui-harness';
+
+uiharness.build({ settings }) // See YAML build settings above.
+  .then(result => { ... })
+  .catch(err => { ... });
+
+```
 
 
 ## Examples
