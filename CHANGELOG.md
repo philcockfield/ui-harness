@@ -5,16 +5,27 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+#### Changed
+#### Deprecated
+#### Removed
+#### Fixed
+#### Security
+
+
+
+
+## [3.4.0] - 2016-02-12
+#### Added
 - Reading `graphqlSchema` and `proxy` from the `.uiharness.yml` configuration file.
 - Exposing `/<package-name>/images` as a static web-server path for image assets.
+- Build command for generating bundled JS, along with file-size details.
 
 #### Changed
 - Relay configuration supports taking a path to a `.json` file from the `graphqlSchema` argument.
 
 #### Deprecated
 #### Removed
-#### Fixed
-#### Security
+- The file Size calculation command. Covered with the `build` command.
 
 
 
