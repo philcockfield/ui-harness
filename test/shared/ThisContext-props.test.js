@@ -200,7 +200,7 @@ describe('ThisContext', () => {
 
 
 
-  describe.only('context', function() {
+  describe('context', function() {
     it('has no context by default', () => {
       expect(context.context()).to.equal(undefined);
     });
