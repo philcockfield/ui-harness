@@ -5,7 +5,7 @@
   "main": "./lib/server",
   "scripts": {
     "build:watch": "npm run build -- --watch",
-    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
+    "build": "rm -rf lib && ./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
     "dev": "QUICK_BUILD=true ./node_modules/.bin/nodemon -x \"./node_modules/babel-cli/bin/babel-node.js start.js\"",
     "lint": "eslint --ext .js,.jsx ./src",
     "prepublish": "npm test && npm run lint && npm run build",
