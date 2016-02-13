@@ -1,10 +1,13 @@
-'use strict'
+var path = require('path');
+var currAppPath = process.env.QUICK_BUILD ? './src/' : './lib/';
+var loadScript = _path => require(path.resolve(currAppPath + _path));
+
 var R = require('ramda');
 var minimist = require('minimist');
 var chalk = require('chalk');
-var server = require('./lib/server').default;
-var yamlConfig = require('./lib/server/yaml-config');
-var log = require('./lib/shared/log').default;
+var server = loadScript('server').default;
+var yamlConfig = loadScript('server/yaml-config');
+var log = loadScript('shared/log').default;
 
 
 // Read-in command-line arguments.
