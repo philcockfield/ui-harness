@@ -51,7 +51,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const env = process.env.NODE_ENV || 'development';
     const port = options.port || YAML_CONFIG.port || 3030;
     const proxy = options.proxy || YAML_CONFIG.proxy;
-    let graphqlSchema = options.graphqlSchema || YAML_CONFIG.graphqlSchema;
+    const graphqlSchema = options.graphqlSchema || YAML_CONFIG.graphqlSchema;
 
     // Ensure required values exist.
     if (R.isNil(entry)) { throw new Error(`Entry path(s) must be specified.`); }

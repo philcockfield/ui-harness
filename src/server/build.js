@@ -61,16 +61,16 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
   }
 
   // Prepare for GraphQL/Relay.
-  let graphqlSchema = buildConfig.graphqlSchema || config.graphqlSchema;
-  let isRelayEnabled = R.is(String, graphqlSchema);
-  const prepareRelay = () => new Promise((resolve, reject) => {
+  const graphqlSchema = buildConfig.graphqlSchema || config.graphqlSchema;
+  const isRelayEnabled = R.is(String, graphqlSchema);
+  const prepareRelay = () => new Promise((resolveRelay, rejectRelay) => {
     if (isRelayEnabled) {
       // Ensure the relay babel-plugin knows about the GraphQL schema.
       initRelay(graphqlSchema)
-        .then(() => resolve({}))
-        .catch(err => reject(err));
+        .then(() => resolveRelay({}))
+        .catch(err => rejectRelay(err));
     } else {
-      resolve({}); // Relay is not enabled.
+      resolveRelay({}); // Relay is not enabled.
     }
   });
 
@@ -89,7 +89,7 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
       entry = formatEntryPaths(entry);
 
       // Prepare the Webpack configuration.
-      const config = webpackConfig({
+      const itemConfig = webpackConfig({
         isProduction,
         isRelayEnabled,
         entry,
@@ -100,7 +100,7 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
       // Build the JS.
       let stats;
       try {
-        stats = await webpackBuilder(config);
+        stats = await webpackBuilder(itemConfig);
       } catch (err) {
         return rejectItem(err);
       }
