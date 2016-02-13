@@ -39,7 +39,9 @@ export default (buildConfig = {}, options = {}) => {
   const outputFolder = fsPath.resolve(buildConfig.outputFolder || './.build');
 
   // Initial message.
-  log.info(chalk.grey('Building javascript...\n'));
+  let msg = 'Building javascript';
+  if (isProduction) { msg += ' (production)'; }
+  log.info(chalk.grey(`${ msg }...\n`));
 
   const buildItem = (filename, entry) => new Promise((resolve, reject) => {
     (async () => {

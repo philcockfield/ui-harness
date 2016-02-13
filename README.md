@@ -122,7 +122,7 @@ Declare a `build` section within the `.uiharness.yml` with the following fields:
 
 ```yaml
 build:
-  prod: true
+  prod: true  # Minifies if true (default: false).
   outputFolder: ./.build/my-folder
 
   modules:
