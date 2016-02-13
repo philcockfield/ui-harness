@@ -7,13 +7,16 @@ import webpackBuilder from './webpack-builder';
 import webpackConfig from './webpack-config';
 import { formatEntryPaths, trimRootModulePath } from './paths';
 import log from '../shared/log';
-
+import * as yamlConfig from './yaml-config';
 
 
 
 /**
  * Builds the JS bundle.
  * @param {Object} buildConfig:
+ a
+ *            NOTE: If not specified, a configuraiton is looked for within the
+ *                  projects [.uiharness.yml] file.
  *
  *            -- prod:          Flag indicating if the build should be minified.
  *                              Default: false.
@@ -28,10 +31,32 @@ import log from '../shared/log';
  *                     Default: false.
  *
  */
-export default (buildConfig = {}, options = {}) => {
+export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
+
   // Setup initial conditions.
   const { silent } = options;
   log.silent = silent || false;
+
+  // Ensure there is a build-config.
+  if (!buildConfig) {
+    // Attempt to load the build-config from the YAML file.
+    const config = yamlConfig.load();
+    if (!config) {
+      const err = 'No build configuration supplied and a `.uiharness.yml` file was not found.';
+      log.error();
+      log.error(chalk.red(err));
+      log.error();
+      return reject(new Error(err));
+    }
+    buildConfig = config.build;
+    if (!R.is(Object, buildConfig)) {
+      const err = 'The `.uiharness.yml` file must have a `build` section.';
+      log.error();
+      log.error(chalk.red(err));
+      log.error();
+      return reject(new Error(err));
+    }
+  }
 
   // Extract the vendor array.
   const vendor = buildConfig.vendor || [];
@@ -43,7 +68,7 @@ export default (buildConfig = {}, options = {}) => {
   if (isProduction) { msg += ' (production)'; }
   log.info(chalk.grey(`${ msg }...\n`));
 
-  const buildItem = (filename, entry) => new Promise((resolve, reject) => {
+  const buildItem = (filename, entry) => new Promise((resolveItem, rejectItem) => {
     (async () => {
       entry = formatEntryPaths(entry);
 
@@ -60,7 +85,7 @@ export default (buildConfig = {}, options = {}) => {
       try {
         stats = await webpackBuilder(config);
       } catch (err) {
-        return reject(err);
+        return rejectItem(err);
       }
 
       // Save the file.
@@ -71,11 +96,11 @@ export default (buildConfig = {}, options = {}) => {
         save(`${ filename }.js`, stats.modules.app.js);
         save(`vendor.js`, stats.modules.vendor.js);
       } catch (err) {
-        return reject(err);
+        return rejectItem(err);
       }
 
       // Finish up.
-      resolve({ filename, stats, entry });
+      resolveItem({ filename, stats, entry });
     })();
   });
 
@@ -115,18 +140,16 @@ export default (buildConfig = {}, options = {}) => {
   };
 
 
-  return new Promise((resolve, reject) => {
-    // Start building each item.
-    const builders = Object.keys(buildConfig.modules)
-      .map(key => buildItem(key, buildConfig.modules[key]));
-    Promise.all(builders)
-      .then(results => {
-        const secs = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
-        const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
-        logModules(results, secs);
+  // Start building each item.
+  const builders = Object.keys(buildConfig.modules)
+    .map(key => buildItem(key, buildConfig.modules[key]));
+  Promise.all(builders)
+    .then(results => {
+      const secs = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
+      const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
+      logModules(results, secs);
 
-        resolve({ files, secs });
-      })
-      .catch(err => reject(err));
-  });
-};
+      resolve({ files, secs });
+    })
+    .catch(err => reject(err));
+});
