@@ -8,6 +8,7 @@ import webpackConfig from './webpack-config';
 import { formatEntryPaths, trimRootModulePath } from './paths';
 import log from '../shared/log';
 import * as yamlConfig from './yaml-config';
+import initRelay from '../relay/init-relay';
 
 
 
@@ -24,6 +25,7 @@ import * as yamlConfig from './yaml-config';
  *                              Default: `./build`
  *            -- modules:       Array of { name:entry-path } objects.
  *            -- vendor:        Array of vendor modules.
+ *            -- graphqlSchema: The path to the GraphQL schema if relay is being used.
  *
  * @param {Object} options:
  *
@@ -38,9 +40,9 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
   log.silent = silent || false;
 
   // Ensure there is a build-config.
+  const config = yamlConfig.load();
   if (!buildConfig) {
     // Attempt to load the build-config from the YAML file.
-    const config = yamlConfig.load();
     if (!config) {
       const err = 'No build configuration supplied and a `.uiharness.yml` file was not found.';
       log.error();
@@ -58,6 +60,20 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
     }
   }
 
+  // Prepare for GraphQL/Relay.
+  let graphqlSchema = buildConfig.graphqlSchema || config.graphqlSchema;
+  let isRelayEnabled = R.is(String, graphqlSchema);
+  const prepareRelay = () => new Promise((resolve, reject) => {
+    if (isRelayEnabled) {
+      // Ensure the relay babel-plugin knows about the GraphQL schema.
+      initRelay(graphqlSchema)
+        .then(() => resolve({}))
+        .catch(err => reject(err));
+    } else {
+      resolve({}); // Relay is not enabled.
+    }
+  });
+
   // Extract the vendor array.
   const vendor = buildConfig.vendor || [];
   const isProduction = buildConfig.prod || false;
@@ -74,8 +90,9 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
 
       // Prepare the Webpack configuration.
       const config = webpackConfig({
-        entry,
         isProduction,
+        isRelayEnabled,
+        entry,
         vendor,
         outputFile: `${ filename }.js`,
       });
@@ -106,7 +123,6 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
 
 
   const logModule = (filename, data, modules) => {
-    // console.log("data", data);
     // General information.
     log.info('', chalk.blue(filename));
     log.info(
@@ -130,25 +146,32 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
   };
 
 
-  const logModules = (modules, elapsedSeconds) => {
+  const logModules = (modules) => {
     // Log each built module.
     modules.forEach(item => {
       logModule(item.filename, item.stats.modules.app, item.entry);
     });
     logModule('vendor', R.last(modules).stats.modules.vendor, vendor);
-    log.info(chalk.green(`${ elapsedSeconds } seconds`));
   };
 
 
   // Start building each item.
-  const builders = Object.keys(buildConfig.modules)
+  const startBuilders = () => Object
+    .keys(buildConfig.modules)
     .map(key => buildItem(key, buildConfig.modules[key]));
-  Promise.all(builders)
+
+  prepareRelay()
+    .then(() => startBuilders())
+    .then(builders => Promise.all(builders))
     .then(results => {
       const secs = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
       const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
-      logModules(results, secs);
 
+      // Log results.
+      logModules(results, secs);
+      log.info(chalk.green(`${ secs } seconds`));
+
+      // Finish up.
       resolve({ files, secs });
     })
     .catch(err => reject(err));

@@ -2,6 +2,9 @@ import Promise from 'bluebird';
 import fs from 'fs-extra';
 import fsPath from 'path';
 import updateSchema from './update-schema';
+import { rootModulePath } from '../server/paths';
+
+const ROOT_PATH = rootModulePath();
 
 
 /**
@@ -15,8 +18,12 @@ import updateSchema from './update-schema';
  */
 export default (schemaPath) => new Promise((resolve, reject) => {
   (async () => {
+    // Resolve to an absolute path.
+    schemaPath = schemaPath.startsWith('.')
+        ? fsPath.join(ROOT_PATH, schemaPath)
+        : schemaPath;
 
-    // Setup initial conditions.
+    // Ensure the schema exists.
     if (!fs.existsSync(schemaPath)) {
       const msg = `The GraphQL JS schema file path '${ schemaPath }' does not exist.`;
       return reject(new Error(msg));

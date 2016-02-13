@@ -68,9 +68,6 @@ export default (options = {}) => new Promise((resolve, reject) => {
     // Initialize the Relay/GraphQL schema (if specified).
     const isRelayEnabled = R.is(String, graphqlSchema);
     if (isRelayEnabled) {
-      graphqlSchema = graphqlSchema.startsWith('.')
-          ? fsPath.join(ROOT_PATH, graphqlSchema)
-          : graphqlSchema;
       try {
         await initRelay(graphqlSchema);
       } catch (err) {

@@ -1,11 +1,13 @@
 entry: ./src/specs
 port: 3030
 
+graphqlSchema: ./example/relay/data/schema.js
+
 proxy:
   /graphql: http://localhost:4000
 
 build:
-  prod: true
+  prod: false
   outputFolder: ./.build/my-folder
   modules:
     main: ./src/client/ui-harness.js
