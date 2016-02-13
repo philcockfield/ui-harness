@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   This speeds up React when deployed in production.
 
 #### Changed
+- Looking for build config within the `.uiharness.yml` file if parameter not passed into the `build` function.  Before this, the YAML file was being inspected only from the shell command which prevented the YAML file from being considered if the caller was doing it from code via the API.
+
 #### Deprecated
 #### Removed
 #### Fixed
