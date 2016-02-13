@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- Setting the `NODE_ENV` to production for WebPack when building in production mode.
+  This speeds up React when deployed in production.
+
 #### Changed
 #### Deprecated
 #### Removed

@@ -14,6 +14,13 @@ global.self = { fetch: null };
 
 
 
+const productionEnvPlugin = new webpack.DefinePlugin({
+  'process.env': {
+    NODE_ENV: JSON.stringify('production'),
+  },
+});
+
+
 const babelLoader = (extension, isRelayEnabled) => {
   const loader = {
     // See: https://github.com/babel/babel-loader#options
@@ -108,6 +115,7 @@ export default (options = {}) => {
   const addPlugin = (flag, plugin) => { if (flag === true) { config.plugins.push(plugin); }};
   addPlugin(isProduction, new webpack.optimize.UglifyJsPlugin({ minimize: true }));
   addPlugin(isProduction, new webpack.optimize.OccurrenceOrderPlugin(true));
+  addPlugin(isProduction, productionEnvPlugin);
 
   // Finish up.
   return config;
