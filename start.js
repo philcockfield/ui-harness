@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var R = require('ramda');
 var minimist = require('minimist');
 var chalk = require('chalk');

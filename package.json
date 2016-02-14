@@ -3,6 +3,7 @@
   "version": "3.5.3",
   "description": "Isolate, test and document modular UI with React.",
   "main": "./lib/server",
+  "bin": {"uih": "./start.js"},
   "scripts": {
     "build:watch": "npm run build -- --watch",
     "build": "rm -rf lib && ./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
