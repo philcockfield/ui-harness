@@ -110,7 +110,7 @@ class Api {
         this[COMPONENT] = value;
         apiConsole.component = value;
         if (this.current.get('component') !== value) {
-          // NB: Preform instance comparison before updating the
+          // NB: Perform instance comparison before updating the
           //     current state to prevent render loop.
           this.setCurrent({ component: value });
         }
