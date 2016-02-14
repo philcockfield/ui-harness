@@ -1,10 +1,12 @@
-import R from 'ramda';
-import Promise from 'bluebird';
-import React from 'react';
-import Immutable from 'immutable';
+import invariant from 'invariant';
 import localStorage from 'js-util/lib/local-storage';
-import bdd from './bdd';
+import Immutable from 'immutable';
+import Promise from 'bluebird';
+import R from 'ramda';
+import React from 'react';
+
 import apiConsole from './api-console';
+import bdd from './bdd';
 import GettingStarted from '../components/docs/GettingStarted';
 
 const LOG_LIST = Symbol('log-list');
@@ -178,29 +180,19 @@ class Api {
    *                    with a component element).
    *
    */
-  loadComponent(component, props, children) {
-    // Setup initial conditions.
-    if (!component) { throw new Error('Componnet not specified.'); }
+  loadComponent(component) {
+    invariant(component, 'Component not specified in this.component().');
 
-    // If a created <element> was passed de-construct
-    // it into it's component parts.
-    let type;
+    // If a React element was passed pull out its type.
+    const updates = {};
     if (React.isValidElement(component)) {
-      props = R.clone(component.props);
-      children = props.children;
-      delete props.children;
-      type = component.type;
+      updates.componentType = component.type;
     } else {
-      type = component;
+      updates.componentType = component;
     }
 
     // Store on the current state.
-    this.setCurrent({
-      componentType: type,
-      componentProps: props,
-      componentChildren: children,
-      showLog: false,
-    });
+    this.setCurrent(updates);
 
     // Finish up.
     this.loadInvokeCount += 1;

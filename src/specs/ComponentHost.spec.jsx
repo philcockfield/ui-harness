@@ -1,12 +1,17 @@
-import React from 'react';
-import Radium from 'radium';
-import { lorem, css, PropTypes } from './util';
 import Foo from 'react-atoms/components/Foo';
+import R from 'ramda';
+import Radium from 'radium';
+import React from 'react';
+import { Value } from 'react-object';
+
 import api from '../shared/api-internal';
-
-
+import { lorem, css, PropTypes } from './util';
 
 class MyFoo extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object,
+  }
+
   styles() {
     return css({
       base: {
@@ -21,6 +26,7 @@ class MyFoo extends React.Component {
     return (
       <div style={ styles.base }>
         <div>foo:{ this.props.foo }</div>
+        <div>Context:<Value value={this.context} /></div>
         { this.props.children }
       </div>
     );
@@ -62,6 +68,22 @@ describe('Component Host', function() {
     });
   });
 
+  section('context', () => {
+    it('reload with context', () => {
+      this.load({
+        component: MyFoo,
+        contextTypes: {
+          store: PropTypes.object.isRequired
+        }
+      });
+    });
+    it('Redux Store Context', () => {
+      this.context({ store: ({ getState: () => ({ contextWorks: true }) }) })
+    });
+    it('add dispatch', () => {
+      this.context({ store: ({ dispatch: () => v => console.info(`dispatched ${v && v.type}`) }) })
+    });
+  });
 
   section('children', () => {
     it('date', () => {
