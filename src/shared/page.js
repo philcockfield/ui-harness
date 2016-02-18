@@ -1,4 +1,5 @@
 import R from 'ramda';
+const IS_BROWSER = (typeof window !== 'undefined');
 
 
 const elementExists = (parentElement, tag, props = {}) => {
@@ -18,52 +19,59 @@ const elementExists = (parentElement, tag, props = {}) => {
 /**
  * API for manipulating the containing page.
  */
-export default {
-
-/**
- * Inserts a new element into the DOM.
- *
- * WARNING: Typically you don't want to do this when using React.
- *          This is for things like inserting a SCRIPT tag, or a
- *          LINK into the head of the document.
- *
- * @param {DomElement} parentElement: The element to append.
- * @param {String} tag: The name of the element tag.
- * @param {Object} props: An object containing the {attr:value} to apply.
- *
- * @return {Boolean} True if the element was inserted, or
- *                   False if the element already existed.
- */
-  insert(parentElement, tag, props = {}) {
-    const exists = elementExists(parentElement, tag, props);
-    if (!exists) {
-      const el = document.createElement(tag);
-      Object.keys(props).forEach(key => el[key] = props[key]);
-      parentElement.appendChild(el);
-    }
-    return !exists;
-  },
-
-
-  /**
-   * Inserts a <link> into the <head>.
-   * @param {Object} props: An object containing the {attr:value} to apply.
-   * @return {Boolean} True if the link was inserted, or
-   *                   False if the link already existed.
-   */
-  insertLink(props = {}) {
-    return this.insert(document.head, 'link', props);
-  },
+export default (context) => {
+  return {
+    /**
+     * Inserts a new element into the DOM.
+     *
+     * WARNING: Typically you don't want to do this when using React.
+     *          This is for things like inserting a SCRIPT tag, or a
+     *          LINK into the head of the document.
+     *
+     * @param {DomElement} parentElement: The element to append.
+     * @param {String} tag: The name of the element tag.
+     * @param {Object} props: An object containing the {attr:value} to apply.
+     *
+     * @return {Object} The 'this' context for chaining.
+     */
+    insert(parentElement, tag, props = {}) {
+      if (IS_BROWSER) {
+        const exists = elementExists(parentElement, tag, props);
+        if (!exists) {
+          const el = document.createElement(tag);
+          Object.keys(props).forEach(key => el[key] = props[key]);
+          parentElement.appendChild(el);
+        }
+      }
+      return context;
+    },
 
 
-  /**
-   * Inserts a <link> to a webfont into the <head>.
-   * @param {String} url: The URL to the web-font.
-   * @return {Boolean} True if the link was inserted, or
-   *                   False if the link already existed.
-   */
-  // insertFont: (url) => this.insertLink({ rel: 'stylesheet', type: 'text/css' }),
-  insertFont(url) {
-    return this.insertLink({ href: url, rel: 'stylesheet', type: 'text/css' });
-  },
+    /**
+     * Inserts a <link> into the <head>.
+     * @param {Object} props: An object containing the {attr:value} to apply.
+     * @return {Object} The 'this' context for chaining.
+     */
+    insertLink(props = {}) {
+      if (IS_BROWSER) {
+        this.insert(document.head, 'link', props);
+      }
+      return context;
+    },
+
+
+    /**
+     * Inserts a <link> to a webfont into the <head>.
+     * @param {String} url: The URL to the web-font.
+     * @return {Object} The 'this' context for chaining.
+     */
+    // insertFont: (url) => this.insertLink({ rel: 'stylesheet', type: 'text/css' }),
+    insertFont(url) {
+      if (IS_BROWSER) {
+        this.insertLink({ href: url, rel: 'stylesheet', type: 'text/css' });
+
+      }
+      return context;
+    },
+  };
 };

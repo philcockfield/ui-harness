@@ -6,33 +6,36 @@ import api from '../../src/shared/api-internal';
 
 
 describe('ThisContext.page', function() {
-  let suite, context;
+  let suite, context, page;
   afterEach(() => { bdd.reset(); })
   beforeEach(() => {
     bdd.register();
     suite = describe(`My Suite`, () => { });
     api.setCurrent({ suite: suite });
     context = suite.meta.thisContext;
+    page = context.page;
   });
 
 
 
   describe('page', function() {
     it('has a page object', () => {
-      expect(context.page).to.be.an.instanceof(Object);
+      expect(page).to.be.an.instanceof(Object);
     });
 
     it('has an `insert` method', () => {
-      expect(context.page.insert).to.be.an.instanceof(Function);
+      const result = page.insert(null, "link", {});
+      expect(result).to.equal(context);
     });
 
     it('has an `insertLink` method', () => {
-      expect(context.page.insertLink).to.be.an.instanceof(Function);
+      const result = page.insertLink({});
+      expect(result).to.equal(context);
     });
 
     it('has an `insertFont` method', () => {
-      expect(context.page.insertFont).to.be.an.instanceof(Function);
+      const result = page.insertFont('https://fonts.googleapis.com/css?family=Lato:200,900');
+      expect(result).to.equal(context);
     });
-
   });
 });

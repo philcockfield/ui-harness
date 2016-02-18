@@ -149,7 +149,7 @@ export default class UIHContext {
   /*
   API for manipulating the containing page.
   */
-  page = page;
+  page = page(this);
 
 
   /**
