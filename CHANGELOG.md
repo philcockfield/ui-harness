@@ -5,16 +5,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+#### Changed
+#### Deprecated
+#### Removed
+#### Fixed
+#### Security
+
+
+
+## [3.6.0] - 2016-02-18
+#### Added
+- Adding `<link>` to `<head>` for adding web-fonts.  See `this.page.insertFont(url)`.
 - Setting the `NODE_ENV` to production for WebPack when building in production mode.
   This speeds up React when deployed in production.
 
 #### Changed
 - Looking for build config within the `.uiharness.yml` file if parameter not passed into the `build` function.  Before this, the YAML file was being inspected only from the shell command which prevented the YAML file from being considered if the caller was doing it from code via the API.
-
-#### Deprecated
-#### Removed
-#### Fixed
-#### Security
 
 
 
