@@ -15,8 +15,9 @@ describe('Page', function() {
 
   section('insertFont', () => {
     const load = (url, fontFamily) => {
-      this.page.insertFont(`https://fonts.googleapis.com/css?family=${ url }`);
-      this.load( <FontSample fontFamily={ fontFamily }/> );
+      this
+        .page.insertFont(`https://fonts.googleapis.com/css?family=${ url }`)
+        .load( <FontSample fontFamily={ fontFamily }/> );
     };
 
     it('`Lato`', () => load('Lato:900,300', 'Lato'));
