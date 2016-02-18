@@ -61,13 +61,16 @@ export default (context) => ({
 
   /**
    * Inserts a <link> to a webfont into the <head>.
-   * @param {String} url: The URL to the web-font.
+   * @param {String|Array} url: The URL(s) to the web-font.
    * @return {Object} The 'this' context for chaining.
    */
   // insertFont: (url) => this.insertLink({ rel: 'stylesheet', type: 'text/css' }),
   insertFont(url) {
     if (IS_BROWSER) {
-      this.insertLink({ href: url, rel: 'stylesheet', type: 'text/css' });
+      url = R.is(Array, url) ? url : [url];
+      url.forEach(item => {
+        this.insertLink({ href: item, rel: 'stylesheet', type: 'text/css' });
+      });
     }
     return context;
   },
