@@ -4,6 +4,7 @@ import * as util from 'js-util';
 import schema, { PropTypes } from 'react-schema';
 import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
 import log from '../shared/log';
+import page from './page';
 
 
 const isBrowser = (typeof window !== 'undefined');
@@ -143,6 +144,12 @@ export default class UIHContext {
     // Property extension methods.
     this.log.clear = () => api.clearLog();
   }
+
+
+  /*
+  API for manipulating the containing page.
+  */
+  page = page;
 
 
   /**

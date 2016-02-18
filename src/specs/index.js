@@ -5,6 +5,7 @@ describe('ui-harness', function() {
   require('./skipped.spec');
   require('./it-server.spec');
   require('./PropTypes.spec');
+  require('./Page.spec');
 });
 
 // External libs.
