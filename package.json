@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.jsx ./src",
     "prepublish": "npm test && npm run lint && npm run build",
     "start": "node start",
-    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register --watch",
+    "tdd": "npm run test -- --reporter min --watch",
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register"
   },
   "dependencies": {
