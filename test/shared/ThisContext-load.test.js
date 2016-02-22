@@ -1,9 +1,9 @@
-import { expect } from 'chai';
 import React from 'react';
-import ThisContext from '../../src/shared/ThisContext';
-import bdd from '../../src/shared/bdd';
-import api from '../../src/shared/api-internal';
+import { expect } from 'chai';
 
+import api from '../../src/shared/api-internal';
+import bdd from '../../src/shared/bdd';
+import ThisContext from '../../src/shared/ThisContext';
 
 class Foo extends React.Component {
   render() {
@@ -27,14 +27,16 @@ describe('ThisContext: load', () => {
 
 
   it('returns an instance of the [self] context', () => {
-    expect(self.load()).to.equal(self);
-    expect(self.load(Foo)).to.equal(self);
+    expect(self.component(Foo)).to.equal(self);
   });
 
 
   describe('Storing Type, Props and Children on the [current] state', () => {
     it('from individual args', () => {
-      self.load(Foo, { text: 'hello' }, 'child');
+      self
+        .props({ text: 'hello' })
+        .children('child')
+        .component(Foo);
       expect(api.current.get('componentType')).to.equal(Foo);
       expect(api.current.get('componentProps')).to.eql({ text: 'hello' });
       expect(api.current.get('componentChildren')).to.equal('child');
@@ -42,7 +44,7 @@ describe('ThisContext: load', () => {
 
     it('from element', () => {
       let foo = React.createElement(Foo, { text: 'hello' }, 'child');
-      self.load(foo);
+      self.component(foo);
       expect(api.current.get('componentType')).to.equal(Foo);
       expect(api.current.get('componentProps')).to.eql({ text: 'hello' });
       expect(api.current.get('componentChildren')).to.equal('child');

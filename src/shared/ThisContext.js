@@ -1,21 +1,21 @@
-import R from 'ramda';
-import api from './api-internal';
 import * as util from 'js-util';
-import schema, { PropTypes } from 'react-schema';
+
+import invariant from 'invariant';
 import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
-import log from '../shared/log';
+import R from 'ramda';
+import schema, { PropTypes } from 'react-schema';
+
+import api from './api-internal';
 import page from './page';
 
-
-const isBrowser = (typeof window !== 'undefined');
 const PROP = Symbol('Prop');
 const PROPS = {
   children: {
     key: 'componentChildren', // Stored on {current} as this.
   },
-  context: {
+  childContextTypes: {
+    key: 'componentChildContextTypes',
     type: PropTypes.object,
-    key: 'componentContext',
   },
   width: {
     default: 'auto',
@@ -113,7 +113,9 @@ export default class UIHContext {
 
         // Store the value.
         this[PROP].state[key] = value;
-        if (isCurrent()) { api.setCurrent({ [key]: value }); }
+        if (isCurrent()) {
+          api.setCurrent(this[PROP].state); // Update the state after every update
+        }
         return this; // When writing the [this] context is returned.
                      // This allows for chaining of write operations.
       }
@@ -180,21 +182,52 @@ export default class UIHContext {
    * @param {object} value:  An object containing {prop:value} to add
    */
   props(value) {
+    let _value = value;
     // WRITE.
-    if (R.is(Object, value)) {
+    if (R.is(Object, _value)) {
       // Cumulatively add given props to the existing
       // props on the component.
-      const component = api.component();
-      let props = component && component.props;
-      if (props) {
-        props = R.clone(props);
-        R.keys(value).forEach(key => props[key] = value[key]);
-        value = props;
-      }
+      const component = this[PROP]('componentProps');
+      const props = (component && component.props) || {};
+      // No need to clone when using R.merge
+      _value = R.merge(props, _value);
+    }
+    // READ.
+    return this[PROP]('componentProps', _value);
+  }
+
+  /**
+   * Cumulatively sets context values on the current component.
+   * @param {object} value:  An object containing {context: value} to add
+   */
+  context(value) {
+    const currentContextTypes = this[PROP]('componentChildContextTypes');
+    invariant(
+      // if we're setting the value to nothing, it doesn't need to have a context type
+      currentContextTypes || !value,
+      `contextTypes are not set on the component. Make sure you set contextTypes with this.contextTypes before trying to set the context` // eslint-disable-line max-len
+    );
+
+    if (R.is(Object, value)) {
+      // Cumulatively add given props to the existing context
+      const context = this[PROP]('componentContext') || {};
+      R.map(
+        key => invariant(
+          currentContextTypes[key],
+          `Context key ${key} not specified in contextTypes. Add to context types using this.contextTypes` // eslint-disable-line max-len
+        ),
+        R.keys(value)
+      );
+      value = R.merge(context, value);
     }
 
-    // READ.
-    return this[PROP]('componentProps', value);
+    return this[PROP](
+      'componentContext',                             // set to component's context
+      value,                                          // to the value passed
+      { type: PropTypes.object },                     // and make sure it conforms to the
+                                                      // context types specified when the
+                                                      // component was loaded
+    );
   }
 
 
@@ -202,22 +235,29 @@ export default class UIHContext {
   /**
    * Loads the given component.
    *
-   * @param component:  The component Type
-   *                    or created component element (eg: <MyComponent/>).
-   *
-   * @param props:      Optional. The component props
-   *                    (if not passed in with a component element).
-   *
-   * @param children:   Optional. The component children
-   *                    (if not passed in with a component element).
-   *
+   * @param component:  The component Type (e.g. MyComponent)
+   *                    or created component element (e.g.: <MyComponent/>).
    */
-  load(component, props, children) {
-    if (!component) {
-      if (isBrowser) { log.warn('Cannot load: a component was not specified (undefined/null)'); }
-    } else {
-      api.loadComponent(component, props, children);
-    }
+  component(component) {
+    invariant(component, 'Cannot load: a component was not specified (undefined/null)');
+
+    // Create a props object of any props set by this.props with props passed down by JSX
+    const props = R.merge(
+      this[PROP]('componentProps'), // Existing props from this.props()
+      R.omit('children', component.props) // Don't include props.children in props plucked from JSX
+    );
+    // Update the props in internal state
+    this[PROP]('componentProps', props);
+
+    // Find the children of the passed JSX component (if any)
+    const children = R.path(['props', 'children'], component);
+    // Update internal state with these children
+    if (children) this[PROP]('componentChildren', children);
+
+    // Load the component in the window
+    api.loadComponent(component);
+    // Update the window state with internal state
+    api.setCurrent(this[PROP].state);
     return this;
   }
 

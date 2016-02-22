@@ -1,17 +1,18 @@
 import R from 'ramda';
 import { expect } from 'chai';
-import ThisContext from '../../src/shared/ThisContext';
-import bdd from '../../src/shared/bdd';
-import api from '../../src/shared/api-internal';
+import { PropTypes } from 'react-schema';
 
+import api from '../../src/shared/api-internal';
+import bdd from '../../src/shared/bdd';
 
 describe('ThisContext', () => {
-  let suite, context;
-  afterEach(() => { bdd.reset(); })
+  let suite;
+  let context;
+  afterEach(() => { bdd.reset(); });
   beforeEach(() => {
     bdd.register();
-    suite = describe(`My Suite`, () => { });
-    api.setCurrent({ suite: suite });
+    suite = describe(`My Suite`, () => {});
+    api.setCurrent({ suite });
     context = suite.meta.thisContext;
   });
 
@@ -47,14 +48,14 @@ describe('ThisContext', () => {
     });
 
     it('throws on invalid values', () => {
-      expect(() => { context.cropMarks(123) }).to.throw();
-      expect(() => { context.cropMarks.size(true) }).to.throw();
-      expect(() => { context.cropMarks.offset(true) }).to.throw();
+      expect(() => { context.cropMarks(123); }).to.throw();
+      expect(() => { context.cropMarks.size(true); }).to.throw();
+      expect(() => { context.cropMarks.offset(true); }).to.throw();
     });
   });
 
 
-  describe('size (width/height)', function() {
+  describe('size (width/height)', function() { // eslint-disable-line prefer-arrow-callback
     it('has not width/height by default ("auto")', () => {
       expect(context.width()).to.equal('auto');
       expect(context.height()).to.equal('auto');
@@ -63,41 +64,41 @@ describe('ThisContext', () => {
     it('stores width/height (number)', () => {
       context
         .width(250)
-        .height(120)
+        .height(120);
       expect(context.width()).to.equal(250);
       expect(context.height()).to.equal(120);
     });
 
     it('resets with `null`', () => {
-      context.width(250).height(120)
-      context.width(null).height(null)
+      context.width(250).height(120);
+      context.width(null).height(null);
       expect(context.width()).to.equal('auto');
       expect(context.height()).to.equal('auto');
     });
 
     it('width throws if a number of string is not passed', () => {
-      let fn = () => {
+      const fn = () => {
         context
           .width(250)
           .width('100%')
-          .width({ foo: 123 })
+          .width({ foo: 123 });
       };
       expect(fn).to.throw();
     });
 
     it('height throws if a number of string is not passed', () => {
-      let fn = () => {
+      const fn = () => {
         context
           .height(250)
           .height('100%')
-          .height({ foo: 123 })
+          .height({ foo: 123 });
       };
       expect(fn).to.throw();
     });
   });
 
 
-  describe('margin', function() {
+  describe('margin', function () { // eslint-disable-line prefer-arrow-callback
     it('it has a default value', () => {
       expect(R.is(Number, context.margin())).to.equal(true);
     });
@@ -107,12 +108,12 @@ describe('ThisContext', () => {
     });
 
     it('throws if a number of string is not passed', () => {
-      expect(() => { context.margin({}) }).to.throw();
+      expect(() => { context.margin({}); }).to.throw();
     });
   });
 
 
-  describe('align', function() {
+  describe('align', function () { // eslint-disable-line prefer-arrow-callback
     it('has a default value', () => {
       expect(context.align()).to.equal('center top');
     });
@@ -131,7 +132,7 @@ describe('ThisContext', () => {
   });
 
 
-  describe('header', function() {
+  describe('header', function () {
     it('is undefined by default', () => {
       expect(context.header()).to.equal(undefined);
     });
@@ -158,19 +159,19 @@ describe('ThisContext', () => {
     });
 
     it('throws if not boolean', () => {
-      expect(() => { context.hr('hello') }).to.throw();
+      expect(() => { context.hr('hello'); }).to.throw();
     });
   });
 
 
-  describe('backdrop', function() {
+  describe('backdrop', function () { // eslint-disable-line prefer-arrow-callback
     it('has default value', () => {
       expect(context.backdrop()).to.equal(0);
     });
 
     it('throws if not number or string', () => {
       context.backdrop(0).backdrop('red');
-      let fn = () => { context.backdrop({}); };
+      const fn = () => { context.backdrop({}); };
       expect(fn).to.throw();
     });
   });
@@ -206,7 +207,12 @@ describe('ThisContext', () => {
     });
 
     it('throws if not an object', () => {
-      expect(() => context.context(123)).to.throw();
+      expect(() => context
+        .childContextTypes({
+          someKey: PropTypes.object,
+        })
+        .context(123)
+      ).to.throw();
     });
 
     it('stores the given object', () => {
@@ -215,12 +221,36 @@ describe('ThisContext', () => {
         dispatch: () => true,
         subscribe: () => true,
       };
-      expect(context.context(myContext).context()).to.equal(myContext);
+      expect(context
+        .childContextTypes({
+          getState: PropTypes.func,
+          dispatch: PropTypes.func,
+          subscribe: PropTypes.func,
+        })
+        .context(myContext)
+        .context()
+      ).to.deep.equal(myContext);
     });
 
     it('is chainable', () => {
-      const result = context.context({ foo:123 });
+      const result = context
+        .childContextTypes({ foo: PropTypes.object })
+        .context({ foo: 123 })
+        ;
       expect(result).to.equal(context);
+    });
+
+    it('throws when trying to set a context key that was not defined in context types', () => {
+      expect(() => context
+        .childContextTypes({ defined: PropTypes.object })
+        .context({ not_defined: 123 })
+      ).to.throw(/not specified/);
+    });
+
+    it('throws when trying to set context before context types', () => {
+      expect(() => context
+        .context({ not_defined: 123 })
+      ).to.throw(/contextTypes are not set/);
     });
   });
 });
