@@ -40,7 +40,10 @@ describe('Component Host', function() {
   this.header(`## Properties of the host container.`).hr(true);
 
   before(() => {
-    this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
+    this
+      .align('top left')
+      .width(350)
+      .load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
   });
 
 
@@ -70,12 +73,9 @@ describe('Component Host', function() {
 
   section('context', () => {
     it('reload with context', () => {
-      this.load({
-        component: MyFoo,
-        contextTypes: {
-          store: PropTypes.object.isRequired
-        }
-      });
+      this
+        .childContextTypes({ store: React.PropTypes.object, })
+        .component( <MyFoo/> );
     });
     it('Redux Store Context', () => {
       this.context({ store: ({ getState: () => ({ contextWorks: true }) }) })

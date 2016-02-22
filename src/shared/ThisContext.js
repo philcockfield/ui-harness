@@ -239,7 +239,7 @@ export default class UIHContext {
    */
   load(component) {
     log.warn('The "load" method is deprecated. Please use the "component" method.');
-    return this.component(component)
+    return this.component(component);
   }
 
 
