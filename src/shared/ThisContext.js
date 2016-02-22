@@ -7,6 +7,8 @@ import schema, { PropTypes } from 'react-schema';
 
 import api from './api-internal';
 import page from './page';
+import log from './log';
+
 
 const PROP = Symbol('Prop');
 const PROPS = {
@@ -229,6 +231,17 @@ export default class UIHContext {
                                                       // component was loaded
     );
   }
+
+
+  /**
+   * OBSOLETE: Stub for the `component` method, emitting a warning that it will
+   * be deprecated in a future version.
+   */
+  load(component) {
+    log.warn('The "load" method is deprecated. Please use the "component" method.');
+    return this.component(component)
+  }
+
 
 
 

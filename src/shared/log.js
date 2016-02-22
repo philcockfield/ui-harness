@@ -1,7 +1,7 @@
 /* eslint no-use-before-define:0 no-console:0 */
 
-const log = (items) => {
-  if (!api.silent) { console.log(items.join(' ')); }
+const log = (items, method) => {
+  if (!api.silent) { console[method](items.join(' ')); }
 };
 
 
@@ -12,9 +12,9 @@ const log = (items) => {
  */
 const api = {
   silent: false,
-  info(...items) { log(items); },
-  warn(...items) { log(items); },
-  error(...items) { log(items); },
+  info(...items) { log(items, 'info'); },
+  warn(...items) { log(items, 'warn'); },
+  error(...items) { log(items, 'error'); },
 };
 
 
