@@ -25,7 +25,22 @@ describe('Page', function() {
     it('`Josefin Slab`', () => load('Josefin+Slab:300,700', '"Josefin Slab"'));
     it('`Vollkorn`', () => load('Vollkorn:400,700', 'Vollkorn'));
   });
+
+  section('insertScript', () => {
+    it('`string:alert`', () => {
+      this.page.insertScript('alert("foo")');
+    });
+
+    it('`string:console`', () => {
+      this.page.insertScript('console.info("Written from inserted script!")');
+    });
+
+    it('`object:src`', () => {
+      this.page.insertScript({ src: '/sample.js' });
+    });
+  });
 });
+
 
 
 

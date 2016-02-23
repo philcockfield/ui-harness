@@ -37,5 +37,10 @@ describe('ThisContext.page', function() {
       const result = page.insertFont('https://fonts.googleapis.com/css?family=Lato:200,900');
       expect(result).to.equal(context);
     });
+
+    it('has an `insertScript` method', () => {
+      const result = page.insertScript('console.log("foo")');
+      expect(result).to.equal(context);
+    });
   });
 });
