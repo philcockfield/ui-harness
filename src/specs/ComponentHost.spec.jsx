@@ -1,28 +1,45 @@
-import React from 'react';
-import Radium from 'radium';
-import { lorem, css, PropTypes } from './util';
 import Foo from 'react-atoms/components/Foo';
+import R from 'ramda';
+import Radium from 'radium';
+import React from 'react';
+import { ValueList } from 'react-object';
+
 import api from '../shared/api-internal';
-
-
+import { lorem, css, PropTypes } from './util';
 
 class MyFoo extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object,
+  }
+
   styles() {
     return css({
       base: {
         padding: 20,
         position: 'relative',
-      }
+      },
+      container: {
+        paddingBottom: 10,
+        marginBottom: 10,
+        borderBottom: 'solid 1px rgba(0, 0, 0, 0.1)'
+      },
     });
   }
 
   render() {
     const styles = this.styles();
     return (
-      <div style={ styles.base }>
-        <div>foo:{ this.props.foo }</div>
-        { this.props.children }
-      </div>
+      <Foo>
+        <div style={ styles.container }>
+          foo:{ this.props.foo }
+        </div>
+        <div style={ styles.container }>
+          <ValueList items={[{ label: 'context', value: this.context }]} />
+        </div>
+        <div style={ styles.container }>
+          { this.props.children }
+        </div>
+      </Foo>
     );
   }
 }
@@ -34,7 +51,10 @@ describe('Component Host', function() {
   this.header(`## Properties of the host container.`).hr(true);
 
   before(() => {
-    this.load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
+    this
+      .align('top left')
+      .width(350)
+      .load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
   });
 
 
@@ -62,6 +82,18 @@ describe('Component Host', function() {
     });
   });
 
+  section('context', () => {
+    it('set `childContextTypes`', () => {
+      this
+        .childContextTypes({ store: React.PropTypes.object, });
+    });
+    it('Redux `store`', () => {
+      this.context({ store: ({ getState: () => ({ contextWorks: true }) }) })
+    });
+    it('Redux `dispatch`', () => {
+      this.context({ store: ({ dispatch: () => v => console.info(`dispatched ${v && v.type}`) }) })
+    });
+  });
 
   section('children', () => {
     it('date', () => {

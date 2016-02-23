@@ -1,13 +1,13 @@
-import R from 'ramda';
-import React from 'react';
-import Radium from 'radium';
 import Immutable from 'immutable';
+import R from 'ramda';
+import Radium from 'radium';
+import React from 'react';
 import { delay } from 'js-util';
-import { css, PropTypes } from '../util';
-import CropMarks from '../shared/CropMarks';
+
 import api from '../../shared/api-internal';
-
-
+import ContextWrapper from './ContextWrapper';
+import CropMarks from '../shared/CropMarks';
+import { css, PropTypes } from '../util';
 
 /**
  * Loads and displays a component.
@@ -69,6 +69,9 @@ class Component extends React.Component {
         });
       }
       element = React.createElement(type, props, children);
+
+      const childContextTypes = current.get('componentChildContextTypes');
+      if (childContextTypes) ContextWrapper.childContextTypes = childContextTypes;
     }
 
     const cropMarksSize = current.get('cropMarks')
@@ -83,7 +86,11 @@ class Component extends React.Component {
         display={ width === '100%' ? 'block' : 'inline-block' }
         width={ width }
         height={ height }>
-        <div style={ styles.base }>{ element }</div>
+        <div style={ styles.base }>
+          <ContextWrapper context={current.get('componentContext')}>
+            { element }
+          </ContextWrapper>
+        </div>
       </CropMarks>
     );
   }
