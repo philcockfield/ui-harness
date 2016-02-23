@@ -5,8 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- Support for passing context down to a hosted component (see [React Context](https://facebook.github.io/react/docs/context.html)).
+  Methods:
+  - `this.childContextTypes`
+  - `this.context`
+
+
 #### Changed
+- `this.load` method to `this.component`.
+
 #### Deprecated
+- `this.load` method (still working with a deprecation warning in the console).
+
 #### Removed
 #### Fixed
 #### Security
