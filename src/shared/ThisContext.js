@@ -237,7 +237,7 @@ export default class UIHContext {
    * be deprecated in a future version.
    */
   load(component) {
-    log.warn('The "load" method is deprecated. Please use the "component" method.');
+    log.warn('The `load` method is deprecated. Please use the `this.component` method.');
     return this.component(component);
   }
 
