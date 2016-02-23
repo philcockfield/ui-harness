@@ -224,11 +224,9 @@ export default class UIHContext {
     }
 
     return this[PROP](
-      'componentContext',                             // set to component's context
-      value,                                          // to the value passed
-      { type: PropTypes.object },                     // and make sure it conforms to the
-                                                      // context types specified when the
-                                                      // component was loaded
+      'componentContext',           // Set the component's context to the value passed
+      value,                        // and make sure it conforms to the context types
+      { type: PropTypes.object },   // specified when the component was loaded.
     );
   }
 
