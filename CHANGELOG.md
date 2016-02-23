@@ -3,7 +3,20 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+
 ## [Unreleased] - YYYY-MM-DD
+#### Added
+#### Changed
+#### Deprecated
+#### Removed
+#### Fixed
+#### Security
+
+
+
+
+
+## [3.7.0] - 2016-02-23
 #### Added
 - Support for passing context down to a hosted component (see [React Context](https://facebook.github.io/react/docs/context.html)).
   Methods:
@@ -11,16 +24,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - `this.context`
 - `this.page.insertScript` method.  
 
-
 #### Changed
 - `this.load` method to `this.component`.
 
 #### Deprecated
 - `this.load` method (still working with a deprecation warning in the console).
 
-#### Removed
-#### Fixed
-#### Security
 
 
 
