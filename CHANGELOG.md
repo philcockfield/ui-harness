@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   Methods:
   - `this.childContextTypes`
   - `this.context`
+- `this.page.insertScript` method.  
 
 
 #### Changed
