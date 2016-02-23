@@ -250,7 +250,7 @@ describe('ThisContext', () => {
     it('throws when trying to set context before context types', () => {
       expect(() => context
         .context({ not_defined: 123 })
-      ).to.throw(/contextTypes are not set/);
+      ).to.throw(/Make sure you set `this.contextTypes`/);
     });
   });
 });

@@ -39,7 +39,6 @@ class MyFoo extends React.Component {
         <div style={ styles.container }>
           { this.props.children }
         </div>
-
       </Foo>
     );
   }

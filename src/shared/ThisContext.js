@@ -204,12 +204,13 @@ export default class UIHContext {
    */
   context(value) {
     const currentContextTypes = this[PROP]('componentChildContextTypes');
-    invariant(
-      // if we're setting the value to nothing, it doesn't need to have a context type
-      currentContextTypes || !value,
-      `contextTypes are not set on the component. Make sure you set contextTypes with this.contextTypes before trying to set the context` // eslint-disable-line max-len
-    );
 
+    invariant(
+      // If we're setting the value to nothing, it doesn't need to have a context type
+      currentContextTypes || !value,
+      'Make sure you set `this.contextTypes` before trying to set `this.context`.' // eslint-disable-line max-len
+    );
+    //
     if (R.is(Object, value)) {
       // Cumulatively add given props to the existing context
       const context = this[PROP]('componentContext') || {};
