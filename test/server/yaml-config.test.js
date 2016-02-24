@@ -12,7 +12,7 @@ describe('YAML config (.uiharness)', function() {
 
     it('sets a default entry path', () => {
       const config = yamlConfig.parse("");
-      expect(config.entry).to.equal(fsPath.resolve('./src/specs'));
+      expect(config.entry).to.eql([fsPath.resolve('./src/specs')]);
     });
 
     it('changes the relative "entry" field to an absolute path', () => {
@@ -20,7 +20,7 @@ describe('YAML config (.uiharness)', function() {
         entry: ./src/specs
       `;
       const config = yamlConfig.parse(yaml);
-      expect(config.entry).to.equal(fsPath.resolve('./src/specs'));
+      expect(config.entry).to.eql([fsPath.resolve('./src/specs')]);
     });
 
     it('uses the given absolute "entry" field', () => {
@@ -28,7 +28,7 @@ describe('YAML config (.uiharness)', function() {
         entry: /foo/specs
       `;
       const config = yamlConfig.parse(yaml);
-      expect(config.entry).to.equal('/foo/specs');
+      expect(config.entry).to.eql(['/foo/specs']);
     });
   });
 
@@ -40,19 +40,35 @@ describe('YAML config (.uiharness)', function() {
 
     it('loads the specified file (relative)', () => {
       const config = yamlConfig.load('./test/server/sample.yml');
-      expect(config.entry).to.equal(fsPath.resolve("./foo/specs"));
+      expect(config.entry).to.eql([fsPath.resolve("./foo/specs")]);
     });
 
     it('loads the specified file (absolute)', () => {
       const config = yamlConfig.load(fsPath.resolve('./test/server/sample.yml'));
-      expect(config.entry).to.equal(fsPath.resolve("./foo/specs"));
+      expect(config.entry).to.eql([fsPath.resolve("./foo/specs")]);
     });
 
     it('loads the .uiharness from the root of the project (no path)', () => {
-      expect(yamlConfig.load().entry).to.equal(fsPath.resolve("./src/specs"));
-      expect(yamlConfig.load(null).entry).to.equal(fsPath.resolve("./src/specs"));
-      expect(yamlConfig.load("").entry).to.equal(fsPath.resolve("./src/specs"));
-      expect(yamlConfig.load("  ").entry).to.equal(fsPath.resolve("./src/specs"));
+      expect(yamlConfig.load().entry).to.eql([fsPath.resolve("./src/specs")]);
+      expect(yamlConfig.load(null).entry).to.eql([fsPath.resolve("./src/specs")]);
+      expect(yamlConfig.load("").entry).to.eql([fsPath.resolve("./src/specs")]);
+      expect(yamlConfig.load("  ").entry).to.eql([fsPath.resolve("./src/specs")]);
+    });
+
+    it('loads YAML entry with array of paths', () => {
+      const config = yamlConfig.load('./test/server/sample-entry-array.yml');
+      expect(config.entry).to.eql([
+        fsPath.resolve("./foo/specs"),
+        fsPath.resolve("./bar/specs"),
+      ]);
+    });
+
+    it('loads YAML entry with comma-seperated paths', () => {
+      const config = yamlConfig.load('./test/server/sample-entry-comma.yml');
+      expect(config.entry).to.eql([
+        fsPath.resolve("./foo/specs"),
+        fsPath.resolve("./bar/specs"),
+      ]);
     });
   });
 
@@ -65,7 +81,7 @@ describe('YAML config (.uiharness)', function() {
 
     describe('start', function() {
       it('has an "entry" path (relative => absolute)', () => {
-        expect(config.entry).to.equal(fsPath.resolve("./foo/specs"));
+        expect(config.entry).to.eql([fsPath.resolve("./foo/specs")]);
       });
 
       it('has a "port"', () => {
