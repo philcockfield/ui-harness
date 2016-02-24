@@ -107,7 +107,7 @@ A path to the [GraphQL](https://facebook.github.io/graphql/) `schema.js` file. I
 
 
 ```yml
-entry: ./src/specs
+entry: ./src/specs  # Path, comma-seperated paths, or array of paths.
 port: 3030
 graphqlSchema: './data/schema.js'
 proxy:
