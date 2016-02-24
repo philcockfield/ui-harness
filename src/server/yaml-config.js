@@ -31,9 +31,19 @@ export const parse = (text) => {
     throw new Error(`The [.uiharness.yml] file is invalid. ${ err.message }`);
   }
 
-  // Format paths.
-  yaml.entry = R.is(String, yaml.entry) ? yaml.entry : './src/specs';
-  yaml.entry = formatPath(yaml.entry);
+  // Format entry path.
+  if (!R.isNil(yaml.entry)) {
+    if (R.is(String, yaml.entry)) {
+      yaml.entry = yaml.entry.split(',');
+    }
+    yaml.entry = yaml.entry || [];
+    if (yaml.entry.length === 0) {
+      yaml.entry[0] = './src/specs';
+    }
+    yaml.entry = formatPath(yaml.entry);
+  }
+
+  // Format GraphQL path.
   if (yaml.graphqlSchema) {
     yaml.graphqlSchema = formatPath(yaml.graphqlSchema);
   }

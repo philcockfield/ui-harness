@@ -18,7 +18,7 @@ args = args.length > 0 ? args = minimist(args) : {};
 
 // Look for an entry string.
 const config = yamlConfig.load() || {};
-const entry = args.entry || (config && config.entry);
+var entry = args.entry || (config && config.entry);
 
 
 /**
@@ -39,8 +39,9 @@ const entry = args.entry || (config && config.entry);
  *
  */
 if (entry) {
+  entry = R.is(String, entry) ? entry.split(',') : entry;
   server.start({
-    entry: entry.split(','),
+    entry,
     port: args.port || config.port,
   })
   .catch(err => {
