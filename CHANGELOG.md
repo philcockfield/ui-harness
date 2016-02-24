@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - YYYY-MM-DD
 #### Added
 #### Changed
+- Taking an array of entry paths within the `.uiharness.yml` configuration file.
+
 #### Deprecated
 #### Removed
 #### Fixed
