@@ -1,5 +1,8 @@
 # ui-harness
-[![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg)](https://travis-ci.org/philcockfield/ui-harness)
+[![Build Status](https://travis-ci.org/philcockfield/ui-harness.svg?branch=master)](https://travis-ci.org/philcockfield/ui-harness)
+[![npm version](https://badge.fury.io/js/ui-harness.svg)](https://badge.fury.io/js/ui-harness)
+[![Dependecies Status](https://david-dm.org/philcockfield/ui-harness.svg)](https://david-dm.org/philcockfield/ui-harness)
+[![js-style](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg?style=flat)](https://github.com/airbnb/javascript)
 
 Isolate, test and document modular UI with React using familiar `describe/it` testing semantics.  
 
