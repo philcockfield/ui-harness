@@ -1,6 +1,12 @@
 import React from 'react';
 import { lorem } from './util';
-import './css-loader.css';
+
+
+const IS_BROWSER = typeof(window) !== 'undefined';
+if (IS_BROWSER) {
+  require('./css-loader.css');
+}
+
 
 
 class CssSample extends React.Component {
