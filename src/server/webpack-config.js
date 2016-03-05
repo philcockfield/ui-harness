@@ -83,9 +83,9 @@ export default (options = {}) => {
       loaders: [
         babelLoader(/\.js$/, isRelayEnabled),
         babelLoader(/\.jsx$/, isRelayEnabled),
-        { test: /\.css$/, loader: 'style-loader!css-loader' },
-        { test: /\.json$/, loader: 'json-loader' },
-        { test: /\.(png|svg)$/, loader: 'url-loader' },
+        { test: /\.css$/, loader: 'style!css' },
+        { test: /\.json$/, loader: 'json' },
+        { test: /\.(png|svg)$/, loader: 'url' },
       ],
     },
     devtool: isProduction ? undefined : 'cheap-module-eval-source-map',
