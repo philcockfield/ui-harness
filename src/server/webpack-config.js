@@ -83,6 +83,7 @@ export default (options = {}) => {
       loaders: [
         babelLoader(/\.js$/, isRelayEnabled),
         babelLoader(/\.jsx$/, isRelayEnabled),
+        { test: /\.css$/, loader: 'style-loader!css-loader' },
         { test: /\.json$/, loader: 'json-loader' },
         { test: /\.(png|svg)$/, loader: 'url-loader' },
       ],
