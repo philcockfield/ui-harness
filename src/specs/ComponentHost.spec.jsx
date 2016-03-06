@@ -68,12 +68,10 @@ describe('Component Host', function() {
     });
 
     it('function component', () => {
-      const myFunc = (props) => {
-        return <div>My Func Component</div>;
+      const MyFunc = (props) => {
+        return <div>My { props.name } Component</div>;
       };
-
-      console.log("myFunc", myFunc);
-      this.component( <myFunc/> );
+      this.component( <MyFunc name='Funky' /> );
     });
   });
 
