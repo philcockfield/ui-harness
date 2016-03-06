@@ -130,21 +130,21 @@ images:
 By default the UIHarness supports the webpack [css-loader] for `*.css` files.  If however you wish to use [css-modules] simply declare the file extension of your modules in the `.uiharness.yml` with a regular-expression like this:
 
 ```yaml
-css-modules: /\.css$/
+css-modules: .css
 ```
 
 If you wish to retain the default [css-loader] behavior but still want to use [css-modules], you can specify [css-modules] to only work on certain extensions:
 
 ```yaml
-css-modules: /\.module\.css$/
+css-modules: .module.css
 ```
 
 And if you wish to use several different extensions for [css-modules] you can specify a list:
 
 ```yaml
 css-modules:
-  - /\.css$/
-  - /\.module\.css$/
+  - .css
+  - .module.css
 ```
 
 [css-loader]: https://github.com/webpack/css-loader
