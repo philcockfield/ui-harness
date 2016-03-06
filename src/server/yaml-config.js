@@ -63,7 +63,7 @@ export const parse = (text) => {
   if (cssModules) {
     cssModules = R.is(Array, cssModules) ? cssModules : [cssModules];
     cssModules = cssModules.map(toFileExtensionRegEx);
-    yaml.cssModules = cssModules
+    yaml.cssModules = cssModules;
   }
 
   // Finish up.
