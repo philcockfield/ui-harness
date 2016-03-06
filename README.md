@@ -118,27 +118,28 @@ proxy:
 
 
 ### CSS
-By default the UIHarness supports the webpack [css-loader](https://github.com/webpack/css-loader) for `*.css` files.  If however you wish to use [css-modules](https://github.com/css-modules/css-modules) simply declare the file extension of your modules in the `.uiharness.yml` with a regular-expression like this:
+By default the UIHarness supports the webpack [css-loader] for `*.css` files.  If however you wish to use [css-modules] simply declare the file extension of your modules in the `.uiharness.yml` with a regular-expression like this:
 
 ```yaml
 css-modules: /\.css$/
 ```
 
-If you wish to retain the default [css-loader](https://github.com/webpack/css-loader) behavior but still want to use css-modules, you can specify [css-modules](https://github.com/css-modules/css-modules) to only work on certain extensions:
+If you wish to retain the default [css-loader] behavior but still want to use [css-modules], you can specify [css-modules] to only work on certain extensions:
 
 ```yaml
 css-modules: /\.module\.css$/
 ```
 
-And if you wish to use several different extensions for [css-modules](https://github.com/css-modules/css-modules) you can specify a list:
+And if you wish to use several different extensions for [css-modules] you can specify a list:
+
 ```yaml
 css-modules:
   - /\.css$/
   - /\.module\.css$/
 ```
 
-
-
+[css-loader]: https://github.com/webpack/css-loader
+[css-modules]: https://github.com/css-modules/css-modules
 
 ## Building
 You can use the UIHarness to output your built JS bundles.  You can also use this function to keep an eye on the size of your JS before it's too late to do anything about it.
