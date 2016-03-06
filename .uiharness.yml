@@ -21,3 +21,5 @@ build:
   vendor:
     - react
     - react-dom
+
+cssModules: .module.css
