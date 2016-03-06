@@ -124,17 +124,17 @@ By default the UIHarness supports the webpack [css-loader](https://github.com/we
 css-modules: /\.css$/
 ```
 
-If you wish to retain the default [css-loader](https://github.com/webpack/css-loader) behavior and [css-modules](https://github.com/css-modules/css-modules), don't use the `*.css` extension, but rather use something like:
+If you wish to retain the default [css-loader](https://github.com/webpack/css-loader) behavior but still want to use css-modules, you can specify [css-modules](https://github.com/css-modules/css-modules) to only work on certain extensions:
 
 ```yaml
-css-modules: /\.module.css$/
+css-modules: /\.module\.css$/
 ```
 
 And if you wish to use several different extensions for [css-modules](https://github.com/css-modules/css-modules) you can specify a list:
 ```yaml
 css-modules:
   - /\.css$/
-  - /\.module.css$/
+  - /\.module\.css$/
 ```
 
 
