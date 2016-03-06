@@ -61,6 +61,9 @@ const babelLoader = (extension, isRelayEnabled) => {
  *                                Pass empty-array for no vendor modules
  *                                otherwise the default set of vendors is included.
  *
+ *            -- cssModules:      An array of regular expressions.
+ *                                Default: undefined.
+ *
  * @return {Object} compiler.
  */
 export default (options = {}) => {
@@ -83,7 +86,6 @@ export default (options = {}) => {
       loaders: [
         babelLoader(/\.js$/, isRelayEnabled),
         babelLoader(/\.jsx$/, isRelayEnabled),
-        { test: /\.css$/, loader: 'style!css' },
         { test: /\.json$/, loader: 'json' },
         { test: /\.(png|svg)$/, loader: 'url' },
       ],
@@ -108,6 +110,27 @@ export default (options = {}) => {
       new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', path: '/', filename: 'vendor.js' }),
     ],
   };
+
+  // Configure CSS loaders
+  const { loaders } = config.module;
+  const { cssModules } = options;
+  const simpleCssLoader = { test: /\.css$/, loader: 'style!css' };
+  if (cssModules) {
+    let simpleLoaderAdded = false;
+    cssModules.forEach(test => {
+      loaders.push({ test, loader: 'style!css?module' });
+      if (test.toString() === simpleCssLoader.test.toString()) {
+        simpleLoaderAdded = true;
+      }
+    });
+    // Add the simple CSS loader if the extension was not included for css-module's.
+    if (!simpleLoaderAdded) {
+      loaders.push(simpleCssLoader);
+    }
+  } else {
+    // Add simple CSS loader (default).
+    loaders.push(simpleCssLoader);
+  }
 
   // Configure optional plugins.
   //    See - https://webpack.github.io/docs/list-of-plugins.html

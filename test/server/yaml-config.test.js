@@ -30,6 +30,34 @@ describe('YAML config (.uiharness)', function() {
       const config = yamlConfig.parse(yaml);
       expect(config.entry).to.eql(['/foo/specs']);
     });
+
+    describe('css-modules', function() {
+      it('has no css-modules declaration by default', () => {
+        const yaml = `
+          entry: /foo/specs
+        `;
+        const config = yamlConfig.parse(yaml);
+        expect(config.cssModules).to.eql(undefined);
+      });
+
+      it('has an array of css-module declarations (single string)', () => {
+        expect(yamlConfig.parse('cssModules: .css').cssModules).to.eql([/\.css$/]);
+      });
+
+      it('has an array of css-module declarations (array)', () => {
+        expect(yamlConfig.parse('cssModules: [".css"]').cssModules).to.eql([/\.css$/]);
+      });
+
+      it('has an array of css-module declarations (list)', () => {
+        const yaml = `
+          cssModules:
+            - .css
+            - .module.css
+        `;
+        const config = yamlConfig.parse(yaml);
+        expect(config.cssModules).to.eql([/\.css$/, /\.module\.css$/]);
+      });
+    });
   });
 
 
