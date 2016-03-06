@@ -8,6 +8,8 @@ http://uiharness.com
 ![ScreenShot](https://cloud.githubusercontent.com/assets/185555/10448258/0471dece-71e8-11e5-983a-028dd7df7a1a.png)
 
 
+
+
 ## Quick Start (1-minute)
 With the UIHarness you can go from an empty NPM module, to cleanly building isolated React components using best-practices in well under a minute.
 
@@ -113,6 +115,29 @@ graphqlSchema: './data/schema.js'
 proxy:
   /graphql: http://localhost:8080
 ```
+
+
+### CSS
+By default the UIHarness supports the webpack [css-loader](https://github.com/webpack/css-loader) for `*.css` files.  If however you wish to use [css-modules](https://github.com/css-modules/css-modules) simply declare the file extension of your modules in the `.uiharness.yml` with a regular-expression like this:
+
+```yaml
+css-modules: /\.css$/
+```
+
+If you wish to retain the default [css-loader](https://github.com/webpack/css-loader) behavior and [css-modules](https://github.com/css-modules/css-modules), don't use the `*.css` extension, but rather use something like:
+
+```yaml
+css-modules: /\.module.css$/
+```
+
+And if you wish to use several different extensions for [css-modules](https://github.com/css-modules/css-modules) you can specify a list:
+```yaml
+css-modules:
+  - /\.css$/
+  - /\.module.css$/
+```
+
+
 
 
 ## Building
