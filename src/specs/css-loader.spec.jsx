@@ -9,21 +9,17 @@ if (IS_BROWSER) {
 
 
 
-class CssSample extends React.Component {
-  render() {
-    return (
-      <div className="css-sample">
-        <p>{ lorem(50) }</p>
-        <p>{ lorem(50) }</p>
-      </div>
-    );
-  }
-}
+const CssSample = () => (
+  <div className="css-loader-sample">
+    <p>{ lorem(50) }</p>
+    <p>{ lorem(50) }</p>
+  </div>
+);
 
 
 
-describe('CSS', function() {
-  this.header(`## CSS via webpack css-loader.`);
+describe('css-loader', function() {
+  this.header(`## Webpack simple CSS loader.`);
   before(() => {
     this
       .component( <CssSample/> );
