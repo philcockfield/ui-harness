@@ -54,21 +54,24 @@ describe('Component Host', function() {
     this
       .align('top left')
       .width(350)
-      .load( <MyFoo foo='load'><span>Hello</span></MyFoo> )
+      .component( <MyFoo foo='load'><span>Hello</span></MyFoo> )
   });
 
 
-  section('load', () => {
+  section('load `component`', () => {
     it('from `<element>`', () => {
-      this.load( <MyFoo foo={ 123 }><span>Hello</span></MyFoo> )
-    });
-
-    it('from `Type`', () => {
-      this.load(MyFoo, { text:'hello' }, <span>Child</span> );
+      this.component( <MyFoo foo={ 123 }><span>Hello</span></MyFoo> )
     });
 
     it('from `<div>`', () => {
-      this.load( <div>My Div</div> );
+      this.component( <div>My Div</div> );
+    });
+
+    it('function component', () => {
+      const MyFunc = (props) => {
+        return <div>My { props.name } Component</div>;
+      };
+      this.component( <MyFunc name='Funky' /> );
     });
   });
 
