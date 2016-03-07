@@ -4,8 +4,8 @@ import { lorem } from './util';
 const IS_BROWSER = typeof(window) !== 'undefined';
 let css;
 if (IS_BROWSER) {
-  css = require('./css-module.module.css');
-  console.log("css", css);
+  // css = require('./css-module.module.css');
+  // console.log("css", css);
 }
 
 
