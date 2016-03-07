@@ -13,6 +13,7 @@ const CssSample = () => (
   <div className="css-loader-sample">
     <p>{ lorem(50) }</p>
     <p>{ lorem(50) }</p>
+    <p>{ lorem(50) }</p>
   </div>
 );
 
