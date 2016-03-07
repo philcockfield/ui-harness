@@ -118,7 +118,14 @@ export default (options = {}) => {
   if (cssModules) {
     let simpleLoaderAdded = false;
     cssModules.forEach(test => {
-      loaders.push({ test, loader: 'style!css?module' });
+      loaders.push({
+        test,
+        loader: 'style!css?modules',
+
+        // Loader syntax below from:
+        //    https://github.com/css-modules/webpack-demo
+        // loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+      });
       if (test.toString() === simpleCssLoader.test.toString()) {
         simpleLoaderAdded = true;
       }
