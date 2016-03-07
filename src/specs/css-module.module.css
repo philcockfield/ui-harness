@@ -1,0 +1,10 @@
+.css-module-sample p {
+  background-color: rgba(255, 125, 0, 0.1);
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+.css-module-sample p:last-child {
+  margin-bottom: 0;
+}
