@@ -21,7 +21,7 @@ describe('ThisContext: load', () => {
   });
 
   beforeEach(() => {
-    api.reset({ hard:true });
+    api.reset({ hard: true });
     self = new ThisContext();
   });
 
@@ -49,5 +49,20 @@ describe('ThisContext: load', () => {
       expect(api.current.get('componentProps')).to.eql({ text: 'hello' });
       expect(api.current.get('componentChildren')).to.equal('child');
     });
+  });
+
+  it('allows props to be set after the component has loaded', () => {
+    self
+      .component(Foo)
+      .props({ a: 1 });
+    expect(api.current.get('componentProps')).to.eql({ a: 1 });
+  });
+
+  it('merges prop into current props', () => {
+    self
+      .props({ a: 1 })
+      .props({ b: 2 })
+      .component(Foo);
+    expect(api.current.get('componentProps')).to.eql({ a: 1, b: 2 });
   });
 });

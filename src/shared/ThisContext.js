@@ -6,9 +6,8 @@ import R from 'ramda';
 import schema, { PropTypes } from 'react-schema';
 
 import api from './api-internal';
-import page from './page';
 import log from './log';
-
+import page from './page';
 
 const PROP = Symbol('Prop');
 const PROPS = {
@@ -189,8 +188,7 @@ export default class UIHContext {
     if (R.is(Object, _value)) {
       // Cumulatively add given props to the existing
       // props on the component.
-      const component = this[PROP]('componentProps');
-      const props = (component && component.props) || {};
+      const props = this[PROP]('componentProps');
       // No need to clone when using R.merge
       _value = R.merge(props, _value);
     }
