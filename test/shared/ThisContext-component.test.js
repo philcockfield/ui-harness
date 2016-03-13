@@ -15,14 +15,14 @@ class Foo extends React.Component {
 
 describe('ThisContext: load', () => {
   let self;
-  before(() => {
-    bdd.reset();
-    bdd.register();
-  });
 
+  let suite;
+  afterEach(() => { bdd.reset(); });
   beforeEach(() => {
-    api.reset({ hard: true });
-    self = new ThisContext();
+    bdd.register();
+    suite = describe(`My Suite`, () => {});
+    api.setCurrent({ suite });
+    self = suite.meta.thisContext;
   });
 
 
