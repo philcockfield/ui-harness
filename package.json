@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "3.7.1",
+  "version": "3.7.2",
   "description": "Isolate, test and document modular UI with React.",
   "main": "./lib/server",
   "scripts": {
