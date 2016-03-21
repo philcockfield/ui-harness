@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- A `__UIHARNESS__` environment variable that can be used to mix UIHarness specs with server-side unit-tests.
+  See [issue 60](https://github.com/philcockfield/ui-harness/issues/60).
+
 #### Changed
 - Taking an array of entry paths within the `.uiharness.yml` configuration file.
 
