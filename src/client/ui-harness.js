@@ -7,8 +7,8 @@ import ReactDOM from 'react-dom';
 import api from '../shared/api-internal';
 import bdd from '../shared/bdd';
 import Shell from '../components/Shell';
-//
-//
+
+
 // Ensure the 'describe/it' statements are in the global namespace.
 bdd.register();
 

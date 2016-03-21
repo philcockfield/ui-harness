@@ -11,7 +11,7 @@ describe('YAML config (.uiharness)', function() {
     });
 
     it('sets a default entry path', () => {
-      const config = yamlConfig.parse("");
+      const config = yamlConfig.parse('');
       expect(config.entry).to.eql([fsPath.resolve('./src/specs')]);
     });
 
@@ -45,29 +45,30 @@ describe('YAML config (.uiharness)', function() {
 
     it('loads the specified file (absolute)', () => {
       const config = yamlConfig.load(fsPath.resolve('./test/server/sample.yml'));
-      expect(config.entry).to.eql([fsPath.resolve("./foo/specs")]);
+      expect(config.entry).to.eql([fsPath.resolve('./foo/specs')]);
     });
 
     it('loads the .uiharness from the root of the project (no path)', () => {
-      expect(yamlConfig.load().entry).to.eql([fsPath.resolve("./src/specs")]);
-      expect(yamlConfig.load(null).entry).to.eql([fsPath.resolve("./src/specs")]);
-      expect(yamlConfig.load("").entry).to.eql([fsPath.resolve("./src/specs")]);
-      expect(yamlConfig.load("  ").entry).to.eql([fsPath.resolve("./src/specs")]);
+      const result = [fsPath.resolve('./src/specs'), fsPath.resolve('./test/specs')];
+      expect(yamlConfig.load().entry).to.eql(result);
+      expect(yamlConfig.load(null).entry).to.eql(result);
+      expect(yamlConfig.load('').entry).to.eql(result);
+      expect(yamlConfig.load('  ').entry).to.eql(result);
     });
 
     it('loads YAML entry with array of paths', () => {
       const config = yamlConfig.load('./test/server/sample-entry-array.yml');
       expect(config.entry).to.eql([
-        fsPath.resolve("./foo/specs"),
-        fsPath.resolve("./bar/specs"),
+        fsPath.resolve('./foo/specs'),
+        fsPath.resolve('./bar/specs'),
       ]);
     });
 
     it('loads YAML entry with comma-seperated paths', () => {
       const config = yamlConfig.load('./test/server/sample-entry-comma.yml');
       expect(config.entry).to.eql([
-        fsPath.resolve("./foo/specs"),
-        fsPath.resolve("./bar/specs"),
+        fsPath.resolve('./foo/specs'),
+        fsPath.resolve('./bar/specs'),
       ]);
     });
   });

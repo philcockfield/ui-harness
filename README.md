@@ -24,8 +24,6 @@ See the quick-start sample repo https://github.com/philcockfield/ui-harness-samp
 
 
 
-
-
 ## Manual Setup
 The UIHarness is just a simple NPM module.  
 
@@ -165,6 +163,25 @@ uiharness.build({ settings }) // See YAML build settings above.
   .catch(err => { ... });
 
 ```
+
+
+## Environment
+When running the `__UIHARNESS__` environment variable is set to `true`.  Use this as a switch if you wish to consolidate UIHarness specs with unit-tests such as Mocha or Jasmine, or BDD feature/step files.
+
+```js
+if (__UIHARNESS__) {
+  describe('My visual spec', function() {
+    // This will load in the UIHarness
+  });
+}
+
+if (!__UIHARNESS__) {
+  describe('My unit-tests', function() {
+    // This will run within the server-side test runner.
+  });
+}
+```
+
 
 
 ## Examples
