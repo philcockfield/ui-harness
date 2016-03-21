@@ -36,6 +36,11 @@ export default {
    * @param {object} namespace: The target object to register onto (ie. global||window).
    */
   register() {
+    // Set the __UIHARNESS__ flag to true so that spec files which share
+    // both server unit-tests and client visual-specs can determine what
+    // environment they are running within.
+    global.__UIHARNESS__ = true;
+
     // Put the BDD domain-specific language into the global global.
     this.supportedMethods.forEach(name => {
       ORIGINAL_DSL[name] = global[name];

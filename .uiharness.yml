@@ -1,4 +1,6 @@
-entry: ./src/specs
+entry:
+  - ./src/specs
+  - ./test/specs
 port: 3030
 
 proxy:
