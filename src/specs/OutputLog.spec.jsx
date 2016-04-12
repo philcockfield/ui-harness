@@ -8,13 +8,13 @@ describe('OutputLog', function() {
   before(() => {
     this
       .width(300)
-      // .load( <Foo>Foo</Foo> );
+      // .component( <Foo>Foo</Foo> );
       .log('foo')
       .log('foo1', 'bar')
       // .log('foo2')
   });
 
-  it('`load(<Foo/>)`', () => this.load( <Foo>Foo</Foo> ));
+  it('`component(<Foo/>)`', () => this.component( <Foo>Foo</Foo> ));
 
   section('log', () => {
     it('`log()`', () => this.log());

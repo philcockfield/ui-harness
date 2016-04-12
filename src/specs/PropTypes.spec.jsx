@@ -8,12 +8,12 @@ describe('PropTypes', function() {
   this.header(`## Renders a visual representation of the PropTypes API.`);
 
   before(() => {
-    this.load( <MyComponent/> );
+    this.component( <MyComponent/> );
   });
 
   it('`unload`', () => this.unload());
-  it('`load: <MyComponent>`', () => this.load( <MyComponent/> ));
-  it('`load: <Foo>`', () => this.load( <Foo>Foo</Foo> ));
+  it('`load: <MyComponent>`', () => this.component( <MyComponent/> ));
+  it('`load: <Foo>`', () => this.component( <Foo>Foo</Foo> ));
 });
 
 
