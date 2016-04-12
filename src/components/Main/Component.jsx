@@ -30,12 +30,21 @@ class Component extends React.Component {
     const { width, height } = this.size();
     const { current } = this.props;
     const background = current.get('background');
+    let border = current.get('border');
+
+    if (border !== undefined) {
+      if (R.is(Number, border)) {
+        border = `solid 1px ${ numberToGreyscale(border) }`;
+      }
+    }
+
     return css({
       base: {
         position: 'relative',
         width,
         height,
         backgroundColor: numberToGreyscale(background),
+        border: border || 'solid 1px transparent',
       },
     });
   }

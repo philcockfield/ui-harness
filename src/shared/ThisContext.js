@@ -75,6 +75,10 @@ const PROPS = {
     type: PropTypes.numberOrString,
     format: formatColorNumber,
   },
+  border: {
+    type: PropTypes.numberOrString,
+    format: formatColorNumber,
+  },
   scroll: {
     default: false,
     type: PropTypes.oneOf([true, false, 'x', 'y', 'x:y']),

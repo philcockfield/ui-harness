@@ -207,6 +207,26 @@ describe('ThisContext', () => {
   });
 
 
+  describe('border', function() {
+    it('does not have a border by default', () => {
+      expect(context.border()).to.equal(undefined);
+    });
+
+    it('stores a border value', () => {
+      expect(context.border('solid 1px red').border()).to.equal('solid 1px red');
+      expect(context.border(0.5).border()).to.equal(0.5);
+    });
+
+    it('clamps number values between -1..1', () => {
+      expect(context.border(2).border()).to.equal(1);
+      expect(context.border(1.1).border()).to.equal(1);
+      expect(context.border(1).border()).to.equal(1);
+      expect(context.border(0).border()).to.equal(0);
+      expect(context.border(-1).border()).to.equal(0);
+    });
+  });
+
+
 
   describe('scroll', function() {
     it('is not scrolling by default', () => {
