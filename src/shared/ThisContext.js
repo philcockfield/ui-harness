@@ -9,6 +9,14 @@ import api from './api-internal';
 import log from './log';
 import page from './page';
 
+
+const formatColorNumber = (value) => {
+  if (R.is(Number, value)) {
+    value = R.clamp(0, 1, value);
+  }
+  return value;
+};
+
 const PROP = Symbol('Prop');
 const PROPS = {
   children: {
@@ -61,6 +69,11 @@ const PROPS = {
   backdrop: {
     default: 0,
     type: PropTypes.numberOrString,
+    format: formatColorNumber,
+  },
+  background: {
+    type: PropTypes.numberOrString,
+    format: formatColorNumber,
   },
   scroll: {
     default: false,
@@ -97,6 +110,11 @@ export default class UIHContext {
 
       // WRITE.
       if (value !== undefined) {
+        // Format the value if a formatter function was provided.
+        if (R.is(Function, options.format)) {
+          value = options.format(value);
+        }
+
         // Perform type validation.
         const type = options.type;
         if (type) {
@@ -206,9 +224,9 @@ export default class UIHContext {
     invariant(
       // If we're setting the value to nothing, it doesn't need to have a context type
       currentContextTypes || !value,
-      'Make sure you set `this.contextTypes` before trying to set `this.context`.' // eslint-disable-line max-len
+      'Make sure you set `this.contextTypes` before trying to set `this.context`.'
     );
-    //
+
     if (R.is(Object, value)) {
       // Cumulatively add given props to the existing context
       const context = this[PROP]('componentContext') || {};
@@ -251,21 +269,26 @@ export default class UIHContext {
   component(component) {
     invariant(component, 'Cannot load: a component was not specified (undefined/null)');
 
-    // Create a props object of any props set by this.props with props passed down by JSX
+    // Create a props object of any props set by this.props with props
+    // passed down by JSX.
     const props = R.merge(
       this[PROP]('componentProps'), // Existing props from this.props()
-      R.omit('children', component.props) // Don't include props.children in props plucked from JSX
+      R.omit('children', component.props) // Don't include props.children in
+                                          // props plucked from JSX
     );
-    // Update the props in internal state
+
+    // Update the props in internal state.
     this[PROP]('componentProps', props);
 
-    // Find the children of the passed JSX component (if any)
+    // Find the children of the passed JSX component (if any).
     const children = R.path(['props', 'children'], component);
-    // Update internal state with these children
+
+    // Update internal state with these children.
     if (children) this[PROP]('componentChildren', children);
 
-    // Load the component in the window
+    // Load the component in the window.
     api.loadComponent(component);
+
     // Update the window state with internal state
     api.setCurrent(this[PROP].state);
     return this;

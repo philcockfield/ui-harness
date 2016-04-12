@@ -55,7 +55,7 @@ describe('ThisContext', () => {
   });
 
 
-  describe('size (width/height)', function() { // eslint-disable-line prefer-arrow-callback
+  describe('size (width/height)', function() {
     it('has not width/height by default ("auto")', () => {
       expect(context.width()).to.equal('auto');
       expect(context.height()).to.equal('auto');
@@ -98,7 +98,7 @@ describe('ThisContext', () => {
   });
 
 
-  describe('margin', function () { // eslint-disable-line prefer-arrow-callback
+  describe('margin', function () {
     it('it has a default value', () => {
       expect(R.is(Number, context.margin())).to.equal(true);
     });
@@ -113,7 +113,8 @@ describe('ThisContext', () => {
   });
 
 
-  describe('align', function () { // eslint-disable-line prefer-arrow-callback
+
+  describe('align', function () {
     it('has a default value', () => {
       expect(context.align()).to.equal('center top');
     });
@@ -164,7 +165,7 @@ describe('ThisContext', () => {
   });
 
 
-  describe('backdrop', function () { // eslint-disable-line prefer-arrow-callback
+  describe('backdrop', function () {
     it('has default value', () => {
       expect(context.backdrop()).to.equal(0);
     });
@@ -174,7 +175,37 @@ describe('ThisContext', () => {
       const fn = () => { context.backdrop({}); };
       expect(fn).to.throw();
     });
+
+    it('clamps number values between -1..1', () => {
+      expect(context.backdrop(2).backdrop()).to.equal(1);
+      expect(context.backdrop(1.1).backdrop()).to.equal(1);
+      expect(context.backdrop(1).backdrop()).to.equal(1);
+      expect(context.backdrop(0).backdrop()).to.equal(0);
+      expect(context.backdrop(-1).backdrop()).to.equal(0);
+    });
   });
+
+
+
+  describe('background', function() {
+    it('does not have a background by default', () => {
+      expect(context.background()).to.equal(undefined);
+    });
+
+    it('stores a background value', () => {
+      expect(context.background('red').background()).to.equal('red');
+      expect(context.background(0.5).background()).to.equal(0.5);
+    });
+
+    it('clamps number values between -1..1', () => {
+      expect(context.background(2).background()).to.equal(1);
+      expect(context.background(1.1).background()).to.equal(1);
+      expect(context.background(1).background()).to.equal(1);
+      expect(context.background(0).background()).to.equal(0);
+      expect(context.background(-1).background()).to.equal(0);
+    });
+  });
+
 
 
   describe('scroll', function() {

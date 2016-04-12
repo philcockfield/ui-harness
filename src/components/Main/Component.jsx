@@ -7,7 +7,7 @@ import { delay } from 'js-util';
 import api from '../../shared/api-internal';
 import ContextWrapper from './ContextWrapper';
 import CropMarks from '../shared/CropMarks';
-import { css, PropTypes } from '../util';
+import { css, PropTypes, numberToGreyscale } from '../util';
 
 /**
  * Loads and displays a component.
@@ -28,11 +28,14 @@ class Component extends React.Component {
 
   styles() {
     const { width, height } = this.size();
+    const { current } = this.props;
+    const background = current.get('background');
     return css({
       base: {
         position: 'relative',
         width,
         height,
+        backgroundColor: numberToGreyscale(background),
       },
     });
   }
