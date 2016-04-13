@@ -1,11 +1,10 @@
 /* eslint max-len:0 */
 
-import R from 'ramda';
 import React from 'react';
 import Radium from 'radium';
 import Immutable from 'immutable';
 import Color from 'color';
-import { css, PropTypes } from '../util';
+import { css, PropTypes, numberToGreyscale } from '../util';
 import { Card, FlexEdge } from '../shared';
 import Header from './Header';
 import Footer from './Footer';
@@ -25,11 +24,7 @@ class Main extends React.Component {
 
   backgroundColor() {
     let color = this.props.current.get('backdrop') || '#fff';
-    if (R.is(Number, color)) {
-      if (color < 0) { color = 0; }
-      if (color > 1) { color = 1; }
-      color = Color('white').darken(color).hexString();
-    }
+    color = numberToGreyscale(color);
     return color;
   }
 

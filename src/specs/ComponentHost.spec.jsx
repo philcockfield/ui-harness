@@ -192,4 +192,23 @@ describe('Component Host', function() {
     it('`backdrop:1`', () => { this.backdrop(1) });
     it('`backdrop:red`', () => { this.backdrop('red') });
   });
+
+  section('background (color)', () => {
+    it('`background:0`', () => { this.background(0) });
+    it('`background:0.02`', () => { this.background(0.02) });
+    it('`background:0.3`', () => { this.background(0.3) });
+    it('`background:0.6`', () => { this.background(0.6) });
+    it('`background:1`', () => { this.background(1) });
+    it('`background:red`', () => { this.background('red') });
+  });
+
+  section('background (color)', () => {
+    it('`border:null`', () => { this.border(null) });
+    it('`border:0`', () => { this.border(0) });
+    it('`border:0.02`', () => { this.border(0.02) });
+    it('`border:0.3`', () => { this.border(0.3) });
+    it('`border:0.6`', () => { this.border(0.6) });
+    it('`border:1`', () => { this.border(1) });
+    it('`background:red`', () => { this.background('solid 1px red') });
+  });
 });

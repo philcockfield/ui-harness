@@ -10,14 +10,14 @@ describe('Page', function() {
   before(() => {
     this
       .align('top left')
-      .load( <FontSample/> );
+      .component( <FontSample/> );
   });
 
   section('insertFont', () => {
     const load = (url, fontFamily) => {
       this
         .page.insertFont(`https://fonts.googleapis.com/css?family=${ url }`)
-        .load( <FontSample fontFamily={ fontFamily }/> );
+        .component( <FontSample fontFamily={ fontFamily }/> );
     };
 
     it('`Lato`', () => load('Lato:900,300', 'Lato'));

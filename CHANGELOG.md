@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - YYYY-MM-DD
 #### Added
+- Style properties:
+  - `this.border()` style helper
+  - `this.background()` style helper.
+
 #### Changed
 #### Deprecated
 #### Removed
