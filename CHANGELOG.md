@@ -3,18 +3,22 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-
 ## [Unreleased] - YYYY-MM-DD
 #### Added
-- Style properties:
-  - `this.border()` style helper
-  - `this.background()` style helper.
-
 #### Changed
 #### Deprecated
 #### Removed
 #### Fixed
 #### Security
+
+
+
+## [3.8.0] - 2016-04-13
+#### Added
+- Style properties:
+  - `this.border()` style helper
+  - `this.background()` style helper.
+
 
 
 
