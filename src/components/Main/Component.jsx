@@ -44,7 +44,6 @@ class Component extends React.Component {
         width,
         height,
         backgroundColor: numberToGreyscale(background),
-        border: border || 'solid 1px transparent',
       },
     });
   }
