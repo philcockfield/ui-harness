@@ -13,6 +13,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [3.8.1] - 2016-04-14
+#### Removed
+- `this.border()` style helper
+  Caused some problems with component sizing, this needs to be thought through a little more carefully.  Will re-implement this soon.
+
+
+
+
 ## [3.8.0] - 2016-04-13
 #### Added
 - Style properties:
