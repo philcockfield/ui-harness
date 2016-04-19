@@ -52,6 +52,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const port = options.port || YAML_CONFIG.port || 3030;
     const proxy = options.proxy || YAML_CONFIG.proxy;
     const graphqlSchema = options.graphqlSchema || YAML_CONFIG.graphqlSchema;
+    const cssModules = options.cssModules || YAML_CONFIG.cssModules;
 
     // Ensure required values exist.
     if (R.isNil(entry) || R.isEmpty(entry)) { throw new Error(`Entry path(s) must be specified.`); }
@@ -81,6 +82,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       isRelayEnabled,
       entry: specs,
       outputFile: 'specs.js',
+      cssModules,
     });
 
     // Create the development server.
