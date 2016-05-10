@@ -95,7 +95,7 @@ export default (options = {}) => {
       resolveLoader: { fallback: NODE_MODULES_PATH },
       alias: {
         react: REACT_PATH, // Lock the bundled version of React to that of the UIHarness.
-      }
+      },
     },
     plugins: [
       // Remove duplicate code.
