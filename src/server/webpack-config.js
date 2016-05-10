@@ -4,6 +4,7 @@ import { rootModulePath } from './paths';
 
 const NODE_MODULES_PATH = fsPath.join(rootModulePath(), 'node_modules');
 const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/ui-harness');
+const REACT_PATH = fsPath.join(__dirname, '../../node_modules/react');
 
 
 
@@ -92,6 +93,9 @@ export default (options = {}) => {
       moduleDirectories: NODE_MODULES_PATH,
       extensions: ['', '.js', '.jsx', '.json'],
       resolveLoader: { fallback: NODE_MODULES_PATH },
+      alias: {
+        react: REACT_PATH, // Lock the bundled version of React to that of the UIHarness.
+      }
     },
     plugins: [
       // Remove duplicate code.
