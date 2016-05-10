@@ -21,7 +21,6 @@ const displayPath = (path) => trimRootModulePath(path);
 
 
 
-
 /**
  * Starts the UIHarness development server.
  *
@@ -57,7 +56,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     if (R.isNil(entry) || R.isEmpty(entry)) { throw new Error(`Entry path(s) must be specified.`); }
 
     // Ensure the minimum version of node is supported.
-    const nodeVersion = semver.clean(shell.exec('node -v', { silent: true }).output);
+    const nodeVersion = semver.clean(shell.exec('node -v', { silent: true }).stdout);
     if (!semver.satisfies(nodeVersion, REQUIRED_NODE_VERSION)) {
       return reject(new Error(`The UIHarness requires node version ${ REQUIRED_NODE_VERSION }.`));
     }
