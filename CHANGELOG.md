@@ -13,6 +13,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [3.9.0] - 2016-05-10
+#### Changed
+Update references, including bringing React up to `15.0.2`.
+
+
+
 ## [3.8.1] - 2016-04-14
 #### Removed
 - `this.border()` style helper
