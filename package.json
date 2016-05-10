@@ -52,7 +52,7 @@
     "react-dom": "^15.0.2",
     "react-object": "^2.0.11",
     "react-relay": "^0.8.1",
-    "react-schema": "^1.1.0",
+    "react-schema": "^1.3.0",
     "semver": "^5.1.0",
     "shelljs": "^0.7.0",
     "url-loader": "^0.5.7",
