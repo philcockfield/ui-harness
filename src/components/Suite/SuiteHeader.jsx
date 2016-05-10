@@ -25,7 +25,7 @@ class SuiteHeader extends React.Component {
         cursor: 'default',
       },
       titleOuter: {
-        Absolute: '-0 32 null 32',
+        Absolute: '0 32 null 32',
         textAlign: 'center',
         color: Color('white').darken(0.4).hexString(),
         textShadow: `0px 1px white`,
