@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - YYYY-MM-DD
 #### Added
 #### Changed
+- Locking `react` to latest version (finding path to `react` folder hierarchically).
 #### Deprecated
 #### Removed
 #### Fixed
