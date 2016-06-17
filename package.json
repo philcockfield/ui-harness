@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
+    "babel-eslint": "^6.0.4",
     "chai": "^3.5.0",
     "js-babel-dev": "^6.0.6",
     "mocha": "^2.5.3",
