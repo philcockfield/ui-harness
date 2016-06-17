@@ -93,7 +93,8 @@ class IndexColumn extends React.Component {
     }
 
     return (
-      <div style={ styles.base }
+      <div
+        style={ styles.base }
         className="uih"
         onMouseEnter={ this.handleMouseEnter }
         onMouseLeave={ this.handleMouseLeave }>

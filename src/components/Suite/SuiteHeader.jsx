@@ -21,14 +21,14 @@ class SuiteHeader extends React.Component {
       base: {
         position: 'relative',
         height: 32,
-        borderBottom: `solid 1px rgba(0, 0, 0, 0.08)`,
+        borderBottom: 'solid 1px rgba(0, 0, 0, 0.08)',
         cursor: 'default',
       },
       titleOuter: {
         Absolute: '0 32 null 32',
         textAlign: 'center',
         color: Color('white').darken(0.4).hexString(),
-        textShadow: `0px 1px white`,
+        textShadow: '0px 1px white',
         fontWeight: 700,
         fontSize: '16px',
         userSelect: 'none',
@@ -58,7 +58,7 @@ class SuiteHeader extends React.Component {
           onClick={ this.handleMenuClick }
           opacity={ 0.4 }
           cursor="pointer"
-          clickOffset={{ y: 1 }}/>
+          clickOffset={ { y: 1 } } />
 
         <div style={ styles.titleOuter }>
           <Ellipsis display="block">
@@ -72,7 +72,7 @@ class SuiteHeader extends React.Component {
           onClick={ this.handleRefreshClick }
           opacity={ 0.4 }
           cursor="pointer"
-          clickOffset={{ y: 1 }}/>
+          clickOffset={ { y: 1 } } />
       </div>
     );
   }

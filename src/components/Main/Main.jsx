@@ -75,7 +75,7 @@ class Main extends React.Component {
         markdown={ header }
         edge="top"
         hr={ hr }
-        isDark={ isDark }/>);
+        isDark={ isDark } />);
     }
 
     // Footer.
@@ -85,16 +85,16 @@ class Main extends React.Component {
       elFooter = (<Footer
         markdown={ footer }
         isDark={ isDark }
-        flexEdge={{ maxHeight: '50%', overflowY: 'auto' }}/>);
+        flexEdge={ { maxHeight: '50%', overflowY: 'auto' } } />);
     }
 
     // Main content.
-    let el = <ComponentHost current={ current }/>;
+    let el = <ComponentHost current={ current } />;
 
     // Swap out the main host with the log if required.
     const log = current.get('log');
     el = current.get('showLog') && log
-            ? el = <OutputLog items={ log.toJS() }/>
+            ? el = <OutputLog items={ log.toJS() } />
             : el;
 
     return (
@@ -102,7 +102,7 @@ class Main extends React.Component {
         <div style={ styles.base }>
           <FlexEdge orientation="vertical">
             { elHeader }
-            <div flexEdge={{ flex: 1, overflowX, overflowY }}>{ el }</div>
+            <div flexEdge={ { flex: 1, overflowX, overflowY } }>{ el }</div>
             { elFooterHr }
             { elFooter }
           </FlexEdge>

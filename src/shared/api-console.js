@@ -25,7 +25,7 @@ class UIHarness {
    * Logs a value to the output.
    * @param {array} value: The value or values to append.
    */
-   log(...value) { api.log(value); }
+  log(...value) { api.log(value); }
 }
 
 

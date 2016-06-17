@@ -47,7 +47,7 @@ export default (context) => ({
       const exists = elementExists(parentElement, tag, props, childElement);
       if (!exists) {
         const el = document.createElement(tag);
-        Object.keys(props).forEach(key => el[key] = props[key]);
+        Object.keys(props).forEach(key => { el[key] = props[key]; });
         if (childElement) {
           el.appendChild(childElement);
         }

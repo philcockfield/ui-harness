@@ -6,7 +6,12 @@
     "no-param-reassign": 0,
     "padded-blocks": 0,
     "new-cap": [0, { "capIsNewExceptions": ["React.Component"] }],
-    "react/jsx-closing-bracket-location": [2, { "location": "after-props" }]
+    "react/jsx-closing-bracket-location": [2, { "location": "after-props" }],
+    "template-curly-spacing": ["error", "always"],
+    "react/jsx-curly-spacing": ["error", "always"],
+    "no-confusing-arrow": ["error", {"allowParens": true}],
+    "no-underscore-dangle": 0,
+    "global-require": 0
   },
   "env": {
     "mocha": true

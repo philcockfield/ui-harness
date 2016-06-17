@@ -53,7 +53,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const graphqlSchema = options.graphqlSchema || YAML_CONFIG.graphqlSchema;
 
     // Ensure required values exist.
-    if (R.isNil(entry) || R.isEmpty(entry)) { throw new Error(`Entry path(s) must be specified.`); }
+    if (R.isNil(entry) || R.isEmpty(entry)) { throw new Error('Entry path(s) must be specified.'); }
 
     // Ensure the minimum version of node is supported.
     const nodeVersion = semver.clean(shell.exec('node -v', { silent: true }).stdout);
@@ -126,5 +126,6 @@ export default (options = {}) => new Promise((resolve, reject) => {
       log.info('');
       resolve({});
     });
+    return undefined;
   })();
 });

@@ -38,9 +38,9 @@ class Output extends React.Component {
     items = items.reverse();
     items = items.map((item, i) => (
       <OutputLogItem
-        key={i}
+        key={ i }
         time={ item.time }
-        values={ item.values }/>
+        values={ item.values } />
     ));
 
     return (

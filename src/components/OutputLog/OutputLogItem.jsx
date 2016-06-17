@@ -33,18 +33,18 @@ class OutputItem extends React.Component {
   render() {
     const styles = this.styles();
     const { time, values } = this.props;
-    const valueElements = values.map((value, i) => (<Value key={i}>{ value }</Value>));
+    const valueElements = values.map((value, i) => (<Value key={ i }>{ value }</Value>));
 
     return (
       <tr style={ styles.base }>
         <td style={ [styles.td, styles.left] }>
           <Value
             color="grey"
-            mono={false}
-            size={11}>{ moment(time).format('h:mm:ss:SSSS') }</Value>
+            mono={ false }
+            size={ 11 }>{ moment(time).format('h:mm:ss:SSSS') }</Value>
         </td>
         <td style={ [styles.td, styles.right] }>
-          <Value color="red" size={13}>{ valueElements }</Value>
+          <Value color="red" size={ 13 }>{ valueElements }</Value>
         </td>
       </tr>
     );

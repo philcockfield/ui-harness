@@ -26,7 +26,7 @@ class SuiteTreeEmpty extends React.Component {
     return (
       <div style={ styles.base }>
         <div style={ styles.icon }>
-          <IconImage name="startStar"/>
+          <IconImage name="startStar" />
         </div>
         <EmptyLabel>Add some test suites.</EmptyLabel>
       </div>

@@ -71,13 +71,13 @@ class Section extends React.Component {
       <div style={ styles.base }>
         <div style={ styles.titleBar } onClick={ this.handleClick }>
           <Ellipsis>
-            <Twisty margin="0 5px 0 0" isOpen={ this.state.isOpen }/>
+            <Twisty margin="0 5px 0 0" isOpen={ this.state.isOpen } />
             <FormattedText>{ section.name }</FormattedText>
           </Ellipsis>
         </div>
         {
           isOpen && specs.length > 0
-            ? <SpecList specs={ specs } current={ current }/>
+            ? <SpecList specs={ specs } current={ current } />
             : null
         }
         {

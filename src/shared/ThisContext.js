@@ -201,17 +201,17 @@ export default class UIHContext {
    * @param {object} value:  An object containing {prop:value} to add
    */
   props(value) {
-    let _value = value;
+    let val = value;
     // WRITE.
-    if (R.is(Object, _value)) {
+    if (R.is(Object, val)) {
       // Cumulatively add given props to the existing
       // props on the component.
       const props = this[PROP]('componentProps');
       // No need to clone when using R.merge
-      _value = R.merge(props, _value);
+      val = R.merge(props, val);
     }
     // READ.
-    return this[PROP]('componentProps', _value);
+    return this[PROP]('componentProps', val);
   }
 
   /**
@@ -233,7 +233,7 @@ export default class UIHContext {
       R.map(
         key => invariant(
           currentContextTypes[key],
-          `Context key ${key} not specified in contextTypes. Add to context types using this.contextTypes` // eslint-disable-line max-len
+          `Context key ${ key } not specified in contextTypes. Add to context types using this.contextTypes` // eslint-disable-line max-len
         ),
         R.keys(value)
       );
@@ -308,8 +308,8 @@ export default class UIHContext {
    * Logs a value to the output.
    * @param {array} value: The value or values to append.
    */
-   log(...value) {
-     api.log(value);
-     return this;
-   }
+  log(...value) {
+    api.log(value);
+    return this;
+  }
 }

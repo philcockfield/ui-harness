@@ -57,14 +57,14 @@ class UIHarness extends React.Component {
     const { current, leftWidth } = this.state;
     return (
       <div style={ styles.base }>
-        <GlobalStyles/>
+        <GlobalStyles />
 
         <div style={ [styles.column, styles.left] }>
-          <IndexColumn current={ current } width={ leftWidth }/>
+          <IndexColumn current={ current } width={ leftWidth } />
         </div>
 
         <div style={ [styles.column, styles.main] }>
-          <Main current={ current }/>
+          <Main current={ current } />
         </div>
       </div>
     );

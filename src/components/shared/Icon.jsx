@@ -78,7 +78,7 @@ class Icon extends React.Component {
         onMouseDown={ this.handleMouseDown }
         onMouseUp={ this.handleMouseUp }
         onMouseLeave={ this.handleMouseLeave }>
-        <IconImage name={ this.props.name } opacity={ opacity }/>
+        <IconImage name={ this.props.name } opacity={ opacity } />
       </div>
     );
   }

@@ -137,12 +137,12 @@ class Marginal extends React.Component {
 
     return (
       <div style={ styles.base } className="uih">
-        <div className={`uih-header uih-markdown ${ this.props.isDark && 'uih-dark' }`}>
-          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-header"/>
+        <div className={ `uih-header uih-markdown ${ this.props.isDark && 'uih-dark' }` }>
+          <Style rules={ elementStyles(isDark) } scopeSelector=".uih-header" />
           <Markdown
             display="block"
-            trimIndent={false}
-            escapeHtml={false}>
+            trimIndent={ false }
+            escapeHtml={ false }>
             { markdown }
           </Markdown>
         </div>

@@ -48,7 +48,8 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
       log.error();
       log.error(chalk.red(err));
       log.error();
-      return reject(new Error(err));
+      reject(new Error(err));
+      return;
     }
     buildConfig = config.build;
     if (!R.is(Object, buildConfig)) {
@@ -56,7 +57,8 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
       log.error();
       log.error(chalk.red(err));
       log.error();
-      return reject(new Error(err));
+      reject(new Error(err));
+      return;
     }
   }
 
@@ -102,7 +104,8 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
       try {
         stats = await webpackBuilder(itemConfig);
       } catch (err) {
-        return rejectItem(err);
+        rejectItem(err);
+        return;
       }
 
       // Save the file.
@@ -111,13 +114,15 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
           fs.outputFileSync(fsPath.join(outputFolder, file), js.toString('utf8'));
         };
         save(`${ filename }.js`, stats.modules.app.js);
-        save(`vendor.js`, stats.modules.vendor.js);
+        save('vendor.js', stats.modules.vendor.js);
       } catch (err) {
-        return rejectItem(err);
+        rejectItem(err);
+        return;
       }
 
       // Finish up.
       resolveItem({ filename, stats, entry });
+      return;
     })();
   });
 

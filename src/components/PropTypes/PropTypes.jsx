@@ -44,7 +44,7 @@ class PropTypesComponent extends React.Component {
     )(propTypes);
 
     const el = items.length > 0
-      ? <ValueList items={ items } collapsedTotal={0} />
+      ? <ValueList items={ items } collapsedTotal={ 0 } />
       : <EmptyLabel>No PropTypes on component.</EmptyLabel>;
 
     return (

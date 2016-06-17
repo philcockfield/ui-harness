@@ -39,7 +39,7 @@ class Icon extends React.Component {
 
   render() {
     return (
-      <div style={ this.styles().base }/>
+      <div style={ this.styles().base } />
     );
   }
 }

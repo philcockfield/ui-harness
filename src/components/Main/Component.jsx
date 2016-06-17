@@ -98,7 +98,7 @@ class Component extends React.Component {
         width={ width }
         height={ height }>
         <div style={ styles.base }>
-          <ContextWrapper context={current.get('componentContext')}>
+          <ContextWrapper context={ current.get('componentContext') }>
             { element }
           </ContextWrapper>
         </div>
