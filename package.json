@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "3.9.5",
+  "version": "3.9.6",
   "description": "Create, isolate and test modular UI components in React.",
   "main": "./lib/server",
   "scripts": {
@@ -50,7 +50,7 @@
     "react": "^15.1.0",
     "react-atoms": "^2.0.10",
     "react-dom": "^15.1.0",
-    "react-object": "^2.0.11",
+    "react-object": "^2.0.13",
     "react-relay": "^0.9.0",
     "react-schema": "^1.3.0",
     "semver": "^5.1.0",
