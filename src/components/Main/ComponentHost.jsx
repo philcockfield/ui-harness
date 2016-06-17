@@ -36,7 +36,7 @@ class ComponentHost extends React.Component {
               align={ current.get('align') }
               width={ current.get('width') }
               height={ current.get('height') }>
-              <Component current={ current }/>
+              <Component current={ current } />
             </AlignmentContainer>
         }
       </div>

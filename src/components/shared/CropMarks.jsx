@@ -40,10 +40,10 @@ class CropMarks extends React.Component {
     return (
       <div style={ styles.base }>
         { this.props.children }
-        <CropMark { ...props } edge="topLeft"/>
-        <CropMark { ...props } edge="topRight"/>
-        <CropMark { ...props } edge="bottomLeft"/>
-        <CropMark { ...props } edge="bottomRight"/>
+        <CropMark { ...props } edge="topLeft" />
+        <CropMark { ...props } edge="topRight" />
+        <CropMark { ...props } edge="bottomLeft" />
+        <CropMark { ...props } edge="bottomRight" />
       </div>
     );
   }

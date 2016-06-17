@@ -68,22 +68,23 @@ class SuiteTree extends React.Component {
     const items = suites.map((suite, i) => (
       <SuiteTreeItem
         isRoot
-        key={i}
-        index={i}
+        key={ i }
+        index={ i }
         suite={ suite }
         total={ suites.length }
         selectedSuite={ selectedSuite }
         onOverSuite={ this.handleOverSuite }
-        width={ width }/>
+        width={ width } />
     ));
 
     return (
-      <div style={ styles.base }
+      <div
+        style={ styles.base }
         onMouseLeave={ this.handleMouseLeave }>
         {
           items.length > 0
             ? <Ul>{ items }</Ul>
-            : <SuiteTreeEmpty/>
+            : <SuiteTreeEmpty />
         }
       </div>
     );

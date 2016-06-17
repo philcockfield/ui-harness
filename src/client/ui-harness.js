@@ -16,7 +16,7 @@ bdd.register();
 // Render the <Shell> into the DOM.
 const render = () => {
   api.shell = ReactDOM.render(
-    <Shell current={ api.current }/>,
+    <Shell current={ api.current } />,
     document.getElementById('page-root')
   );
 };

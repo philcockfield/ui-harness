@@ -73,39 +73,41 @@ class Suite extends React.Component {
     }, suite.specs);
 
     if (suite.sections) {
-      const includeSection = (section) => hasOnly
+      const includeSection = (section) => (hasOnly
             ? R.any(item => item.isOnly, section.specs())
-            : true;
+            : true);
       sections = suite.sections.map((section, i) => {
         if (includeSection(section)) {
           return (<Section
-            key={i}
+            key={ i }
             section={ section }
             hasOnly={ hasOnly }
             current={ current } />);
         }
+        return undefined;
       });
     }
     return (
       <div style={ styles.base }>
         <FlexEdge orientation="vertical">
-          <SuiteHeader suite={ suite }/>
-          <div style={ styles.middle } flexEdge={1}>
+          <SuiteHeader suite={ suite } />
+          <div style={ styles.middle } flexEdge={ 1 }>
             <div style={ styles.specsList }>
-              <SpecList specs={ specs } current={ current }/>
+              <SpecList specs={ specs } current={ current } />
               { sections }
             </div>
             { hasPropTypes && <div style={ styles.propTypesTitle }>API</div> }
           </div>
           {
             hasPropTypes &&
-              <div flexEdge={{
-                maxHeight: '50%',
-                overflow: 'hidden',
-                overflowY: 'auto' }}>
+              <div
+                flexEdge={ {
+                  maxHeight: '50%',
+                  overflow: 'hidden',
+                  overflowY: 'auto' } }>
                 <PropTypesComponent
                   props={ componentProps }
-                  propTypes={ componentType.propTypes }/>
+                  propTypes={ componentType.propTypes } />
               </div>
           }
         </FlexEdge>

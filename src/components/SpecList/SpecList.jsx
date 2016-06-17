@@ -32,8 +32,8 @@ class SpecList extends React.Component {
     const { current } = this.props;
     const specs = this.props.specs.map((spec, i) => (
       spec.isServer
-          ? <SpecListServerItem key={i} spec={ spec } current={ current }/>
-          : <SpecListItem key={i} spec={ spec } current={ current }/>
+          ? <SpecListServerItem key={ i } spec={ spec } current={ current } />
+          : <SpecListItem key={ i } spec={ spec } current={ current } />
     ));
 
     return (

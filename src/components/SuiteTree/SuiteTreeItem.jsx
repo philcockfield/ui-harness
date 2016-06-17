@@ -5,8 +5,7 @@ import { fromAlpha } from 'js-util/lib/color';
 import { css } from '../util';
 import Color from 'color';
 import api from '../../shared/api-internal';
-import { Ul, Twisty, Ellipsis } from '../shared';
-import { IconImage, FormattedText } from '../shared';
+import { Ul, Twisty, Ellipsis, IconImage, FormattedText } from '../shared';
 
 const TEXT_COLOR = Color('white').darken(0.6).hexString();
 const SELECTED_BG_COLOR = fromAlpha(-0.08);
@@ -110,7 +109,7 @@ class SuiteTreeItem extends React.Component {
         height: 20,
       },
       drillInIcon: {
-        Absolute: `11 5 null null`,
+        Absolute: '11 5 null null',
         opacity: 0.3,
         transform: isOver ? 'translateX(4px)' : null,
         transition: 'transform 0.15s linear',
@@ -197,9 +196,11 @@ class SuiteTreeItem extends React.Component {
     // Prepare selected chrevron pointer.
     let chrevronIcon;
     if (isSelected) {
-      chrevronIcon = (<div style={ styles.drillInIcon }>
-                       <IconImage name="chevronRight"/>
-                     </div>);
+      chrevronIcon = (
+        <div style={ styles.drillInIcon }>
+          <IconImage name="chevronRight" />
+        </div>
+      );
     }
 
     // Prepare a list of child-suites if they exist.
@@ -207,14 +208,14 @@ class SuiteTreeItem extends React.Component {
     if (isOpen && hasChildren) {
       childItems = suite.childSuites.map((item, i) => (
         <SuiteTreeItemRadium
-          key={i}
+          key={ i }
           suite={ item }
-          index={i}
+          index={ i }
           total={ totalChildSuites }
           level={ level + 1 }
           selectedSuite={ selectedSuite }
           onOverSuite={ onOverSuite }
-          width={ width }/>
+          width={ width } />
       ));
 
       childItems = <Ul>{ childItems }</Ul>;
@@ -222,7 +223,7 @@ class SuiteTreeItem extends React.Component {
 
     return (
       <li style={ styles.base }>
-        {/* Item content */}
+        { /* Item content */ }
         <div
           style={ [styles.content, isSelected && styles.contentSelected] }
           onClick={ this.handleClick }
@@ -232,8 +233,8 @@ class SuiteTreeItem extends React.Component {
           <div style={ styles.iconOuter }>
               {
                 hasChildren
-                  ? <Twisty isOpen={ isOpen } isAnimated={ isMounted }/>
-                  : <IconImage name="suiteBook"/>
+                  ? <Twisty isOpen={ isOpen } isAnimated={ isMounted } />
+                  : <IconImage name="suiteBook" />
               }
           </div>
           <div style={ styles.title }>
@@ -245,7 +246,7 @@ class SuiteTreeItem extends React.Component {
 
         </div>
 
-        {/* Child suites (RECURSION) */}
+        { /* Child suites (RECURSION) */ }
         { childItems }
 
       </li>

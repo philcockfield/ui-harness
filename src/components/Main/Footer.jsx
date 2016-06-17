@@ -36,7 +36,7 @@ class Footer extends React.Component {
     return (
       <div style={ styles.base } className="uih">
         <div style={ styles.markdownOuter }>
-          <Markdown className={`uih-markdown ${ this.props.isDark && 'uih-dark' }`}>
+          <Markdown className={ `uih-markdown ${ this.props.isDark && 'uih-dark' }` }>
             { this.props.markdown }
           </Markdown>
         </div>

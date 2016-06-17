@@ -127,7 +127,7 @@ export default (options = {}) => {
   //    See - https://webpack.github.io/docs/list-of-plugins.html
   //        - https://github.com/webpack/docs/wiki/optimization
   //
-  const addPlugin = (flag, plugin) => { if (flag === true) { config.plugins.push(plugin); }};
+  const addPlugin = (flag, plugin) => { if (flag === true) { config.plugins.push(plugin); } };
   addPlugin(isProduction, new webpack.optimize.UglifyJsPlugin({ minimize: true }));
   addPlugin(isProduction, new webpack.optimize.OccurrenceOrderPlugin(true));
   addPlugin(isProduction, productionEnvPlugin);

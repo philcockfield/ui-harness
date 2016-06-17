@@ -20,7 +20,10 @@ import { introspectionQuery, printSchema } from 'graphql/utilities';
 export default (schemaPath, outputDir, outputFile = 'schema') => new Promise((resolve, reject) => {
 
   // Setup initial conditions.
-  if (isBlank(outputDir)) { return reject(new Error(`An output directory was not specified`)); }
+  if (isBlank(outputDir)) {
+    reject(new Error('An output directory was not specified'));
+    return;
+  }
   const paths = {
     json: `${ outputDir }/${ outputFile }.json`,
     graphql: `${ outputDir }/${ outputFile }.graphql`,
@@ -28,13 +31,15 @@ export default (schemaPath, outputDir, outputFile = 'schema') => new Promise((re
 
   // Ensure the schema exists.
   if (!fs.existsSync(schemaPath)) {
-    return reject(new Error(`A schema at the path '${ schemaPath }' does not exist.`));
+    reject(new Error(`A schema at the path '${ schemaPath }' does not exist.`));
+    return;
   }
   const Schema = require(schemaPath).Schema;
   if (!(Schema instanceof GraphQLSchema)) {
-    return reject(
+    reject(
       new Error(`The module at the path '${ schemaPath }' does not expose a {Schema}.`)
     );
+    return;
   }
 
   (async () => {
@@ -43,7 +48,8 @@ export default (schemaPath, outputDir, outputFile = 'schema') => new Promise((re
     if (jsonResult.errors) {
       const error = new Error('Failed while introspecting schema.');
       error.errors = jsonResult.errors;
-      return reject(error);
+      reject(error);
+      return;
     }
     fs.outputFileSync(
       paths.json,

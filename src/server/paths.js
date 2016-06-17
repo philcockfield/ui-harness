@@ -1,4 +1,4 @@
-/* eslint max-len:0 */
+/* eslint max-len:0, no-useless-escape:0 */
 
 import R from 'ramda';
 import fs from 'fs-extra';
@@ -61,15 +61,15 @@ export const formatEntryPaths = (entry) => {
   return entry
     // Ensure there is a specific index.js entry file if only a folder was given.
     // NB: Not having a specific entry file can cause build-errors in WebPack.
-    .map(path => path.endsWith('.js') || path.endsWith('.jsx')
+    .map(path => (path.endsWith('.js') || path.endsWith('.jsx')
         ? path
-        : `${ path }/index.js`)
+        : `${ path }/index.js`))
 
     // Escape white-spaces within paths.
     .map(path => path.replace(/ /, '\ '))
 
     // Resolve relative (.) paths into fully-qualified paths.
-    .map(path => path.startsWith('.') ? fsPath.resolve(path) : path)
+    .map(path => (path.startsWith('.') ? fsPath.resolve(path) : path))
 
     // Remove any paths that don't actually exist.
     .filter(path => fs.existsSync(path));

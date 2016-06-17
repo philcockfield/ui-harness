@@ -26,7 +26,8 @@ export default (schemaPath) => new Promise((resolve, reject) => {
     // Ensure the schema exists.
     if (!fs.existsSync(schemaPath)) {
       const msg = `The GraphQL JS schema file path '${ schemaPath }' does not exist.`;
-      return reject(new Error(msg));
+      reject(new Error(msg));
+      return;
     }
 
     // Extract path information.
@@ -40,7 +41,8 @@ export default (schemaPath) => new Promise((resolve, reject) => {
       try {
         await updateSchema(schemaPath, dir, file);
       } catch (err) {
-        return reject(err);
+        reject(err);
+        return;
       }
     }
 

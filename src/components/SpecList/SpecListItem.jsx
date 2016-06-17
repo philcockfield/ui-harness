@@ -60,12 +60,13 @@ class SpecListItem extends React.Component {
     const styles = this.styles();
     const { spec } = this.props;
     return (
-      <li style={ styles.base }
+      <li
+        style={ styles.base }
         onMouseEnter={ this.handleMouseEnter }
         onMouseLeave={ this.handleMouseLeave }
         onClick={ this.handleClick }>
 
-        <div style={ styles.bullet }/>
+        <div style={ styles.bullet } />
         <div style={ styles.name }>
           <Ellipsis>
             <FormattedText>{ spec.name }</FormattedText>

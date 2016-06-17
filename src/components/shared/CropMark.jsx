@@ -67,10 +67,12 @@ class CropMark extends React.Component {
     const styles = this.styles();
     let el = null;
     if (this.props.size > 0) {
-      el = (<div style={ styles.base }>
-             <div style={ styles.xAxis }/>
-             <div style={ styles.yAxis }/>
-           </div>);
+      el = (
+        <div style={ styles.base }>
+          <div style={ styles.xAxis } />
+          <div style={ styles.yAxis } />
+        </div>
+      );
     }
     return el;
   }
