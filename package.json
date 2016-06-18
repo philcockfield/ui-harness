@@ -5,11 +5,11 @@
   "main": "./lib/server",
   "scripts": {
     "build:watch": "npm run build -- --watch",
-    "build": "rm -rf lib && ./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
     "dev": "QUICK_BUILD=true ./node_modules/.bin/nodemon -x \"./node_modules/babel-cli/bin/babel-node.js start.js\"",
     "lint": "eslint --ext .js,.jsx ./src && tslint src/**/*.ts{,x}",
     "postinstall": "typings install",
-    "prepublish": "npm test && npm run lint && npm run build",
+    "prepublish": "npm test && npm run lint && rm -rf lib && npm run build",
     "start": "node start",
     "tdd": "npm run test -- --reporter min --watch",
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel-register"
