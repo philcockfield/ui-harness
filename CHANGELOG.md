@@ -3,14 +3,22 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+
 ## [Unreleased] - YYYY-MM-DD
 #### Added
 #### Changed
-- Locking `react` to latest version (finding path to `react` folder hierarchically).
 #### Deprecated
 #### Removed
 #### Fixed
 #### Security
+
+
+
+
+## [3.10.0] - 2016-06-18
+#### Changed
+- Locking `react` to latest version (finding path to `react` folder hierarchically).
+- Saving `stats.json` object with build output.
 
 
 

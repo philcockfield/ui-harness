@@ -169,12 +169,31 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
     .then(() => startBuilders())
     .then(builders => Promise.all(builders))
     .then(results => {
-      const secs = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
+      const totalTime = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
+      const secs = Math.round(totalTime);
       const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
 
       // Log results.
       logModules(results, secs);
       log.info(chalk.green(`${ secs } seconds`));
+
+      // Save 'stats.json' object.
+      const filesJson = results.reduce((acc, value) => {
+        const modules = {};
+        Object.keys(value.stats.modules).forEach(key => {
+          const { file, size, zipped } = value.stats.modules[key];
+          modules[key] = { file, size, zipped };
+        });
+        acc[value.filename] = {
+          stats: value.stats.buildTime,
+          modules,
+        };
+        return acc;
+      }, {});
+      fs.writeJsonSync(fsPath.join(outputFolder, 'stats.json'), {
+        buildTime: { secs },
+        filesJson,
+      });
 
       // Finish up.
       resolve({ files, secs });
