@@ -169,8 +169,8 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
     .then(() => startBuilders())
     .then(builders => Promise.all(builders))
     .then(results => {
-      const totalTime = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
-      const secs = Math.round(totalTime);
+      let secs = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
+      secs = +secs.toFixed(1);
       const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
 
       // Log results.
@@ -178,21 +178,25 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
       log.info(chalk.green(`${ secs } seconds`));
 
       // Save 'stats.json' object.
-      const filesJson = results.reduce((acc, value) => {
-        const modules = {};
+      const modules = results.reduce((acc, value) => {
+        const items = {};
         Object.keys(value.stats.modules).forEach(key => {
           const { file, size, zipped } = value.stats.modules[key];
-          modules[key] = { file, size, zipped };
+          items[key] = {
+            file,
+            size: size.display,
+            zipped: zipped.display,
+          };
         });
         acc[value.filename] = {
-          stats: value.stats.buildTime,
-          modules,
+          buildTime: `${ value.stats.buildTime.secs }s`,
+          files: items,
         };
         return acc;
       }, {});
       fs.writeJsonSync(fsPath.join(outputFolder, 'stats.json'), {
-        buildTime: { secs },
-        filesJson,
+        buildTime: `${ secs }s`,
+        modules,
       });
 
       // Finish up.
