@@ -6,7 +6,7 @@ describe('ui-harness', function() {
   require('./it-server.spec');
   require('./PropTypes.spec');
   require('./page.spec');
-  require('./typescript.spec.tsx')
+  require('./typescript.spec')
 });
 
 // External libs.
