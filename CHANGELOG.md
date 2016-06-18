@@ -15,6 +15,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [3.11.0] - 2016-06-18
+#### Added
+- [Typescript](https://www.typescriptlang.org) support.
+
+
+
+
 ## [3.10.0] - 2016-06-18
 #### Changed
 - Locking `react` to latest version (finding path to `react` folder hierarchically).
