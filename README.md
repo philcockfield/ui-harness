@@ -35,7 +35,7 @@ Simply add it to you `package.json` file, with a `start` script:
   "name": "my-components",
   "version": "1.0.0",
   "scripts": {
-    "uih": "node ./node_modules/ui-harness/start --entry=./src/specs",
+    "start": "node ./node_modules/ui-harness/start --entry=./src/specs",
   },
   "devDependencies": {
     "ui-harness": "^3.3.0"
@@ -48,7 +48,7 @@ From here you can start developing your React components.  All the core dependen
 
 Now simply run:
 
-    npm run uih
+    npm start
 
 And navigate your browser to `http://localhost:3030`
 
