@@ -38,12 +38,11 @@ export const closestModulePath = (moduleDir, moduleName) => {
   const dir = fsPath.join(moduleDir, 'node_modules', moduleName);
   if (fs.existsSync(dir)) {
     return dir;
-  } else {
-    // Not found, walk up the folder-hierarhcy.
-    const parent = fsPath.resolve(moduleDir, '..');
-    if (parent !== '/') {
-      return closestModulePath(parent, moduleName); // <== RECURSION.
-    }
+  }
+  // Not found, walk up the folder-hierarhcy.
+  const parent = fsPath.resolve(moduleDir, '..');
+  if (parent !== '/') {
+    return closestModulePath(parent, moduleName); // <== RECURSION.
   }
   return undefined;
 };

@@ -1,5 +1,4 @@
 import webpack from 'webpack';
-import fs from 'fs-extra';
 import fsPath from 'path';
 import { rootModulePath, closestModulePath } from './paths';
 

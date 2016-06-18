@@ -169,7 +169,8 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
     .then(() => startBuilders())
     .then(builders => Promise.all(builders))
     .then(results => {
-      const secs = Math.round(R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results));
+      const totalTime = R.reduce((prev, curr) => prev + curr.stats.buildTime.secs, 0, results);
+      const secs = Math.round(totalTime);
       const files = results.map(item => fsPath.join(outputFolder, `${ item.filename }.js`));
 
       // Log results.
