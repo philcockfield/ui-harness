@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import fs from 'fs-extra';
 import fsPath from 'path';
-import { rootModulePath } from './paths';
+import { rootModulePath, closestModulePath } from './paths';
 
 const NODE_MODULES_PATH = fsPath.join(rootModulePath(), 'node_modules');
 const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/ui-harness');
@@ -13,14 +13,8 @@ const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/ui-harness');
 //    latest version supported by UIHarness, and will be here if another reference
 //    has caused a different version of react to be held in the root node_modules.
 //
-//  - If not found locally, then grab react from the containing module.
-//
-const REACT_PATH = [
-  fsPath.join(__dirname, '../../node_modules/react'),
-  fsPath.join(NODE_MODULES_PATH, '/react'),
-].find(fs.existsSync);
-
-
+//  - If not found locally, then walk up the tree to find the first reference of it.
+const REACT_PATH = closestModulePath(fsPath.join(__dirname, '../../'), 'react');
 
 
 
@@ -84,6 +78,10 @@ export default (options = {}) => {
   const isProduction = options.isProduction || false;
   const outputFile = options.outputFile || 'bundle.js';
   const isRelayEnabled = options.isRelayEnabled || false;
+
+  if (!REACT_PATH) {
+    throw new Error('The path to the `react` module was not found. Make sure it is installed');
+  }
 
   let vendor = options.vendor;
   if (vendor === undefined) {
