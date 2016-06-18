@@ -33,26 +33,34 @@ const productionEnvPlugin = new webpack.DefinePlugin({
 });
 
 
+const relayPluginQuery = `plugins[]=${ fsPath.join(__dirname, '../relay/babel-relay-plugin') }`;
+
 const babelLoader = (extension, isRelayEnabled) => {
   const loader = {
     // See: https://github.com/babel/babel-loader#options
-    loader: 'babel',
+    loaders: ['babel'],
     test: extension,
     exclude: /(node_modules|bower_components)/,
-    query: {
-      plugins: [],
-    },
   };
 
   // Add optional plugins.
   if (isRelayEnabled) {
-    loader.query.plugins.push(fsPath.join(__dirname, '../relay/babel-relay-plugin'));
+    loader.loaders[0] += relayPluginQuery;
   }
 
   // Finish up.
   return loader;
 };
 
+const typescriptLoader = (extension, isRelayEnabled) => {
+  // Extend existing config
+  const loader = babelLoader(extension, isRelayEnabled);
+
+  // Add typescript loader
+  loader.loaders.push('awesome-typescript-loader');
+
+  return loader;
+};
 
 
 /**
@@ -95,6 +103,7 @@ export default (options = {}) => {
       loaders: [
         babelLoader(/\.js$/, isRelayEnabled),
         babelLoader(/\.jsx$/, isRelayEnabled),
+        typescriptLoader(/\.tsx?$/, isRelayEnabled),
         { test: /\.json$/, loader: 'json-loader' },
         { test: /\.(png|svg)$/, loader: 'url-loader' },
       ],
@@ -102,7 +111,7 @@ export default (options = {}) => {
     devtool: isProduction ? undefined : 'cheap-module-eval-source-map',
     resolve: {
       moduleDirectories: NODE_MODULES_PATH,
-      extensions: ['', '.js', '.jsx', '.json'],
+      extensions: ['', '.js', '.jsx', '.json', '.ts', '.tsx'],
       resolveLoader: { fallback: NODE_MODULES_PATH },
       alias: {
         react: REACT_PATH, // Lock the bundled version of React to that of the UIHarness.

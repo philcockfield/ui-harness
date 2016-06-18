@@ -22,7 +22,15 @@ export default (config, options = {}) => {
     contentBase: '/public/',
     proxy: options.proxy,
     publicPath: '/js/',
-    stats: { colors: true },
+    stats: {
+      assets: false,
+      colors: true,
+      version: false,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+    },
   };
 
   // Finish up.

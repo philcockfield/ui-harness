@@ -7,7 +7,8 @@
     "build:watch": "npm run build -- --watch",
     "build": "rm -rf lib && ./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
     "dev": "QUICK_BUILD=true ./node_modules/.bin/nodemon -x \"./node_modules/babel-cli/bin/babel-node.js start.js\"",
-    "lint": "eslint --ext .js,.jsx ./src",
+    "lint": "eslint --ext .js,.jsx ./src && tslint src/**/*.ts{,x}",
+    "postinstall": "typings install",
     "prepublish": "npm test && npm run lint && npm run build",
     "start": "node start",
     "tdd": "npm run test -- --reporter min --watch",
@@ -60,12 +61,17 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^1.1.1",
     "babel-cli": "^6.10.1",
     "chai": "^3.5.0",
     "js-babel-dev": "^6.0.6",
     "mocha": "^2.5.3",
     "nodemon": "^1.8.1",
-    "sinon": "^1.16.1"
+    "sinon": "^1.16.1",
+    "tslint": "^3.11.0",
+    "tslint-react": "^0.2.0",
+    "typescript": "^1.9.0-dev.20160617-1.0",
+    "typings": "^1.3.0"
   },
   "repository": {
     "type": "git",
