@@ -1,0 +1,7 @@
+{
+  "name": "ui-harness",
+  "dependencies": {},
+  "globalDependencies": {
+    "react": "registry:dt/react#0.14.0+20160602151522"
+  }
+}

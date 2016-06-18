@@ -5,7 +5,6 @@ import fs from 'fs-extra';
 import fsPath from 'path';
 import chalk from 'chalk';
 import log from '../shared/log';
-import bdd from '../shared/bdd';
 
 
 
@@ -109,11 +108,6 @@ export const formatEntryPaths = (entry) => {
  */
 export const formatSpecPaths = (entry) => {
   const paths = formatEntryPaths(entry);
-
-  // Parse the specs.
-  bdd.register();
-  paths.forEach(path => require(path));
-  bdd.unregister();
 
   // Check for non-standard characters within the paths.
   paths.forEach(path => {

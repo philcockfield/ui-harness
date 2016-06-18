@@ -6,3 +6,4 @@ npm-debug.log
 test/.temp
 /example/relay/data/schema.graphql
 /example/relay/data/schema.json
+typings
