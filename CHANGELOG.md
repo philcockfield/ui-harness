@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-## [3.11.0] - 2016-06-18
+## [3.11.0-beta1] - 2016-06-18
 #### Added
 - [Typescript](https://www.typescriptlang.org) support.
 
