@@ -22,10 +22,31 @@ export const rootModulePath = () => {
     ? fsPath.resolve('../../')
     : fsPath.resolve('./');
 };
-
-
-
 const ROOT_PATH = rootModulePath();
+
+
+
+/**
+ * Walks up the folder hierarchy looking for the closest module.
+ * @param {String} moduleDir: The path to the module directory
+ *                            (ie. the parent of node_modules).
+ * @param {String} moduleName: The name of the module you are looking for.
+ *
+ * @return {String}.
+ */
+export const closestModulePath = (moduleDir, moduleName) => {
+  const dir = fsPath.join(moduleDir, 'node_modules', moduleName);
+  if (fs.existsSync(dir)) {
+    return dir;
+  } else {
+    // Not found, walk up the folder-hierarhcy.
+    const parent = fsPath.resolve(moduleDir, '..');
+    if (parent !== '/') {
+      return closestModulePath(parent, moduleName); // <== RECURSION.
+    }
+  }
+  return undefined;
+};
 
 
 

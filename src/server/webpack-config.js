@@ -8,14 +8,19 @@ const UIHARNESS_ENTRY = fsPath.join(__dirname, '../client/ui-harness');
 
 
 // Retrieve the path to the `react` module.
+//
 //  - First look within the UIHarness module, as that will be the
 //    latest version supported by UIHarness, and will be here if another reference
 //    has caused a different version of react to be held in the root node_modules.
+//
 //  - If not found locally, then grab react from the containing module.
+//
 const REACT_PATH = [
   fsPath.join(__dirname, '../../node_modules/react'),
   fsPath.join(NODE_MODULES_PATH, '/react'),
 ].find(fs.existsSync);
+
+
 
 
 
