@@ -8,7 +8,6 @@
     "quotemark": [
         true, "single"
     ],
-    // enable tslint-react rules here
     "jsx-no-lambda": true
   }
 }
