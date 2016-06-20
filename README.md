@@ -44,7 +44,7 @@ Simply add it to you `package.json` file, with a `start` script:
 }
 ```
 
-If you are using TypeScript, you will also need to ensure you have a type definitions for your dependencies, such as React and React-DOM.
+If you are using TypeScript, you will also need to ensure you have type definitions for your dependencies, such as React and React-DOM.
 
 From here you can start developing your React components.  All the core dependencies for `react` and `babel` transpiling are made available to your module by virtue of the one `ui-harness` dependency.
 
