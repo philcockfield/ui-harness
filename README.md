@@ -102,18 +102,25 @@ For example:
 #### .uiharness.yml
 These values can alternatively be declared in a `.uiharness.yml` configuration file in the root of your project, with the following additional values that can only be declared within a YAML configuration:
 
-- `--graphqlSchema`
+- `graphqlSchema`
 A path to the [GraphQL](https://facebook.github.io/graphql/) `schema.js` file. If not specified [Relay](https://facebook.github.io/relay/) will not be enabled.
 
-- `--proxy` An object containing `{ path, host }` mappings to proxy server requests to ([reference](https://webpack.github.io/docs/webpack-dev-server.html#proxy)).
+- `proxy` An object containing `{ path, host }` mappings to proxy server requests to ([reference](https://webpack.github.io/docs/webpack-dev-server.html#proxy)).
+
+- `images` An object containing `{ baseUrl, dir }` that declares where images are served from.  Default image values are:
+  - `baseUrl: <package-name>`
+  - `dir: ./images`
 
 
 ```yml
-entry: ./src/specs  # Path, comma-seperated paths, or array of paths.
+entry: ./src/specs  # Path, comma-separated paths, or array of paths.
 port: 3030
-graphqlSchema: './data/schema.js'
+graphqlSchema: ./data/schema.js
 proxy:
   /graphql: http://localhost:8080
+images:
+  baseUrl: /my-images
+  dir: ./assets/images
 ```
 
 

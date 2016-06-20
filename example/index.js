@@ -14,6 +14,7 @@ args = args.length > 0 ? args = minimist(args) : { _:[] };
 var example = args._[0] || 'relay';
 switch (example) {
   case 'relay': require('./relay/server'); break;
+  case 'image-path': require('./image-path/server'); break;
 
   default:
     console.log(`Example '${ example }' not found.`);

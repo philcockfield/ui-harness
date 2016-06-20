@@ -31,7 +31,6 @@ const productionEnvPlugin = new webpack.DefinePlugin({
 });
 
 
-const relayPluginQuery = `plugins[]=${ fsPath.join(__dirname, '../relay/babel-relay-plugin') }`;
 
 const babelLoader = (extension, isRelayEnabled) => {
   const loader = {
@@ -43,7 +42,7 @@ const babelLoader = (extension, isRelayEnabled) => {
 
   // Add optional plugins.
   if (isRelayEnabled) {
-    loader.loaders[0] += relayPluginQuery;
+    loader.loaders[0] += `?plugins[]=${ fsPath.join(__dirname, '../relay/babel-relay-plugin') }`;
   }
 
   // Finish up.
