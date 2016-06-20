@@ -51,6 +51,9 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const port = options.port || YAML_CONFIG.port || 3030;
     const proxy = options.proxy || YAML_CONFIG.proxy;
     const graphqlSchema = options.graphqlSchema || YAML_CONFIG.graphqlSchema;
+    const images = options.images
+      || YAML_CONFIG.images
+      || { baseUrl: `/${ packageJson.name }/images`, dir: 'images' };
 
     // Ensure required values exist.
     if (R.isNil(entry) || R.isEmpty(entry)) { throw new Error('Entry path(s) must be specified.'); }
@@ -85,7 +88,9 @@ export default (options = {}) => new Promise((resolve, reject) => {
     // Create the development server.
     const app = webpackDevServer(config, { proxy });
     app.use('/', express.static(fsPath.resolve(__dirname, '../../public')));
-    app.use(`/${ packageJson.name }/images`, express.static(fsPath.join(ROOT_PATH, 'images')));
+
+    // Create an end-point to serve images from.
+    app.use(images.baseUrl, express.static(fsPath.join(ROOT_PATH, images.dir)));
 
     // Start the server.
     log.info('\n');
@@ -103,12 +108,14 @@ export default (options = {}) => new Promise((resolve, reject) => {
       if (isRelayEnabled) {
         log.info(chalk.grey(' - graphql:  '), displayPath(graphqlSchema));
       }
-
       // Specs.
       log.info(chalk.grey(' - specs:    '), displayPath(specs[0]) || chalk.magenta('None.'));
       R.takeLast(specs.length - 1, specs).forEach(path => {
         log.info(chalk.grey('             '), displayPath(path));
       });
+
+      // Images.
+      log.info(chalk.grey(' - images:   '), chalk.grey(`${ images.baseUrl } =>`), images.dir);
 
       // Proxy.
       if (YAML_CONFIG.proxy) {

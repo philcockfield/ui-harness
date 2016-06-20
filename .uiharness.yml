@@ -6,6 +6,10 @@ port: 3030
 proxy:
   /graphql: http://localhost:4000
 
+images:
+  baseUrl: /my-images
+  dir: example/image-path/images
+
 build:
   prod: false
   outputFolder: ./.build/my-folder

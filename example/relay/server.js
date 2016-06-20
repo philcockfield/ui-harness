@@ -12,6 +12,10 @@ import log from '../../lib/shared/log';
 const GRAPHQL_PORT = 4000;
 const UIHARNESS_PORT = 3030;
 
+log.info(chalk.cyan('--------------------------------------------------------'));
+log.info(chalk.cyan('Relay Example'));
+log.info(chalk.cyan('--------------------------------------------------------'));
+
 
 // Configure the GraphQL server.
 var graphqlServer = express();
