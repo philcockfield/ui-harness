@@ -10,6 +10,6 @@ describe('relay', function() {
                   Component={App}
                   route={new AppHomeRoute()}/>
 
-    this.load(el);
+    this.component(el);
   });
 });
