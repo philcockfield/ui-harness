@@ -136,12 +136,11 @@ export default (options = {}) => {
     cssModules.forEach(test => {
       loaders.push({
         test,
-        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', // eslint-disable-line max-len
         exclude: /node_modules/,
 
         // Loader syntax below from:
         //    https://github.com/css-modules/webpack-demo
-        // loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
       });
       if (test.toString() === simpleCssLoader.test.toString()) {
         simpleLoaderAdded = true;
@@ -153,9 +152,12 @@ export default (options = {}) => {
     if (!simpleLoaderAdded) {
 
       /*
-      We need to exclude all paths meant for css modules from the standard css parser, otherwise webpack will run the module code through both matches, which results in the JS being parsed as CSS. Eek!
+      We need to exclude all paths meant for css modules from the standard css parser, otherwise
+      webpack will run the module code through both matches, which results in the JS being parsed
+      as CSS. Eek!
 
-      To do this, we need to "exclude" all the css modules regexes from the standard css regex. We can do this using negative lookups.
+      To do this, we need to "exclude" all the css modules regexes from the standard css regex. We
+      can do this using negative lookups.
 
       General regex form: /^((?![css_sources joined with |]).)*.[standard_css_source]$/
       Explanation:
@@ -175,7 +177,8 @@ export default (options = {}) => {
       https://regex101.com/r/gL5lR9/1 (regex tester made to test this code)
       */
 
-      // We need to extract the regex part inside the // markers - i.e. don't use the string representation
+      // We need to extract the regex part inside the // markers - i.e. don't use the string
+      // representation
       const sources = cssModules.map(test => test.source);
       const simpleRegexWithoutModule = new RegExp(
         `^((?!${ sources.join('|') }).)*${ simpleCssLoader.test.source }`
