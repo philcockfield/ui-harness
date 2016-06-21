@@ -11,7 +11,7 @@ import {
   formatSpecPaths,
   rootModulePath,
   trimRootModulePath,
-  REACT_PATH
+  REACT_PATH,
 } from './paths';
 import log from '../shared/log';
 import initRelay from '../relay/init-relay';
@@ -19,7 +19,6 @@ import * as yamlConfig from './yaml-config';
 
 const REQUIRED_NODE_VERSION = '>=5.5.0';
 const ROOT_PATH = rootModulePath();
-const NODE_MODULES = fsPath.resolve('./node_modules');
 const YAML_CONFIG = yamlConfig.load() || {};
 
 const displayPath = (path) => trimRootModulePath(path);
