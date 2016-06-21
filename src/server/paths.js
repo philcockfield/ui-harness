@@ -47,6 +47,18 @@ export const closestModulePath = (moduleDir, moduleName) => {
 };
 
 
+/**
+ *  Retrieve the path to the `react` module.
+ *
+ *   - First look within the UIHarness module, as that will be the
+ *     latest version supported by UIHarness, and will be here if another reference
+ *     has caused a different version of react to be held in the root node_modules.
+ *
+ *   - If not found locally, then walk up the tree to find the first reference of it.
+ */
+export const REACT_PATH = closestModulePath(fsPath.join(__dirname, '../../'), 'react');
+
+
 
 /**
  * Trims the root module path from the given path (if it exists).

@@ -7,7 +7,12 @@ import shell from 'shelljs';
 import semver from 'semver';
 import webpackConfig from './webpack-config';
 import webpackDevServer from './webpack-dev-server';
-import { formatSpecPaths, rootModulePath, trimRootModulePath } from './paths';
+import {
+  formatSpecPaths,
+  rootModulePath,
+  trimRootModulePath,
+  REACT_PATH
+} from './paths';
 import log from '../shared/log';
 import initRelay from '../relay/init-relay';
 import * as yamlConfig from './yaml-config';
@@ -97,7 +102,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     log.info(chalk.grey(`Starting (${ env })...`));
     app.listen(port, () => {
       // Server details.
-      const reactJson = require(fsPath.join(NODE_MODULES, 'react/package.json'));
+      const reactJson = require(fsPath.join(REACT_PATH, 'package.json'));
       const moduleVersion = packageJson.version || '0.0.0';
       const packageName = chalk.magenta(packageJson.name);
       const packageVersion = chalk.grey(`(v${ moduleVersion })`);
