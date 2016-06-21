@@ -136,7 +136,7 @@ export default (options = {}) => {
     cssModules.forEach(test => {
       loaders.push({
         test,
-        loader: 'style!css?modules',
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
 
         // Loader syntax below from:
         //    https://github.com/css-modules/webpack-demo
@@ -146,9 +146,45 @@ export default (options = {}) => {
         simpleLoaderAdded = true;
       }
     });
+
+
     // Add the simple CSS loader if the extension was not included for css-module's.
     if (!simpleLoaderAdded) {
-      loaders.push(simpleCssLoader);
+
+      /*
+      We need to exclude all paths meant for css modules from the standard css parser, otherwise webpack will run the module code through both matches, which results in the JS being parsed as CSS. Eek!
+
+      To do this, we need to "exclude" all the css modules regexes from the standard css regex. We can do this using negative lookups.
+
+      General regex form: /^((?![css_sources joined with |]).)*.[standard_css_source]$/
+      Explanation:
+      ^ -   need to assert start of string otherwise our negative lookup won't work
+      ?! -  negative lookup - don't match what's in this matching group (i.e. parenthesis)
+      [css_sources] -   the regexes *not* to match
+      | -   a way to join sources as to not match *any* of them
+      . -   match any other character, i.e. normal file names with dashes etc.
+      * -   match this "non-matching" group as many times as necessary
+      [standard_css_source] - our existing css file path
+      $ -   need to match end of string for same reason as above
+
+      Refs
+      ----
+      https://github.com/css-modules/css-modules/pull/65
+      http://stackoverflow.com/questions/2078915/a-regular-expression-to-exclude-a-word-stringify
+      https://regex101.com/r/gL5lR9/1 (regex tester made to test this code)
+      */
+
+      // We need to extract the regex part inside the // markers - i.e. don't use the string representation
+      const sources = cssModules.map(test => test.source);
+      const simpleRegexWithoutModule = new RegExp(
+        `^((?!${ sources.join('|') }).)*${ simpleCssLoader.test.source }`
+      );
+
+      // Push the new loader onto the list of loaders, but with a different test.
+      loaders.push({
+        ...simpleCssLoader,
+        test: simpleRegexWithoutModule,
+      });
     }
   } else {
     // Add simple CSS loader (default).

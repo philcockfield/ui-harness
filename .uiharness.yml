@@ -22,4 +22,6 @@ build:
     - react
     - react-dom
 
-cssModules: .module.css
+cssModules: 
+  - .module.css
+  - .mcss
