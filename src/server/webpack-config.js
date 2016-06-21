@@ -137,6 +137,7 @@ export default (options = {}) => {
       loaders.push({
         test,
         loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        exclude: /node_modules/,
 
         // Loader syntax below from:
         //    https://github.com/css-modules/webpack-demo
