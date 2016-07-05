@@ -1,0 +1,12 @@
+
+.css-loader-sample p {
+  background-color: rgba(255, 0, 0, 0.1);
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.css-loader-sample p:last-child {
+  margin-bottom: 0;
+}

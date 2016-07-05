@@ -16,6 +16,17 @@ const formatPath = (path) => {
     : path;
 };
 
+const toFileExtensionRegEx = (item) => {
+  if (!(item instanceof RegExp)) {
+    item = item.replace(/\./g, '\\.');
+    item = new RegExp(`${ item }$`);
+  }
+  return item;
+};
+
+
+
+
 
 
 /**
@@ -45,6 +56,14 @@ export const parse = (text) => {
   // Format GraphQL path.
   if (yaml.graphqlSchema) {
     yaml.graphqlSchema = formatPath(yaml.graphqlSchema);
+  }
+
+  // Format css-modules.
+  let cssModules = yaml.cssModules;
+  if (cssModules) {
+    cssModules = R.is(Array, cssModules) ? cssModules : [cssModules];
+    cssModules = cssModules.map(toFileExtensionRegEx);
+    yaml.cssModules = cssModules;
   }
 
   // Finish up.

@@ -58,6 +58,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const images = options.images
       || YAML_CONFIG.images
       || { baseUrl: `/${ packageJson.name }/images`, dir: 'images' };
+    const cssModules = options.cssModules || YAML_CONFIG.cssModules;
 
     // Ensure required values exist.
     if (R.isNil(entry) || R.isEmpty(entry)) { throw new Error('Entry path(s) must be specified.'); }
@@ -87,6 +88,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       isRelayEnabled,
       entry: specs,
       outputFile: 'specs.js',
+      cssModules,
     });
 
     // Create the development server.

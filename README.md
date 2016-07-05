@@ -10,6 +10,8 @@ http://uiharness.com
 ![ScreenShot](https://cloud.githubusercontent.com/assets/185555/10448258/0471dece-71e8-11e5-983a-028dd7df7a1a.png)
 
 
+
+
 ## Quick Start (1-minute)
 With the UIHarness you can go from an empty NPM module, to cleanly building isolated React components using best-practices in well under a minute.
 
@@ -123,6 +125,30 @@ images:
   dir: ./assets/images
 ```
 
+
+### CSS
+By default the UIHarness supports the webpack [css-loader] for `*.css` files.  If however you wish to use [css-modules] simply declare the file extension of your modules in the `.uiharness.yml` with a regular-expression like this:
+
+```yaml
+cssModules: .css
+```
+
+If you wish to retain the default [css-loader] behavior but still want to use [css-modules], you can specify [css-modules] to only work on certain extensions:
+
+```yaml
+cssModules: .module.css
+```
+
+And if you wish to use several different extensions for [css-modules] you can specify a list:
+
+```yaml
+cssModules:
+  - .css
+  - .module.css
+```
+
+[css-loader]: https://github.com/webpack/css-loader
+[css-modules]: https://github.com/css-modules/css-modules
 
 ## Building
 You can use the UIHarness to output your built JS bundles.  You can also use this function to keep an eye on the size of your JS before it's too late to do anything about it.
