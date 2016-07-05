@@ -3,7 +3,6 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-
 ## [Unreleased] - YYYY-MM-DD
 #### Added
 #### Changed
@@ -11,6 +10,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Removed
 #### Fixed
 #### Security
+
+
+
+
+
+## [3.14.0] - 2016-06-06
+#### Added
+- Support for [CSS Modules](https://github.com/css-modules/css-modules).
+  ![CSS Modules](https://cloud.githubusercontent.com/assets/185555/16597779/c6c086b4-434e-11e6-9491-5046c95fedad.png)
 
 
 
