@@ -100,7 +100,7 @@ export default (options = {}) => {
         babelLoader(/\.jsx$/, isRelayEnabled),
         typescriptLoader(/\.tsx?$/, isRelayEnabled),
         { test: /\.json$/, loader: 'json' },
-        { test: /\.(png|svg)$/, loader: 'url' },
+        { test: /\.(png|svg)$/, loader: 'url-loader' },
       ],
     },
     devtool: isProduction ? undefined : 'cheap-module-eval-source-map',
