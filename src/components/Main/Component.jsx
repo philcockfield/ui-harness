@@ -71,14 +71,6 @@ class Component extends React.Component {
 
       // Children.
       const children = current.get('componentChildren');
-      if (R.is(Array, children)) {
-        // Ensure all children in the array have keys.
-        children.forEach((child, i) => {
-          if (R.is(Object, child)) {
-            child.key = R.isNil(child.key) ? i : child.key;
-          }
-        });
-      }
       element = React.createElement(type, props, children);
 
       const childContextTypes = current.get('componentChildContextTypes');
