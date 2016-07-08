@@ -8,7 +8,6 @@ import marked from 'marked';
 export const escapeHtml = (text) => {
   let isWithinBlock = false;
   let result = '';
-  let i = 0;
   for (let char of text) {
     // Don't escape <HTML> that is wihtin the markdown `tick` block.
     if (char === '`') { isWithinBlock = !isWithinBlock; }
@@ -17,7 +16,6 @@ export const escapeHtml = (text) => {
       if (char === '>') { char = '&gt;'; }
     }
     result += char;
-    i += 1;
   }
   return result;
 };
