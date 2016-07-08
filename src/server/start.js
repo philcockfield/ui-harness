@@ -7,6 +7,7 @@ import shell from 'shelljs';
 import semver from 'semver';
 import webpackConfig from './webpack-config';
 import webpackDevServer from './webpack-dev-server';
+import uihPackageJson from '../../package.json';
 import {
   formatSpecPaths,
   rootModulePath,
@@ -107,10 +108,12 @@ export default (options = {}) => new Promise((resolve, reject) => {
       const moduleVersion = packageJson.version || '0.0.0';
       const packageName = chalk.magenta(packageJson.name);
       const packageVersion = chalk.grey(`(v${ moduleVersion })`);
+      log.info();
       log.info(chalk.green('UIHarness:'));
       log.info(chalk.grey(' - module:   '), packageName, packageVersion);
       log.info(chalk.grey(' - port:     '), port);
       log.info(chalk.grey(' - react:    '), `v${ reactJson.version }`);
+      log.info(chalk.grey(' - uiharness:'), `v${ uihPackageJson.version }`);
       if (isRelayEnabled) {
         log.info(chalk.grey(' - graphql:  '), displayPath(graphqlSchema));
       }
