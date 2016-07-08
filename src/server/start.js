@@ -109,7 +109,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       const packageName = chalk.magenta(packageJson.name);
       const packageVersion = chalk.grey(`(v${ moduleVersion })`);
       log.info();
-      log.info(chalk.green(`UIHarness${ chalk.grey('@' + uiharnessJson.version) }`));
+      log.info(chalk.green(`UIHarness${ chalk.grey('@') }${ chalk.grey(uiharnessJson.version) }`));
       log.info(chalk.grey(' - module:   '), packageName, packageVersion);
       log.info(chalk.grey(' - port:     '), port);
       log.info(chalk.grey(' - react:    '), `v${ reactJson.version }`);
