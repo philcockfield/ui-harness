@@ -102,7 +102,7 @@ class Main extends React.Component {
         <div style={ styles.base }>
           <FlexEdge orientation="vertical">
             { elHeader }
-            <div flexEdge={ { flex: 1, overflowX, overflowY } }>{ el }</div>
+            <div data-flexEdge={ { flex: 1, overflowX, overflowY } }>{ el }</div>
             { elFooterHr }
             { elFooter }
           </FlexEdge>

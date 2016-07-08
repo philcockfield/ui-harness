@@ -91,7 +91,7 @@ class Suite extends React.Component {
       <div style={ styles.base }>
         <FlexEdge orientation="vertical">
           <SuiteHeader suite={ suite } />
-          <div style={ styles.middle } flexEdge={ 1 }>
+          <div style={ styles.middle } data-flexEdge={ 1 }>
             <div style={ styles.specsList }>
               <SpecList specs={ specs } current={ current } />
               { sections }
@@ -101,7 +101,7 @@ class Suite extends React.Component {
           {
             hasPropTypes &&
               <div
-                flexEdge={ {
+                data-flexEdge={ {
                   maxHeight: '50%',
                   overflow: 'hidden',
                   overflowY: 'auto' } }>
