@@ -8,7 +8,8 @@ describe('ui-harness', function() {
   require('./it-server.spec');
   require('./PropTypes.spec');
   require('./page.spec');
-  require('./typescript.spec')
+  require('./typescript.spec');
+  require('./style.spec');
 });
 
 // External libs.

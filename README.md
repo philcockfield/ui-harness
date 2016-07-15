@@ -153,6 +153,22 @@ cssModules:
 [css-loader]: https://github.com/webpack/css-loader
 [css-modules]: https://github.com/css-modules/css-modules
 
+You may need to pass in some external CSS `<style>` values to apply to the component:
+
+```js
+this
+  .style({
+    color: 'white',
+    '.MyComponent': {
+      padding: 20,
+      background: 'red',
+    }
+  })
+  .component( <MyComponent /> );
+```
+
+
+
 ## Building
 You can use the UIHarness to output your built JS bundles.  You can also use this function to keep an eye on the size of your JS before it's too late to do anything about it.
 
