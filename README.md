@@ -123,6 +123,9 @@ proxy:
 images:
   baseUrl: /my-images
   dir: ./assets/images
+css:
+  baseUrl: /my-css
+  dir: ./assets/css
 ```
 
 

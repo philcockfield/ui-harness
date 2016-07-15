@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+
 ## [Unreleased] - YYYY-MM-DD
 #### Added
 #### Changed
@@ -10,6 +11,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Removed
 #### Fixed
 #### Security
+
+
+
+
+## [3.15.0] - 2016-07-15
+#### Added
+- Serving CSS from parent module, the same way as images.
 
 
 

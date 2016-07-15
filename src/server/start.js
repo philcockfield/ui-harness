@@ -59,6 +59,9 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const images = options.images
       || YAML_CONFIG.images
       || { baseUrl: `/${ packageJson.name }/images`, dir: 'images' };
+    const css = options.css
+      || YAML_CONFIG.css
+      || { baseUrl: `/${ packageJson.name }/css`, dir: 'css' };
     const cssModules = options.cssModules || YAML_CONFIG.cssModules;
 
     // Ensure required values exist.
@@ -96,8 +99,9 @@ export default (options = {}) => new Promise((resolve, reject) => {
     const app = webpackDevServer(config, { proxy });
     app.use('/', express.static(fsPath.resolve(__dirname, '../../public')));
 
-    // Create an end-point to serve images from.
+    // Create an end-point to serve images and CSS from.
     app.use(images.baseUrl, express.static(fsPath.join(ROOT_PATH, images.dir)));
+    app.use(css.baseUrl, express.static(fsPath.join(ROOT_PATH, css.dir)));
 
     // Start the server.
     log.info('\n');
