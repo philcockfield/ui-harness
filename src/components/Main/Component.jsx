@@ -9,6 +9,9 @@ import ContextWrapper from './ContextWrapper';
 import CropMarks from '../shared/CropMarks';
 import { css, PropTypes, numberToGreyscale } from '../util';
 
+const { Style } = Radium;
+
+
 /**
  * Loads and displays a component.
  */
@@ -62,6 +65,15 @@ class Component extends React.Component {
     const { current } = this.props;
     const { width, height } = this.size();
 
+    let styleElement;
+    const styleRules = current.get('style');
+    if (styleRules) {
+      styleElement = React.createElement(Style, {
+        scopeSelector: '.uih-Component',
+        rules: styleRules
+      });
+    }
+
     let element;
     const type = current.get('componentType');
     if (type) {
@@ -89,7 +101,8 @@ class Component extends React.Component {
         display={ width === '100%' ? 'block' : 'inline-block' }
         width={ width }
         height={ height }>
-        <div style={ styles.base }>
+        <div className='uih-Component' style={ styles.base }>
+          { styleElement }
           <ContextWrapper context={ current.get('componentContext') }>
             { element }
           </ContextWrapper>

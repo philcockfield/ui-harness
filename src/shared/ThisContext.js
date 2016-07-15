@@ -79,6 +79,9 @@ const PROPS = {
     default: false,
     type: PropTypes.oneOf([true, false, 'x', 'y', 'x:y']),
   },
+  style: {
+    type: PropTypes.object,
+  },
 };
 
 
