@@ -70,7 +70,7 @@ class Component extends React.Component {
     if (styleRules) {
       styleElement = React.createElement(Style, {
         scopeSelector: '.uih-Component',
-        rules: styleRules
+        rules: styleRules,
       });
     }
 
@@ -101,7 +101,7 @@ class Component extends React.Component {
         display={ width === '100%' ? 'block' : 'inline-block' }
         width={ width }
         height={ height }>
-        <div className='uih-Component' style={ styles.base }>
+        <div className="uih-Component" style={ styles.base }>
           { styleElement }
           <ContextWrapper context={ current.get('componentContext') }>
             { element }
