@@ -46,7 +46,7 @@
     "memory-fs": "^0.3.0",
     "minimist": "^1.2.0",
     "moment": "^2.11.1",
-    "radium": "^0.17.2",
+    "radium": "^0.18.0",
     "ramda": "^0.21.0",
     "react": "^15.2.1",
     "react-atoms": "^2.0.11",
