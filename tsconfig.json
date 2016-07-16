@@ -19,7 +19,8 @@
     "strictNullChecks": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/specs"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true
