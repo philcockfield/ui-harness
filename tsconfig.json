@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
     "target": "es6",
     "sourceMap": true,
     "module": "commonjs",
@@ -8,14 +10,13 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declaration": false,
+    "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
-    "strictNullChecks": true,
-    "outDir": "dist"
+    "strictNullChecks": true
   },
   "exclude": [
     "node_modules"

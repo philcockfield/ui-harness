@@ -3,9 +3,12 @@
   "version": "3.16.2",
   "description": "Create, isolate and test modular UI components in React.",
   "main": "./lib/server",
+  "typings": "./index.d.ts",
   "scripts": {
+    "build": "npm run build:babel && npm run build:typescript",
+    "build:babel": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
+    "build:typescript": "./node_modules/typescript/bin/tsc",
     "build:watch": "npm run build -- --watch",
-    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
     "dev": "QUICK_BUILD=true ./node_modules/.bin/nodemon -x \"./node_modules/babel-cli/bin/babel-node.js start.js\"",
     "lint": "eslint --ext .js,.jsx ./src && tslint src/**/*.ts{,x}",
     "prepublish": "npm test && npm run lint && rm -rf lib && npm run build",
