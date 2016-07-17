@@ -10,45 +10,46 @@ declare namespace UIHarness {
     }
 
     class IUIHarnessContext {
-        toValues(): {};
-        reset(options: {}): void;
-        props(value: {}): {};
-        context(value: {}): {};
-        component(component: IUIHComponent): this;
-        unload(): this;
-        
-        log(...value: any[]): this;
-        
+        public toValues(): {};
+        public reset(options: {}): void;
+        public props(value: {}): {};
+        public context(value: {}): {};
+        public component(component: IUIHComponent): this;
+        public unload(): this;
+
+        public log(...value: any[]): this;
+
         // property setters
-        children(children: React.ReactType[] | React.ReactType): this;
-        childContextTypes(value: {}): this;
-        width(value: string | number): this;
-        height(value: string | number): this;
-        cropMarks: ICropMarks;
-        margin(value: number): this;
-        align(value: string): this; // TODO: Type this.align() better
-        header(value: string): this;
-        footer(value: string): this;
-        hr(enabled: boolean): this;
-        backdrop(value: string | number): this;
-        background(value: string | number): this;
-        scroll(value: boolean | 'x' | 'y' | 'x:y'): this;
-        style(value: React.CSSProperties): this;
+        public children(children: React.ReactType[] | React.ReactType): this;
+        public childContextTypes(value: {}): this;
+        public width(value: string | number): this;
+        public height(value: string | number): this;
+        public cropMarks: ICropMarks; // tslint:disable-line:member-ordering
+        public margin(value: number): this;
+        public align(value: string): this; // TODO: Type this.align() better
+        public header(value: string): this;
+        public footer(value: string): this;
+        public hr(enabled: boolean): this;
+        public backdrop(value: string | number): this;
+        public background(value: string | number): this;
+        public scroll(value: boolean | 'x' | 'y' | 'x:y'): this;
+        public style(value: React.CSSProperties): this;
     }
-    var UIHarness: IUIHarnessContext;
 
-    interface ActionType { (this: IUIHarnessContext): void; }
-    
+    interface IActionType { (this: IUIHarnessContext): void; }
+
     interface IBDDFunction {
-        (label: string, action?: ActionType): void;
-        (action: ActionType): void;
+        (label: string, action?: IActionType): void;
+        (action: IActionType): void;
     }
-
-
 
 }
-declare var describe: UIHarness.IBDDFunction;
-declare var before: UIHarness.IBDDFunction;
-declare var section: UIHarness.IBDDFunction;
-declare var it: UIHarness.IBDDFunction;
+
+export declare var describe: UIHarness.IBDDFunction;
+export declare var before: UIHarness.IBDDFunction;
+export declare var section: UIHarness.IBDDFunction;
+export declare var it: UIHarness.IBDDFunction;
+
+declare var defaultExport: { start: Function, build: Function }
+export default defaultExport;
 
