@@ -1,30 +1,5 @@
 import * as React from 'react';
 
-
-/*
- UIHarness type definitions for now 
-*/
-
-type UIComponentType = React.ReactElement<{}> | React.Component<{}, {}> | React.StatelessComponent<{}> | string;
-declare class IUIHarnessContext {
-  public component: (component: UIComponentType) => this;
-  public header: (title: string) => this;
-}
-
-type ActionType = (this: IUIHarnessContext) => void;
-type BDDType = (labelOrAction: string | ActionType, action?: ActionType) => void;
-
-declare var describe: BDDType;
-declare var before: BDDType;
-declare var section: BDDType;
-declare var it: BDDType;
-
-/* Type definitions end */
-
-
-
-
-
 // tslint:disable-next-line
 // Using class as enums cannot use strings. http://stackoverflow.com/questions/15490560/create-an-enum-with-string-values-in-typescript
 class UIBGColors {
@@ -49,10 +24,9 @@ const TypeScriptComponent = ({
   return <div style={ style } />;
 };
 
-describe('TypeScript', function (this: IUIHarnessContext): void {
+describe('TypeScript', function (): void {
   // Temporary fix until UIHarness core is typed correctly
-  const self: IUIHarnessContext = this;
-  self.header(`## A React component written in TypeScript.`);
+  this.header(`## A React component written in TypeScript.`);
 
   before(() => this.component(<TypeScriptComponent />));
 
