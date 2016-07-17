@@ -1,5 +1,5 @@
+import { before, describe, it } from '../';
 import * as React from 'react';
-import { describe, before, it } from '../';
 
 // tslint:disable-next-line
 // Using class as enums cannot use strings. http://stackoverflow.com/questions/15490560/create-an-enum-with-string-values-in-typescript
@@ -28,7 +28,6 @@ const TypeScriptComponent = ({
 describe('TypeScript', function (): void {
   // Temporary fix until UIHarness core is typed correctly
   this.header(`## A React component written in TypeScript.`);
-  this.
 
   before(() => this.component(<TypeScriptComponent />));
 
