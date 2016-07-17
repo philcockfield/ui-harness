@@ -13,7 +13,6 @@
     "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
-    "noLib": false,
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true
@@ -24,8 +23,8 @@
     "src/**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "src/specs" // Comment this line to check type definitions in specs
+    "src/specs", // Comment this line to check type definitions in specs
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true
