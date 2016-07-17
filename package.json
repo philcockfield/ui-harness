@@ -5,9 +5,10 @@
   "main": "./lib/server",
   "typings": "./index.d.ts",
   "scripts": {
-    "build": "npm run build:babel && npm run build:typescript",
+    "build": "npm run build:babel && npm run build:copy-types",
     "build:babel": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
     "build:typescript": "./node_modules/typescript/bin/tsc",
+    "build:copy-types": "cp src/index.d.ts lib/index.d.ts",
     "build:watch": "npm run build -- --watch",
     "dev": "QUICK_BUILD=true ./node_modules/.bin/nodemon -x \"./node_modules/babel-cli/bin/babel-node.js start.js\"",
     "lint": "eslint --ext .js,.jsx ./src && tslint src/**/*.ts{,x}",
@@ -79,7 +80,7 @@
     "sinon": "^1.16.1",
     "tslint": "^3.11.0",
     "tslint-react": "^0.4.0",
-    "typescript": "^1.9.0-dev.20160617-1.0",
+    "typescript": "^2.1.0-dev.20160716",
     "typings": "^1.3.0"
   },
   "repository": {
