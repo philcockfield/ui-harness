@@ -18,9 +18,14 @@
     "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true
   },
+  "include": [
+    "typings/index.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": [
     "node_modules",
-    "src/specs"
+    "src/specs" // Comment this line to check type definitions in specs
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true
