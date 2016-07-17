@@ -50,6 +50,6 @@ export declare var before: UIHarness.IBDDFunction;
 export declare var section: UIHarness.IBDDFunction;
 export declare var it: UIHarness.IBDDFunction;
 
-declare var defaultExport: { start: Function, build: Function }
+declare var defaultExport: { start: any, build: any };
 export default defaultExport;
 
