@@ -2,8 +2,8 @@
   "name": "ui-harness",
   "version": "3.16.2",
   "description": "Create, isolate and test modular UI components in React.",
-  "main": "./lib/server",
-  "typings": "./index.d.ts",
+  "main": "./lib",
+  "typings": "./lib/index.d.ts",
   "scripts": {
     "build": "npm run build:babel && npm run build:copy-types",
     "build:babel": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
@@ -101,5 +101,10 @@
   "bugs": {
     "url": "https://github.com/philcockfield/ui-harness/issues"
   },
-  "homepage": "http://uiharness.com"
+  "homepage": "http://uiharness.com",
+  "files": [
+    "lib",
+    "typings.json",
+    "LICENSE"
+  ]
 }
