@@ -85,6 +85,18 @@ describe('Component Host', function() {
     });
   });
 
+
+  section('this.tools', () => {
+    it('`tools: <Foo>`', () => {
+      this.tools( <Foo>My Tools</Foo> );
+    });
+
+    it('`tools: null`', () => {
+      this.tools(null);
+    });
+  });
+
+
   section('context', () => {
     it('set `childContextTypes`', () => {
       this
