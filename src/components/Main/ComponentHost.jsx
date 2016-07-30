@@ -28,8 +28,11 @@ class ComponentHost extends React.Component {
   render() {
     const styles = this.styles();
     const { current } = this.props;
+    const elTools = current.get('tools');
+
     return (
       <div style={ styles.base }>
+        { elTools }
         {
           current.get('componentType') &&
             <AlignmentContainer

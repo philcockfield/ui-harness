@@ -82,6 +82,9 @@ const PROPS = {
   style: {
     type: PropTypes.object,
   },
+  tools: {
+    type: PropTypes.element,
+  },
 };
 
 
