@@ -78,12 +78,11 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
 
   // Extract the vendor array.
   const vendor = buildConfig.vendor || [];
-  const isProduction = buildConfig.prod || false;
+  const isProduction = buildConfig.prod || process.env.NODE_ENV === 'production' || false;
   const outputFolder = fsPath.resolve(buildConfig.outputFolder || './.build');
 
   // Initial message.
-  let msg = 'Building javascript';
-  if (isProduction) { msg += ' (production)'; }
+  let msg = `Building javascript (${ isProduction ? 'production' : 'development' })`;
   log.info(chalk.grey(`${ msg }...\n`));
 
   const buildItem = (filename, entry) => new Promise((resolveItem, rejectItem) => {
