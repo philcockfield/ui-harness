@@ -82,7 +82,7 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
   const outputFolder = fsPath.resolve(buildConfig.outputFolder || './.build');
 
   // Initial message.
-  let msg = `Building javascript (${ isProduction ? 'production' : 'development' })`;
+  const msg = `Building javascript (${ isProduction ? 'production' : 'development' })`;
   log.info(chalk.grey(`${ msg }...\n`));
 
   const buildItem = (filename, entry) => new Promise((resolveItem, rejectItem) => {
