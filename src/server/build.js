@@ -97,7 +97,7 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
         entry,
         vendor,
         outputFile: `${ filename }.js`,
-	  extensions,
+	      extensions,
       });
 
       // Build the JS.
