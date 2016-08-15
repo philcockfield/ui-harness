@@ -107,7 +107,7 @@ export default (options = {}) => {
     resolve: {
       moduleDirectories: NODE_MODULES_PATH,
       extensions: [''].concat(
-        options.extensions || 
+        options.extensions ||
         ['.web.tsx', '.web.ts', 'web.js', '.js', '.jsx', '.json', '.ts', '.tsx']
       ),
       resolveLoader: { fallback: NODE_MODULES_PATH },
