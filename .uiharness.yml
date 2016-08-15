@@ -22,6 +22,16 @@ build:
     - react
     - react-dom
 
-cssModules: 
+extensions:
+  - .web.tsx
+  - .web.ts
+  - web.js
+  - .js
+  - .jsx
+  - .json
+  - .ts
+  - .tsx
+
+cssModules:
   - .module.css
   - .mcss

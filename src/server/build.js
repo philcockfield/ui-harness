@@ -80,6 +80,7 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
   const vendor = buildConfig.vendor || [];
   const isProduction = buildConfig.prod || process.env.NODE_ENV === 'production' || false;
   const outputFolder = fsPath.resolve(buildConfig.outputFolder || './.build');
+  const extensions = config.extensions;
 
   // Initial message.
   const msg = `Building javascript (${ isProduction ? 'production' : 'development' })`;
@@ -96,6 +97,7 @@ export default (buildConfig, options = {}) => new Promise((resolve, reject) => {
         entry,
         vendor,
         outputFile: `${ filename }.js`,
+		extensions,
       });
 
       // Build the JS.
