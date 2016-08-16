@@ -1,9 +1,9 @@
 import React from 'react';
+import Color from 'color';
 import Radium from 'radium';
 import { css, PropTypes } from '../util';
 import api from '../../shared/api-internal';
 import Icon from '../shared/Icon';
-import Color from 'color';
 import { FormattedText, Ellipsis } from '../shared';
 
 

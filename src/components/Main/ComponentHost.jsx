@@ -1,9 +1,9 @@
 import React from 'react';
 import Radium from 'radium';
 import Immutable from 'immutable';
+import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
 import { css, PropTypes } from '../util';
 import Component from './Component';
-import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
 
 /**
  * The display host for a component under test.

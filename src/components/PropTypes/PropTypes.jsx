@@ -3,8 +3,8 @@
 import R from 'ramda';
 import React from 'react';
 import Radium from 'radium';
-import { css, PropTypes } from '../util';
 import { ValueList } from 'react-object';
+import { css, PropTypes } from '../util';
 import { EmptyLabel } from '../shared';
 
 

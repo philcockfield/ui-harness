@@ -1,4 +1,5 @@
 import R from 'ramda';
+
 const IS_BROWSER = (typeof window !== 'undefined');
 
 
