@@ -15,7 +15,7 @@
   },
   "env": {
     "mocha": true,
-	"browser": true
+    "browser": true
   },
   "globals": {
     "section": true
