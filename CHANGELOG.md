@@ -11,7 +11,33 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Fixed
 #### Security
 
+## [3.18.0] - 2016-08-16
+#### Added
+- The ability to customise the extensions picked up by webpack when building. See our [.uiharness.yml](https://github.com/philcockfield/ui-harness/blob/5eb6e09102adc044d5df21dcb790d551fd51fb40/.uiharness.yml) for an example
 
+    ```yaml
+	# .uiharness.yml
+
+	extensions:
+		- .web.ts
+		- .web.tsx
+		- .ts
+		- .tsx
+		- .js
+
+    ```
+
+## [3.17.0] - 2016-07-31
+#### Added
+- The ability to add external tools to debug programs, such as the MobX dev tools.
+
+    ```js
+	import DevTools from 'mobx-react-devtools'
+
+	...
+
+    this.tools(<DevTools />);
+    ```
 
 
 ## [3.16.0] - 2016-07-15
@@ -104,7 +130,7 @@ Update references, including bringing React up to `15.0.2`.
   Methods:
   - `this.childContextTypes`
   - `this.context`
-- `this.page.insertScript` method.  
+- `this.page.insertScript` method.
 
 #### Changed
 - `this.load` method to `this.component`.
