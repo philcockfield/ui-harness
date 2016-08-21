@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
     "target": "es6",
     "sourceMap": true,
     "module": "commonjs",
@@ -8,16 +10,20 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declaration": false,
+    "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
-    "noLib": false,
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
-    "strictNullChecks": true,
-    "outDir": "dist"
+    "strictNullChecks": true
   },
+  "include": [
+    "typings/index.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": [
+    "src/specs", // Comment this line to check type definitions in specs
     "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
