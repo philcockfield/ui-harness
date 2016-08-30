@@ -108,7 +108,7 @@ export default (options = {}) => {
       moduleDirectories: NODE_MODULES_PATH,
       extensions: [''].concat(
         options.extensions ||
-        ['.web.tsx', '.web.ts', 'web.js', '.js', '.jsx', '.json', '.ts', '.tsx']
+        ['.web.tsx', '.web.ts', '.web.js', '.web.jsx', '.js', '.jsx', '.json', '.ts', '.tsx']
       ),
       resolveLoader: { fallback: NODE_MODULES_PATH },
       alias: {
