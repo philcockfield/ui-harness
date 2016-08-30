@@ -8,6 +8,7 @@
     "quotemark": [
         true, "single"
     ],
-    "jsx-no-lambda": true
+    "jsx-no-lambda": true,
+		"only-arrow-functions": false
   }
 }
