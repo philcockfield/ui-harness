@@ -5,9 +5,8 @@
   ],
   "rules": {
     "no-consecutive-blank-lines": false,
-    "quotemark": [
-        true, "single"
-    ],
-    "jsx-no-lambda": true
+    "quotemark": [true, "single"],
+    "jsx-no-lambda": true,
+		"only-arrow-functions": false
   }
 }

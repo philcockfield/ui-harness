@@ -106,7 +106,10 @@ export default (options = {}) => {
     devtool: isProduction ? undefined : 'cheap-module-eval-source-map',
     resolve: {
       moduleDirectories: NODE_MODULES_PATH,
-      extensions: ['', '.js', '.jsx', '.json', '.ts', '.tsx'],
+      extensions: [''].concat(
+        options.extensions ||
+        ['.web.tsx', '.web.ts', '.web.js', '.web.jsx', '.js', '.jsx', '.json', '.ts', '.tsx']
+      ),
       resolveLoader: { fallback: NODE_MODULES_PATH },
       alias: {
         react: REACT_PATH, // Lock the bundled version of React to that of the UIHarness.
