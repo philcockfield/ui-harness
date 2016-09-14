@@ -121,15 +121,6 @@ export default class UIHContext {
           value = options.format(value);
         }
 
-        // Perform type validation.
-        const type = options.type;
-        if (type) {
-          const validation = schema.validate(type, value);
-          if (!validation.isValid) {
-            const msg = `Invalid '${ key }' value (${ value }). Should be ${ type.toString() }.`;
-            throw new Error(msg);
-          }
-        }
 
         // Reset the value if required.
         if (options.resetOn !== undefined && value === options.resetOn) {

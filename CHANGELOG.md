@@ -13,6 +13,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [3.18.0] - 2016-09-14
+#### Removed
+- No longer using PropTypes to check validity of values passed to `this.props({...})`.
+  This will not be supported in the next marjor release of React. 
+  https://facebook.github.io/react/warnings/dont-call-proptypes.html
+
+
+
 
 ## [3.16.0] - 2016-07-15
 #### Added
