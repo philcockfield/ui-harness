@@ -3,7 +3,7 @@ import * as util from 'js-util';
 import invariant from 'invariant';
 import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
 import R from 'ramda';
-import schema, { PropTypes } from 'react-schema';
+import { PropTypes } from 'react-schema';
 
 import api from './api-internal';
 import log from './log';
@@ -121,15 +121,6 @@ export default class UIHContext {
           value = options.format(value);
         }
 
-        // Perform type validation.
-        const type = options.type;
-        if (type) {
-          const validation = schema.validate(type, value);
-          if (!validation.isValid) {
-            const msg = `Invalid '${ key }' value (${ value }). Should be ${ type.toString() }.`;
-            throw new Error(msg);
-          }
-        }
 
         // Reset the value if required.
         if (options.resetOn !== undefined && value === options.resetOn) {

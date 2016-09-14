@@ -46,12 +46,6 @@ describe('ThisContext', () => {
       expect(context.cropMarks.size()).to.equal(50);
       expect(context.cropMarks.offset()).to.equal(0);
     });
-
-    it('throws on invalid values', () => {
-      expect(() => { context.cropMarks(123); }).to.throw();
-      expect(() => { context.cropMarks.size(true); }).to.throw();
-      expect(() => { context.cropMarks.offset(true); }).to.throw();
-    });
   });
 
 
@@ -75,26 +69,6 @@ describe('ThisContext', () => {
       expect(context.width()).to.equal('auto');
       expect(context.height()).to.equal('auto');
     });
-
-    it('width throws if a number of string is not passed', () => {
-      const fn = () => {
-        context
-          .width(250)
-          .width('100%')
-          .width({ foo: 123 });
-      };
-      expect(fn).to.throw();
-    });
-
-    it('height throws if a number of string is not passed', () => {
-      const fn = () => {
-        context
-          .height(250)
-          .height('100%')
-          .height({ foo: 123 });
-      };
-      expect(fn).to.throw();
-    });
   });
 
 
@@ -105,10 +79,6 @@ describe('ThisContext', () => {
 
     it('stores values', () => {
       expect(context.margin(10).margin()).to.equal(10);
-    });
-
-    it('throws if a number of string is not passed', () => {
-      expect(() => { context.margin({}); }).to.throw();
     });
   });
 
@@ -122,14 +92,6 @@ describe('ThisContext', () => {
     it('takes a value', () => {
       expect(context.align('center middle').align()).to.equal('center middle');
     });
-
-    it('throws if a string is not specified', () => {
-      expect(() => { context.align(false) }).to.throw();
-    });
-
-    it('throws if a non-supported enum value is specified', () => {
-      expect(() => { context.align('top foo') }).to.throw();
-    });
   });
 
 
@@ -141,10 +103,6 @@ describe('ThisContext', () => {
     it('can be set to null', () => {
       context.header(null);
       expect(context.header()).to.equal(null);
-    });
-
-    it('throws if a string is not specified', () => {
-      expect(() => { context.margin(false) }).to.throw();
     });
   });
 
@@ -158,22 +116,12 @@ describe('ThisContext', () => {
       context.header('## My subtitle').hr(true);
       expect(context.hr()).to.equal(true);
     });
-
-    it('throws if not boolean', () => {
-      expect(() => { context.hr('hello'); }).to.throw();
-    });
   });
 
 
   describe('backdrop', function () {
     it('has default value', () => {
       expect(context.backdrop()).to.equal(0);
-    });
-
-    it('throws if not number or string', () => {
-      context.backdrop(0).backdrop('red');
-      const fn = () => { context.backdrop({}); };
-      expect(fn).to.throw();
     });
 
     it('clamps number values between -1..1', () => {
@@ -222,11 +170,6 @@ describe('ThisContext', () => {
       expect(context.scroll(false).scroll()).to.equal(false);
       expect(context.scroll(true).scroll()).to.equal(true);
     });
-
-    it('throws if not supported value', () => {
-      let fn = () => { context.scroll({}) };
-      expect(fn).to.throw();
-    });
   });
 
 
@@ -234,15 +177,6 @@ describe('ThisContext', () => {
   describe('context', function() {
     it('has no context by default', () => {
       expect(context.context()).to.equal(undefined);
-    });
-
-    it('throws if not an object', () => {
-      expect(() => context
-        .childContextTypes({
-          someKey: PropTypes.object,
-        })
-        .context(123)
-      ).to.throw();
     });
 
     it('stores the given object', () => {
@@ -268,19 +202,6 @@ describe('ThisContext', () => {
         .context({ foo: 123 })
         ;
       expect(result).to.equal(context);
-    });
-
-    it('throws when trying to set a context key that was not defined in context types', () => {
-      expect(() => context
-        .childContextTypes({ defined: PropTypes.object })
-        .context({ not_defined: 123 })
-      ).to.throw(/not specified/);
-    });
-
-    it('throws when trying to set context before context types', () => {
-      expect(() => context
-        .context({ not_defined: 123 })
-      ).to.throw(/Make sure you set `this.contextTypes`/);
     });
   });
 });

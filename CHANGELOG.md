@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Fixed
 #### Security
 
-## [3.18.0] - 2016-08-16
+## [3.19.0] - 2016-08-16
 #### Added
 - The ability to customise the extensions picked up by webpack when building. See our [.uiharness.yml](https://github.com/philcockfield/ui-harness/blob/5eb6e09102adc044d5df21dcb790d551fd51fb40/.uiharness.yml) for an example
 
@@ -38,6 +38,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
     this.tools(<DevTools />);
     ```
+
+## [3.18.0] - 2016-09-14
+#### Removed
+- No longer using PropTypes to check validity of values passed to `this.props({...})`.
+  This will not be supported in the next marjor release of React. 
+  https://facebook.github.io/react/warnings/dont-call-proptypes.html
+
+
 
 
 ## [3.16.0] - 2016-07-15
