@@ -3,7 +3,7 @@ import * as util from 'js-util';
 import invariant from 'invariant';
 import AlignmentContainer from 'react-atoms/components/AlignmentContainer';
 import R from 'ramda';
-import schema, { PropTypes } from 'react-schema';
+import { PropTypes } from 'react-schema';
 
 import api from './api-internal';
 import log from './log';
