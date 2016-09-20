@@ -1,8 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
+import moment from 'moment';
 import { css, PropTypes } from '../util';
 import Value from './Value';
-import moment from 'moment';
 
 
 /**

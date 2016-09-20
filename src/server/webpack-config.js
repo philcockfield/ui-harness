@@ -26,14 +26,16 @@ const productionEnvPlugin = new webpack.DefinePlugin({
 const babelLoader = (extension, isRelayEnabled) => {
   const loader = {
     // See: https://github.com/babel/babel-loader#options
-    loaders: ['babel'],
+    loaders: [{ loader: 'babel' }],
     test: extension,
     exclude: /(node_modules|bower_components)/,
   };
 
   // Add optional plugins.
   if (isRelayEnabled) {
-    loader.loaders[0] += `?plugins[]=${ fsPath.join(__dirname, '../relay/babel-relay-plugin') }`;
+    loader.loaders[0].query = {
+      plugins: fsPath.join(__dirname, '../relay/babel-relay-plugin'),
+    };
   }
 
   // Finish up.
@@ -105,7 +107,9 @@ export default (options = {}) => {
     },
     devtool: isProduction ? undefined : 'cheap-module-eval-source-map',
     resolve: {
-      moduleDirectories: NODE_MODULES_PATH,
+      modules: [
+        NODE_MODULES_PATH,
+      ],
       extensions: [''].concat(
         options.extensions ||
         ['.web.tsx', '.web.ts', '.web.js', '.web.jsx', '.js', '.jsx', '.json', '.ts', '.tsx']
@@ -203,7 +207,8 @@ export default (options = {}) => {
   //        - https://github.com/webpack/docs/wiki/optimization
   //
   const addPlugin = (flag, plugin) => { if (flag === true) { config.plugins.push(plugin); } };
-  addPlugin(isProduction, new webpack.optimize.UglifyJsPlugin({ minimize: true }));
+  addPlugin(isProduction, new webpack.optimize.UglifyJsPlugin());
+  addPlugin(isProduction, new webpack.LoaderOptionsPlugin({ minimize: true }));
   addPlugin(isProduction, new webpack.optimize.OccurrenceOrderPlugin(true));
   addPlugin(isProduction, productionEnvPlugin);
 

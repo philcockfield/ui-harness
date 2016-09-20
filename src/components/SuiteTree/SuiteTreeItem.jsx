@@ -2,8 +2,8 @@ import React from 'react';
 import Radium from 'radium';
 import { delay } from 'js-util';
 import { fromAlpha } from 'js-util/lib/color';
-import { css } from '../util';
 import Color from 'color';
+import { css } from '../util';
 import api from '../../shared/api-internal';
 import { Ul, Twisty, Ellipsis, IconImage, FormattedText } from '../shared';
 

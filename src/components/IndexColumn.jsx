@@ -48,12 +48,18 @@ class IndexColumn extends React.Component {
         transition: 'transform 0.15s',
       },
       suiteTree: {
-        position: 'absolute', top: 4, bottom: 0, left: 0,
+        position: 'absolute',
+        top: 4,
+        bottom: 0,
+        left: 0,
         width: '100%',
         transform: `translateX(${ suiteTreeLeft }px)`,
       },
       specs: {
-        position: 'absolute', top: 0, bottom: 0, left: 0,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
         width: '100%',
         transform: `translateX(${ suiteLeft }px)`,
       },
@@ -68,11 +74,11 @@ class IndexColumn extends React.Component {
       // Alert child components of the key-event.
       switch (api.indexMode()) {
         case 'tree':
-          this.refs.suiteTree.handleKeyDown(e);
+          this.suiteTree.handleKeyDown(e);
           break;
 
         case 'suite':
-          this.refs.suite.handleKeyDown(e);
+          this.suite.handleKeyDown(e);
           break;
 
         default: // Ignore.
@@ -89,7 +95,10 @@ class IndexColumn extends React.Component {
 
     let elSuite;
     if (currentSuite && indexMode === 'suite') {
-      elSuite = <Suite ref="suite" suite={ currentSuite } current={ current } />;
+      elSuite = (<Suite
+        ref={ c => { this.suite = c; } }
+        suite={ currentSuite }
+        current={ current } />);
     }
 
     return (
@@ -100,7 +109,10 @@ class IndexColumn extends React.Component {
         onMouseLeave={ this.handleMouseLeave }>
 
         <div style={ [styles.outer, styles.suiteTree] }>
-          <SuiteTree ref="suiteTree" selectedSuite={ currentSuite } width={ width } />
+          <SuiteTree
+            ref={ c => { this.suiteTree = c; } }
+            selectedSuite={ currentSuite }
+            width={ width } />
         </div>
         <div style={ [styles.outer, styles.specs] }>{ elSuite }</div>
       </div>
