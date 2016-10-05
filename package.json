@@ -3,6 +3,7 @@
   "version": "3.19.0",
   "description": "Create, isolate and test modular UI components in React.",
   "main": "./lib/server",
+  "bin": {"uih": "./start.js"},
   "scripts": {
     "build:watch": "npm run build -- --watch",
     "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --source-maps",
