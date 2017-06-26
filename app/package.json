@@ -1,0 +1,37 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Isolate, test and document modular UI.",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "start": "node .",
+    "prod": "export NODE_ENV=production && yarn build:next && yarn start",
+    "dev": "export NODE_ENV=development && yarn start",
+    "test": "sh ./scripts/test.sh",
+    "lint": "node ./node_modules/tslint/bin/tslint 'src/**/*.ts{,x}' --format verbose --fix",
+    "build": "rm -rf ./lib && node ./node_modules/typescript/bin/tsc",
+    "prepublish": "yarn run lint && yarn test && yarn run build"
+  },
+  "dependencies": {
+    "@tdb/util": "^1.0.72",
+    "log.server": "^2.0.0",
+    "next": "^2.4.5"
+  },
+  "devDependencies": {
+    "@types/chai": "4.0.0",
+    "@types/mocha": "2.2.41",
+    "@types/node": "8.0.1",
+    "chai": "4.0.2",
+    "mocha": "3.4.2",
+    "ts-node": "3.1.0",
+    "tslint": "5.4.3",
+    "tslint-react": "3.0.0",
+    "typescript": "2.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philcockfield/ui-harness"
+  },
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,14 @@
+.DS_Store
+.build
+.npmrc
+.env
+.next
+
+/dist
+/lib
+/TEMP.md
+/*.tgz
+
+node_modules
+npm-debug.log
+yarn-error.log
