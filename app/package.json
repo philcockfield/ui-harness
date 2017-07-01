@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "1.0.0",
+  "name": "ui-harness",
+  "version": "4.0.0-alpha.2",
   "description": "Isolate, test and document modular UI.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -15,11 +15,13 @@
   },
   "dependencies": {
     "@tdb/util": "^1.0.72",
+    "express": "^4.15.3",
     "log.server": "^2.0.0",
     "next": "^2.4.5"
   },
   "devDependencies": {
     "@types/chai": "4.0.0",
+    "@types/express": "^4.0.36",
     "@types/mocha": "2.2.41",
     "@types/node": "8.0.1",
     "chai": "4.0.2",
@@ -28,6 +30,9 @@
     "tslint": "5.4.3",
     "tslint-react": "3.0.0",
     "typescript": "2.3.4"
+  },
+  "bin": {
+    "ui-harness": "./bin/ui-harness"
   },
   "repository": {
     "type": "git",

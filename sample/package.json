@@ -1,0 +1,16 @@
+{
+  "name": "ui-harness.sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ui": "ui-harness"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ui-harness": "4.0.0-alpha.2"
+  }
+}

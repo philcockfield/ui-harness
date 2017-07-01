@@ -1,3 +1,36 @@
 {
-  "extends": "@tdb/typescript/tslint.json"
+  "extends": [
+    "tslint:latest",
+    "tslint-react"
+  ],
+  "rules": {
+    "no-consecutive-blank-lines": [
+      false
+    ],
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [
+      true,
+      "single",
+      "jsx-single"
+    ],
+    "jsx-no-lambda": true,
+    "no-shadowed-variable": false,
+    "ordered-imports": [
+      false
+    ],
+    "only-arrow-functions": [
+      false
+    ],
+    "no-empty-interface": false,
+    "interface-over-type-literal": false,
+    "jsx-alignment": false,
+    "member-ordering": [
+      false
+    ],
+    "object-literal-shorthand": false,
+    "max-classes-per-file": [
+      false
+    ]
+  }
 }
