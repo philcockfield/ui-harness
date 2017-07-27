@@ -20,6 +20,7 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
     "lib": [
       "es5",
       "es6",
