@@ -7,7 +7,7 @@ const argv = require('minimist')(process.argv.slice(2));
 
 export { express };
 export interface IServerOptions {
-  dir?: string;
+  // dir?: string;
   static?: string;
   dev?: boolean; // Command-line: --dev
   port?: number; // Command-line: --port
@@ -33,7 +33,7 @@ export function init(options: IServerOptions = {}) {
   const port = optionValue<number>('port', 3000, options);
   const silent = optionValue<boolean>('silent', false, options);
   const staticPath = optionValue<string>('static', './static', options);
-  const dir = optionValue<string>('dir', './lib', options);
+  const dir = fsPath.join(constants.MODULE_PATH, 'lib');
   const config = {
     dir,
     static: staticPath,
@@ -56,14 +56,12 @@ export function init(options: IServerOptions = {}) {
 
   const logStarted = () => {
     if (silent) { return; }
-    const PACKAGE = require(fsPath.resolve('./package.json'));
-    log.info(`> Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
+    // const PACKAGE = require(fsPath.resolve('./package.json'));
+    log.info(`> ✨✨  Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
     log.info();
-    log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
-    log.info.gray(`  - port:    ${port}`);
-    log.info.gray(`  - dev:     ${dev}`);
-    log.info.gray(`  - dir:     ${dir}`);
+    // log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
     log.info.gray(`  - static:  ${config.static}`);
+    log.info.gray(`  - dev:     ${dev}`);
     log.info();
   };
 

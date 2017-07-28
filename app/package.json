@@ -14,18 +14,22 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "fs-extra-promise": "^1.0.1",
     "log.server": "^2.0.0",
     "minimist": "^1.2.0",
-    "next": "^2.4.8"
+    "next": "^2.4.8",
+    "rsync": "^0.6.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.4",
     "@types/chai": "4.0.1",
     "@types/express": "^4.0.36",
+    "@types/fs-extra-promise": "^1.0.2",
     "@types/mocha": "2.2.41",
     "@types/node": "8.0.17",
     "@types/react": "^15.0.39",
     "@types/react-dom": "^15.5.1",
+    "@types/rsync": "^0.4.29",
     "chai": "4.1.0",
     "mocha": "3.4.2",
     "react": "^15.6.1",

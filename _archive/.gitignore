@@ -1,0 +1,10 @@
+.DS_Store
+.build
+lib
+node_modules
+npm-debug.log
+test/.temp
+/example/relay/data/schema.graphql
+/example/relay/data/schema.json
+typings
+yarn-error.log
