@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@tdb/util": "^1.0.72",
-    "ui-harness": "4.0.0-alpha.3"
+    "ui-harness": "4.0.0-alpha.4"
   },
   "devDependencies": {
     "@tdb/typescript": "^2.2.0"
