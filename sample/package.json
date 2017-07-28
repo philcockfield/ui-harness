@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ui-harness": "4.0.0-alpha.2"
+    "ui-harness": "4.0.0-alpha.3"
   }
 }

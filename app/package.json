@@ -1,12 +1,12 @@
 {
   "name": "ui-harness",
-  "version": "4.0.0-alpha.2",
+  "version": "4.0.0-alpha.3",
   "description": "Isolate, test and document modular UI.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
     "start": "node ./lib/server/dev",
-    "test": "sh ./scripts/test.sh",
+    "test": "sh ./sh/test.sh",
     "lint": "node ./node_modules/tslint/bin/tslint 'src/**/*.ts{,x}' --format verbose --fix",
     "build": "rm -rf ./lib && node ./node_modules/typescript/bin/tsc",
     "prepublish": "yarn run lint && yarn test && yarn run build"

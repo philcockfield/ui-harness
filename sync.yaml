@@ -1,0 +1,6 @@
+modules:
+  - ./*/package.json
+  
+ignore:
+  paths: 
+    - ./_archive
