@@ -1,4 +1,5 @@
 import next = require('next');
+import { parse as parseUrl } from 'url';
 import { RequestHandler } from 'express';
 import { bodyParser, express, log, fsPath, constants } from './common';
 const argv = require('minimist')(process.argv.slice(2));
@@ -7,11 +8,19 @@ const argv = require('minimist')(process.argv.slice(2));
 
 export { express };
 export interface IServerOptions {
-  // dir?: string;
   static?: string;
   dev?: boolean; // Command-line: --dev
   port?: number; // Command-line: --port
   silent?: boolean;
+}
+
+export type RegisterHandler = (url: string, handler: RequestHandler) => IServer;
+export interface IServer {
+  get: RegisterHandler;
+  put: RegisterHandler;
+  post: RegisterHandler;
+  delete: RegisterHandler;
+  start: (port?: number) => Promise<void>;
 }
 
 
@@ -33,7 +42,7 @@ export function init(options: IServerOptions = {}) {
   const port = optionValue<number>('port', 3000, options);
   const silent = optionValue<boolean>('silent', false, options);
   const staticPath = optionValue<string>('static', './static', options);
-  const dir = fsPath.join(constants.MODULE_PATH, 'lib');
+  const dir = fsPath.join(constants.MODULE_DIR, 'lib');
   const config = {
     dir,
     static: staticPath,
@@ -45,21 +54,36 @@ export function init(options: IServerOptions = {}) {
   // Configure the express server.
   const server = express()
     .use(bodyParser.json({}))
+    .use('/@uiharness', express.static(fsPath.join(constants.MODULE_DIR, 'static')))
     .use(express.static(fsPath.resolve(staticPath)));
 
-  // Configure the Next.js server.
-  const app = next({
+  // console.log('staticPath', staticPath);
+
+  // Configure the [Next.js] server.
+  const nextApp = next({
     dev,
     dir,
   });
-  const handle = app.getRequestHandler();
+  const handle = nextApp.getRequestHandler();
+
+  server.get('*', (req, res) => {
+    const url = parseUrl(req.url, true);
+    const { pathname, query } = url;
+
+    if (req.url === '/foo') {
+      const path = '/sample/foo';
+      nextApp.render(req, res, path, query);
+    } else {
+      handle(req, res);
+    }
+  });
 
   const logStarted = () => {
     if (silent) { return; }
-    // const PACKAGE = require(fsPath.resolve('./package.json'));
+    const PACKAGE = require(fsPath.resolve('./package.json'));
     log.info(`> ✨✨  Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
     log.info();
-    // log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
+    log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
     log.info.gray(`  - static:  ${config.static}`);
     log.info.gray(`  - dev:     ${dev}`);
     log.info();
@@ -85,7 +109,7 @@ export function init(options: IServerOptions = {}) {
     };
   };
 
-  const result = {
+  const result: IServer = {
     get: restHandler('get'),
     put: restHandler('put'),
     post: restHandler('post'),
@@ -93,10 +117,12 @@ export function init(options: IServerOptions = {}) {
 
     start: async (port: number = 3000) => {
       server.get('*', (req, res) => handle(req, res));
-      await app.prepare();
+      await nextApp.prepare();
       await listen(server);
     },
   };
 
   return result;
 }
+
+

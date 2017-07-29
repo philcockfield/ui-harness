@@ -1,17 +1,20 @@
-import { fs, fsPath, constants, Rsync, rsyncExecute } from './common';
+import { fs, fsPath, constants, Rsync, rsyncExecute, glob } from './common';
+
 
 
 export interface IInitOptions {
   force?: boolean;
 }
-export async function init(options: IInitOptions = {}) {
+/**
+ * Ensure the `ui-harness` module has been copied out of `node_modules`.
+ * NOTE:
+ *      This is because `next.js` does not appear to work properly
+ *      when being executed from within `node_modules`.
+ */
+export async function copyModule(options: IInitOptions = {}) {
   const force = options.force === undefined ? false : true;
 
-  // Ensure the `ui-harness` module has been copied out of `node_modules`.
-  // NOTE:
-  //      This is because `next.js` does not appear to work properly
-  //      when being executed from within `node_modules`.
-  const BUILD_DIR = fsPath.resolve('./.build');
+  const BUILD_DIR = constants.BUILD_DIR;
   const TARGET_DIR = fsPath.resolve('./.build/ui-harness');
   const SOURCE_DIR = fsPath.resolve('./node_modules/ui-harness');
   await fs.ensureDirAsync(BUILD_DIR);
@@ -20,6 +23,7 @@ export async function init(options: IInitOptions = {}) {
   if (force || !(await fs.existsAsync(fsPath.join(TARGET_DIR, 'package.json')))) {
     const IGNORE = [
       'src',
+      'sh',
       'CHANGELOG.md',
       '.npmignore',
       '.gitignore',
@@ -34,13 +38,31 @@ export async function init(options: IInitOptions = {}) {
       .flags('aW');
     await rsyncExecute(rsync);
   }
+}
 
-  // Ensure the .gitignore exists.
-  const GIT_IGNORE_FILE = fsPath.join(BUILD_DIR, '.gitignore');
-  if (force || !(await fs.existsAsync(GIT_IGNORE_FILE))) {
-    const IGNORE = `
-      /ui-harness
-    `.split('\n').map((line) => line.trim()).join('\n');
-    await fs.writeFileAsync(GIT_IGNORE_FILE, IGNORE);
-  }
+
+
+
+/**
+ * Find the spec files from the host module and copy them as a `js`
+ * file to be staticly required.
+ */
+export async function writeSpecs(pattern: string) {
+  // Find files that match glob pattern.
+  const paths = (await glob(pattern))
+    .map((path) => fsPath.resolve(path));
+
+  // Prepare a JS module of `require` statements of the specs
+  // to be imported by the [ui-harness/next.js] app.
+  const requireStatements = paths
+    .map((path) => `require('${path}');`)
+    .join('\n');
+
+  const js = `
+    ${requireStatements}
+  `;
+
+  // Write to file.
+  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/specs.js');
+  await fs.writeFileAsync(filePath, js);
 }

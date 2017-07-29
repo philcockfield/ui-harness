@@ -5,7 +5,6 @@
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "start": "node ./lib/server/dev",
     "test": "sh ./sh/test.sh",
     "lint": "node ./node_modules/tslint/bin/tslint 'src/**/*.ts{,x}' --format verbose --fix",
     "build": "rm -rf ./lib && node ./node_modules/typescript/bin/tsc",
@@ -15,6 +14,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "fs-extra-promise": "^1.0.1",
+    "glob": "^7.1.2",
     "log.server": "^2.0.0",
     "minimist": "^1.2.0",
     "next": "^2.4.8",
@@ -25,6 +25,7 @@
     "@types/chai": "4.0.1",
     "@types/express": "^4.0.36",
     "@types/fs-extra-promise": "^1.0.2",
+    "@types/glob": "^5.0.30",
     "@types/mocha": "2.2.41",
     "@types/node": "8.0.17",
     "@types/react": "^15.0.39",

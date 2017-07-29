@@ -8,7 +8,9 @@ export interface IFooProps { }
 export class Foo extends React.Component<IFooProps, {}> {
   public render() {
     return (
-      <div>Foo</div>
+      <div>
+        <h1>Foo</h1>
+      </div>
     );
   }
 }

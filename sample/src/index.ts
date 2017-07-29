@@ -1,4 +1,4 @@
-import { start } from 'ui-harness/lib';
+import { start } from 'ui-harness/lib/server';
 start({
   // port: 1234,
 });

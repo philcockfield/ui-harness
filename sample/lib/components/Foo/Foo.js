@@ -17,9 +17,10 @@ var Foo = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Foo.prototype.render = function () {
-        return (common_1.React.createElement("div", null, "Foo"));
+        return (common_1.React.createElement("div", null,
+            common_1.React.createElement("h1", null, "Foo")));
     };
     return Foo;
 }(common_1.React.Component));
 exports.Foo = Foo;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRm9vLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvbXBvbmVudHMvRm9vL0Zvby50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEsdUNBQXFDO0FBT3JDO0lBQXlCLHVCQUE4QjtJQUF2RDs7SUFNQSxDQUFDO0lBTFEsb0JBQU0sR0FBYjtRQUNFLE1BQU0sQ0FBQyxDQUNMLGdEQUFjLENBQ2YsQ0FBQztJQUNKLENBQUM7SUFDSCxVQUFDO0FBQUQsQ0FBQyxBQU5ELENBQXlCLGNBQUssQ0FBQyxTQUFTLEdBTXZDO0FBTlksa0JBQUcifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRm9vLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvbXBvbmVudHMvRm9vL0Zvby50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEsdUNBQXFDO0FBT3JDO0lBQXlCLHVCQUE4QjtJQUF2RDs7SUFRQSxDQUFDO0lBUFEsb0JBQU0sR0FBYjtRQUNFLE1BQU0sQ0FBQyxDQUNMO1lBQ0UsK0NBQVksQ0FDUixDQUNQLENBQUM7SUFDSixDQUFDO0lBQ0gsVUFBQztBQUFELENBQUMsQUFSRCxDQUF5QixjQUFLLENBQUMsU0FBUyxHQVF2QztBQVJZLGtCQUFHIn0=
