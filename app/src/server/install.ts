@@ -42,27 +42,23 @@ export async function copyModule(options: IInitOptions = {}) {
 
 
 
-
 /**
- * Find the spec files from the host module and copy them as a `js`
- * file to be staticly required.
+ * Find the spec files from the host module and copy them
+ * as a `js` file to be staticly imported.
  */
 export async function writeSpecs(pattern: string) {
   // Find files that match glob pattern.
-  const paths = (await glob(pattern))
-    .map((path) => fsPath.resolve(path));
+  const paths = (await glob(pattern));
 
   // Prepare a JS module of `require` statements of the specs
   // to be imported by the [ui-harness/next.js] app.
-  const requireStatements = paths
+  const js = paths
+    .map((path) => fsPath.resolve(path))
     .map((path) => `require('${path}');`)
     .join('\n');
 
-  const js = `
-    ${requireStatements}
-  `;
-
   // Write to file.
-  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/specs.js');
+  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/specs.generated.js');
   await fs.writeFileAsync(filePath, js);
 }
+

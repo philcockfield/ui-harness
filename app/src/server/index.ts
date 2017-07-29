@@ -19,7 +19,7 @@ export async function start(options: IUIHarness = {}) {
   await install.copyModule({ force: false });
 
   // Load specs.
-  await install.writeSpecs(options.specs || './lib/**/*.spec.js');
+  await install.writeSpecs(options.specs || './lib/**/*spec.js');
 
   // Import the module.
   const MODULE_PATH = fsPath.resolve('./.build/ui-harness/lib/server/server');

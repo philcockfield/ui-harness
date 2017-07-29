@@ -1,5 +1,5 @@
-import { describe } from 'ui-harness/lib';
+import { describe } from '../../common';
 
 
-describe('foo yo baby');
-describe('hello');
+describe('Foo');
+describe('Foo.hello');

@@ -1,35 +1,45 @@
 import { React, constants } from '../common';
 import * as state from '../state';
-require('../specs.js');
-
-
-export default () => {
-  return <Page />;
-};
+import '../specs.generated';
 
 
 
-
-export interface IPageProps { }
-export interface IPageState {
+export interface IPageProps {
   specs: object;
 }
-export class Page extends React.Component<IPageProps, IPageState> {
+export interface IPageState {
+}
+export default class Page extends React.Component<IPageProps, IPageState> {
   public state = {
     specs: {},
   };
 
 
+  public static async getInitialProps(props: any) {
+    return { specs: constants.SPECS };
+  }
+
+
+  // public componentWillMount() {}
+  // public componentDidMount() {}
+  // public componentWillReceiveProps(nextProps) {}
+  // public shouldComponentUpdate(nextProps, nextState) {}
+  public componentWillUpdate(nextProps: any, nextState: any) {
+    console.log("componentWillUpdate");
+  }
+  // public componentDidUpdate(prevProps, prevState) {}
+  // public componentWillUnmount() {}
+
   public render() {
-    console.log('RENDER constants.GLOBAL.FOO', constants.GLOBAL.FOO);
+    const { specs } = this.props;
     return (
       <div>
         <h1>UIHarness</h1>
         <div>constants.SPECS</div>
         <pre>{JSON.stringify(constants.SPECS, null, '  ')}</pre>
         <hr />
-        <div>this.state.specs</div>
-        <pre>{JSON.stringify(this.state.specs, null, '  ')}</pre>
+        <div>props.specs</div>
+        <pre>{JSON.stringify(specs, null, '  ')}</pre>
         <div>
           <a href='/foo'>/foo</a>
         </div>
