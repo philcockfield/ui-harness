@@ -2,8 +2,10 @@ import next = require('next');
 import { parse as parseUrl } from 'url';
 import { RequestHandler } from 'express';
 import { bodyParser, express, log, fsPath, constants } from './common';
-const argv = require('minimist')(process.argv.slice(2));
+import '../specs.generated';
 
+const argv = require('minimist')(process.argv.slice(2));
+const SUITES = constants.SUITES;
 
 
 export { express };
@@ -57,8 +59,6 @@ export function init(options: IServerOptions = {}) {
     .use('/@uiharness', express.static(fsPath.join(constants.MODULE_DIR, 'static')))
     .use(express.static(fsPath.resolve(staticPath)));
 
-  // console.log('staticPath', staticPath);
-
   // Configure the [Next.js] server.
   const nextApp = next({
     dev,
@@ -66,12 +66,25 @@ export function init(options: IServerOptions = {}) {
   });
   const handle = nextApp.getRequestHandler();
 
+
+  const findRoute = (pathname?: string) => {
+    if (!pathname) { return; }
+    return Object
+      .keys(SUITES)
+      .map((key) => SUITES[key])
+      .find((suite) => suite.route === pathname);
+  };
+
   server.get('*', (req, res) => {
     const url = parseUrl(req.url, true);
     const { pathname, query } = url;
 
-    if (req.url === '/foo') {
+    const route = findRoute(pathname);
+    if (route) {
+      console.log('route', route);
       const path = '/sample/foo';
+      // TODO:  Lookup the route as the page in the host module.
+      //        Maybe change name to 'page'
       nextApp.render(req, res, path, query);
     } else {
       handle(req, res);
