@@ -1,5 +1,7 @@
 import { describe } from '../../common';
 
 
-describe('Foo');
+describe('Foo', {
+  route: '/foo',
+});
 describe('Foo.hello');

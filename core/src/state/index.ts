@@ -1,1 +1,1 @@
-export { describe, specs } from './describe';
+export { describe } from './describe';

@@ -1,5 +1,12 @@
+import { ISuite } from '../types';
+
 export const IS_BROWSER = typeof window !== 'undefined';
 export const GLOBAL: any = IS_BROWSER ? window : global;
 
-GLOBAL.__SPECS = GLOBAL.__SPECS || {};
-export const SPECS = GLOBAL.__SPECS;
+
+export interface ISuites {
+  [key: string]: ISuite;
+}
+
+GLOBAL.__UIHARNESS_SUITES__ = (GLOBAL.__UIHARNESS_SUITES__ || {});
+export const SUITES: ISuites = GLOBAL.__UIHARNESS_SUITES__;
