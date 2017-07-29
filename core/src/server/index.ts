@@ -8,6 +8,7 @@ export interface IUIHarness {
   static?: string;
   port?: number;
   specs?: string;
+  pages?: string;
 }
 
 
@@ -26,13 +27,14 @@ export async function start(options: IUIHarness = {}) {
   const uiharness = require(MODULE_PATH);
 
   // Start the server.
-  const result: IServer = uiharness.init({
+  const server: IServer = uiharness.init({
     static: options.static,
+    pages: options.pages,
     port: options.port,
   });
 
 
-  result.start();
+  server.start();
 
 
   // return result;

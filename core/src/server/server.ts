@@ -4,6 +4,7 @@ import { RequestHandler } from 'express';
 import { bodyParser, express, log, fsPath, constants } from './common';
 import '../specs.generated';
 
+
 const argv = require('minimist')(process.argv.slice(2));
 const SUITES = constants.SUITES;
 
@@ -11,6 +12,7 @@ const SUITES = constants.SUITES;
 export { express };
 export interface IServerOptions {
   static?: string;
+  pages?: string;
   dev?: boolean; // Command-line: --dev
   port?: number; // Command-line: --port
   silent?: boolean;
@@ -45,13 +47,8 @@ export function init(options: IServerOptions = {}) {
   const silent = optionValue<boolean>('silent', false, options);
   const staticPath = optionValue<string>('static', './static', options);
   const dir = fsPath.join(constants.MODULE_DIR, 'lib');
-  const config = {
-    dir,
-    static: staticPath,
-    dev,
-    port,
-    argv,
-  };
+  // TODO Pass in dir, or do something sensible.
+  const pagesDir = options.pages ? fsPath.resolve(options.pages) : undefined;
 
   // Configure the express server.
   const server = express()
@@ -79,9 +76,13 @@ export function init(options: IServerOptions = {}) {
     const url = parseUrl(req.url, true);
     const { pathname, query } = url;
 
-    const route = findRoute(pathname);
-    if (route) {
-      console.log('route', route);
+    const suite = findRoute(pathname);
+    if (suite) {
+      console.log('route', suite);
+      console.log('pagesDir', pagesDir);
+      const m = require(`${pagesDir}${suite.route}`);
+      console.log('m', m);
+
       const path = '/sample/foo';
       // TODO:  Lookup the route as the page in the host module.
       //        Maybe change name to 'page'
@@ -97,7 +98,7 @@ export function init(options: IServerOptions = {}) {
     log.info(`> ✨✨  Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
     log.info();
     log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
-    log.info.gray(`  - static:  ${config.static}`);
+    log.info.gray(`  - static:  ${staticPath}`);
     log.info.gray(`  - dev:     ${dev}`);
     log.info();
   };
@@ -137,5 +138,3 @@ export function init(options: IServerOptions = {}) {
 
   return result;
 }
-
-
