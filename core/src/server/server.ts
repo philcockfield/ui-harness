@@ -46,14 +46,15 @@ export function init(options: IServerOptions = {}) {
   const port = optionValue<number>('port', 3000, options);
   const silent = optionValue<boolean>('silent', false, options);
   const staticPath = optionValue<string>('static', './static', options);
-  const dir = fsPath.join(constants.MODULE_DIR, 'lib');
+  const dir = fsPath.join(constants.UIHARNESS_MODULE_DIR, 'lib');
   // TODO Pass in dir, or do something sensible.
+
   const pagesDir = options.pages ? fsPath.resolve(options.pages) : undefined;
 
   // Configure the express server.
   const server = express()
     .use(bodyParser.json({}))
-    .use('/@uiharness', express.static(fsPath.join(constants.MODULE_DIR, 'static')))
+    .use('/@uiharness', express.static(fsPath.join(constants.UIHARNESS_MODULE_DIR, 'static')))
     .use(express.static(fsPath.resolve(staticPath)));
 
   // Configure the [Next.js] server.
@@ -72,20 +73,33 @@ export function init(options: IServerOptions = {}) {
       .find((suite) => suite.route === pathname);
   };
 
-  server.get('*', (req, res) => {
+  server.get('*', async (req, res) => {
     const url = parseUrl(req.url, true);
     const { pathname, query } = url;
 
     const suite = findRoute(pathname);
     if (suite) {
+      if (!pagesDir) {
+        res
+          .status(500)
+          .send({
+            status: 500,
+            message: `Cannot load page at route '${suite.route}' because the pages directory has not been specified.`, // tslint:disable-line
+            suite: suite.name,
+            route: suite.route,
+          });
+        return;
+      }
       console.log('route', suite);
       console.log('pagesDir', pagesDir);
-      const m = require(`${pagesDir}${suite.route}`);
-      console.log('m', m);
+      const path = `${pagesDir}${suite.route}`;
+      console.log('path', path);
+      // const m = require(`${pagesDir}${suite.route}`);
+      // console.log('m', m);
 
-      const path = '/sample/foo';
-      // TODO:  Lookup the route as the page in the host module.
-      //        Maybe change name to 'page'
+      // TODO:  Import `/pages` with `require` statement at starup
+      //        like `specs.js` page so that they are monitored for changes.
+
       nextApp.render(req, res, path, query);
     } else {
       handle(req, res);
@@ -97,9 +111,10 @@ export function init(options: IServerOptions = {}) {
     const PACKAGE = require(fsPath.resolve('./package.json'));
     log.info(`> ✨✨  Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
     log.info();
-    log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
-    log.info.gray(`  - static:  ${staticPath}`);
-    log.info.gray(`  - dev:     ${dev}`);
+    const detail = (msg: string, active: any = true) => active && log.info.gray(msg);
+    detail(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
+    detail(`  - static:  ${staticPath}`, staticPath);
+    detail(`  - pages:   ${options.pages}`, options.pages);
     log.info();
   };
 
