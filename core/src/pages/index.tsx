@@ -2,20 +2,20 @@ import { React, constants } from '../common';
 import * as state from '../state';
 import '../specs.generated';
 
+// import { React, Document, Head, Main, NextScript } from '../common';
+// const glamor = require('glamor/server');
+
 
 
 export interface IPageProps {
-  specs: object;
+  suites: object;
 }
-export interface IPageState {
-}
-export default class Page extends React.Component<IPageProps, IPageState> {
-  public state = {
-  };
-
-
+export default class Page extends React.Component<IPageProps, {}> {
   public static async getInitialProps(props: any) {
-    return { suits: constants.SUITES };
+
+    console.log('getInitialProps!!! ---------');
+
+    return { suites: constants.SUITES };
   }
 
 
@@ -30,15 +30,15 @@ export default class Page extends React.Component<IPageProps, IPageState> {
   // public componentWillUnmount() {}
 
   public render() {
-    const { specs } = this.props;
+    const { suites } = this.props;
     return (
       <div>
         <h1>UIHarness</h1>
         <div>constants.SUITES</div>
         <pre>{JSON.stringify(constants.SUITES, null, '  ')}</pre>
         <hr />
-        <div>props.specs</div>
-        <pre>{JSON.stringify(specs, null, '  ')}</pre>
+        <div>props.suites</div>
+        <pre>{JSON.stringify(suites, null, '  ')}</pre>
         <div>
           <a href='/foo'>/foo</a>
         </div>
