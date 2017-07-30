@@ -1,4 +1,4 @@
-import { constants, hash } from '../common';
+import { constants, hash, log } from '../common';
 import {
   ISuite,
   ISuites,
@@ -43,7 +43,7 @@ export function describe(name: string, options: IDescribeOptions = {}) {
     add,
   };
 
-  console.log('-|| describe: ', suite);
+  log.info('-|| describe: ', suite);
 
   // Store in global state.
   SUITES[name] = suite;

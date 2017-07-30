@@ -23,5 +23,6 @@
     "type": "git",
     "url": "https://github.com/philcockfield/ui-harness"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "private": true
 }

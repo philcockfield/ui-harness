@@ -2,9 +2,6 @@ import { React, constants, delay } from '../common';
 import * as state from '../state';
 import '../generated/specs.g';
 
-// import { React, Document, Head, Main, NextScript } from '../common';
-// const glamor = require('glamor/server');
-
 
 
 export interface IPageProps {
@@ -14,11 +11,6 @@ export interface IPageState {
   suites: object;
 }
 export default class Page extends React.Component<IPageProps, IPageState> {
-  // public static async getInitialProps(props: any) {
-  //   console.log('pages/index:getInitialProps!!! ---------');
-  //   return { suites: constants.SUITES };
-  // }
-
   public state: IPageState = {
     suites: {},
   };
@@ -30,25 +22,18 @@ export default class Page extends React.Component<IPageProps, IPageState> {
   public componentDidMount() {
     this.updateState();
   }
-  // public componentWillReceiveProps(nextProps) {}
-  // public shouldComponentUpdate(nextProps, nextState) {}
-  public async componentWillUpdate(nextProps: any, nextState: any) {
-    console.log('!! pages/index:componentWillUpdate');
-    // this.updateState();
-
-  }
 
   private async updateState() {
-    // NB: Client state only.
-    // Avoids React errors on hot-module updates.
+    // NOTE:  Client-side only.
+    //        Avoids React errors on hot-module updates
+    //        when changed from server-render.
     delay(0, () => {
       this.setState({
         suites: constants.SUITES,
       });
     });
   }
-  // public componentDidUpdate(prevProps, prevState) {}
-  // public componentWillUnmount() {}
+
 
   public render() {
     const { suites } = this.props;

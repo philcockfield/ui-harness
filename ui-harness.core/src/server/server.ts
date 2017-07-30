@@ -46,7 +46,6 @@ export function init(options: IServerOptions = {}) {
   const silent = optionValue<boolean>('silent', false, options);
   const staticPath = optionValue<string>('static', './static', options);
   const dir = fsPath.join(constants.UIHARNESS_MODULE_DIR, 'lib');
-  // TODO Pass in dir, or do something sensible.
 
   // Configure the express server.
   const server = express()
@@ -76,8 +75,6 @@ export function init(options: IServerOptions = {}) {
 
     const suite = findRoute(pathname);
     if (suite) {
-      console.log('route - suite:', suite);
-
       const path = '/foo';
       nextApp.render(req, res, path, query);
     } else {
