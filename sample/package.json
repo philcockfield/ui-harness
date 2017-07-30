@@ -9,11 +9,12 @@
     "watch": "nodemon . -e js --ignore src",
     "lint": "sh ./node_modules/@tdb/typescript/sh/lint.sh",
     "build": "rm -rf ./lib && tsc",
+    "reset": "rm -rf ./lib && rm -rf ./build && yarn build",
     "prepublish": "yarn run lint && yarn run build"
   },
   "dependencies": {
     "@tdb/util": "^1.0.72",
-    "ui-harness": "4.0.0-alpha.4"
+    "ui-harness": "4.0.0-alpha.5"
   },
   "devDependencies": {
     "@tdb/typescript": "^2.2.0"
