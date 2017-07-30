@@ -1,4 +1,4 @@
-import { React } from '../../common';
+import { React, css } from '../../common';
 
 export interface IFooProps { }
 
@@ -7,8 +7,14 @@ export interface IFooProps { }
  */
 export class Foo extends React.Component<IFooProps, {}> {
   public render() {
+    const styles = {
+      base: css({
+        backgroundColor: 'rgba(255, 0, 0, 0.1)', /* RED */
+        padding: 50,
+      }),
+    };
     return (
-      <div>Foo</div>
+      <div {...styles.base}>Foo</div>
     );
   }
 }

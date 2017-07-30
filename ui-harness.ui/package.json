@@ -13,7 +13,7 @@
     "prepublish": "yarn run lint && yarn test && yarn run build"
   },
   "dependencies": {
-    "ui-harness.common": "^1.0.3"
+    "ui-harness.common": "^1.0.4"
   },
   "devDependencies": {
     "@tdb/ui.test": "^3.0.13"

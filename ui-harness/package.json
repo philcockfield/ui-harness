@@ -15,7 +15,7 @@
     "express": "^4.15.3",
     "minimist": "^1.2.0",
     "next": "^2.4.8",
-    "ui-harness.common": "^1.0.3",
+    "ui-harness.common": "^1.0.4",
     "ui-harness.ui": "^1.0.0"
   },
   "devDependencies": {
