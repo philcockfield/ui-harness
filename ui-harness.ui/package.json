@@ -1,28 +1,22 @@
 {
-  "name": "ui-harness",
-  "version": "4.0.0-alpha.7",
-  "description": "Isolate, test and document modular UI.",
+  "name": "ui-harness.ui",
+  "version": "1.0.0",
+  "description": "UI components used by the ui-harness.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
+    "ui": "node ./node_modules/@storybook/react/dist/server/index.js -p 3030 -c ./.storybook -s ./static",
     "test": "sh ./node_modules/ui-harness.common/sh/test.sh",
+    "tdd": "yarn run test -- --reporter min --watch",
     "lint": "sh ./node_modules/ui-harness.common/sh/lint.sh",
     "build": "sh ./node_modules/ui-harness.common/sh/build.sh",
     "prepublish": "yarn run lint && yarn test && yarn run build"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "minimist": "^1.2.0",
-    "next": "^2.4.8",
     "ui-harness.common": "^1.0.3"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.16.4",
-    "@types/express": "^4.0.36"
-  },
-  "bin": {
-    "ui-harness": "./bin/ui-harness"
+    "@tdb/ui.test": "^3.0.13"
   },
   "repository": {
     "type": "git",
