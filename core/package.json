@@ -18,7 +18,9 @@
     "log.server": "^2.0.0",
     "minimist": "^1.2.0",
     "next": "^2.4.8",
-    "rsync": "^0.6.1"
+    "ramda": "^0.24.1",
+    "rsync": "^0.6.1",
+    "string-hash": "^1.1.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.4",
@@ -28,6 +30,7 @@
     "@types/glob": "^5.0.30",
     "@types/mocha": "2.2.41",
     "@types/node": "8.0.17",
+    "@types/ramda": "^0.24.5",
     "@types/react": "^15.0.39",
     "@types/react-dom": "^15.5.1",
     "@types/rsync": "^0.4.29",

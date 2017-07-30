@@ -1,6 +1,6 @@
-import { React, constants } from '../common';
+import { React, constants, delay } from '../common';
 import * as state from '../state';
-import '../specs.generated';
+import '../generated/specs.generated';
 
 // import { React, Document, Head, Main, NextScript } from '../common';
 // const glamor = require('glamor/server');
@@ -10,21 +10,42 @@ import '../specs.generated';
 export interface IPageProps {
   suites: object;
 }
-export default class Page extends React.Component<IPageProps, {}> {
-  public static async getInitialProps(props: any) {
+export interface IPageState {
+  suites: object;
+}
+export default class Page extends React.Component<IPageProps, IPageState> {
+  // public static async getInitialProps(props: any) {
+  //   console.log('pages/index:getInitialProps!!! ---------');
+  //   return { suites: constants.SUITES };
+  // }
 
-    console.log('getInitialProps!!! ---------');
+  public state: IPageState = {
+    suites: {},
+  };
 
-    return { suites: constants.SUITES };
+
+  public componentWillMount() {
+    this.setState({ suites: this.props.suites });
   }
-
-
-  // public componentWillMount() {}
-  // public componentDidMount() {}
+  public componentDidMount() {
+    this.updateState();
+  }
   // public componentWillReceiveProps(nextProps) {}
   // public shouldComponentUpdate(nextProps, nextState) {}
-  public componentWillUpdate(nextProps: any, nextState: any) {
-    console.log('!! componentWillUpdate');
+  public async componentWillUpdate(nextProps: any, nextState: any) {
+    console.log('!! pages/index:componentWillUpdate');
+    // this.updateState();
+
+  }
+
+  private async updateState() {
+    // NB: Client state only.
+    // Avoids React errors on hot-module updates.
+    delay(0, () => {
+      this.setState({
+        suites: constants.SUITES,
+      });
+    });
   }
   // public componentDidUpdate(prevProps, prevState) {}
   // public componentWillUnmount() {}
@@ -34,15 +55,13 @@ export default class Page extends React.Component<IPageProps, {}> {
     return (
       <div>
         <h1>UIHarness</h1>
-        <div>constants.SUITES</div>
-        <pre>{JSON.stringify(constants.SUITES, null, '  ')}</pre>
+        <div>this.state.suites</div>
+        <pre>{JSON.stringify(this.state.suites, null, '  ')}</pre>
         <hr />
-        <div>props.suites</div>
-        <pre>{JSON.stringify(suites, null, '  ')}</pre>
         <div>
           <a href='/foo'>/foo</a>
         </div>
-        <img src='/images/monkey.jpg' />
+        <img src='/images/monkey.jpg' height={180} />
       </div>
     );
   }

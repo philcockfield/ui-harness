@@ -2,9 +2,7 @@ import { React } from '../common';
 
 export default () => (
   <div>
-    <h1>Sample Foo</h1>
-    <div>
-      <a href='/'>Home</a>
-    </div>
+    <h1>sample/UIH Foo</h1>
+    <a href='/'>Home</a>
   </div>
 );

@@ -2,7 +2,7 @@ import next = require('next');
 import { parse as parseUrl } from 'url';
 import { RequestHandler } from 'express';
 import { bodyParser, express, log, fsPath, constants } from './common';
-import '../specs.generated';
+import '../generated/specs.generated';
 
 
 const argv = require('minimist')(process.argv.slice(2));
@@ -12,7 +12,6 @@ const SUITES = constants.SUITES;
 export { express };
 export interface IServerOptions {
   static?: string;
-  pages?: string;
   dev?: boolean; // Command-line: --dev
   port?: number; // Command-line: --port
   silent?: boolean;
@@ -49,8 +48,6 @@ export function init(options: IServerOptions = {}) {
   const dir = fsPath.join(constants.UIHARNESS_MODULE_DIR, 'lib');
   // TODO Pass in dir, or do something sensible.
 
-  const pagesDir = options.pages ? fsPath.resolve(options.pages) : undefined;
-
   // Configure the express server.
   const server = express()
     .use(bodyParser.json({}))
@@ -79,27 +76,9 @@ export function init(options: IServerOptions = {}) {
 
     const suite = findRoute(pathname);
     if (suite) {
-      if (!pagesDir) {
-        res
-          .status(500)
-          .send({
-            status: 500,
-            message: `Cannot load page at route '${suite.route}' because the pages directory has not been specified.`, // tslint:disable-line
-            suite: suite.name,
-            route: suite.route,
-          });
-        return;
-      }
-      console.log('route', suite);
-      console.log('pagesDir', pagesDir);
-      const path = `${pagesDir}${suite.route}`;
-      console.log('path', path);
-      // const m = require(`${pagesDir}${suite.route}`);
-      // console.log('m', m);
+      console.log('route - suite:', suite);
 
-      // TODO:  Import `/pages` with `require` statement at starup
-      //        like `specs.js` page so that they are monitored for changes.
-
+      const path = '/foo';
       nextApp.render(req, res, path, query);
     } else {
       handle(req, res);
@@ -114,7 +93,6 @@ export function init(options: IServerOptions = {}) {
     const detail = (msg: string, active: any = true) => active && log.info.gray(msg);
     detail(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
     detail(`  - static:  ${staticPath}`, staticPath);
-    detail(`  - pages:   ${options.pages}`, options.pages);
     log.info();
   };
 
