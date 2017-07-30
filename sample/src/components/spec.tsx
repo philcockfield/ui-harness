@@ -1,3 +1,10 @@
 import { describe } from '../common';
 
-describe('Spec');
+
+describe('root')
+  .add('child', () => {
+    return 'CHILD CONTENT';
+  });
+
+
+describe('root.foo');

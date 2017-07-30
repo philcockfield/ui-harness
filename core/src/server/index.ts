@@ -21,24 +21,16 @@ export async function start(options: IUIHarness = {}) {
   // Load specs.
   await install.writeSpecs(options.specs || './lib/**/*spec.js');
 
-  // Import the module.
+  // Import the copied `ui-harness` module.
   const MODULE_PATH = fsPath.resolve('./.build/ui-harness/lib/server/server');
   const uiharness = require(MODULE_PATH);
 
   // Start the server.
-  const result: IServer = uiharness.init({
+  const server: IServer = uiharness.init({
     static: options.static,
     port: options.port,
   });
-  // .start();
-
-  // console.log('result', result);
-
-  result.start();
-  // setTimeout(() => {
-  //   result.start();
-  // }, 100);
 
 
-  // return result;
+  server.start();
 }

@@ -52,13 +52,27 @@ export async function writeSpecs(pattern: string) {
 
   // Prepare a JS module of `require` statements of the specs
   // to be imported by the [ui-harness/next.js] app.
-  const js = paths
+  const lines = paths
     .map((path) => fsPath.resolve(path))
-    .map((path) => `require('${path}');`)
+    .map((path, i) => {
+      const moduleVar = `module${i}`;
+      const modulePath = `'${path}'`;
+      return `
+        require(${modulePath});
+        util.moduleLoaded(${modulePath});
+    `;
+    })
     .join('\n');
 
+  const js = `
+    const util = require('../state/describe');
+    util.incrementUpdateVersion(true);
+
+    ${lines}
+  `;
+
   // Write to file.
-  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/specs.generated.js');
+  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/generated/specs.generated.js');
   await fs.writeFileAsync(filePath, js);
 }
 

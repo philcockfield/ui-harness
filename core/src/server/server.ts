@@ -2,8 +2,11 @@ import next = require('next');
 import { parse as parseUrl } from 'url';
 import { RequestHandler } from 'express';
 import { bodyParser, express, log, fsPath, constants } from './common';
-const argv = require('minimist')(process.argv.slice(2));
+import '../generated/specs.generated';
 
+
+const argv = require('minimist')(process.argv.slice(2));
+const SUITES = constants.SUITES;
 
 
 export { express };
@@ -42,22 +45,14 @@ export function init(options: IServerOptions = {}) {
   const port = optionValue<number>('port', 3000, options);
   const silent = optionValue<boolean>('silent', false, options);
   const staticPath = optionValue<string>('static', './static', options);
-  const dir = fsPath.join(constants.MODULE_DIR, 'lib');
-  const config = {
-    dir,
-    static: staticPath,
-    dev,
-    port,
-    argv,
-  };
+  const dir = fsPath.join(constants.UIHARNESS_MODULE_DIR, 'lib');
+  // TODO Pass in dir, or do something sensible.
 
   // Configure the express server.
   const server = express()
     .use(bodyParser.json({}))
-    .use('/@uiharness', express.static(fsPath.join(constants.MODULE_DIR, 'static')))
+    .use('/@uiharness', express.static(fsPath.join(constants.UIHARNESS_MODULE_DIR, 'static')))
     .use(express.static(fsPath.resolve(staticPath)));
-
-  // console.log('staticPath', staticPath);
 
   // Configure the [Next.js] server.
   const nextApp = next({
@@ -66,12 +61,24 @@ export function init(options: IServerOptions = {}) {
   });
   const handle = nextApp.getRequestHandler();
 
-  server.get('*', (req, res) => {
+
+  const findRoute = (pathname?: string) => {
+    if (!pathname) { return; }
+    return Object
+      .keys(SUITES)
+      .map((key) => SUITES[key])
+      .find((suite) => suite.route === pathname);
+  };
+
+  server.get('*', async (req, res) => {
     const url = parseUrl(req.url, true);
     const { pathname, query } = url;
 
-    if (req.url === '/foo') {
-      const path = '/sample/foo';
+    const suite = findRoute(pathname);
+    if (suite) {
+      console.log('route - suite:', suite);
+
+      const path = '/foo';
       nextApp.render(req, res, path, query);
     } else {
       handle(req, res);
@@ -83,9 +90,9 @@ export function init(options: IServerOptions = {}) {
     const PACKAGE = require(fsPath.resolve('./package.json'));
     log.info(`> ✨✨  Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
     log.info();
-    log.info.gray(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
-    log.info.gray(`  - static:  ${config.static}`);
-    log.info.gray(`  - dev:     ${dev}`);
+    const detail = (msg: string, active: any = true) => active && log.info.gray(msg);
+    detail(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
+    detail(`  - static:  ${staticPath}`, staticPath);
     log.info();
   };
 
@@ -124,5 +131,3 @@ export function init(options: IServerOptions = {}) {
 
   return result;
 }
-
-
