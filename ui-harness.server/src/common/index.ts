@@ -2,5 +2,4 @@ import * as constants from './constants';
 
 export { constants };
 export * from './libs';
-export * from './util';
-export { log } from './log';
+export * from 'ui-harness.common/lib/client/util';

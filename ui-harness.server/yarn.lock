@@ -996,6 +996,10 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
+bowser@^1.6.0:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.7.1.tgz#a4de8f18a1a0dc9531eb2a92a1521fb6a9ba96a5"
+
 brace-expansion@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.8.tgz#c07b211c7c952ec1f8efd51a77ef0d1d3990a292"
@@ -1364,6 +1368,12 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
 
+css-in-js-utils@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-1.0.3.tgz#9ac7e02f763cf85d94017666565ed68a5b5f3215"
+  dependencies:
+    hyphenate-style-name "^1.0.2"
+
 css-tree@1.0.0-alpha17:
   version "1.0.0-alpha17"
   resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-1.0.0-alpha17.tgz#7ab95ab72c533917af8be54313fec81841c5223a"
@@ -1672,6 +1682,18 @@ fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
+fbjs@^0.8.12:
+  version "0.8.14"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.14.tgz#d1dbe2be254c35a91e09f31f9cd50a40b2a0ed1c"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.9"
+
 fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
@@ -1848,6 +1870,15 @@ getpass@^0.1.1:
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
   dependencies:
     assert-plus "^1.0.0"
+
+glamor@^2.20.37:
+  version "2.20.37"
+  resolved "https://registry.yarnpkg.com/glamor/-/glamor-2.20.37.tgz#3cd576deb760eaaf475dcc1f9b77bf6a7d2f8b26"
+  dependencies:
+    fbjs "^0.8.12"
+    inline-style-prefixer "^3.0.6"
+    object-assign "^4.1.1"
+    prop-types "^15.5.10"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -2052,6 +2083,10 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
+hyphenate-style-name@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
+
 iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
@@ -2090,6 +2125,13 @@ inherits@2.0.1:
 ini@~1.3.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
+
+inline-style-prefixer@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/inline-style-prefixer/-/inline-style-prefixer-3.0.6.tgz#b27fe309b4168a31eaf38c8e8c60ab9e7c11731f"
+  dependencies:
+    bowser "^1.6.0"
+    css-in-js-utils "^1.0.3"
 
 interpret@^1.0.0:
   version "1.0.3"
@@ -3825,9 +3867,9 @@ uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
 
-ui-harness.common@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ui-harness.common/-/ui-harness.common-1.0.0.tgz#14835c56bb0ab4da17e37f653504ac723826290c"
+ui-harness.common@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ui-harness.common/-/ui-harness.common-1.0.3.tgz#a4619bb08506ed915b40faa97d6f540a449d48da"
   dependencies:
     "@types/chai" "4.0.1"
     "@types/fs-extra-promise" "^1.0.2"
@@ -3840,6 +3882,7 @@ ui-harness.common@^1.0.0:
     "@types/rsync" "^0.4.29"
     chai "4.1.0"
     fs-extra-promise "^1.0.1"
+    glamor "^2.20.37"
     glob "^7.1.2"
     log.server "^2.0.0"
     mocha "3.4.2"

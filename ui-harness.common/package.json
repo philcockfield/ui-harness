@@ -1,6 +1,6 @@
 {
   "name": "ui-harness.common",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Shared modules used by the ui-harness.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -24,6 +24,7 @@
     "@types/rsync": "^0.4.29",
     "chai": "4.1.0",
     "fs-extra-promise": "^1.0.1",
+    "glamor": "^2.20.37",
     "glob": "^7.1.2",
     "log.server": "^2.0.0",
     "mocha": "3.4.2",

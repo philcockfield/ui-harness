@@ -1,11 +1,9 @@
 import { ISuite, ISuites } from '../types';
-
-export const IS_BROWSER = typeof window !== 'undefined';
-export const GLOBAL: any = IS_BROWSER ? window : global;
+import { IS_BROWSER, GLOBAL } from 'ui-harness.common/lib/client/constants';
 
 
+export { IS_BROWSER, GLOBAL };
 export const PLACEHOLDER = '__PLACEHOLDER__';
-
 
 
 export interface IGlobalState {

@@ -1,6 +1,6 @@
 {
   "name": "sample",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sample module using the ui-harness.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -13,7 +13,7 @@
     "prepublish": "yarn run lint && yarn run build"
   },
   "dependencies": {
-    "ui-harness": "4.0.0-alpha.5"
+    "ui-harness": "4.0.0-alpha.7"
   },
   "devDependencies": {
     "@tdb/typescript": "^2.2.0"
