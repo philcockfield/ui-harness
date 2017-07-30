@@ -7,17 +7,15 @@
   "scripts": {
     "start": "node .",
     "watch": "nodemon . -e js --ignore src",
-    "lint": "sh ./node_modules/@tdb/typescript/sh/lint.sh",
-    "build": "rm -rf ./lib && tsc",
+    "lint": "sh ./node_modules/ui-harness.common/sh/lint.sh",
+    "build": "sh ./node_modules/ui-harness.common/sh/build.sh",
     "reset": "rm -rf ./lib && rm -rf ./build && yarn build",
     "prepublish": "yarn run lint && yarn run build"
   },
   "dependencies": {
     "ui-harness": "4.0.0-alpha.7"
   },
-  "devDependencies": {
-    "@tdb/typescript": "^2.2.0"
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/philcockfield/ui-harness"
