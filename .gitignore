@@ -1,13 +1,17 @@
+/TEMP.md
 .DS_Store
 .build
+.data
+.next
 .npmrc
 .env
-.vscode
+.tmp
+.next
+lib
+build
 
-/dist
-/lib
-/TEMP.md
-
+*.tgz
 node_modules
 npm-debug.log
+npm-debug.log.*
 yarn-error.log

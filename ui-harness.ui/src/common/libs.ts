@@ -1,4 +1,4 @@
 import * as React from 'react';
 
-export { describe } from 'ui-harness/lib';
+export * from 'ui-harness.common/lib/client';
 export { React };

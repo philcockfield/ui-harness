@@ -1,0 +1,26 @@
+{
+  "name": "ui-harness.ui",
+  "version": "1.0.0",
+  "description": "UI components used by the ui-harness.",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "ui": "node ./node_modules/@storybook/react/dist/server/index.js -p 3030 -c ./.storybook -s ./static",
+    "test": "sh ./node_modules/ui-harness.common/sh/test.sh",
+    "tdd": "yarn run test -- --reporter min --watch",
+    "lint": "sh ./node_modules/ui-harness.common/sh/lint.sh",
+    "build": "sh ./node_modules/ui-harness.common/sh/build.sh",
+    "prepublish": "yarn run lint && yarn test && yarn run build"
+  },
+  "dependencies": {
+    "ui-harness.common": "^1.0.4"
+  },
+  "devDependencies": {
+    "@tdb/ui.test": "^3.0.13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philcockfield/ui-harness"
+  },
+  "license": "UNLICENSED"
+}

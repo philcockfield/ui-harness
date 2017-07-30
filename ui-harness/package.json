@@ -1,0 +1,33 @@
+{
+  "name": "ui-harness",
+  "version": "4.0.0-alpha.7",
+  "description": "Isolate, test and document modular UI.",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "test": "sh ./node_modules/ui-harness.common/sh/test.sh",
+    "lint": "sh ./node_modules/ui-harness.common/sh/lint.sh",
+    "build": "sh ./node_modules/ui-harness.common/sh/build.sh",
+    "prepublish": "yarn run lint && yarn test && yarn run build"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "minimist": "^1.2.0",
+    "next": "^2.4.8",
+    "ui-harness.common": "^1.0.4",
+    "ui-harness.ui": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.4",
+    "@types/express": "^4.0.36"
+  },
+  "bin": {
+    "ui-harness": "./bin/ui-harness"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philcockfield/ui-harness"
+  },
+  "license": "UNLICENSED"
+}
