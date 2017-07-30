@@ -72,7 +72,7 @@ export async function writeSpecs(pattern: string) {
   `;
 
   // Write to file.
-  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/generated/specs.generated.js');
+  const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/generated/specs.g.js');
   await fs.writeFileAsync(filePath, js);
 }
 

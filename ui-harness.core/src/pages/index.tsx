@@ -1,6 +1,6 @@
 import { React, constants, delay } from '../common';
 import * as state from '../state';
-import '../generated/specs.generated';
+import '../generated/specs.g';
 
 // import { React, Document, Head, Main, NextScript } from '../common';
 // const glamor = require('glamor/server');

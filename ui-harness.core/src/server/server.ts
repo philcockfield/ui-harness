@@ -2,7 +2,7 @@ import next = require('next');
 import { parse as parseUrl } from 'url';
 import { RequestHandler } from 'express';
 import { bodyParser, express, log, fsPath, constants } from './common';
-import '../generated/specs.generated';
+import '../generated/specs.g';
 
 
 const argv = require('minimist')(process.argv.slice(2));
