@@ -1,6 +1,6 @@
 {
   "name": "ui-harness.ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "UI components used by the ui-harness.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -13,10 +13,14 @@
     "prepublish": "yarn run lint && yarn test && yarn run build"
   },
   "dependencies": {
-    "ui-harness.common": "^1.0.4"
+    "ui-harness.common": "^1.0.5"
   },
   "devDependencies": {
-    "@tdb/ui.test": "^3.0.13"
+    "@tdb/ui.test": "^3.0.13",
+    "@types/react": "^15.6.0",
+    "@types/react-dom": "^15.5.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "repository": {
     "type": "git",
