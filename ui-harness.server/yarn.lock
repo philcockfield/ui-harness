@@ -3896,6 +3896,12 @@ ui-harness.common@^1.0.3:
     tslint-react "3.1.0"
     typescript "2.4.2"
 
+ui-harness.ui@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ui-harness.ui/-/ui-harness.ui-1.0.0.tgz#727bc198e3fce09cedeea8d50f3e4925c0bc96bd"
+  dependencies:
+    ui-harness.common "^1.0.3"
+
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
