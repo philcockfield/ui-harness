@@ -8,12 +8,10 @@ import {
   ISpecOptions,
   SpecFunction,
 } from '../types';
+import * as updateId from './update-id';
 
 
-export const incrementUpdateVersion = () => {
-  constants.GLOBAL_STATE.UPDATE_ID += 1;
-  return constants.GLOBAL_STATE.UPDATE_ID;
-};
+
 
 
 export function describe(name: string, options: IDescribeOptions = {}) {
@@ -22,7 +20,7 @@ export function describe(name: string, options: IDescribeOptions = {}) {
   const suite: ISuite = {
     id: PLACEHOLDER,
     modulePath: PLACEHOLDER,
-    update: constants.GLOBAL_STATE.UPDATE_ID,
+    update: updateId.current(),
     name,
     route: options.route,
     specs: [],
@@ -43,7 +41,7 @@ export function describe(name: string, options: IDescribeOptions = {}) {
     add,
   };
 
-  log.info('-|| describe: ', suite);
+  log.info('-|| describe: ', suite.name);
 
   // Store in global state.
   SUITES[name] = suite;

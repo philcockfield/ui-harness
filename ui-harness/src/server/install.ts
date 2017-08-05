@@ -59,14 +59,14 @@ export async function writeSpecs(pattern: string) {
       const modulePath = `'${path}'`;
       return `
         require(${modulePath});
-        util.moduleLoaded(${modulePath});
+        state.moduleLoaded(${modulePath});
     `;
     })
     .join('\n');
 
   const js = `
-    const util = require('../state/describe');
-    util.incrementUpdateVersion(true);
+    const state = require('../state');
+    state.updateId.increment();
 
     ${lines}
   `;
@@ -75,4 +75,3 @@ export async function writeSpecs(pattern: string) {
   const filePath = fsPath.join(constants.BUILD_DIR, 'ui-harness/lib/generated/specs.g.js');
   await fs.writeFileAsync(filePath, js);
 }
-

@@ -1,1 +1,4 @@
-export { describe } from './describe';
+import * as updateId from './update-id';
+
+export { updateId };
+export { describe, moduleLoaded } from './describe';

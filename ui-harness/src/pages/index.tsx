@@ -5,6 +5,7 @@ import '../generated/specs.g';
 
 
 
+
 export interface IPageProps {
   suites: ISuites;
 }
@@ -33,8 +34,8 @@ export default class Page extends React.Component<IPageProps, IPageState> {
 
   private async updateState() {
     // NOTE:  Client-side only.
-    //        Avoids React errors on hot-module updates
-    //        when changed from server-render.
+    //        Avoids React "out of date" errors on hot-module
+    //        updates when changed from server-render.
     delay(0, () => {
       this.setState({
         suites: constants.SUITES,
