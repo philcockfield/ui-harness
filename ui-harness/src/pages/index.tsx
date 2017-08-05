@@ -1,19 +1,26 @@
 import { React, constants, delay } from '../common';
+import { ISuites } from '../types';
 import * as state from '../state';
 import '../generated/specs.g';
 
 
 
 export interface IPageProps {
-  suites: object;
+  suites: ISuites;
 }
 export interface IPageState {
-  suites: object;
+  suites: ISuites;
 }
 export default class Page extends React.Component<IPageProps, IPageState> {
   public state: IPageState = {
     suites: {},
   };
+
+  public static async getInitialProps(props: any) {
+    return {
+      suites: constants.SUITES,
+    };
+  }
 
 
   public componentWillMount() {
@@ -22,6 +29,7 @@ export default class Page extends React.Component<IPageProps, IPageState> {
   public componentDidMount() {
     this.updateState();
   }
+
 
   private async updateState() {
     // NOTE:  Client-side only.
@@ -46,7 +54,7 @@ export default class Page extends React.Component<IPageProps, IPageState> {
         <div>
           <a href='/foo'>/foo</a>
         </div>
-        <img src='/images/monkey.jpg' height={180} />
+        <img src='/images/monkey.jpg' height={280} />
       </div>
     );
   }
