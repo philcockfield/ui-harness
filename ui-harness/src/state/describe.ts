@@ -59,13 +59,11 @@ export function moduleLoaded(modulePath: string) {
   const { SUITES, PLACEHOLDER } = constants;
   const allSuites = () => Object.keys(SUITES).map((key) => SUITES[key]);
 
-
   // Add the module-path (id) to new modules that don't have it yet.
   // This captures each module as it's loaded.
   allSuites()
     .filter((suite) => suite.modulePath === PLACEHOLDER)
     .forEach((suite) => suite.modulePath = modulePath);
-
 
   // Filter on the current set of suites.
   const currentSuites = () => allSuites()
@@ -80,20 +78,24 @@ export function moduleLoaded(modulePath: string) {
       SUITES[suite.id] = suite;
     });
 
-  // Prune updated modules.
-  // NB: This removes obsolete suites that have been renamed.
-  const prune = (suites: ISuite[]) => {
-    if (!hasUpdate(suites)) { return; }
-    const latest = latestUpdate(suites);
-    suites
-      .forEach((suite) => {
-        if (suite.update !== latest) {
-          delete SUITES[suite.id];
-        }
-      });
-  };
-  prune(currentSuites());
+  // Remove any outdated suites.
+  pruneObsolete(currentSuites(), SUITES);
 }
+
+
+
+const pruneObsolete = (source: ISuite[], target: ISuites) => {
+  if (!hasUpdate(source)) { return; }
+  const latest = latestUpdate(source);
+  source
+    .forEach((suite) => {
+      if (suite.update !== latest) {
+        delete target[suite.id];
+      }
+    });
+};
+
+
 
 
 const latestUpdate = (suites: ISuite[]) => updateRange(suites)[1];
