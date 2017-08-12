@@ -15,7 +15,7 @@
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "ui-harness": "4.0.0-alpha.8"
+    "ui-harness": "4.0.0-alpha.9"
   },
   "repository": {
     "type": "git",

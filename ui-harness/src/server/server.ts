@@ -85,11 +85,13 @@ export function init(options: IServerOptions = {}) {
   const logStarted = () => {
     if (silent) { return; }
     const PACKAGE = require(fsPath.resolve('./package.json'));
+    const NEXT_PACKAGE = require(fsPath.resolve('./node_modules/next/package.json'));
     log.info(`> ✨✨  Ready on ${log.cyan('localhost')}:${log.magenta(port)}`);
     log.info();
     const detail = (msg: string, active: any = true) => active && log.info.gray(msg);
-    detail(`  - name:    ${PACKAGE.name}@${PACKAGE.version}`);
-    detail(`  - static:  ${staticPath}`, staticPath);
+    detail(`  - name:     ${PACKAGE.name}@${PACKAGE.version}`);
+    detail(`  - static:   ${staticPath}`, staticPath);
+    detail(`  - next.js:  v${NEXT_PACKAGE.version}`);
     log.info();
   };
 

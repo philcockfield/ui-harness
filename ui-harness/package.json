@@ -1,6 +1,6 @@
 {
   "name": "ui-harness",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-alpha.9",
   "description": "Isolate, test and document modular UI.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -15,7 +15,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "minimist": "^1.2.0",
-    "next": "^2.4.8",
+    "next": "^3.0.3",
     "ui-harness.common": "^1.0.5",
     "ui-harness.ui": "^1.0.1"
   },
