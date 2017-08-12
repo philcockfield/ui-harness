@@ -3,6 +3,8 @@ import { init, IServer } from './server';
 import * as install from './install';
 
 
+const DEFAULT_PORT = 3000;
+
 
 export interface IUIHarness {
   static?: string;
@@ -12,7 +14,9 @@ export interface IUIHarness {
 
 
 export async function start(options: IUIHarness = {}) {
-  log.info.gray('Starting...');
+  const port = options.port || DEFAULT_PORT;
+
+  log.info.gray(`Starting on port ${log.cyan(port)}...`);
 
   // Ensure the module is in a place it can execute from.
   log.info.yellow('!!!!! TODO/DEV do not force ---');
@@ -30,7 +34,7 @@ export async function start(options: IUIHarness = {}) {
   // Start the server.
   const server: IServer = uiharness.init({
     static: options.static,
-    port: options.port,
+    port,
   });
 
 
